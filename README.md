@@ -12,3 +12,4 @@ Team Members:
 * Vince Sippola
 * Jennifer Xin
 * Brett Russell
+* Jia (Jerry) Wu
