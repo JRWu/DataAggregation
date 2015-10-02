@@ -7,3 +7,4 @@ Team Project - Team Apple
 Team Members:
 Vanessa Synesael
 Vince Sippola
+Jennifer Xin
