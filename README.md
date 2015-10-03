@@ -13,3 +13,4 @@ Team Members:
 * Jennifer Xin
 * Brett Russell
 * Jia (Jerry) Wu
+* Emily Yip
