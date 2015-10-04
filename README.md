@@ -14,3 +14,4 @@ Team Members:
 * Brett Russell
 * Jia (Jerry) Wu
 * Emily Yip
+* Robert Canton
