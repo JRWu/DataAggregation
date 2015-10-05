@@ -17,3 +17,4 @@ Team Members:
 * Robert Canton
 * Angus Poole
 * Eric Bachmeier (ebachme@uwo.ca)
+* Jaisen Bynoe
