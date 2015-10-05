@@ -16,3 +16,4 @@ Team Members:
 * Emily Yip
 * Robert Canton
 * Angus Poole
+* Eric Bachmeier (ebachme@uwo.ca)
