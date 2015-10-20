@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "load_csv.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -12,3 +13,11 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+void MainWindow::on_login_btn_clicked()
+{
+    load_csv_page = new LoadCSV(this);
+    load_csv_page->show();
+    delete ui;
+}
+
