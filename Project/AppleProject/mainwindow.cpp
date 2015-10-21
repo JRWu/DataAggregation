@@ -16,8 +16,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_login_btn_clicked()
 {
-    load_csv_page = new LoadCSV(this);
-    load_csv_page->show();
-    delete ui;
+    // open the load page inside the existing window
+    load_csv_page = new LoadCSV();
+    this->setCentralWidget(load_csv_page);
 }
 
