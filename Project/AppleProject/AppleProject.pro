@@ -16,12 +16,18 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     load_csv.cpp \
     verify_csv.cpp \
-    analyze_csv.cpp
+    analyze_csv.cpp \
+    publicationdto.cpp \
+    publicationdtolist.cpp \
+    ValidatePublication.cpp
 
 HEADERS  += mainwindow.h \
     load_csv.h \
     verify_csv.h \
-    analyze_csv.h
+    analyze_csv.h \
+    publicationdto.h \
+    publicationdtolist.h \
+    validatepublication.h
 
 FORMS    += mainwindow.ui \
     load_csv.ui \
