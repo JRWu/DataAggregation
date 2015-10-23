@@ -1,7 +1,5 @@
 #include "load_csv.h"
 #include "ui_load_csv.h"
-#include "verify_csv.h"
-#include "analyze_csv.h"
 
 LoadCSV::LoadCSV(QWidget *parent) :
     QMainWindow(parent),
