@@ -2,6 +2,10 @@
 #define ANALYZE_CSV_H
 
 #include <QMainWindow>
+#include <qcustomplot.h>
+
+#include <iostream> // rm later
+#include <stdio.h>  // rem later
 
 namespace Ui {
 class AnalyzeCSV;
@@ -20,8 +24,11 @@ private slots:
 
     void on_verify_btn_clicked();
 
+
 private:
     Ui::AnalyzeCSV *ui;
+    QGraphicsScene * scene; // Added to display the graph through the graph area
+    QCustomPlot *customPlot;
 };
 
 #endif // ANALYZE_CSV_H
