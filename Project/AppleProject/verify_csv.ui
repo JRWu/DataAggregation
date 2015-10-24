@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>900</width>
-    <height>639</height>
+    <height>641</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,11 +25,14 @@
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>781</width>
+      <width>881</width>
       <height>80</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="navigation_area">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
      <item>
       <widget class="QPushButton" name="load_btn">
        <property name="maximumSize">
@@ -220,7 +223,7 @@
      <rect>
       <x>10</x>
       <y>490</y>
-      <width>781</width>
+      <width>881</width>
       <height>61</height>
      </rect>
     </property>
@@ -359,12 +362,12 @@
      <rect>
       <x>10</x>
       <y>90</y>
-      <width>781</width>
+      <width>881</width>
       <height>391</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="table_area">
-     <item>
+     <item alignment="Qt::AlignHCenter">
       <widget class="QLabel" name="instruction_label">
        <property name="font">
         <font>

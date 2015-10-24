@@ -2,6 +2,7 @@
 #define VERIFY_CSV_H
 
 #include <QMainWindow>
+#include <QStandardItemModel>
 //#include "load_csv.h"
 #include "analyze_csv.h"
 
@@ -26,6 +27,7 @@ private:
     Ui::VerifyCSV *ui;
     //VerifyCSV *verify_csv_page;
     AnalyzeCSV *analyze_csv_page;
+    QStandardItemModel* PublicationTableModel(QStandardItemModel* model);
 };
 
 #endif // VERIFY_CSV_H
