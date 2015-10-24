@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     publicationdto.cpp \
     ValidatePublication.cpp \
     csvdata.cpp \
-    csvdataassembler.cpp
+    csvdataassembler.cpp \
+    qcustomplot.cpp
 
 HEADERS  += mainwindow.h \
     load_csv.h \
@@ -31,7 +32,9 @@ HEADERS  += mainwindow.h \
     validatepublication.h \
     fast-cpp-csv-parser-master/csv.h \
     csvdata.h \
-    csvdataassembler.h
+    csvdataassembler.h \
+    qcustomplot.h
+    QT += printsupport
 
 FORMS    += mainwindow.ui \
     load_csv.ui \
