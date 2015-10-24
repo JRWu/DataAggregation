@@ -6,6 +6,8 @@ LoadCSV::LoadCSV(QWidget *parent) :
     ui(new Ui::LoadCSV)
 {
     ui->setupUi(this);
+    ui->statusbar->close(); // Remove redundant bar
+
 }
 
 LoadCSV::~LoadCSV()

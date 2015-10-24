@@ -7,7 +7,7 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent) :
 {
     ui->setupUi(this);
     scene = new QGraphicsScene(this);   // Added for graphics window
-
+    ui->statusbar->close(); // Remove redundant bar
 
     // check height/width of graph area
     int height = ui->graph_area->geometry().height();
@@ -46,7 +46,6 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent) :
     std::cout <<"sheight: "<< height << "\n";
     std::cout <<"swidth: "<< width << "\n";
     // Confirm box height
-
 }
 
 AnalyzeCSV::~AnalyzeCSV()

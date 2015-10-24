@@ -48,6 +48,8 @@ VerifyCSV::VerifyCSV(QWidget *parent) :
     ui(new Ui::VerifyCSV)
 {
     ui->setupUi(this);
+    ui->statusbar->close(); // Remove redundant bar
+
 
     QStandardItemModel *model = new QStandardItemModel(/*will be length of vector*/2,28,this);
     ui->error_table->setModel(PublicationTableModel(model));
