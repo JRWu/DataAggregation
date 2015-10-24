@@ -1,0 +1,15 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\load_csv.o
+./debug\verify_csv.o
+./debug\analyze_csv.o
+./debug\publicationdto.o
+./debug\ValidatePublication.o
+./debug\csvdata.o
+./debug\csvdataassembler.o
+./debug\moc_mainwindow.o
+./debug\moc_load_csv.o
+./debug\moc_verify_csv.o
+./debug\moc_analyze_csv.o
+);
