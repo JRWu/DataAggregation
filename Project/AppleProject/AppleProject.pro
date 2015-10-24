@@ -19,17 +19,19 @@ SOURCES += main.cpp\
     verify_csv.cpp \
     analyze_csv.cpp \
     publicationdto.cpp \
-    publicationdtolist.cpp \
-    ValidatePublication.cpp
+    ValidatePublication.cpp \
+    csvdata.cpp \
+    csvdataassembler.cpp
 
 HEADERS  += mainwindow.h \
     load_csv.h \
     verify_csv.h \
     analyze_csv.h \
     publicationdto.h \
-    publicationdtolist.h \
     validatepublication.h \
-    fast-cpp-csv-parser-master/csv.h
+    fast-cpp-csv-parser-master/csv.h \
+    csvdata.h \
+    csvdataassembler.h
 
 FORMS    += mainwindow.ui \
     load_csv.ui \
