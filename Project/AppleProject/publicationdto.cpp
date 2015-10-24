@@ -1,7 +1,5 @@
 #include "publicationdto.h"
 
-using namespace std;
-
 /* Here if we need it
 string PUBLICATION_STATUS[] = {"Published", "In-Press/Accepted", "Submitted"};
 

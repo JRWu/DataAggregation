@@ -19,24 +19,28 @@ SOURCES += main.cpp\
     verify_csv.cpp \
     analyze_csv.cpp \
     publicationdto.cpp \
-    ValidatePublication.cpp \
     csvdata.cpp \
     csvdataassembler.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    validatedto.cpp
 
 HEADERS  += mainwindow.h \
     load_csv.h \
     verify_csv.h \
     analyze_csv.h \
     publicationdto.h \
-    validatepublication.h \
     fast-cpp-csv-parser-master/csv.h \
     csvdata.h \
     csvdataassembler.h \
-    qcustomplot.h
+    qcustomplot.h \
+    validatedto.h
     QT += printsupport
 
 FORMS    += mainwindow.ui \
     load_csv.ui \
     verify_csv.ui \
     analyze_csv.ui
+
+DISTFILES += \
+    AppleProject.pro.user \
+    publication.csv
