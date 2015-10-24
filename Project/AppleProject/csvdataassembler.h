@@ -4,12 +4,11 @@
 #include "fast-cpp-csv-parser-master/csv.h"
 #include "csvdata.h"
 #include "publicationdto.h"
+#include "validatedto.h"
 
-class CSVDataAssembler
-{
-public:
-    bool AssembleData(CSVData<PublicationDTO> *data, std::string fileName);
-    //Add other constructors for other DTO types
-};
+bool AssembleData(std::shared_ptr<CSVData<PublicationDTO>> data, string fileName);
+    //Add other overloads for other DTO types (unless someone wants to edit csv.h)
+
+
 
 #endif // CSVDATAASSEMBLER_H

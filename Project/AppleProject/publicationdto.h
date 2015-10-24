@@ -5,6 +5,8 @@
 #include <vector>
 #include <memory>
 
+using namespace std;
+
 /* Here if we need it
 enum PublicationStatus{
     PUBLISHED, INPRESS, SUBMITTED
@@ -30,12 +32,12 @@ enum AuthorRole{
 class PublicationDTO{
 public:
     //Mandatory Fields
-    std::string name, domain, journalName, title, ISBN, status, type, role;
+    string name, domain, journalName, title, ISBN, status, type, role;
     unsigned int date, id;
-    std::shared_ptr<std::vector<std::string>> authors;
+    shared_ptr<vector<string>> authors;
 
     //Optional Fields
-    std::string volume, issue, pageRange, DOI, website, publisher, personalRenumeration,
+    string volume, issue, pageRange, DOI, website, publisher, personalRenumeration,
     traineeDetails, mostSignificantDetails;
     unsigned int pubmedID, authorNumber;
     int impactFactor;
