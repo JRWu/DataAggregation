@@ -4,13 +4,11 @@
 #include <vector>
 #include <string>
 
-using namespace std;
-
 template <class DTOType> class CSVData
 {
 public:
-    vector<DTOType> dtos;
-    vector<vector<string>> errorRows;
+    std::vector<DTOType> dtos;
+    std::vector<std::vector<std::string>> errorRows;
 
     CSVData();
     ~CSVData();

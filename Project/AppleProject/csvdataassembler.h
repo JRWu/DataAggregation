@@ -8,7 +8,7 @@
 class CSVDataAssembler
 {
 public:
-    bool AssembleData(CSVData<PublicationDTO> *data, string fileName);
+    bool AssembleData(CSVData<PublicationDTO> *data, std::string fileName);
     //Add other constructors for other DTO types
 };
 

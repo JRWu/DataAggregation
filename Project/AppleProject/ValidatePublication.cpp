@@ -1,5 +1,7 @@
 #include "validatepublication.h"
 
+using namespace std;
+
 bool verifyPublicationDTO(shared_ptr<PublicationDTO> dto){
     //Verifiy mandatory strings are not empty
     if((dto->name == "")||(dto->domain == "")||(dto->journalName == "")
