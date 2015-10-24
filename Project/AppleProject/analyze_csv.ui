@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>900</width>
-    <height>639</height>
+    <height>643</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -253,6 +253,70 @@
           <widget class="QComboBox" name="graph_combo"/>
          </item>
          <item>
+          <widget class="QToolBox" name="toolBox">
+           <property name="currentIndex">
+            <number>0</number>
+           </property>
+           <widget class="QWidget" name="page">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>373</width>
+              <height>83</height>
+             </rect>
+            </property>
+            <property name="accessibleName">
+             <string/>
+            </property>
+            <property name="accessibleDescription">
+             <string/>
+            </property>
+            <attribute name="label">
+             <string>Page 1</string>
+            </attribute>
+            <widget class="QPlainTextEdit" name="plainTextEdit">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>10</y>
+               <width>381</width>
+               <height>79</height>
+              </rect>
+             </property>
+             <property name="plainText">
+              <string>This is page 1 of the collapsable menu
+
+Hey</string>
+             </property>
+            </widget>
+           </widget>
+           <widget class="QWidget" name="page_2">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>373</width>
+              <height>83</height>
+             </rect>
+            </property>
+            <attribute name="label">
+             <string>Page 2</string>
+            </attribute>
+           </widget>
+           <widget class="QWidget" name="page_3">
+            <attribute name="label">
+             <string>Page 3</string>
+            </attribute>
+           </widget>
+           <widget class="QWidget" name="page_4">
+            <attribute name="label">
+             <string>Page 4</string>
+            </attribute>
+           </widget>
+          </widget>
+         </item>
+         <item>
           <widget class="QGraphicsView" name="graph_area"/>
          </item>
         </layout>
@@ -283,7 +347,7 @@
      <x>0</x>
      <y>0</y>
      <width>900</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
