@@ -39,9 +39,15 @@ public:
     //Optional Fields
     string volume, issue, pageRange, DOI, website, publisher, personalRenumeration,
     traineeDetails, mostSignificantDetails;
-    unsigned int pubmedID, authorNumber;
+
+
+    //These might not be numbers or bool??
+    string pubmedID, authorNumber, impactFactor,
+    peerReviewed, international, presentation, mostSignificant, education;
+
+    /*unsigned int pubmedID, authorNumber;
     int impactFactor;
-    bool peerReviewed, international, presentation, mostSignificant, education;
+    bool peerReviewed, international, presentation, mostSignificant, education;*/
 
     PublicationDTO();
     ~PublicationDTO();

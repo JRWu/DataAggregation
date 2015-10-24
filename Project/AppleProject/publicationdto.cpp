@@ -28,13 +28,17 @@ PublicationDTO::PublicationDTO()
     date = 0;
     authors = shared_ptr<vector<string>>( new vector<string> );
 
+    pubmedID = authorNumber = impactFactor = peerReviewed = international =
+            presentation = mostSignificant = education = "";
+
+    /* Commented out until we decide if they need to be not strings
     //Optional Fields
     volume = issue = pageRange = DOI = website = publisher = personalRenumeration =
     traineeDetails = mostSignificantDetails = "";
     pubmedID = authorNumber = 0;
     impactFactor = 0;
     peerReviewed = international = presentation = mostSignificant = education = false;
-
+    */
     id = ++nextid;
 }
 
