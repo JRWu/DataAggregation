@@ -9,6 +9,8 @@
 #include <iostream> // rm later
 #include <stdio.h>  // rem later
 
+#include "graphvisualizations.h"
+
 namespace Ui {
 class AnalyzeCSV;
 }
