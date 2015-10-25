@@ -13,6 +13,8 @@ template <class DTOType> class CSVData
 public:
     std::shared_ptr<std::vector<std::vector<std::string>>> errorRows;
     std::shared_ptr<std::vector<DTOType>> dtos;
+    std::shared_ptr<std::vector<std::string>> header;
+    int nMan;
 
     CSVData();
     ~CSVData();
@@ -24,6 +26,8 @@ template <class DTOType> CSVData<DTOType>::CSVData(){
     errorRows = std::shared_ptr<std::vector<std::vector<std::string>>>
                                     (new std::vector<std::vector<std::string>> );
     dtos = std::shared_ptr<std::vector<DTOType>>(new std::vector<DTOType>);
+    header = std::shared_ptr<std::vector<std::string>>(new std::vector<std::string>);
+    nMan = 0;
 }
 
 template <class DTOType> CSVData<DTOType>::~CSVData(){}
