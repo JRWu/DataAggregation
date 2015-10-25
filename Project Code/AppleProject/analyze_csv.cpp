@@ -49,6 +49,7 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     /// LIST TREE VIEW ///
 
         ui->pub_tree->setColumnCount(2);
+        ui->pub_tree->setColumnWidth(0, 275);
         ui->pub_tree->setHeaderLabels(QStringList() << "Field" << "Total");
 
         /* algorithm for implementing this
