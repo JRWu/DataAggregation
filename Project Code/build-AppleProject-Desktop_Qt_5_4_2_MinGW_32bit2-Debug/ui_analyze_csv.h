@@ -19,10 +19,8 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTabWidget>
-#include <QtWidgets/QToolBox>
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -55,45 +53,39 @@ public:
     QWidget *grant_tab;
     QWidget *horizontalLayoutWidget_3;
     QHBoxLayout *tab_area_4;
-    QToolBox *toolBox_6;
-    QWidget *page_21;
-    QPlainTextEdit *plainTextEdit_21;
-    QWidget *page_22;
-    QPlainTextEdit *plainTextEdit_22;
-    QWidget *page_23;
-    QPlainTextEdit *plainTextEdit_23;
-    QWidget *page_24;
-    QPlainTextEdit *plainTextEdit_24;
+    QVBoxLayout *verticalLayout_5;
+    QHBoxLayout *horizontalLayout_7;
+    QLabel *date_filter_lbl2;
+    QComboBox *date_filter_combo2;
+    QPushButton *filter_btn2;
+    QLabel *domain_lbl2;
+    QTreeWidget *grant_tree;
     QVBoxLayout *verticalLayout_6;
     QComboBox *graph_combo_6;
     QGraphicsView *graph_area_6;
     QWidget *present_tab;
     QWidget *horizontalLayoutWidget_4;
     QHBoxLayout *tab_area_5;
-    QToolBox *toolBox_7;
-    QWidget *page_25;
-    QPlainTextEdit *plainTextEdit_25;
-    QWidget *page_26;
-    QPlainTextEdit *plainTextEdit_26;
-    QWidget *page_27;
-    QPlainTextEdit *plainTextEdit_27;
-    QWidget *page_28;
-    QPlainTextEdit *plainTextEdit_28;
+    QVBoxLayout *verticalLayout_9;
+    QHBoxLayout *horizontalLayout_8;
+    QLabel *date_filter_lbl3;
+    QComboBox *date_filter_combo3;
+    QPushButton *date_filter_btn3;
+    QLabel *domain_lbl3;
+    QTreeWidget *present_tree;
     QVBoxLayout *verticalLayout_7;
     QComboBox *graph_combo_7;
     QGraphicsView *graph_area_7;
     QWidget *teach_tab;
     QWidget *horizontalLayoutWidget_5;
     QHBoxLayout *tab_area_8;
-    QToolBox *toolBox_8;
-    QWidget *page_29;
-    QPlainTextEdit *plainTextEdit_29;
-    QWidget *page_30;
-    QPlainTextEdit *plainTextEdit_30;
-    QWidget *page_31;
-    QPlainTextEdit *plainTextEdit_31;
-    QWidget *page_32;
-    QPlainTextEdit *plainTextEdit_32;
+    QVBoxLayout *verticalLayout_10;
+    QHBoxLayout *horizontalLayout_9;
+    QLabel *date_filter_lbl4;
+    QComboBox *comboBox;
+    QPushButton *date_filter_btn4;
+    QLabel *domain_lbl4;
+    QTreeWidget *teach_tree;
     QVBoxLayout *verticalLayout_8;
     QComboBox *graph_combo_8;
     QGraphicsView *graph_area_8;
@@ -280,42 +272,62 @@ public:
         grant_tab->setAutoFillBackground(true);
         horizontalLayoutWidget_3 = new QWidget(grant_tab);
         horizontalLayoutWidget_3->setObjectName(QStringLiteral("horizontalLayoutWidget_3"));
-        horizontalLayoutWidget_3->setGeometry(QRect(0, 40, 751, 421));
+        horizontalLayoutWidget_3->setGeometry(QRect(10, 10, 741, 491));
         tab_area_4 = new QHBoxLayout(horizontalLayoutWidget_3);
         tab_area_4->setObjectName(QStringLiteral("tab_area_4"));
         tab_area_4->setContentsMargins(0, 0, 0, 0);
-        toolBox_6 = new QToolBox(horizontalLayoutWidget_3);
-        toolBox_6->setObjectName(QStringLiteral("toolBox_6"));
-        page_21 = new QWidget();
-        page_21->setObjectName(QStringLiteral("page_21"));
-        page_21->setGeometry(QRect(0, 0, 372, 303));
-        plainTextEdit_21 = new QPlainTextEdit(page_21);
-        plainTextEdit_21->setObjectName(QStringLiteral("plainTextEdit_21"));
-        plainTextEdit_21->setGeometry(QRect(0, 10, 381, 341));
-        toolBox_6->addItem(page_21, QStringLiteral("Page 1"));
-        page_22 = new QWidget();
-        page_22->setObjectName(QStringLiteral("page_22"));
-        page_22->setGeometry(QRect(0, 0, 98, 28));
-        plainTextEdit_22 = new QPlainTextEdit(page_22);
-        plainTextEdit_22->setObjectName(QStringLiteral("plainTextEdit_22"));
-        plainTextEdit_22->setGeometry(QRect(0, 0, 381, 341));
-        toolBox_6->addItem(page_22, QStringLiteral("Page 2"));
-        page_23 = new QWidget();
-        page_23->setObjectName(QStringLiteral("page_23"));
-        page_23->setGeometry(QRect(0, 0, 98, 28));
-        plainTextEdit_23 = new QPlainTextEdit(page_23);
-        plainTextEdit_23->setObjectName(QStringLiteral("plainTextEdit_23"));
-        plainTextEdit_23->setGeometry(QRect(0, 0, 381, 341));
-        toolBox_6->addItem(page_23, QStringLiteral("Page 3"));
-        page_24 = new QWidget();
-        page_24->setObjectName(QStringLiteral("page_24"));
-        page_24->setGeometry(QRect(0, 0, 98, 28));
-        plainTextEdit_24 = new QPlainTextEdit(page_24);
-        plainTextEdit_24->setObjectName(QStringLiteral("plainTextEdit_24"));
-        plainTextEdit_24->setGeometry(QRect(0, 0, 381, 341));
-        toolBox_6->addItem(page_24, QStringLiteral("Page 4"));
+        verticalLayout_5 = new QVBoxLayout();
+        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
+        horizontalLayout_7 = new QHBoxLayout();
+        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
+        date_filter_lbl2 = new QLabel(horizontalLayoutWidget_3);
+        date_filter_lbl2->setObjectName(QStringLiteral("date_filter_lbl2"));
+        date_filter_lbl2->setMinimumSize(QSize(75, 0));
+        date_filter_lbl2->setMaximumSize(QSize(75, 16777215));
+        QPalette palette7;
+        palette7.setBrush(QPalette::Active, QPalette::WindowText, brush3);
+        palette7.setBrush(QPalette::Inactive, QPalette::WindowText, brush3);
+        palette7.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        date_filter_lbl2->setPalette(palette7);
 
-        tab_area_4->addWidget(toolBox_6);
+        horizontalLayout_7->addWidget(date_filter_lbl2);
+
+        date_filter_combo2 = new QComboBox(horizontalLayoutWidget_3);
+        date_filter_combo2->setObjectName(QStringLiteral("date_filter_combo2"));
+
+        horizontalLayout_7->addWidget(date_filter_combo2);
+
+        filter_btn2 = new QPushButton(horizontalLayoutWidget_3);
+        filter_btn2->setObjectName(QStringLiteral("filter_btn2"));
+        filter_btn2->setMinimumSize(QSize(75, 0));
+        filter_btn2->setMaximumSize(QSize(75, 16777215));
+
+        horizontalLayout_7->addWidget(filter_btn2);
+
+
+        verticalLayout_5->addLayout(horizontalLayout_7);
+
+        domain_lbl2 = new QLabel(horizontalLayoutWidget_3);
+        domain_lbl2->setObjectName(QStringLiteral("domain_lbl2"));
+        QPalette palette8;
+        palette8.setBrush(QPalette::Active, QPalette::WindowText, brush3);
+        palette8.setBrush(QPalette::Inactive, QPalette::WindowText, brush3);
+        palette8.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        domain_lbl2->setPalette(palette8);
+        domain_lbl2->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_5->addWidget(domain_lbl2);
+
+        grant_tree = new QTreeWidget(horizontalLayoutWidget_3);
+        QTreeWidgetItem *__qtreewidgetitem1 = new QTreeWidgetItem();
+        __qtreewidgetitem1->setText(0, QStringLiteral("1"));
+        grant_tree->setHeaderItem(__qtreewidgetitem1);
+        grant_tree->setObjectName(QStringLiteral("grant_tree"));
+
+        verticalLayout_5->addWidget(grant_tree);
+
+
+        tab_area_4->addLayout(verticalLayout_5);
 
         verticalLayout_6 = new QVBoxLayout();
         verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
@@ -336,55 +348,75 @@ public:
         tabWidget->addTab(grant_tab, QString());
         present_tab = new QWidget();
         present_tab->setObjectName(QStringLiteral("present_tab"));
-        QPalette palette7;
-        palette7.setBrush(QPalette::Active, QPalette::Base, brush3);
+        QPalette palette9;
+        palette9.setBrush(QPalette::Active, QPalette::Base, brush3);
         QBrush brush6(QColor(0, 0, 127, 255));
         brush6.setStyle(Qt::SolidPattern);
-        palette7.setBrush(QPalette::Active, QPalette::Window, brush6);
-        palette7.setBrush(QPalette::Inactive, QPalette::Base, brush3);
-        palette7.setBrush(QPalette::Inactive, QPalette::Window, brush6);
-        palette7.setBrush(QPalette::Disabled, QPalette::Base, brush6);
-        palette7.setBrush(QPalette::Disabled, QPalette::Window, brush6);
-        present_tab->setPalette(palette7);
+        palette9.setBrush(QPalette::Active, QPalette::Window, brush6);
+        palette9.setBrush(QPalette::Inactive, QPalette::Base, brush3);
+        palette9.setBrush(QPalette::Inactive, QPalette::Window, brush6);
+        palette9.setBrush(QPalette::Disabled, QPalette::Base, brush6);
+        palette9.setBrush(QPalette::Disabled, QPalette::Window, brush6);
+        present_tab->setPalette(palette9);
         present_tab->setAutoFillBackground(true);
         horizontalLayoutWidget_4 = new QWidget(present_tab);
         horizontalLayoutWidget_4->setObjectName(QStringLiteral("horizontalLayoutWidget_4"));
-        horizontalLayoutWidget_4->setGeometry(QRect(0, 40, 751, 421));
+        horizontalLayoutWidget_4->setGeometry(QRect(10, 10, 741, 501));
         tab_area_5 = new QHBoxLayout(horizontalLayoutWidget_4);
         tab_area_5->setObjectName(QStringLiteral("tab_area_5"));
         tab_area_5->setContentsMargins(0, 0, 0, 0);
-        toolBox_7 = new QToolBox(horizontalLayoutWidget_4);
-        toolBox_7->setObjectName(QStringLiteral("toolBox_7"));
-        page_25 = new QWidget();
-        page_25->setObjectName(QStringLiteral("page_25"));
-        page_25->setGeometry(QRect(0, 0, 372, 303));
-        plainTextEdit_25 = new QPlainTextEdit(page_25);
-        plainTextEdit_25->setObjectName(QStringLiteral("plainTextEdit_25"));
-        plainTextEdit_25->setGeometry(QRect(0, 10, 381, 341));
-        toolBox_7->addItem(page_25, QStringLiteral("Page 1"));
-        page_26 = new QWidget();
-        page_26->setObjectName(QStringLiteral("page_26"));
-        page_26->setGeometry(QRect(0, 0, 98, 28));
-        plainTextEdit_26 = new QPlainTextEdit(page_26);
-        plainTextEdit_26->setObjectName(QStringLiteral("plainTextEdit_26"));
-        plainTextEdit_26->setGeometry(QRect(0, 0, 381, 341));
-        toolBox_7->addItem(page_26, QStringLiteral("Page 2"));
-        page_27 = new QWidget();
-        page_27->setObjectName(QStringLiteral("page_27"));
-        page_27->setGeometry(QRect(0, 0, 98, 28));
-        plainTextEdit_27 = new QPlainTextEdit(page_27);
-        plainTextEdit_27->setObjectName(QStringLiteral("plainTextEdit_27"));
-        plainTextEdit_27->setGeometry(QRect(0, 0, 381, 341));
-        toolBox_7->addItem(page_27, QStringLiteral("Page 3"));
-        page_28 = new QWidget();
-        page_28->setObjectName(QStringLiteral("page_28"));
-        page_28->setGeometry(QRect(0, 0, 98, 28));
-        plainTextEdit_28 = new QPlainTextEdit(page_28);
-        plainTextEdit_28->setObjectName(QStringLiteral("plainTextEdit_28"));
-        plainTextEdit_28->setGeometry(QRect(0, 0, 381, 341));
-        toolBox_7->addItem(page_28, QStringLiteral("Page 4"));
+        verticalLayout_9 = new QVBoxLayout();
+        verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
+        horizontalLayout_8 = new QHBoxLayout();
+        horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
+        date_filter_lbl3 = new QLabel(horizontalLayoutWidget_4);
+        date_filter_lbl3->setObjectName(QStringLiteral("date_filter_lbl3"));
+        date_filter_lbl3->setMinimumSize(QSize(75, 0));
+        date_filter_lbl3->setMaximumSize(QSize(75, 16777215));
+        QPalette palette10;
+        palette10.setBrush(QPalette::Active, QPalette::WindowText, brush3);
+        palette10.setBrush(QPalette::Inactive, QPalette::WindowText, brush3);
+        palette10.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        date_filter_lbl3->setPalette(palette10);
 
-        tab_area_5->addWidget(toolBox_7);
+        horizontalLayout_8->addWidget(date_filter_lbl3);
+
+        date_filter_combo3 = new QComboBox(horizontalLayoutWidget_4);
+        date_filter_combo3->setObjectName(QStringLiteral("date_filter_combo3"));
+
+        horizontalLayout_8->addWidget(date_filter_combo3);
+
+        date_filter_btn3 = new QPushButton(horizontalLayoutWidget_4);
+        date_filter_btn3->setObjectName(QStringLiteral("date_filter_btn3"));
+        date_filter_btn3->setMinimumSize(QSize(75, 0));
+        date_filter_btn3->setMaximumSize(QSize(75, 16777215));
+
+        horizontalLayout_8->addWidget(date_filter_btn3);
+
+
+        verticalLayout_9->addLayout(horizontalLayout_8);
+
+        domain_lbl3 = new QLabel(horizontalLayoutWidget_4);
+        domain_lbl3->setObjectName(QStringLiteral("domain_lbl3"));
+        QPalette palette11;
+        palette11.setBrush(QPalette::Active, QPalette::WindowText, brush3);
+        palette11.setBrush(QPalette::Inactive, QPalette::WindowText, brush3);
+        palette11.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        domain_lbl3->setPalette(palette11);
+        domain_lbl3->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_9->addWidget(domain_lbl3);
+
+        present_tree = new QTreeWidget(horizontalLayoutWidget_4);
+        QTreeWidgetItem *__qtreewidgetitem2 = new QTreeWidgetItem();
+        __qtreewidgetitem2->setText(0, QStringLiteral("1"));
+        present_tree->setHeaderItem(__qtreewidgetitem2);
+        present_tree->setObjectName(QStringLiteral("present_tree"));
+
+        verticalLayout_9->addWidget(present_tree);
+
+
+        tab_area_5->addLayout(verticalLayout_9);
 
         verticalLayout_7 = new QVBoxLayout();
         verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
@@ -403,57 +435,68 @@ public:
         tab_area_5->addLayout(verticalLayout_7);
 
         tabWidget->addTab(present_tab, QString());
+        horizontalLayoutWidget_4->raise();
         teach_tab = new QWidget();
         teach_tab->setObjectName(QStringLiteral("teach_tab"));
-        QPalette palette8;
-        palette8.setBrush(QPalette::Active, QPalette::Base, brush3);
+        QPalette palette12;
+        palette12.setBrush(QPalette::Active, QPalette::Base, brush3);
         QBrush brush7(QColor(213, 178, 0, 255));
         brush7.setStyle(Qt::SolidPattern);
-        palette8.setBrush(QPalette::Active, QPalette::Window, brush7);
-        palette8.setBrush(QPalette::Inactive, QPalette::Base, brush3);
-        palette8.setBrush(QPalette::Inactive, QPalette::Window, brush7);
-        palette8.setBrush(QPalette::Disabled, QPalette::Base, brush7);
-        palette8.setBrush(QPalette::Disabled, QPalette::Window, brush7);
-        teach_tab->setPalette(palette8);
+        palette12.setBrush(QPalette::Active, QPalette::Window, brush7);
+        palette12.setBrush(QPalette::Inactive, QPalette::Base, brush3);
+        palette12.setBrush(QPalette::Inactive, QPalette::Window, brush7);
+        palette12.setBrush(QPalette::Disabled, QPalette::Base, brush7);
+        palette12.setBrush(QPalette::Disabled, QPalette::Window, brush7);
+        teach_tab->setPalette(palette12);
         teach_tab->setAutoFillBackground(true);
         horizontalLayoutWidget_5 = new QWidget(teach_tab);
         horizontalLayoutWidget_5->setObjectName(QStringLiteral("horizontalLayoutWidget_5"));
-        horizontalLayoutWidget_5->setGeometry(QRect(0, 40, 751, 421));
+        horizontalLayoutWidget_5->setGeometry(QRect(10, 10, 741, 501));
         tab_area_8 = new QHBoxLayout(horizontalLayoutWidget_5);
         tab_area_8->setObjectName(QStringLiteral("tab_area_8"));
         tab_area_8->setContentsMargins(0, 0, 0, 0);
-        toolBox_8 = new QToolBox(horizontalLayoutWidget_5);
-        toolBox_8->setObjectName(QStringLiteral("toolBox_8"));
-        page_29 = new QWidget();
-        page_29->setObjectName(QStringLiteral("page_29"));
-        page_29->setGeometry(QRect(0, 0, 372, 303));
-        plainTextEdit_29 = new QPlainTextEdit(page_29);
-        plainTextEdit_29->setObjectName(QStringLiteral("plainTextEdit_29"));
-        plainTextEdit_29->setGeometry(QRect(0, 10, 381, 341));
-        toolBox_8->addItem(page_29, QStringLiteral("Page 1"));
-        page_30 = new QWidget();
-        page_30->setObjectName(QStringLiteral("page_30"));
-        page_30->setGeometry(QRect(0, 0, 98, 28));
-        plainTextEdit_30 = new QPlainTextEdit(page_30);
-        plainTextEdit_30->setObjectName(QStringLiteral("plainTextEdit_30"));
-        plainTextEdit_30->setGeometry(QRect(0, 0, 381, 341));
-        toolBox_8->addItem(page_30, QStringLiteral("Page 2"));
-        page_31 = new QWidget();
-        page_31->setObjectName(QStringLiteral("page_31"));
-        page_31->setGeometry(QRect(0, 0, 98, 28));
-        plainTextEdit_31 = new QPlainTextEdit(page_31);
-        plainTextEdit_31->setObjectName(QStringLiteral("plainTextEdit_31"));
-        plainTextEdit_31->setGeometry(QRect(0, 0, 381, 341));
-        toolBox_8->addItem(page_31, QStringLiteral("Page 3"));
-        page_32 = new QWidget();
-        page_32->setObjectName(QStringLiteral("page_32"));
-        page_32->setGeometry(QRect(0, 0, 98, 28));
-        plainTextEdit_32 = new QPlainTextEdit(page_32);
-        plainTextEdit_32->setObjectName(QStringLiteral("plainTextEdit_32"));
-        plainTextEdit_32->setGeometry(QRect(0, 0, 381, 341));
-        toolBox_8->addItem(page_32, QStringLiteral("Page 4"));
+        verticalLayout_10 = new QVBoxLayout();
+        verticalLayout_10->setObjectName(QStringLiteral("verticalLayout_10"));
+        horizontalLayout_9 = new QHBoxLayout();
+        horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
+        date_filter_lbl4 = new QLabel(horizontalLayoutWidget_5);
+        date_filter_lbl4->setObjectName(QStringLiteral("date_filter_lbl4"));
+        date_filter_lbl4->setMinimumSize(QSize(75, 0));
+        date_filter_lbl4->setMaximumSize(QSize(75, 16777215));
 
-        tab_area_8->addWidget(toolBox_8);
+        horizontalLayout_9->addWidget(date_filter_lbl4);
+
+        comboBox = new QComboBox(horizontalLayoutWidget_5);
+        comboBox->setObjectName(QStringLiteral("comboBox"));
+
+        horizontalLayout_9->addWidget(comboBox);
+
+        date_filter_btn4 = new QPushButton(horizontalLayoutWidget_5);
+        date_filter_btn4->setObjectName(QStringLiteral("date_filter_btn4"));
+        date_filter_btn4->setMinimumSize(QSize(75, 0));
+        date_filter_btn4->setMaximumSize(QSize(75, 16777213));
+
+        horizontalLayout_9->addWidget(date_filter_btn4);
+
+
+        verticalLayout_10->addLayout(horizontalLayout_9);
+
+        domain_lbl4 = new QLabel(horizontalLayoutWidget_5);
+        domain_lbl4->setObjectName(QStringLiteral("domain_lbl4"));
+        domain_lbl4->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_10->addWidget(domain_lbl4);
+
+        teach_tree = new QTreeWidget(horizontalLayoutWidget_5);
+        QTreeWidgetItem *__qtreewidgetitem3 = new QTreeWidgetItem();
+        __qtreewidgetitem3->setText(0, QStringLiteral("1"));
+        teach_tree->setHeaderItem(__qtreewidgetitem3);
+        teach_tree->setObjectName(QStringLiteral("teach_tree"));
+
+        verticalLayout_10->addWidget(teach_tree);
+
+
+        tab_area_8->addLayout(verticalLayout_10);
 
         verticalLayout_8 = new QVBoxLayout();
         verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
@@ -477,9 +520,6 @@ public:
         retranslateUi(AnalyzeCSV);
 
         tabWidget->setCurrentIndex(0);
-        toolBox_6->setCurrentIndex(0);
-        toolBox_7->setCurrentIndex(0);
-        toolBox_8->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(AnalyzeCSV);
@@ -501,34 +541,9 @@ public:
          << QApplication::translate("AnalyzeCSV", "Graph 3", 0)
         );
         tabWidget->setTabText(tabWidget->indexOf(pub_tab), QApplication::translate("AnalyzeCSV", "PUBLICATIONS", 0));
-#ifndef QT_NO_ACCESSIBILITY
-        page_21->setAccessibleName(QString());
-#endif // QT_NO_ACCESSIBILITY
-#ifndef QT_NO_ACCESSIBILITY
-        page_21->setAccessibleDescription(QString());
-#endif // QT_NO_ACCESSIBILITY
-        plainTextEdit_21->setPlainText(QApplication::translate("AnalyzeCSV", "This is page 1\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"Hey", 0));
-        toolBox_6->setItemText(toolBox_6->indexOf(page_21), QApplication::translate("AnalyzeCSV", "Page 1", 0));
-        plainTextEdit_22->setPlainText(QApplication::translate("AnalyzeCSV", "This is page 2 of the collapsable menu\n"
-"\n"
-"Hey", 0));
-        toolBox_6->setItemText(toolBox_6->indexOf(page_22), QApplication::translate("AnalyzeCSV", "Page 2", 0));
-        plainTextEdit_23->setPlainText(QApplication::translate("AnalyzeCSV", "This is page 3 of the collapsable menu\n"
-"\n"
-"Hey", 0));
-        toolBox_6->setItemText(toolBox_6->indexOf(page_23), QApplication::translate("AnalyzeCSV", "Page 3", 0));
-        plainTextEdit_24->setPlainText(QApplication::translate("AnalyzeCSV", "This is page 4 of the collapsable menu\n"
-"\n"
-"Hey", 0));
-        toolBox_6->setItemText(toolBox_6->indexOf(page_24), QApplication::translate("AnalyzeCSV", "Page 4", 0));
+        date_filter_lbl2->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
+        filter_btn2->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
+        domain_lbl2->setText(QString());
         graph_combo_6->clear();
         graph_combo_6->insertItems(0, QStringList()
          << QApplication::translate("AnalyzeCSV", "Graph 1", 0)
@@ -536,34 +551,9 @@ public:
          << QApplication::translate("AnalyzeCSV", "Graph 3", 0)
         );
         tabWidget->setTabText(tabWidget->indexOf(grant_tab), QApplication::translate("AnalyzeCSV", "GRANTS", 0));
-#ifndef QT_NO_ACCESSIBILITY
-        page_25->setAccessibleName(QString());
-#endif // QT_NO_ACCESSIBILITY
-#ifndef QT_NO_ACCESSIBILITY
-        page_25->setAccessibleDescription(QString());
-#endif // QT_NO_ACCESSIBILITY
-        plainTextEdit_25->setPlainText(QApplication::translate("AnalyzeCSV", "This is page 1\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"Hey", 0));
-        toolBox_7->setItemText(toolBox_7->indexOf(page_25), QApplication::translate("AnalyzeCSV", "Page 1", 0));
-        plainTextEdit_26->setPlainText(QApplication::translate("AnalyzeCSV", "This is page 2 of the collapsable menu\n"
-"\n"
-"Hey", 0));
-        toolBox_7->setItemText(toolBox_7->indexOf(page_26), QApplication::translate("AnalyzeCSV", "Page 2", 0));
-        plainTextEdit_27->setPlainText(QApplication::translate("AnalyzeCSV", "This is page 3 of the collapsable menu\n"
-"\n"
-"Hey", 0));
-        toolBox_7->setItemText(toolBox_7->indexOf(page_27), QApplication::translate("AnalyzeCSV", "Page 3", 0));
-        plainTextEdit_28->setPlainText(QApplication::translate("AnalyzeCSV", "This is page 4 of the collapsable menu\n"
-"\n"
-"Hey", 0));
-        toolBox_7->setItemText(toolBox_7->indexOf(page_28), QApplication::translate("AnalyzeCSV", "Page 4", 0));
+        date_filter_lbl3->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
+        date_filter_btn3->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
+        domain_lbl3->setText(QString());
         graph_combo_7->clear();
         graph_combo_7->insertItems(0, QStringList()
          << QApplication::translate("AnalyzeCSV", "Graph 1", 0)
@@ -571,34 +561,9 @@ public:
          << QApplication::translate("AnalyzeCSV", "Graph 3", 0)
         );
         tabWidget->setTabText(tabWidget->indexOf(present_tab), QApplication::translate("AnalyzeCSV", "PRESENTATIONS", 0));
-#ifndef QT_NO_ACCESSIBILITY
-        page_29->setAccessibleName(QString());
-#endif // QT_NO_ACCESSIBILITY
-#ifndef QT_NO_ACCESSIBILITY
-        page_29->setAccessibleDescription(QString());
-#endif // QT_NO_ACCESSIBILITY
-        plainTextEdit_29->setPlainText(QApplication::translate("AnalyzeCSV", "This is page 1\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"Hey", 0));
-        toolBox_8->setItemText(toolBox_8->indexOf(page_29), QApplication::translate("AnalyzeCSV", "Page 1", 0));
-        plainTextEdit_30->setPlainText(QApplication::translate("AnalyzeCSV", "This is page 2 of the collapsable menu\n"
-"\n"
-"Hey", 0));
-        toolBox_8->setItemText(toolBox_8->indexOf(page_30), QApplication::translate("AnalyzeCSV", "Page 2", 0));
-        plainTextEdit_31->setPlainText(QApplication::translate("AnalyzeCSV", "This is page 3 of the collapsable menu\n"
-"\n"
-"Hey", 0));
-        toolBox_8->setItemText(toolBox_8->indexOf(page_31), QApplication::translate("AnalyzeCSV", "Page 3", 0));
-        plainTextEdit_32->setPlainText(QApplication::translate("AnalyzeCSV", "This is page 4 of the collapsable menu\n"
-"\n"
-"Hey", 0));
-        toolBox_8->setItemText(toolBox_8->indexOf(page_32), QApplication::translate("AnalyzeCSV", "Page 4", 0));
+        date_filter_lbl4->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
+        date_filter_btn4->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
+        domain_lbl4->setText(QString());
         graph_combo_8->clear();
         graph_combo_8->insertItems(0, QStringList()
          << QApplication::translate("AnalyzeCSV", "Graph 1", 0)

@@ -8,7 +8,6 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent) :
     ui->setupUi(this);
     scene = new QGraphicsScene(this);   // Added for graphics window
 
-
     QCustomPlot *customPlot = new QCustomPlot();
     customPlot->setGeometry(0,0,345,375);   // added to resize graph
 
@@ -16,13 +15,8 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent) :
     Graphvisualizations *graph_handler = new Graphvisualizations();
     graph_handler->plot_pub_vs_type(customPlot);
 
-
     scene->addWidget(customPlot);   // Add plot to the window & Essential
     ui->graph_area->setScene(scene);    // Added for grpahics & Essential
-
-
-
-
 
     /// DOMAIN LABEL SET ///
 
