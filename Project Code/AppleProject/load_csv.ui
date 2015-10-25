@@ -586,7 +586,7 @@
       <x>10</x>
       <y>10</y>
       <width>781</width>
-      <height>51</height>
+      <height>52</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="navigation_area">
@@ -604,7 +604,7 @@
           <colorrole role="ButtonText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>231</red>
+             <red>170</red>
              <green>0</green>
              <blue>0</blue>
             </color>
@@ -615,7 +615,7 @@
           <colorrole role="ButtonText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>231</red>
+             <red>170</red>
              <green>0</green>
              <blue>0</blue>
             </color>
@@ -665,9 +665,9 @@
           <colorrole role="ButtonText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>189</red>
-             <green>189</green>
-             <blue>189</blue>
+             <red>229</red>
+             <green>191</green>
+             <blue>0</blue>
             </color>
            </brush>
           </colorrole>
@@ -676,9 +676,9 @@
           <colorrole role="ButtonText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>189</red>
-             <green>189</green>
-             <blue>189</blue>
+             <red>229</red>
+             <green>191</green>
+             <blue>0</blue>
             </color>
            </brush>
           </colorrole>
@@ -687,9 +687,9 @@
           <colorrole role="ButtonText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>120</red>
-             <green>120</green>
-             <blue>120</blue>
+             <red>127</red>
+             <green>127</green>
+             <blue>127</blue>
             </color>
            </brush>
           </colorrole>
@@ -726,9 +726,9 @@
           <colorrole role="ButtonText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>189</red>
-             <green>189</green>
-             <blue>189</blue>
+             <red>0</red>
+             <green>134</green>
+             <blue>0</blue>
             </color>
            </brush>
           </colorrole>
@@ -737,9 +737,9 @@
           <colorrole role="ButtonText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>189</red>
-             <green>189</green>
-             <blue>189</blue>
+             <red>0</red>
+             <green>134</green>
+             <blue>0</blue>
             </color>
            </brush>
           </colorrole>

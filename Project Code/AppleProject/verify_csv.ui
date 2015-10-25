@@ -450,7 +450,7 @@
       <x>10</x>
       <y>10</y>
       <width>781</width>
-      <height>51</height>
+      <height>52</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="navigation_area">
@@ -471,9 +471,9 @@
           <colorrole role="ButtonText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>221</red>
-             <green>221</green>
-             <blue>221</blue>
+             <red>170</red>
+             <green>0</green>
+             <blue>0</blue>
             </color>
            </brush>
           </colorrole>
@@ -482,9 +482,9 @@
           <colorrole role="ButtonText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>221</red>
-             <green>221</green>
-             <blue>221</blue>
+             <red>170</red>
+             <green>0</green>
+             <blue>0</blue>
             </color>
            </brush>
           </colorrole>
@@ -593,9 +593,9 @@
           <colorrole role="ButtonText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>221</red>
-             <green>221</green>
-             <blue>221</blue>
+             <red>0</red>
+             <green>134</green>
+             <blue>0</blue>
             </color>
            </brush>
           </colorrole>
@@ -604,9 +604,9 @@
           <colorrole role="ButtonText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>221</red>
-             <green>221</green>
-             <blue>221</blue>
+             <red>0</red>
+             <green>134</green>
+             <blue>0</blue>
             </color>
            </brush>
           </colorrole>

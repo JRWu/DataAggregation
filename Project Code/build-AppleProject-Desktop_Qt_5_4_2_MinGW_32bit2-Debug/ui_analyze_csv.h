@@ -43,7 +43,8 @@ public:
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout;
     QLabel *date_filter_lbl;
-    QComboBox *date_filter_combo;
+    QComboBox *start_date1;
+    QComboBox *end_date1;
     QPushButton *filter_btn;
     QLabel *domain_lbl;
     QTreeWidget *pub_tree;
@@ -108,7 +109,7 @@ public:
         load_btn = new QPushButton(horizontalLayoutWidget);
         load_btn->setObjectName(QStringLiteral("load_btn"));
         QPalette palette;
-        QBrush brush(QColor(221, 221, 221, 255));
+        QBrush brush(QColor(170, 0, 0, 255));
         brush.setStyle(Qt::SolidPattern);
         palette.setBrush(QPalette::Active, QPalette::ButtonText, brush);
         palette.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
@@ -129,8 +130,10 @@ public:
         verify_btn = new QPushButton(horizontalLayoutWidget);
         verify_btn->setObjectName(QStringLiteral("verify_btn"));
         QPalette palette1;
-        palette1.setBrush(QPalette::Active, QPalette::ButtonText, brush);
-        palette1.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
+        QBrush brush2(QColor(229, 191, 0, 255));
+        brush2.setStyle(Qt::SolidPattern);
+        palette1.setBrush(QPalette::Active, QPalette::ButtonText, brush2);
+        palette1.setBrush(QPalette::Inactive, QPalette::ButtonText, brush2);
         palette1.setBrush(QPalette::Disabled, QPalette::ButtonText, brush1);
         verify_btn->setPalette(palette1);
         verify_btn->setFont(font);
@@ -141,10 +144,10 @@ public:
         analyze_btn = new QPushButton(horizontalLayoutWidget);
         analyze_btn->setObjectName(QStringLiteral("analyze_btn"));
         QPalette palette2;
-        QBrush brush2(QColor(0, 170, 0, 255));
-        brush2.setStyle(Qt::SolidPattern);
-        palette2.setBrush(QPalette::Active, QPalette::ButtonText, brush2);
-        palette2.setBrush(QPalette::Inactive, QPalette::ButtonText, brush2);
+        QBrush brush3(QColor(0, 170, 0, 255));
+        brush3.setStyle(Qt::SolidPattern);
+        palette2.setBrush(QPalette::Active, QPalette::ButtonText, brush3);
+        palette2.setBrush(QPalette::Inactive, QPalette::ButtonText, brush3);
         palette2.setBrush(QPalette::Disabled, QPalette::ButtonText, brush1);
         analyze_btn->setPalette(palette2);
         analyze_btn->setFont(font);
@@ -167,16 +170,14 @@ public:
         pub_tab = new QWidget();
         pub_tab->setObjectName(QStringLiteral("pub_tab"));
         QPalette palette3;
-        QBrush brush3(QColor(255, 255, 255, 255));
-        brush3.setStyle(Qt::SolidPattern);
-        palette3.setBrush(QPalette::Active, QPalette::Base, brush3);
-        QBrush brush4(QColor(170, 0, 0, 255));
+        QBrush brush4(QColor(255, 255, 255, 255));
         brush4.setStyle(Qt::SolidPattern);
-        palette3.setBrush(QPalette::Active, QPalette::Window, brush4);
-        palette3.setBrush(QPalette::Inactive, QPalette::Base, brush3);
-        palette3.setBrush(QPalette::Inactive, QPalette::Window, brush4);
-        palette3.setBrush(QPalette::Disabled, QPalette::Base, brush4);
-        palette3.setBrush(QPalette::Disabled, QPalette::Window, brush4);
+        palette3.setBrush(QPalette::Active, QPalette::Base, brush4);
+        palette3.setBrush(QPalette::Active, QPalette::Window, brush);
+        palette3.setBrush(QPalette::Inactive, QPalette::Base, brush4);
+        palette3.setBrush(QPalette::Inactive, QPalette::Window, brush);
+        palette3.setBrush(QPalette::Disabled, QPalette::Base, brush);
+        palette3.setBrush(QPalette::Disabled, QPalette::Window, brush);
         pub_tab->setPalette(palette3);
         pub_tab->setAutoFillBackground(true);
         horizontalLayoutWidget_2 = new QWidget(pub_tab);
@@ -194,18 +195,23 @@ public:
         date_filter_lbl->setMinimumSize(QSize(75, 0));
         date_filter_lbl->setMaximumSize(QSize(75, 16777215));
         QPalette palette4;
-        palette4.setBrush(QPalette::Active, QPalette::WindowText, brush3);
-        palette4.setBrush(QPalette::Inactive, QPalette::WindowText, brush3);
+        palette4.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette4.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
         palette4.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
         date_filter_lbl->setPalette(palette4);
 
         horizontalLayout->addWidget(date_filter_lbl);
 
-        date_filter_combo = new QComboBox(horizontalLayoutWidget_2);
-        date_filter_combo->setObjectName(QStringLiteral("date_filter_combo"));
-        date_filter_combo->setMinimumSize(QSize(100, 0));
+        start_date1 = new QComboBox(horizontalLayoutWidget_2);
+        start_date1->setObjectName(QStringLiteral("start_date1"));
 
-        horizontalLayout->addWidget(date_filter_combo);
+        horizontalLayout->addWidget(start_date1);
+
+        end_date1 = new QComboBox(horizontalLayoutWidget_2);
+        end_date1->setObjectName(QStringLiteral("end_date1"));
+        end_date1->setMinimumSize(QSize(0, 0));
+
+        horizontalLayout->addWidget(end_date1);
 
         filter_btn = new QPushButton(horizontalLayoutWidget_2);
         filter_btn->setObjectName(QStringLiteral("filter_btn"));
@@ -221,8 +227,8 @@ public:
         domain_lbl = new QLabel(horizontalLayoutWidget_2);
         domain_lbl->setObjectName(QStringLiteral("domain_lbl"));
         QPalette palette5;
-        palette5.setBrush(QPalette::Active, QPalette::WindowText, brush3);
-        palette5.setBrush(QPalette::Inactive, QPalette::WindowText, brush3);
+        palette5.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette5.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
         palette5.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
         domain_lbl->setPalette(palette5);
         domain_lbl->setAlignment(Qt::AlignCenter);
@@ -260,11 +266,11 @@ public:
         grant_tab = new QWidget();
         grant_tab->setObjectName(QStringLiteral("grant_tab"));
         QPalette palette6;
-        palette6.setBrush(QPalette::Active, QPalette::Base, brush3);
+        palette6.setBrush(QPalette::Active, QPalette::Base, brush4);
         QBrush brush5(QColor(0, 85, 0, 255));
         brush5.setStyle(Qt::SolidPattern);
         palette6.setBrush(QPalette::Active, QPalette::Window, brush5);
-        palette6.setBrush(QPalette::Inactive, QPalette::Base, brush3);
+        palette6.setBrush(QPalette::Inactive, QPalette::Base, brush4);
         palette6.setBrush(QPalette::Inactive, QPalette::Window, brush5);
         palette6.setBrush(QPalette::Disabled, QPalette::Base, brush5);
         palette6.setBrush(QPalette::Disabled, QPalette::Window, brush5);
@@ -285,8 +291,8 @@ public:
         date_filter_lbl2->setMinimumSize(QSize(75, 0));
         date_filter_lbl2->setMaximumSize(QSize(75, 16777215));
         QPalette palette7;
-        palette7.setBrush(QPalette::Active, QPalette::WindowText, brush3);
-        palette7.setBrush(QPalette::Inactive, QPalette::WindowText, brush3);
+        palette7.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette7.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
         palette7.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
         date_filter_lbl2->setPalette(palette7);
 
@@ -310,8 +316,8 @@ public:
         domain_lbl2 = new QLabel(horizontalLayoutWidget_3);
         domain_lbl2->setObjectName(QStringLiteral("domain_lbl2"));
         QPalette palette8;
-        palette8.setBrush(QPalette::Active, QPalette::WindowText, brush3);
-        palette8.setBrush(QPalette::Inactive, QPalette::WindowText, brush3);
+        palette8.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette8.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
         palette8.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
         domain_lbl2->setPalette(palette8);
         domain_lbl2->setAlignment(Qt::AlignCenter);
@@ -349,11 +355,11 @@ public:
         present_tab = new QWidget();
         present_tab->setObjectName(QStringLiteral("present_tab"));
         QPalette palette9;
-        palette9.setBrush(QPalette::Active, QPalette::Base, brush3);
+        palette9.setBrush(QPalette::Active, QPalette::Base, brush4);
         QBrush brush6(QColor(0, 0, 127, 255));
         brush6.setStyle(Qt::SolidPattern);
         palette9.setBrush(QPalette::Active, QPalette::Window, brush6);
-        palette9.setBrush(QPalette::Inactive, QPalette::Base, brush3);
+        palette9.setBrush(QPalette::Inactive, QPalette::Base, brush4);
         palette9.setBrush(QPalette::Inactive, QPalette::Window, brush6);
         palette9.setBrush(QPalette::Disabled, QPalette::Base, brush6);
         palette9.setBrush(QPalette::Disabled, QPalette::Window, brush6);
@@ -374,8 +380,8 @@ public:
         date_filter_lbl3->setMinimumSize(QSize(75, 0));
         date_filter_lbl3->setMaximumSize(QSize(75, 16777215));
         QPalette palette10;
-        palette10.setBrush(QPalette::Active, QPalette::WindowText, brush3);
-        palette10.setBrush(QPalette::Inactive, QPalette::WindowText, brush3);
+        palette10.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette10.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
         palette10.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
         date_filter_lbl3->setPalette(palette10);
 
@@ -399,8 +405,8 @@ public:
         domain_lbl3 = new QLabel(horizontalLayoutWidget_4);
         domain_lbl3->setObjectName(QStringLiteral("domain_lbl3"));
         QPalette palette11;
-        palette11.setBrush(QPalette::Active, QPalette::WindowText, brush3);
-        palette11.setBrush(QPalette::Inactive, QPalette::WindowText, brush3);
+        palette11.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette11.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
         palette11.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
         domain_lbl3->setPalette(palette11);
         domain_lbl3->setAlignment(Qt::AlignCenter);
@@ -439,11 +445,11 @@ public:
         teach_tab = new QWidget();
         teach_tab->setObjectName(QStringLiteral("teach_tab"));
         QPalette palette12;
-        palette12.setBrush(QPalette::Active, QPalette::Base, brush3);
+        palette12.setBrush(QPalette::Active, QPalette::Base, brush4);
         QBrush brush7(QColor(213, 178, 0, 255));
         brush7.setStyle(Qt::SolidPattern);
         palette12.setBrush(QPalette::Active, QPalette::Window, brush7);
-        palette12.setBrush(QPalette::Inactive, QPalette::Base, brush3);
+        palette12.setBrush(QPalette::Inactive, QPalette::Base, brush4);
         palette12.setBrush(QPalette::Inactive, QPalette::Window, brush7);
         palette12.setBrush(QPalette::Disabled, QPalette::Base, brush7);
         palette12.setBrush(QPalette::Disabled, QPalette::Window, brush7);

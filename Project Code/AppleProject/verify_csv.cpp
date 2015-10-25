@@ -23,9 +23,17 @@ VerifyCSV::~VerifyCSV()
 
 void VerifyCSV::on_load_btn_clicked()
 {
-    //open the verify page within the existing window
-    LoadCSV * load_csv_page = new LoadCSV();
-    this->setCentralWidget(load_csv_page);
+    // show alert, "are you sure you are done viewing?"
+    QMessageBox::StandardButton reload;
+    reload = QMessageBox::question(this, "Load New Data",
+                                   "Importing new data will lose the current data.\n"
+                                   "Would you like to continue?",
+                                   QMessageBox::Yes|QMessageBox::No);
+    if (reload == QMessageBox::Yes) {
+        LoadCSV * load_csv_page = new LoadCSV();
+        this->setCentralWidget(load_csv_page);
+    }
+    //else do nothing
 }
 
 void VerifyCSV::on_analyze_btn_clicked()

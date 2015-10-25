@@ -40,8 +40,8 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
          */
 
         //for demonstration purposes only
-        ui->date_filter_combo->addItem("2015");
-        ui->date_filter_combo->addItem("2014");
+        ui->end_date1->addItem("2015");
+        ui->start_date1->addItem("2014");
 
 
     /// LIST TREE VIEW ///
@@ -49,13 +49,13 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
         ui->pub_tree->setColumnCount(2);
         ui->pub_tree->setHeaderLabels(QStringList() << "Field" << "Total");
 
-        AddRoot("Publications", "275");
-
         /* algorithm for implementing this
-         * create a view object type which is a has a list of publication types,
+         * create a view object type which has a list of publication types,
          * which each item in the list has a list of authors
          * then loop through the list of types, and for each one add all the children to the list
          */
+
+        AddRoot("Publications", "275");
 
         // for demonstration purposes, here is a tree vie example
         AddChild(ui->pub_tree->topLevelItem(0), "Journal Articles", "82");
@@ -77,22 +77,32 @@ AnalyzeCSV::~AnalyzeCSV()
 
 void AnalyzeCSV::on_load_btn_clicked()
 {
-    //open the verify page within the existing window
-    LoadCSV * load_csv_page = new LoadCSV();
-    this->setCentralWidget(load_csv_page);
+    // show alert, "are you sure you are done viewing?"
+    QMessageBox::StandardButton reload;
+    reload = QMessageBox::question(this, "Load New Data",
+                                   "Importing new data will lose the current data.\n"
+                                   "Would you like to continue?",
+                                   QMessageBox::Yes|QMessageBox::No);
+    if (reload == QMessageBox::Yes) {
+        LoadCSV * load_csv_page = new LoadCSV();
+        this->setCentralWidget(load_csv_page);
+    }
+    //else do nothing
 }
 
 void AnalyzeCSV::on_verify_btn_clicked()
 {
     // show alert, "Information has already been verified. Would you like to import new information?"
     QMessageBox::StandardButton reload;
-    reload = QMessageBox::question(this, "Already Verified", "Information has already been verified. Would you like to import new information?", QMessageBox::Yes|QMessageBox::No);
+    reload = QMessageBox::question(this, "Already Verified",
+                                   "Information has already been verified.\n"
+                                   "Would you like to import new information?",
+                                   QMessageBox::Yes|QMessageBox::No);
     if (reload == QMessageBox::Yes) {
         LoadCSV * load_csv_page = new LoadCSV();
         this->setCentralWidget(load_csv_page);
-    } else {
-
     }
+    //else do nothing
 }
 
 void AnalyzeCSV::AddRoot(QString field, QString total) {

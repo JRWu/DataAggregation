@@ -44,9 +44,9 @@
           <colorrole role="ButtonText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>221</red>
-             <green>221</green>
-             <blue>221</blue>
+             <red>170</red>
+             <green>0</green>
+             <blue>0</blue>
             </color>
            </brush>
           </colorrole>
@@ -55,9 +55,9 @@
           <colorrole role="ButtonText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>221</red>
-             <green>221</green>
-             <blue>221</blue>
+             <red>170</red>
+             <green>0</green>
+             <blue>0</blue>
             </color>
            </brush>
           </colorrole>
@@ -99,9 +99,9 @@
           <colorrole role="ButtonText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>221</red>
-             <green>221</green>
-             <blue>221</blue>
+             <red>229</red>
+             <green>191</green>
+             <blue>0</blue>
             </color>
            </brush>
           </colorrole>
@@ -110,9 +110,9 @@
           <colorrole role="ButtonText">
            <brush brushstyle="SolidPattern">
             <color alpha="255">
-             <red>221</red>
-             <green>221</green>
-             <blue>221</blue>
+             <red>229</red>
+             <green>191</green>
+             <blue>0</blue>
             </color>
            </brush>
           </colorrole>
@@ -374,10 +374,13 @@
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="date_filter_combo">
+            <widget class="QComboBox" name="start_date1"/>
+           </item>
+           <item>
+            <widget class="QComboBox" name="end_date1">
              <property name="minimumSize">
               <size>
-               <width>100</width>
+               <width>0</width>
                <height>0</height>
               </size>
              </property>
