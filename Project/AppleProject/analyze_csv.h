@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <qcustomplot.h>
+#include <QtCore>
+#include <QtGui>
 
 #include <iostream> // rm later
 #include <stdio.h>  // rem later
@@ -14,6 +16,10 @@ class AnalyzeCSV;
 class AnalyzeCSV : public QMainWindow
 {
     Q_OBJECT
+
+void AddRoot(QString field, QString total);
+void AddChild(QTreeWidgetItem *parent, QString field, QString total);
+void AddGrandChild(QTreeWidgetItem *parent, QString field, QString total);
 
 public:
     explicit AnalyzeCSV(QWidget *parent = 0);

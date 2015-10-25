@@ -45,6 +45,30 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent) :
     std::cout <<"sheight: "<< height << "\n";
     std::cout <<"swidth: "<< width << "\n";
     // Confirm box height
+
+    // list tree
+    ui->treeWidget->setColumnCount(2);
+    ui->treeWidget->setHeaderLabels(QStringList() << "Field" << "Total");
+
+    AddRoot("Publications", "275");
+
+    /* algorithm for implementing this
+     * create a view object type which is a has a list of publication types,
+     * which each item in the list has a list of authors
+     * then loop through the list of types, and for each one add all the children to the list
+     */
+
+    // for demonstration purposes, here is a tree vie example
+    AddChild(ui->treeWidget->topLevelItem(0), "Journal Articles", "82");
+
+    AddGrandChild(ui->treeWidget->itemBelow(ui->treeWidget->topLevelItem(0)), "Jean-Luc Picard", "30");
+    AddGrandChild(ui->treeWidget->itemBelow(ui->treeWidget->topLevelItem(0)), "James T. Kirk", "15");
+    AddGrandChild(ui->treeWidget->itemBelow(ui->treeWidget->topLevelItem(0)), "Kathryn Janeway", "25");
+    AddGrandChild(ui->treeWidget->itemBelow(ui->treeWidget->topLevelItem(0)), "Benjamin Lafayette Sisko", "12");
+
+    AddChild(ui->treeWidget->topLevelItem(0), "Books", "4");
+    AddChild(ui->treeWidget->topLevelItem(0), "Book Chapters", "20");
+    AddChild(ui->treeWidget->topLevelItem(0), "Letters to Editor", "19");
 }
 
 AnalyzeCSV::~AnalyzeCSV()
@@ -56,5 +80,28 @@ void AnalyzeCSV::on_verify_btn_clicked()
 {
     // show alert, "Information has already been verified. Would you like to import new information?"
 
+}
+
+void AnalyzeCSV::AddRoot(QString field, QString total) {
+    QTreeWidgetItem *root = new QTreeWidgetItem(ui->treeWidget);
+    root->setText(0, field);
+    root->setText(1, total);
+    root->setExpanded(true);
+
+    ui->treeWidget->addTopLevelItem(root);
+}
+
+void AnalyzeCSV::AddChild(QTreeWidgetItem *parent, QString field, QString total) {
+    QTreeWidgetItem *child = new QTreeWidgetItem();
+    child->setText(0, field);
+    child->setText(1, total);
+    parent->addChild(child);
+}
+
+void AnalyzeCSV::AddGrandChild(QTreeWidgetItem *parent, QString field, QString total) {
+    QTreeWidgetItem *grandchild = new QTreeWidgetItem();
+    grandchild->setText(0, field);
+    grandchild->setText(1, total);
+    parent->addChild(grandchild);
 }
 
