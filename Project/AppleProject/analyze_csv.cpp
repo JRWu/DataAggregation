@@ -17,7 +17,7 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent) :
     // check height/width of graph area
 
     QCustomPlot *customPlot = new QCustomPlot();
-    customPlot->setGeometry(0,0,373,203);   // added to resize graph
+    customPlot->setGeometry(0,0,350,200);   // added to resize graph
     QVector<double> x(101), y(101); // initialize with entries 0..100
     for (int i=0; i<101; ++i)
     {
