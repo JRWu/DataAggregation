@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <!-- Written by QtCreator 3.5.1, 2015-10-25T14:30:50. -->
 =======
 <!-- Written by QtCreator 3.5.1, 2015-10-25T14:20:40. -->
 >>>>>>> 8670f9b88ed87b2626d4b24bae0d6a0172eee3c4
+=======
+<!-- Written by QtCreator 3.5.1, 2015-10-25T14:31:39. -->
+>>>>>>> 1afed0ad550120dc8437643c0688f4f5385c2da7
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -247,6 +251,7 @@
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">AppleProject</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">AppleProject2</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/Minerva/cs3307/Apple/main/Project Code/AppleProject/AppleProject.pro</value>
@@ -263,6 +268,16 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.CustomExecutableRunConfiguration</value>
 >>>>>>> 8670f9b88ed87b2626d4b24bae0d6a0172eee3c4
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">AppleProject</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/Users/jwu/Documents/Coding/CS3307/GROUP_PROJECT/main/Project Code/AppleProject/AppleProject.pro</value>
+    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments"></value>
+    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">AppleProject.pro</value>
+    <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseDyldImageSuffix">false</value>
+    <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseTerminal">false</value>
+    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory"></value>
+>>>>>>> 1afed0ad550120dc8437643c0688f4f5385c2da7
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
