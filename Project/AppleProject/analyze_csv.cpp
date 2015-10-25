@@ -7,7 +7,6 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent) :
 {
     ui->setupUi(this);
     scene = new QGraphicsScene(this);   // Added for graphics window
-    ui->statusbar->close(); // Remove redundant bar
 
     // check height/width of graph area
     int height = ui->graph_area->geometry().height();
