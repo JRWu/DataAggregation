@@ -5,6 +5,8 @@
 #include <string>
 #include <iostream>
 #include <memory>
+#include <QFileDialog>  // For opening file windows
+#include <QMessageBox>  // For showing the file name after selection
 
 template <class DTOType> class CSVData
 {
