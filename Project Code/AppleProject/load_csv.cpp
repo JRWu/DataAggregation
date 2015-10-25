@@ -6,6 +6,8 @@ LoadCSV::LoadCSV(QWidget *parent) :
     ui(new Ui::LoadCSV)
 {
     ui->setupUi(this);
+    ui->verify_btn->setDisabled(true);
+    filename = "";
 
 }
 
@@ -18,7 +20,7 @@ void LoadCSV::on_verify_btn_clicked()
 {
     // add if statement for whether a file has been loaded or not
     //open the verify page within the existing window
-    verify_csv_page = new VerifyCSV();
+    verify_csv_page = new VerifyCSV(filename);
     this->setCentralWidget(verify_csv_page);
 
 }
@@ -35,10 +37,11 @@ void LoadCSV::on_publication_btn_clicked()
 {
     // This is what happens when user clicks the button for Publications
     std::cout << "Publication button registered." << "\n";
-    QString filename=QFileDialog::getOpenFileName(
+    filename=QFileDialog::getOpenFileName(
                 this,
                 tr("Open File"),        // Dialog for prompt
                 "C://",                 // Default folder to open
                 "CSV Files (*.csv)"     // File extension to filter for
                 );
+    ui->verify_btn->setDisabled(false);
 }

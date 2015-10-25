@@ -6,13 +6,13 @@
 #include "csvdataassembler.h"
 
 
-VerifyCSV::VerifyCSV(QWidget *parent) :
+VerifyCSV::VerifyCSV(QString filename, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::VerifyCSV)
 {
     ui->setupUi(this);
 
-    ui->error_table->setModel(PublicationTableModel());
+    ui->error_table->setModel(PublicationTableModel(filename));
 }
 
 VerifyCSV::~VerifyCSV()
@@ -27,13 +27,13 @@ void VerifyCSV::on_analyze_btn_clicked()
     this->setCentralWidget(analyze_csv_page);
 }
 
-QStandardItemModel* VerifyCSV::PublicationTableModel()
+QStandardItemModel* VerifyCSV::PublicationTableModel(QString filename)
 {
 
     shared_ptr<CSVData<PublicationDTO>> data = shared_ptr<CSVData<PublicationDTO>>(new CSVData<PublicationDTO>);
 
     /*REPLACE this file with filename from load page selector*/
-    bool success = AssembleData(data,"publication.csv");
+    bool success = AssembleData(data,filename.toStdString());
 
     if (success)
     {

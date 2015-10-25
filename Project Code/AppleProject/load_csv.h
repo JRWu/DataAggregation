@@ -28,6 +28,7 @@ private:
     Ui::LoadCSV *ui;
     VerifyCSV *verify_csv_page;
     AnalyzeCSV *analyze_csv_page;
+    QString filename;
 };
 
 #endif // LOAD_CSV_H
