@@ -27,7 +27,7 @@ private:
     Ui::VerifyCSV *ui;
     //VerifyCSV *verify_csv_page;
     AnalyzeCSV *analyze_csv_page;
-    QStandardItemModel* PublicationTableModel(QStandardItemModel* model);
+    QStandardItemModel* PublicationTableModel();
 };
 
 #endif // VERIFY_CSV_H
