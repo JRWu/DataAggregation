@@ -1,3 +1,4 @@
+#include "load_csv.h"
 #include "analyze_csv.h"
 #include "ui_analyze_csv.h"
 
@@ -74,10 +75,24 @@ AnalyzeCSV::~AnalyzeCSV()
     delete ui;
 }
 
+void AnalyzeCSV::on_load_btn_clicked()
+{
+    //open the verify page within the existing window
+    LoadCSV * load_csv_page = new LoadCSV();
+    this->setCentralWidget(load_csv_page);
+}
+
 void AnalyzeCSV::on_verify_btn_clicked()
 {
     // show alert, "Information has already been verified. Would you like to import new information?"
+    QMessageBox::StandardButton reload;
+    reload = QMessageBox::question(this, "Already Verified", "Information has already been verified. Would you like to import new information?", QMessageBox::Yes|QMessageBox::No);
+    if (reload == QMessageBox::Yes) {
+        LoadCSV * load_csv_page = new LoadCSV();
+        this->setCentralWidget(load_csv_page);
+    } else {
 
+    }
 }
 
 void AnalyzeCSV::AddRoot(QString field, QString total) {

@@ -20,7 +20,7 @@ public:
 
 private slots:
     //void on_verify_btn_clicked();
-
+    void on_load_btn_clicked();
     void on_analyze_btn_clicked();
 
 private:

@@ -30,7 +30,7 @@ public:
     ~AnalyzeCSV();
 
 private slots:
-    //void on_load_btn_clicked();
+    void on_load_btn_clicked();
 
     void on_verify_btn_clicked();
 
