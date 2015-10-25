@@ -29,7 +29,7 @@ void LoadCSV::on_analyze_btn_clicked()
 {
     // if no file has been loaded or verified yet, then don't allow
     //open the analyze page within the existing window
-    analyze_csv_page = new AnalyzeCSV();
+    analyze_csv_page = new AnalyzeCSV(filename);
     this->setCentralWidget(analyze_csv_page);
 }
 

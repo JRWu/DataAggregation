@@ -1,3 +1,4 @@
+#include "load_csv.h"
 #include "verify_csv.h"
 #include "ui_verify_csv.h"
 #include "publicationdto.h"
@@ -13,6 +14,7 @@ VerifyCSV::VerifyCSV(QString filename, QWidget *parent) :
     ui->setupUi(this);
 
     ui->error_table->setModel(PublicationTableModel(filename));
+    this->fname = filename;
 }
 
 VerifyCSV::~VerifyCSV()
@@ -20,10 +22,18 @@ VerifyCSV::~VerifyCSV()
     delete ui;
 }
 
+void VerifyCSV::on_load_btn_clicked()
+{
+    //open the verify page within the existing window
+    LoadCSV * load_csv_page = new LoadCSV();
+    this->setCentralWidget(load_csv_page);
+}
+
+
 void VerifyCSV::on_analyze_btn_clicked()
 {
     //open the analyze page within the existing window
-    analyze_csv_page = new AnalyzeCSV();
+    analyze_csv_page = new AnalyzeCSV(this->fname);
     this->setCentralWidget(analyze_csv_page);
 }
 

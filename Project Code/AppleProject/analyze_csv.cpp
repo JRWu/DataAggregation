@@ -1,7 +1,9 @@
+#include "load_csv.h"
+#include "verify_csv.h"
 #include "analyze_csv.h"
 #include "ui_analyze_csv.h"
 
-AnalyzeCSV::AnalyzeCSV(QWidget *parent) :
+AnalyzeCSV::AnalyzeCSV(QString filename, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::AnalyzeCSV)
 {
@@ -62,6 +64,8 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent) :
         AddChild(ui->pub_tree->topLevelItem(0), "Books", "4");
         AddChild(ui->pub_tree->topLevelItem(0), "Book Chapters", "20");
         AddChild(ui->pub_tree->topLevelItem(0), "Letters to Editor", "19");
+
+        this->fname = filename;
 }
 
 AnalyzeCSV::~AnalyzeCSV()
@@ -69,9 +73,19 @@ AnalyzeCSV::~AnalyzeCSV()
     delete ui;
 }
 
+void AnalyzeCSV::on_load_btn_clicked()
+{
+    //open the verify page within the existing window
+    LoadCSV * load_csv_page = new LoadCSV();
+    this->setCentralWidget(load_csv_page);
+}
+
+
 void AnalyzeCSV::on_verify_btn_clicked()
 {
     // show alert, "Information has already been verified. Would you like to import new information?"
+    VerifyCSV * verify_csv_page = new VerifyCSV(this->fname);
+    this->setCentralWidget(verify_csv_page);
 
 }
 
