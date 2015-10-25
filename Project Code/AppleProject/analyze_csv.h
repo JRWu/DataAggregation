@@ -1,6 +1,8 @@
 #ifndef ANALYZE_CSV_H
 #define ANALYZE_CSV_H
 
+#include "csvdata.h"
+#include "publicationdto.h"
 #include <QMainWindow>
 #include <qcustomplot.h>
 #include <QtCore>
@@ -24,7 +26,7 @@ void AddChild(QTreeWidgetItem *parent, QString field, QString total);
 void AddGrandChild(QTreeWidgetItem *parent, QString field, QString total);
 
 public:
-    explicit AnalyzeCSV(QWidget *parent = 0);
+    explicit AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> data, QWidget *parent = 0);
     ~AnalyzeCSV();
 
 private slots:

@@ -7,6 +7,7 @@ LoadCSV::LoadCSV(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->verify_btn->setDisabled(true);
+    ui->analyze_btn->setDisabled(true);
     filename = "";
 
 }
@@ -29,8 +30,11 @@ void LoadCSV::on_analyze_btn_clicked()
 {
     // if no file has been loaded or verified yet, then don't allow
     //open the analyze page within the existing window
+
+    /*Analyzecsv requires a data pointer now, user can't click from here
     analyze_csv_page = new AnalyzeCSV();
     this->setCentralWidget(analyze_csv_page);
+    */
 }
 
 void LoadCSV::on_publication_btn_clicked()

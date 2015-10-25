@@ -23,14 +23,14 @@ VerifyCSV::~VerifyCSV()
 void VerifyCSV::on_analyze_btn_clicked()
 {
     //open the analyze page within the existing window
-    analyze_csv_page = new AnalyzeCSV();
+    analyze_csv_page = new AnalyzeCSV(data);
     this->setCentralWidget(analyze_csv_page);
 }
 
 QStandardItemModel* VerifyCSV::PublicationTableModel(QString filename)
 {
 
-    shared_ptr<CSVData<PublicationDTO>> data = shared_ptr<CSVData<PublicationDTO>>(new CSVData<PublicationDTO>);
+    data = shared_ptr<CSVData<PublicationDTO>>(new CSVData<PublicationDTO>);
 
     /*REPLACE this file with filename from load page selector*/
     bool success = AssembleData(data,filename.toStdString());

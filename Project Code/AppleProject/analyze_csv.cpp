@@ -1,11 +1,16 @@
 #include "analyze_csv.h"
 #include "ui_analyze_csv.h"
 
-AnalyzeCSV::AnalyzeCSV(QWidget *parent) :
+AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::AnalyzeCSV)
 {
+    std::shared_ptr<CSVData<PublicationDTO>> data = _data;
     ui->setupUi(this);
+
+    //Just checking to see if data passed through
+    cout<<"Data: "<<_data->dtos->size();
+
     scene = new QGraphicsScene(this);   // Added for graphics window
 
     QCustomPlot *customPlot = new QCustomPlot();

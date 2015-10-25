@@ -28,6 +28,7 @@ private:
     //VerifyCSV *verify_csv_page;
     AnalyzeCSV *analyze_csv_page;
     QStandardItemModel* PublicationTableModel(QString filename);
+    shared_ptr<CSVData<PublicationDTO>> data;
 };
 
 #endif // VERIFY_CSV_H
