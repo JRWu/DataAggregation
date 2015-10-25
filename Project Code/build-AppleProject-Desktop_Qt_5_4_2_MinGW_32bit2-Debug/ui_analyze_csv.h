@@ -46,6 +46,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QLabel *date_filter_lbl;
     QComboBox *date_filter_combo;
+    QPushButton *filter_btn;
     QLabel *domain_lbl;
     QTreeWidget *pub_tree;
     QVBoxLayout *verticalLayout;
@@ -108,7 +109,7 @@ public:
         centralwidget->setMinimumSize(QSize(900, 600));
         horizontalLayoutWidget = new QWidget(centralwidget);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(10, 10, 781, 51));
+        horizontalLayoutWidget->setGeometry(QRect(10, 10, 781, 62));
         navigation_area = new QHBoxLayout(horizontalLayoutWidget);
         navigation_area->setObjectName(QStringLiteral("navigation_area"));
         navigation_area->setContentsMargins(0, 0, 0, 0);
@@ -198,7 +199,8 @@ public:
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         date_filter_lbl = new QLabel(horizontalLayoutWidget_2);
         date_filter_lbl->setObjectName(QStringLiteral("date_filter_lbl"));
-        date_filter_lbl->setMinimumSize(QSize(50, 0));
+        date_filter_lbl->setMinimumSize(QSize(75, 0));
+        date_filter_lbl->setMaximumSize(QSize(75, 16777215));
         QPalette palette4;
         palette4.setBrush(QPalette::Active, QPalette::WindowText, brush3);
         palette4.setBrush(QPalette::Inactive, QPalette::WindowText, brush3);
@@ -209,9 +211,17 @@ public:
 
         date_filter_combo = new QComboBox(horizontalLayoutWidget_2);
         date_filter_combo->setObjectName(QStringLiteral("date_filter_combo"));
-        date_filter_combo->setMinimumSize(QSize(300, 0));
+        date_filter_combo->setMinimumSize(QSize(100, 0));
 
         horizontalLayout->addWidget(date_filter_combo);
+
+        filter_btn = new QPushButton(horizontalLayoutWidget_2);
+        filter_btn->setObjectName(QStringLiteral("filter_btn"));
+        filter_btn->setMinimumSize(QSize(75, 0));
+        filter_btn->setMaximumSize(QSize(75, 16777215));
+        filter_btn->setFlat(false);
+
+        horizontalLayout->addWidget(filter_btn);
 
 
         verticalLayout_2->addLayout(horizontalLayout);
@@ -285,21 +295,21 @@ public:
         toolBox_6->addItem(page_21, QStringLiteral("Page 1"));
         page_22 = new QWidget();
         page_22->setObjectName(QStringLiteral("page_22"));
-        page_22->setGeometry(QRect(0, 0, 100, 30));
+        page_22->setGeometry(QRect(0, 0, 98, 28));
         plainTextEdit_22 = new QPlainTextEdit(page_22);
         plainTextEdit_22->setObjectName(QStringLiteral("plainTextEdit_22"));
         plainTextEdit_22->setGeometry(QRect(0, 0, 381, 341));
         toolBox_6->addItem(page_22, QStringLiteral("Page 2"));
         page_23 = new QWidget();
         page_23->setObjectName(QStringLiteral("page_23"));
-        page_23->setGeometry(QRect(0, 0, 100, 30));
+        page_23->setGeometry(QRect(0, 0, 98, 28));
         plainTextEdit_23 = new QPlainTextEdit(page_23);
         plainTextEdit_23->setObjectName(QStringLiteral("plainTextEdit_23"));
         plainTextEdit_23->setGeometry(QRect(0, 0, 381, 341));
         toolBox_6->addItem(page_23, QStringLiteral("Page 3"));
         page_24 = new QWidget();
         page_24->setObjectName(QStringLiteral("page_24"));
-        page_24->setGeometry(QRect(0, 0, 100, 30));
+        page_24->setGeometry(QRect(0, 0, 98, 28));
         plainTextEdit_24 = new QPlainTextEdit(page_24);
         plainTextEdit_24->setObjectName(QStringLiteral("plainTextEdit_24"));
         plainTextEdit_24->setGeometry(QRect(0, 0, 381, 341));
@@ -354,21 +364,21 @@ public:
         toolBox_7->addItem(page_25, QStringLiteral("Page 1"));
         page_26 = new QWidget();
         page_26->setObjectName(QStringLiteral("page_26"));
-        page_26->setGeometry(QRect(0, 0, 100, 30));
+        page_26->setGeometry(QRect(0, 0, 98, 28));
         plainTextEdit_26 = new QPlainTextEdit(page_26);
         plainTextEdit_26->setObjectName(QStringLiteral("plainTextEdit_26"));
         plainTextEdit_26->setGeometry(QRect(0, 0, 381, 341));
         toolBox_7->addItem(page_26, QStringLiteral("Page 2"));
         page_27 = new QWidget();
         page_27->setObjectName(QStringLiteral("page_27"));
-        page_27->setGeometry(QRect(0, 0, 100, 30));
+        page_27->setGeometry(QRect(0, 0, 98, 28));
         plainTextEdit_27 = new QPlainTextEdit(page_27);
         plainTextEdit_27->setObjectName(QStringLiteral("plainTextEdit_27"));
         plainTextEdit_27->setGeometry(QRect(0, 0, 381, 341));
         toolBox_7->addItem(page_27, QStringLiteral("Page 3"));
         page_28 = new QWidget();
         page_28->setObjectName(QStringLiteral("page_28"));
-        page_28->setGeometry(QRect(0, 0, 100, 30));
+        page_28->setGeometry(QRect(0, 0, 98, 28));
         plainTextEdit_28 = new QPlainTextEdit(page_28);
         plainTextEdit_28->setObjectName(QStringLiteral("plainTextEdit_28"));
         plainTextEdit_28->setGeometry(QRect(0, 0, 381, 341));
@@ -423,21 +433,21 @@ public:
         toolBox_8->addItem(page_29, QStringLiteral("Page 1"));
         page_30 = new QWidget();
         page_30->setObjectName(QStringLiteral("page_30"));
-        page_30->setGeometry(QRect(0, 0, 100, 30));
+        page_30->setGeometry(QRect(0, 0, 98, 28));
         plainTextEdit_30 = new QPlainTextEdit(page_30);
         plainTextEdit_30->setObjectName(QStringLiteral("plainTextEdit_30"));
         plainTextEdit_30->setGeometry(QRect(0, 0, 381, 341));
         toolBox_8->addItem(page_30, QStringLiteral("Page 2"));
         page_31 = new QWidget();
         page_31->setObjectName(QStringLiteral("page_31"));
-        page_31->setGeometry(QRect(0, 0, 100, 30));
+        page_31->setGeometry(QRect(0, 0, 98, 28));
         plainTextEdit_31 = new QPlainTextEdit(page_31);
         plainTextEdit_31->setObjectName(QStringLiteral("plainTextEdit_31"));
         plainTextEdit_31->setGeometry(QRect(0, 0, 381, 341));
         toolBox_8->addItem(page_31, QStringLiteral("Page 3"));
         page_32 = new QWidget();
         page_32->setObjectName(QStringLiteral("page_32"));
-        page_32->setGeometry(QRect(0, 0, 100, 30));
+        page_32->setGeometry(QRect(0, 0, 98, 28));
         plainTextEdit_32 = new QPlainTextEdit(page_32);
         plainTextEdit_32->setObjectName(QStringLiteral("plainTextEdit_32"));
         plainTextEdit_32->setGeometry(QRect(0, 0, 381, 341));
@@ -482,6 +492,7 @@ public:
         verify_btn->setText(QApplication::translate("AnalyzeCSV", "VERIFY >", 0));
         analyze_btn->setText(QApplication::translate("AnalyzeCSV", "ANALYZE >", 0));
         date_filter_lbl->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
+        filter_btn->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
         domain_lbl->setText(QApplication::translate("AnalyzeCSV", "Department of Medecine - Summary", 0));
         graph_combo->clear();
         graph_combo->insertItems(0, QStringList()

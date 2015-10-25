@@ -48,6 +48,8 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent) :
 
     /// DOMAIN LABEL SET ///
 
+        // need to implement setting this from the dto
+
         QString domain = "Department of Medecine - Summary";
         ui->domain_lbl->setText(domain);
 
@@ -62,6 +64,7 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent) :
         //for demonstration purposes only
         ui->date_filter_combo->addItem("2015");
         ui->date_filter_combo->addItem("2014");
+
 
     /// LIST TREE VIEW ///
 
