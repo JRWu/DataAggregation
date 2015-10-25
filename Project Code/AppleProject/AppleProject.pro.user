@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
+<<<<<<< HEAD
 <!-- Written by QtCreator 3.5.1, 2015-10-25T14:40:48. -->
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<!-- Written by QtCreator 3.5.1, 2015-10-25T14:30:50. -->
+=======
+<!-- Written by QtCreator 3.5.1, 2015-10-25T14:20:40. -->
+>>>>>>> 8670f9b88ed87b2626d4b24bae0d6a0172eee3c4
+=======
+<!-- Written by QtCreator 3.5.1, 2015-10-25T14:31:39. -->
+>>>>>>> 1afed0ad550120dc8437643c0688f4f5385c2da7
+>>>>>>> f84d0ed9c9e51751991b5b3821ad37bb96c30329
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -65,7 +77,15 @@
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
    <valuemap type="QVariantMap" key="ProjectExplorer.Target.BuildConfiguration.0">
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:/Users/Minerva/cs3307/Apple/main/Project/build-AppleProject-Desktop_Qt_5_4_2_MinGW_32bit2-Debug</value>
+=======
+<<<<<<< HEAD
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:/Users/Minerva/cs3307/Apple/main/Project Code/build-AppleProject-Desktop_Qt_5_4_2_MinGW_32bit2-Debug</value>
+=======
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">/Users/jwu/Documents/Coding/CS3307/GROUP_PROJECT/main/Project Code/build-AppleProject-Desktop_Qt_5_5_1_clang_64bit-Debug</value>
+>>>>>>> 8670f9b88ed87b2626d4b24bae0d6a0172eee3c4
+>>>>>>> f84d0ed9c9e51751991b5b3821ad37bb96c30329
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -226,14 +246,43 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">AppleProject</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:D:/Documents/QTProjects/cs3307_main/main/Project/AppleProject/AppleProject.pro</value>
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">AppleProject</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">AppleProject2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/Users/Minerva/cs3307/Apple/main/Project Code/AppleProject/AppleProject.pro</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments"></value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">AppleProject.pro</value>
     <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseDyldImageSuffix">false</value>
     <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseTerminal">false</value>
     <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory"></value>
+=======
+    <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.Arguments"></value>
+    <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.Executable"></value>
+    <value type="QString" key="ProjectExplorer.CustomExecutableRunConfiguration.WorkingDirectory">%{buildDir}</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">Custom Executable</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.CustomExecutableRunConfiguration</value>
+>>>>>>> 8670f9b88ed87b2626d4b24bae0d6a0172eee3c4
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">AppleProject</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/Users/jwu/Documents/Coding/CS3307/GROUP_PROJECT/main/Project Code/AppleProject/AppleProject.pro</value>
+>>>>>>> f84d0ed9c9e51751991b5b3821ad37bb96c30329
+    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.CommandLineArguments"></value>
+    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.ProFile">AppleProject.pro</value>
+    <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseDyldImageSuffix">false</value>
+    <value type="bool" key="Qt4ProjectManager.Qt4RunConfiguration.UseTerminal">false</value>
+    <value type="QString" key="Qt4ProjectManager.Qt4RunConfiguration.UserWorkingDirectory"></value>
+<<<<<<< HEAD
+=======
+>>>>>>> 1afed0ad550120dc8437643c0688f4f5385c2da7
+>>>>>>> f84d0ed9c9e51751991b5b3821ad37bb96c30329
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
