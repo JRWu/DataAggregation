@@ -22,7 +22,9 @@ SOURCES += main.cpp\
     csvdata.cpp \
     csvdataassembler.cpp \
     qcustomplot.cpp \
-    validatedto.cpp
+    validatedto.cpp \
+    dtoassembler.cpp \
+    publicationdtolist.cpp
 
 HEADERS  += mainwindow.h \
     load_csv.h \
@@ -33,7 +35,9 @@ HEADERS  += mainwindow.h \
     csvdata.h \
     csvdataassembler.h \
     qcustomplot.h \
-    validatedto.h
+    validatedto.h \
+    dtoassembler.h \
+    publicationdtolist.h
     QT += printsupport
 
 FORMS    += mainwindow.ui \

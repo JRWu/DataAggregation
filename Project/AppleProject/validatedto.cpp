@@ -1,6 +1,28 @@
 #include "validatedto.h"
-#include <iostream>
+
 using namespace std;
+
+//http://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring
+void trimLeft(string *s){
+    size_t startpos = s->find_first_not_of(" \t");
+    if( string::npos != startpos )
+    {
+        *s = s->substr( startpos );
+    }
+}
+
+void trimRight(string *s){
+    size_t endpos = s->find_last_not_of(" \t");
+    if( string::npos != endpos )
+    {
+        *s = s->substr( 0, endpos+1 );
+    }
+}
+
+void trimString(string *s){
+    trimRight(s);
+    trimLeft(s);
+}
 
 bool validateString(string s){
     if(s.length() == 0) return false;
@@ -11,6 +33,8 @@ bool validateString(string s){
         return(found != 0);
     }
 }
+
+//end borrowed functions
 
 bool isLeapYear(int y){
     if((y%4) == 0){
@@ -26,7 +50,6 @@ bool isLeapYear(int y){
 }
 
 bool makeDate(string *s){
-    cout << *s << endl;
     if(s->length() == 0) return false;
 
     vector<string> elm;
@@ -65,12 +88,58 @@ bool makeDate(string *s){
     }
 
     *s = to_string(ielm.back());
-    cout << *s << endl;
     return true;
 }
 
 bool validateDate(string *s){
     return makeDate(s);
+}
+
+bool validateAuthorName(string s){
+    string alpha = u8"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                   "ùûüÿàâæçéèêëïîôœÙÛÜŸÀÂÆÇÉÈÊËÏÎÔŒ";
+    for(int j = 0; j < (int)s.length(); j++){
+        if(alpha.find(s[j]) == string::npos){
+            if((s[j] != '-')||(s[j] == ' ')){
+                if(((j+1)==(int)s.length())||
+                        (alpha.find(s[j+1]) == string::npos)){
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+bool makeAuthors(string *str){
+    //return true;
+    string s = *str;
+    if(s.length() == 0) return false;
+    if(s.back() == '.') s = s.substr(0, s.length() - 1);
+
+    vector<string> elm;
+    stringstream ss(s);
+    string item;
+
+    //Split around ,
+    while(getline(ss, item, ',')) elm.push_back(item);
+    for(int i = 0; i < (int)elm.size(); i++){
+        //Make sure no comma deliniated entry is whitespace
+        trimString(&elm[i]);
+        if(elm[i].length() == 0) return false;
+        if(!validateAuthorName(elm[i])) return false;
+    }
+
+    *str = "";
+    for(int i = 0; i < (int)elm.size(); i++){
+        *str = *str + elm[i];
+    }
+
+    return true;
+}
+
+bool validateAuthors(string *s){
+    return makeAuthors(s);
 }
 
 /* Checks the 9 mandatory fields for a publication DTO.
@@ -80,11 +149,15 @@ bool validateDate(string *s){
 int validatePublication(std::vector<string> *fields){
     int result = 0;
 
+    if(!validateAuthors(&(*fields)[8])) result+=1;
+    result <<= 1;
+
     //Check the 9 mandatory fields
-    for(int i = 8; i > 0; i--){
+    for(int i = 7; i > 0; i--){
         if(!validateString((*fields)[i])) result+=1;
-        result <<= 2;
+        result <<= 1;
     }
+
     if(!validateDate(&(*fields)[0])) result+=1;
     return result;
 }
