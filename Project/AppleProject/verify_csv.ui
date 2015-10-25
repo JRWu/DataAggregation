@@ -2,6 +2,14 @@
 <ui version="4.0">
  <class>VerifyCSV</class>
  <widget class="QMainWindow" name="VerifyCSV">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
   <property name="minimumSize">
    <size>
     <width>800</width>
@@ -432,7 +440,7 @@
   <widget class="QWidget" name="centralwidget">
    <property name="minimumSize">
     <size>
-     <width>900</width>
+     <width>800</width>
      <height>600</height>
     </size>
    </property>
@@ -440,9 +448,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>0</y>
+      <y>10</y>
       <width>781</width>
-      <height>80</height>
+      <height>51</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="navigation_area">
@@ -638,9 +646,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>520</y>
+      <y>540</y>
       <width>781</width>
-      <height>61</height>
+      <height>51</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
@@ -777,9 +785,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>90</y>
+      <y>70</y>
       <width>781</width>
-      <height>421</height>
+      <height>461</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="table_area">

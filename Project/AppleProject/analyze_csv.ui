@@ -30,9 +30,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>0</y>
+      <y>10</y>
       <width>781</width>
-      <height>80</height>
+      <height>51</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="navigation_area">
@@ -207,9 +207,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>90</y>
+      <y>70</y>
       <width>781</width>
-      <height>501</height>
+      <height>521</height>
      </rect>
     </property>
     <property name="font">
@@ -230,7 +230,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="pub_tab">
      <property name="palette">
@@ -363,8 +363,8 @@ Hey</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>367</width>
+            <height>363</height>
            </rect>
           </property>
           <attribute name="label">
@@ -391,8 +391,8 @@ Hey</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>367</width>
+            <height>363</height>
            </rect>
           </property>
           <attribute name="label">
@@ -419,8 +419,8 @@ Hey</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>367</width>
+            <height>363</height>
            </rect>
           </property>
           <attribute name="label">
@@ -542,6 +542,9 @@ Hey</string>
        </disabled>
       </palette>
      </property>
+     <property name="autoFillBackground">
+      <bool>true</bool>
+     </property>
      <attribute name="title">
       <string>GRANTS</string>
      </attribute>
@@ -605,8 +608,8 @@ Hey</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <attribute name="label">
@@ -633,8 +636,8 @@ Hey</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <attribute name="label">
@@ -661,8 +664,8 @@ Hey</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <attribute name="label">
@@ -850,8 +853,8 @@ Hey</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <attribute name="label">
@@ -878,8 +881,8 @@ Hey</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <attribute name="label">
@@ -906,8 +909,8 @@ Hey</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <attribute name="label">
@@ -1095,8 +1098,8 @@ Hey</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <attribute name="label">
@@ -1123,8 +1126,8 @@ Hey</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <attribute name="label">
@@ -1151,8 +1154,8 @@ Hey</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>98</width>
-            <height>28</height>
+            <width>100</width>
+            <height>30</height>
            </rect>
           </property>
           <attribute name="label">
