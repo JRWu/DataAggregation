@@ -24,11 +24,11 @@ void AddChild(QTreeWidgetItem *parent, QString field, QString total);
 void AddGrandChild(QTreeWidgetItem *parent, QString field, QString total);
 
 public:
-    explicit AnalyzeCSV(QString filename, QWidget *parent = 0);
+    explicit AnalyzeCSV(QWidget *parent = 0);
     ~AnalyzeCSV();
 
 private slots:
-    void on_load_btn_clicked();
+    //void on_load_btn_clicked();
 
     void on_verify_btn_clicked();
 
@@ -37,7 +37,6 @@ private:
     Ui::AnalyzeCSV *ui;
     QGraphicsScene * scene; // Added to display the graph through the graph area
     QCustomPlot *customPlot;
-    QString fname;
 };
 
 #endif // ANALYZE_CSV_H

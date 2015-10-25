@@ -20,7 +20,7 @@ public:
 
 private slots:
     //void on_verify_btn_clicked();
-    void on_load_btn_clicked();
+
     void on_analyze_btn_clicked();
 
 private:
@@ -28,7 +28,6 @@ private:
     //VerifyCSV *verify_csv_page;
     AnalyzeCSV *analyze_csv_page;
     QStandardItemModel* PublicationTableModel(QString filename);
-    QString fname;
 };
 
 #endif // VERIFY_CSV_H
