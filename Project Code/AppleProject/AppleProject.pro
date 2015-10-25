@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     validatedto.cpp \
     dtoassembler.cpp \
     publicationdtolist.cpp \
-    tree_list_vo.cpp
+    tree_list_vo.cpp \
+    graphvisualizations.cpp
 
 HEADERS  += mainwindow.h \
     load_csv.h \
@@ -39,7 +40,8 @@ HEADERS  += mainwindow.h \
     validatedto.h \
     dtoassembler.h \
     publicationdtolist.h \
-    tree_list_vo.h
+    tree_list_vo.h \
+    graphvisualizations.h
     QT += printsupport
 
 FORMS    += mainwindow.ui \
