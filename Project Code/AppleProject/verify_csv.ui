@@ -656,20 +656,20 @@
       <widget class="QLabel" name="file_name_label">
        <property name="minimumSize">
         <size>
-         <width>110</width>
+         <width>90</width>
          <height>40</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>110</width>
+         <width>90</width>
          <height>40</height>
         </size>
        </property>
        <property name="font">
         <font>
          <family>Arial Black</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -708,14 +708,14 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>200</width>
+         <width>100</width>
          <height>40</height>
         </size>
        </property>
        <property name="font">
         <font>
          <family>Arial Black</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -735,14 +735,14 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>200</width>
+         <width>100</width>
          <height>40</height>
         </size>
        </property>
        <property name="font">
         <font>
          <family>Arial Black</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
@@ -756,20 +756,20 @@
       <widget class="QPushButton" name="confirm_btn">
        <property name="minimumSize">
         <size>
-         <width>100</width>
+         <width>150</width>
          <height>40</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>200</width>
+         <width>150</width>
          <height>40</height>
         </size>
        </property>
        <property name="font">
         <font>
          <family>Arial Black</family>
-         <pointsize>12</pointsize>
+         <pointsize>10</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>

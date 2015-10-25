@@ -15,6 +15,8 @@ VerifyCSV::VerifyCSV(QString filename, QWidget *parent) :
 
     ui->error_table->setModel(PublicationTableModel(filename));
     select = ui->error_table->selectionModel();
+
+    ui->file_name->setText(filename);
 }
 
 VerifyCSV::~VerifyCSV()

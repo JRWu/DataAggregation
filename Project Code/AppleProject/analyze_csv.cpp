@@ -39,8 +39,8 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
         //for demonstration purposes only
     std::vector<QString> *dates;
 
-//    for (int i=0; i < _data->dtos->size(); i++) {
-
+//    for (int i=0; i < data->dtos->size(); i++) {
+//        if ()
 //    }
         ui->end_date1->addItem("2015");
         ui->start_date1->addItem("2014");
