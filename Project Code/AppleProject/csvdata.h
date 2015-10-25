@@ -7,6 +7,8 @@
 #include <memory>
 #include <QFileDialog>  // For opening file windows
 #include <QMessageBox>  // For showing the file name after selection
+#include "validatedto.h"
+#include "dtoassembler.h"
 
 template <class DTOType> class CSVData
 {
@@ -20,6 +22,7 @@ public:
     ~CSVData();
     void addError(std::vector<std::string>);
     void addDTO(DTOType dto);
+    void validateErrors();
 };
 
 template <class DTOType> CSVData<DTOType>::CSVData(){
@@ -42,4 +45,15 @@ void CSVData<DTOType>::addDTO(DTOType dto){
     dtos->push_back(dto);
 }
 
+
+template <class DTOType>
+void CSVData<DTOType>::validateErrors(){
+    for(int i = errorRows->size(); i >= 0; i--){
+        if(validatePublication(&(errorRows->at(i))) != 0){
+            DTOType dto = new DTOType();
+            assembleDTO(&dto, errorRows->at(i));
+            errorRows->erase(errorRows->begin() + i);
+        }
+    }
+}
 #endif // CSVDATA_H
