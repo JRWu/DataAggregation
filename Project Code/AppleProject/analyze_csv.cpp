@@ -26,10 +26,7 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
 
     /// DOMAIN LABEL SET ///
 
-        // need to implement setting this from the dto
-
-        QString domain = "Department of Medecine - Summary";
-        ui->domain_lbl->setText(domain);
+    ui->domain_lbl1->setText(QString::fromStdString(data->dtos->at(0).domain));
 
     /// DATE FILTER COMBO BOX ///
 
@@ -40,6 +37,11 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
          */
 
         //for demonstration purposes only
+    std::vector<QString> *dates;
+
+//    for (int i=0; i < _data->dtos->size(); i++) {
+
+//    }
         ui->end_date1->addItem("2015");
         ui->start_date1->addItem("2014");
 

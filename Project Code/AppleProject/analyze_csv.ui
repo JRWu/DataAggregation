@@ -411,7 +411,7 @@
           </layout>
          </item>
          <item>
-          <widget class="QLabel" name="domain_lbl">
+          <widget class="QLabel" name="domain_lbl1">
            <property name="palette">
             <palette>
              <active>

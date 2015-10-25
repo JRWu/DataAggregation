@@ -46,7 +46,7 @@ public:
     QComboBox *start_date1;
     QComboBox *end_date1;
     QPushButton *filter_btn;
-    QLabel *domain_lbl;
+    QLabel *domain_lbl1;
     QTreeWidget *pub_tree;
     QVBoxLayout *verticalLayout;
     QComboBox *graph_combo;
@@ -224,16 +224,16 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout);
 
-        domain_lbl = new QLabel(horizontalLayoutWidget_2);
-        domain_lbl->setObjectName(QStringLiteral("domain_lbl"));
+        domain_lbl1 = new QLabel(horizontalLayoutWidget_2);
+        domain_lbl1->setObjectName(QStringLiteral("domain_lbl1"));
         QPalette palette5;
         palette5.setBrush(QPalette::Active, QPalette::WindowText, brush4);
         palette5.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
         palette5.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
-        domain_lbl->setPalette(palette5);
-        domain_lbl->setAlignment(Qt::AlignCenter);
+        domain_lbl1->setPalette(palette5);
+        domain_lbl1->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_2->addWidget(domain_lbl);
+        verticalLayout_2->addWidget(domain_lbl1);
 
         pub_tree = new QTreeWidget(horizontalLayoutWidget_2);
         QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem();
@@ -539,7 +539,7 @@ public:
         analyze_btn->setText(QApplication::translate("AnalyzeCSV", "ANALYZE >", 0));
         date_filter_lbl->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
         filter_btn->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
-        domain_lbl->setText(QApplication::translate("AnalyzeCSV", "Department of Medecine - Summary", 0));
+        domain_lbl1->setText(QApplication::translate("AnalyzeCSV", "Department of Medecine - Summary", 0));
         graph_combo->clear();
         graph_combo->insertItems(0, QStringList()
          << QApplication::translate("AnalyzeCSV", "Graph 1", 0)
