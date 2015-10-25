@@ -19,8 +19,4 @@ Team Members:
 * Eric Bachmeier (ebachme@uwo.ca)
 * Jaisen Bynoe
 
-Color Scheme Used For Program:
-Red -> #E70000
-Yellow -> #FFD500
-Green -> #00AA00
-Grey -> #DDDDDD
+
