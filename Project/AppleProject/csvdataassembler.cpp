@@ -18,6 +18,9 @@ bool AssembleData(shared_ptr<CSVData<PublicationDTO>> data, string fileName)
                        };
     int nMan = 9;
 
+    for(int i = 0; i < 27; i++) data->header->push_back(h[i]);
+    data->nMan = 9;
+
     io::CSVReader<27, io::trim_chars<' ','\t'>, io::double_quote_escape<',','\"'>, io::empty_line_comment >
             in(fileName);
 
