@@ -23,12 +23,17 @@ private slots:
     void on_load_btn_clicked();
     void on_analyze_btn_clicked();
 
+    void on_ignoreall_btn_clicked();
+
+    void on_ignore_btn_clicked();
+
 private:
     Ui::VerifyCSV *ui;
     //VerifyCSV *verify_csv_page;
     AnalyzeCSV *analyze_csv_page;
     QStandardItemModel* PublicationTableModel(QString filename);
     shared_ptr<CSVData<PublicationDTO>> data;
+    QItemSelectionModel *select;
 };
 
 #endif // VERIFY_CSV_H

@@ -14,6 +14,7 @@ VerifyCSV::VerifyCSV(QString filename, QWidget *parent) :
     ui->setupUi(this);
 
     ui->error_table->setModel(PublicationTableModel(filename));
+    select = ui->error_table->selectionModel();
 }
 
 VerifyCSV::~VerifyCSV()
@@ -33,6 +34,32 @@ void VerifyCSV::on_analyze_btn_clicked()
     //open the analyze page within the existing window
     analyze_csv_page = new AnalyzeCSV(data);
     this->setCentralWidget(analyze_csv_page);
+}
+
+void VerifyCSV::on_ignoreall_btn_clicked()
+{
+    int size = data->errorRows->size();
+    for(int i=0; i< size; i++)
+    {
+        ui->error_table->hideRow(i);
+        data->errorRows->erase(data->errorRows->begin() + i);
+    }
+
+}
+
+
+void VerifyCSV::on_ignore_btn_clicked()
+{
+    QModelIndexList selection = ui->error_table->selectionModel()->selectedRows();
+
+    // Multiple rows can be selected
+    for(int i=0; i< selection.count(); i++)
+    {
+        QModelIndex index = selection.at(i);
+        ui->error_table->hideRow(index.row());
+        data->errorRows->erase(data->errorRows->begin() + index.row());
+
+    }
 }
 
 QStandardItemModel* VerifyCSV::PublicationTableModel(QString filename)
@@ -67,4 +94,3 @@ QStandardItemModel* VerifyCSV::PublicationTableModel(QString filename)
     }
     return NULL;
 }
-
