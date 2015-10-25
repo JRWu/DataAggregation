@@ -16,13 +16,16 @@ LoadCSV::~LoadCSV()
 
 void LoadCSV::on_verify_btn_clicked()
 {
+    // add if statement for whether a file has been loaded or not
     //open the verify page within the existing window
     verify_csv_page = new VerifyCSV();
     this->setCentralWidget(verify_csv_page);
+
 }
 
 void LoadCSV::on_analyze_btn_clicked()
 {
+    // if no file has been loaded or verified yet, then don't allow
     //open the analyze page within the existing window
     analyze_csv_page = new AnalyzeCSV();
     this->setCentralWidget(analyze_csv_page);
@@ -38,13 +41,4 @@ void LoadCSV::on_publication_btn_clicked()
                 "C://",                 // Default folder to open
                 "CSV Files (*.csv)"     // File extension to filter for
                 );
-
-
-    //vvv Comment out this if don't want popup vvv
-    QMessageBox::information(
-                this,
-                tr("File Name: "),
-                filename
-                );
-    //^^^ Comment out this if don't want popup ^^^
 }

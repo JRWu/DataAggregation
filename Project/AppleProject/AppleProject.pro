@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     qcustomplot.cpp \
     validatedto.cpp \
     dtoassembler.cpp \
-    publicationdtolist.cpp
+    publicationdtolist.cpp \
+    tree_list_vo.cpp
 
 HEADERS  += mainwindow.h \
     load_csv.h \
@@ -37,7 +38,8 @@ HEADERS  += mainwindow.h \
     qcustomplot.h \
     validatedto.h \
     dtoassembler.h \
-    publicationdtolist.h
+    publicationdtolist.h \
+    tree_list_vo.h
     QT += printsupport
 
 FORMS    += mainwindow.ui \

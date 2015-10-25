@@ -46,9 +46,25 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent) :
     std::cout <<"swidth: "<< width << "\n";
     // Confirm box height
 
-    // list tree
-    ui->treeWidget->setColumnCount(2);
-    ui->treeWidget->setHeaderLabels(QStringList() << "Field" << "Total");
+    /// DOMAIN LABEL SET ///
+    QString domain = "Department of Medecine - Summary";
+    ui->domain_lbl->setText(domain);
+
+    /// DATE FILTER COMBO BOX ///
+
+    /* algorithm for adding implementing this
+     * loop through the dtolist and if there is a unique year,
+     * then add it to the combo list
+     * perform a sort on the list
+     */
+
+    //for demonstration purposes only
+    ui->date_filter_combo->addItem("2015");
+    ui->date_filter_combo->addItem("2014");
+
+    /// LIST TREE VIEW ///
+    ui->pub_tree->setColumnCount(2);
+    ui->pub_tree->setHeaderLabels(QStringList() << "Field" << "Total");
 
     AddRoot("Publications", "275");
 
@@ -58,17 +74,19 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent) :
      * then loop through the list of types, and for each one add all the children to the list
      */
 
+
+
     // for demonstration purposes, here is a tree vie example
-    AddChild(ui->treeWidget->topLevelItem(0), "Journal Articles", "82");
+    AddChild(ui->pub_tree->topLevelItem(0), "Journal Articles", "82");
 
-    AddGrandChild(ui->treeWidget->itemBelow(ui->treeWidget->topLevelItem(0)), "Jean-Luc Picard", "30");
-    AddGrandChild(ui->treeWidget->itemBelow(ui->treeWidget->topLevelItem(0)), "James T. Kirk", "15");
-    AddGrandChild(ui->treeWidget->itemBelow(ui->treeWidget->topLevelItem(0)), "Kathryn Janeway", "25");
-    AddGrandChild(ui->treeWidget->itemBelow(ui->treeWidget->topLevelItem(0)), "Benjamin Lafayette Sisko", "12");
+    AddGrandChild(ui->pub_tree->itemBelow(ui->pub_tree->topLevelItem(0)), "Jean-Luc Picard", "30");
+    AddGrandChild(ui->pub_tree->itemBelow(ui->pub_tree->topLevelItem(0)), "James T. Kirk", "15");
+    AddGrandChild(ui->pub_tree->itemBelow(ui->pub_tree->topLevelItem(0)), "Kathryn Janeway", "25");
+    AddGrandChild(ui->pub_tree->itemBelow(ui->pub_tree->topLevelItem(0)), "Benjamin Lafayette Sisko", "12");
 
-    AddChild(ui->treeWidget->topLevelItem(0), "Books", "4");
-    AddChild(ui->treeWidget->topLevelItem(0), "Book Chapters", "20");
-    AddChild(ui->treeWidget->topLevelItem(0), "Letters to Editor", "19");
+    AddChild(ui->pub_tree->topLevelItem(0), "Books", "4");
+    AddChild(ui->pub_tree->topLevelItem(0), "Book Chapters", "20");
+    AddChild(ui->pub_tree->topLevelItem(0), "Letters to Editor", "19");
 }
 
 AnalyzeCSV::~AnalyzeCSV()
@@ -83,12 +101,12 @@ void AnalyzeCSV::on_verify_btn_clicked()
 }
 
 void AnalyzeCSV::AddRoot(QString field, QString total) {
-    QTreeWidgetItem *root = new QTreeWidgetItem(ui->treeWidget);
+    QTreeWidgetItem *root = new QTreeWidgetItem(ui->pub_tree);
     root->setText(0, field);
     root->setText(1, total);
     root->setExpanded(true);
 
-    ui->treeWidget->addTopLevelItem(root);
+    ui->pub_tree->addTopLevelItem(root);
 }
 
 void AnalyzeCSV::AddChild(QTreeWidgetItem *parent, QString field, QString total) {
