@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     validatedto.cpp \
     dtoassembler.cpp \
     tree_list_vo.cpp \
-    graphvisualizations.cpp
+    graphvisualizations.cpp \
+    pub_bargraph1_vo.cpp
 
 HEADERS  += mainwindow.h \
     load_csv.h \
@@ -39,7 +40,8 @@ HEADERS  += mainwindow.h \
     validatedto.h \
     dtoassembler.h \
     tree_list_vo.h \
-    graphvisualizations.h
+    graphvisualizations.h \
+    pub_bargraph1_vo.h
     QT += printsupport
 
 FORMS    += mainwindow.ui \
@@ -50,3 +52,4 @@ FORMS    += mainwindow.ui \
 DISTFILES += \
     AppleProject.pro.user \
     publication.csv
+

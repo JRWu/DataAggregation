@@ -50,7 +50,7 @@ template <class DTOType>
 void CSVData<DTOType>::validateErrors(){
     for(int i = errorRows->size(); i >= 0; i--){
         if(validatePublication(&(errorRows->at(i))) != 0){
-            DTOType dto = new DTOType();
+            DTOType dto;
             assembleDTO(&dto, errorRows->at(i));
             errorRows->erase(errorRows->begin() + i);
         }
