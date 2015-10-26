@@ -28,6 +28,11 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     ui->domain_lbl1->setText(QString::fromStdString(data->dtos->at(0).domain));
 
     /// DATE FILTER COMBO BOX ///
+    QStringList date_strs = PopulateDateCombos(data);
+
+    // set the dates list to the combo boxes
+    ui->start_date1->addItems(date_strs);
+    ui->end_date1->addItems(date_strs);
 
     tree_list_vo *p_tree = new tree_list_vo(_data);
     cout << "***made new tree***\n";
