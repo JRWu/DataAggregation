@@ -20,7 +20,7 @@
 * Emily Yip
 * Robert Canton
 * Angus Poole
-* Eric Bachmeier (ebachme@uwo.ca)
+* Eric Bachmeier (ebachme@uwo.ca) has contributed to the team as of the Demo 1 deadline by being the team liaison by keeping in contact with the customer / teaching assistant to get the latest project specifications. This involved getting any of my team’s questions answered promptly. In the first stages of development I worked on the backend design and workflow of our program. I worked on parts of the user interface including the publications list, page organization, and tab view in Qt Creator. 
 * Jaisen Bynoe
 
 ## Project Description
@@ -35,4 +35,4 @@ For the development of this application we used Qt Creator for our cross-platfor
 
 We used Git for version control and hosted the project on GitHub.
 
-*Build Automation here*
+The build automation for this project is done through Qt as well.
