@@ -2,12 +2,14 @@
 #include "analyze_csv.h"
 #include "ui_analyze_csv.h"
 
-QStringList date_strs;
+std::shared_ptr<CSVData<PublicationDTO>> datanew;
 
 AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::AnalyzeCSV)
 {
+    datanew = _data;
+
     std::shared_ptr<CSVData<PublicationDTO>> data = _data;
     ui->setupUi(this);
 
@@ -15,7 +17,7 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     ui->domain_lbl1->setText(QString::fromStdString(data->dtos->at(0).domain));
 
     /// DATE FILTER COMBO BOX ///
-    date_strs = PopulateDateCombos(data);
+    QStringList date_strs = PopulateDateCombos(data);
 
     // set the dates list to the combo boxes
     ui->start_date1->addItems(date_strs);
@@ -166,37 +168,36 @@ QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<PublicationDT
 void AnalyzeCSV::on_filter_btn_clicked()
 {
 
+    std::shared_ptr<CSVData<PublicationDTO>> _data = datanew;
+
    // get the user selection from the QComboBox
     unsigned long s = ui->start_date1->itemData(ui->start_date1->currentIndex()).toInt();
     unsigned long e = ui->end_date1->itemData(ui->end_date1->currentIndex()).toInt();
 
-    // Ensure the retrieved years are in the accepted range in date_str
-    if (e < s) {
+    // Ensure the retrieved years are in the accepted range
+    if (e <= s) {
         cout << "Filter dates error" << endl;
     }
     else {
 
-    // Call functions to re generate the tree_list_vo and regenerate the pub_bargraph1_vo here (passing the filter parameters)
-    // Constructor for tree_list_vo    void tree_list_vo::populate_publication_set(shared_ptr<CSVData<PublicationDTO> > _data)
-    // Constructor for bar graphPub_BarGraph1_VO::Pub_BarGraph1_VO(std::shared_ptr<CSVData<PublicationDTO> > data)
-    // Re-call the draw functions here
+        // Create new tree list from the selcted interval
+        tree_list_vo *p_treeNew = new tree_list_vo(_data);
+        // Populates the VO , still needs the new params
+        p_treeNew->populate_publication_set(_data); // (_data, s, e);
 
-        /*
-
+        // Create a new graphics scene
         scene = new QGraphicsScene(this);   // Added for graphics window
+        Pub_BarGraph1_VO* g = new Pub_BarGraph1_VO(_data);
 
-        QCustomPlot *customPlot = new QCustomPlot();
+        QCustomPlot *plot = new QCustomPlot();
         customPlot->setGeometry(0,0,345,375);   // added to resize graph
 
         // Graph handling functions go here
-        Graphvisualizations *graph_handler = new Graphvisualizations();
-        graph_handler->plot_pub_vs_type(customPlot, graphable);
+        Graphvisualizations *graph_handlerNew = new Graphvisualizations();
+        graph_handlerNew->plot_pub_vs_type(plot, g);
 
-        scene->addWidget(customPlot);   // Add plot to the window & Essential
+        scene->addWidget(plot);   // Add plot to the window & Essential
         ui->graph_area->setScene(scene);    // Added for grpahics & Essential
-
-*/
-
 
     }
 }
