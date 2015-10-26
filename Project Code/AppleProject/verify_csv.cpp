@@ -13,10 +13,17 @@ VerifyCSV::VerifyCSV(QString filename, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->error_table->setModel(PublicationTableModel(filename));
+    data = shared_ptr<CSVData<PublicationDTO>>(new CSVData<PublicationDTO>);
+
+    bool success = AssembleData(data,filename.toStdString());
+
+    ui->error_table->setModel(PublicationTableModel());
     select = ui->error_table->selectionModel();
+    connect(ui->error_table->model(), SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(onDataChanged(const QModelIndex&, const QModelIndex&)));
 
     ui->file_name->setText(filename);
+    changesMade = false;
+    ui->confirm_btn->setDisabled(true);
 }
 
 VerifyCSV::~VerifyCSV()
@@ -24,64 +31,8 @@ VerifyCSV::~VerifyCSV()
     delete ui;
 }
 
-void VerifyCSV::on_load_btn_clicked()
+QStandardItemModel* VerifyCSV::PublicationTableModel()
 {
-    // show alert, "are you sure you are done viewing?"
-    QMessageBox::StandardButton reload;
-    reload = QMessageBox::question(this, "Load New Data",
-                                   "Importing new data will lose the current data.\n"
-                                   "Would you like to continue?",
-                                   QMessageBox::Yes|QMessageBox::No);
-    if (reload == QMessageBox::Yes) {
-        LoadCSV * load_csv_page = new LoadCSV();
-        this->setCentralWidget(load_csv_page);
-    }
-    //else do nothing
-}
-
-void VerifyCSV::on_analyze_btn_clicked()
-{
-    //open the analyze page within the existing window
-    analyze_csv_page = new AnalyzeCSV(data);
-    this->setCentralWidget(analyze_csv_page);
-}
-
-void VerifyCSV::on_ignoreall_btn_clicked()
-{
-    int size = data->errorRows->size();
-    for(int i=0; i< size; i++)
-    {
-        ui->error_table->hideRow(i);
-    }
-    data->errorRows->clear();
-    data->errorRows->shrink_to_fit();
-}
-
-
-void VerifyCSV::on_ignore_btn_clicked()
-{
-    QModelIndexList selection = ui->error_table->selectionModel()->selectedRows();
-
-    // Multiple rows can be selected
-    for(int i=0; i< selection.count(); i++)
-    {
-        QModelIndex index = selection.at(i);
-        ui->error_table->hideRow(index.row());
-        data->errorRows->erase(data->errorRows->begin() + index.row());
-
-    }
-}
-
-QStandardItemModel* VerifyCSV::PublicationTableModel(QString filename)
-{
-
-    data = shared_ptr<CSVData<PublicationDTO>>(new CSVData<PublicationDTO>);
-
-    /*REPLACE this file with filename from load page selector*/
-    bool success = AssembleData(data,filename.toStdString());
-
-    if (success)
-    {
         /*define a model with the number of rows as error lines, and columns as mandatory columns*/
         QStandardItemModel *model = new QStandardItemModel(data->errorRows->size(),data->nMan,NULL);
 
@@ -101,6 +52,99 @@ QStandardItemModel* VerifyCSV::PublicationTableModel(QString filename)
             };
         }
         return model;
+}
+
+/*SLOTS*/
+
+void VerifyCSV::on_load_btn_clicked()
+{
+    // show alert, "are you sure you are done viewing?"
+    QMessageBox::StandardButton reload;
+    reload = QMessageBox::question(this, "Load New Data",
+                                   "Importing new data will lose the current data.\n"
+                                   "Would you like to continue?",
+                                   QMessageBox::Yes|QMessageBox::No);
+    if (reload == QMessageBox::Yes) {
+        LoadCSV * load_csv_page = new LoadCSV();
+        this->setCentralWidget(load_csv_page);
     }
-    return NULL;
+}
+//else do nothing
+
+void VerifyCSV::on_analyze_btn_clicked()
+{
+    //open the analyze page within the existing window
+    analyze_csv_page = new AnalyzeCSV(data);
+    this->setCentralWidget(analyze_csv_page);
+}
+
+void VerifyCSV::on_ignoreall_btn_clicked()
+{
+    int size = data->errorRows->size();
+    for(int i=0; i< size; i++)
+    {
+        ui->error_table->hideRow(i);
+    }
+    data->errorRows->clear();
+    data->errorRows->shrink_to_fit();
+    enableConfirmChanges();
+}
+
+
+void VerifyCSV::on_ignore_btn_clicked()
+{
+    QModelIndexList selection = ui->error_table->selectionModel()->selectedRows();
+
+    // Multiple rows can be selected
+    for(int i=0; i< selection.count(); i++)
+    {
+        QModelIndex index = selection.at(i);
+        ui->error_table->model()->removeRow(index.row());
+        data->errorRows->erase(data->errorRows->begin() + index.row());
+    }
+    enableConfirmChanges();
+}
+
+void VerifyCSV::onDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight)
+{
+    enableConfirmChanges();
+
+}
+
+void VerifyCSV::enableConfirmChanges()
+{
+    cout << "Cell has been changed"<<endl;
+    if (!changesMade)
+    {
+        changesMade = true;
+        ui->confirm_btn->setDisabled(false);
+    }
+}
+
+void VerifyCSV::on_confirm_btn_clicked()
+{
+    QModelIndex idx;
+    string str;
+
+    /*clear all errors
+      then reload all data from the table into errors vector
+    */
+
+    cout << "Confirming changes"<<endl;
+    data->errorRows->clear();
+    for(int i = 0; i < data->errorRows->size(); i++){
+        vector<string> line;
+        for(int j = 0; j < data->nMan; j++){
+            idx = ui->error_table->model()->index(i, j);
+            str = ui->error_table->model()->data(idx).toString().toStdString();
+            line.push_back(str);
+        };
+        data->addError(line);
+        ui->error_table->model()->removeRow(i);
+    }
+    data->validateErrors();//This is leaving the errors vector empty?
+
+    ui->error_table->setModel(PublicationTableModel());
+    //Next: reload model on table (if blank, allow user to proceed to anaylze page)
+
 }
