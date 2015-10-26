@@ -4,7 +4,7 @@ using namespace std;
 
 Pub_BarGraph1_VO::Pub_BarGraph1_VO(std::shared_ptr<CSVData<PublicationDTO> > data)
 {
-    name = data->dtos->at(0).name;
+    name = data->dtos->at(0).name;  // Gets original name
     cout << name << endl;
     for(int i = 0; i < (int) data->dtos->size(); i++){
         PublicationDTO dto = data->dtos->at(i);

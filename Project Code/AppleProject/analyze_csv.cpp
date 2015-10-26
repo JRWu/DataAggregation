@@ -9,21 +9,6 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     std::shared_ptr<CSVData<PublicationDTO>> data = _data;
     ui->setupUi(this);
 
-    //Just checking to see if data passed through
-    cout<<"Data: "<<_data->dtos->size();
-
-    scene = new QGraphicsScene(this);   // Added for graphics window
-
-    QCustomPlot *customPlot = new QCustomPlot();
-    customPlot->setGeometry(0,0,345,375);   // added to resize graph
-
-    // Graph handling functions go here
-    Graphvisualizations *graph_handler = new Graphvisualizations();
-    graph_handler->plot_pub_vs_type(customPlot);
-
-    scene->addWidget(customPlot);   // Add plot to the window & Essential
-    ui->graph_area->setScene(scene);    // Added for grpahics & Essential
-
     /// DOMAIN LABEL SET ///
     ui->domain_lbl1->setText(QString::fromStdString(data->dtos->at(0).domain));
 
@@ -63,7 +48,40 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
    }
     // expand publications root by default
     ui->pub_tree->expandItem(root);
-/// LIST TREE VIEW ///
+    /// LIST TREE VIEW ///
+
+    Pub_BarGraph1_VO* graphable = new Pub_BarGraph1_VO(_data);
+
+
+    // RM THIS vvv LATER
+    cout <<"Name: "<< graphable->name << endl;
+    cout <<"Values size: "<< graphable->values.size()<< endl;
+    cout <<"Years size: "<< graphable->years.size()<< endl;
+    cout <<"PubTypes size: "<< graphable->pubTypes.size()<<endl;
+    for (int i = 0; i < graphable->years.size(); i++)
+    {
+        cout << "Years["<<to_string(i)<<"] " << graphable->years.at(i) << endl;
+    }
+    for (int i = 0; i < graphable->pubTypes.size(); i++)
+    {
+        cout << "PubTypes["<<std::to_string(i)<<"] " << graphable->pubTypes.at(i) << endl;
+    }
+    // RM THIS ^^^ LATER
+
+
+    scene = new QGraphicsScene(this);   // Added for graphics window
+
+    QCustomPlot *customPlot = new QCustomPlot();
+    customPlot->setGeometry(0,0,345,375);   // added to resize graph
+
+    // Graph handling functions go here
+    Graphvisualizations *graph_handler = new Graphvisualizations();
+    graph_handler->plot_pub_vs_type(customPlot, graphable);
+
+    scene->addWidget(customPlot);   // Add plot to the window & Essential
+    ui->graph_area->setScene(scene);    // Added for grpahics & Essential
+
+
 
 }
 

@@ -2,6 +2,8 @@
 #define GRAPHVISUALIZATIONS_H
 
 #include <qcustomplot.h>
+class Pub_BarGraph1_VO; // Forward pointer to silence warning
+
 
 class Graphvisualizations
 {
@@ -13,7 +15,7 @@ public:
     Graphvisualizations();
 
     // Add support for shared pointer afterwards
-    void plot_pub_vs_type(QCustomPlot* plot);
+    void plot_pub_vs_type(QCustomPlot* plot, Pub_BarGraph1_VO* bargraph_vo);
 
     //1)  For faculty member (name), graph publications by type
         // ^ For a certain date range

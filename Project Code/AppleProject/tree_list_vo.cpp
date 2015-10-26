@@ -9,12 +9,10 @@ tree_list_vo::tree_list_vo(shared_ptr<CSVData<PublicationDTO> > _data)
 {
     _data = _data;
     num_pub_types = 0;
-    cout << "Working tree_list_constructor" << endl;
 }
 
 void tree_list_vo::populate_publication_set(shared_ptr<CSVData<PublicationDTO> > _data)
 {
-    cout << "***PTR***\n";
 
     vector<author_number> t;
     author_name_set.push_back(t);    // add empty vector

@@ -14,6 +14,7 @@
 #include <stdio.h>  // rem later
 
 #include "graphvisualizations.h"
+#include "pub_bargraph1_vo.h"
 
 namespace Ui {
 class AnalyzeCSV;
