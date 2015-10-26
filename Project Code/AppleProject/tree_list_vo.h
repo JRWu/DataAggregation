@@ -1,11 +1,23 @@
-#ifndef TREE_LIST_VO_H
-#define TREE_LIST_VO_H
+#ifndef TreeListVO_H
+#define TreeListVO_H
 
+#include <QStringList>
+#include <QString>
 
-class tree_list_vo
+class TreeListVO
 {
+
 public:
-    tree_list_vo();
+
+    QStringList dates; // dates for combo boxes
+
+    // tree view objects
+    QString root;
+    QStringList children;
+    QStringList grandchildren;
+
+    TreeListVO();
+    ~TreeListVO();
 };
 
-#endif // TREE_LIST_VO_H
+#endif // TreeListVO_H

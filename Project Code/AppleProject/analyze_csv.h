@@ -3,6 +3,7 @@
 
 #include "csvdata.h"
 #include "publicationdto.h"
+#include "tree_list_vo.h"
 #include <QMainWindow>
 #include <qcustomplot.h>
 #include <QtCore>
@@ -22,9 +23,7 @@ class AnalyzeCSV : public QMainWindow
 {
     Q_OBJECT
 
-void AddRoot(QString field, QString total);
-void AddChild(QTreeWidgetItem *parent, QString field, QString total);
-void AddGrandChild(QTreeWidgetItem *parent, QString field, QString total);
+QStringList PopulateDateCombos(std::shared_ptr<CSVData<PublicationDTO>> data);
 
 public:
     explicit AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> data, QWidget *parent = 0);

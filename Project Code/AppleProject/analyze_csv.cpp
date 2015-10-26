@@ -30,44 +30,8 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
 
     /// DATE FILTER COMBO BOX ///
 
-        /* algorithm for adding implementing this
-         * loop through the dtolist and if there is a unique year,
-         * then add it to the combo list
-         * perform a sort on the list
-         */
+    QStringList date_strs = PopulateDateCombos(data);
 
-        //for demonstration purposes only
-    std::vector<int> dates;
-
-    // loop through the dtos to get a list of dates
-    for (int i=0; i < data->dtos->size(); i++) {
-        // loop again to see if the current date is already in the list
-        if (dates.empty()) {
-            dates.push_back((int)data->dtos->at(i).date);
-        }else {
-            bool add = true;
-            for (int j=0; j < dates.size(); j++) {
-                // if it isn't add it to the list
-                if ((int)data->dtos->at(i).date == dates.at(j)) {
-                    add = false;
-                    break;
-                }
-            }
-            if (add) {
-                dates.push_back((int)data->dtos->at(i).date);
-            }
-        }
-    }
-
-    //sort the dates
-    std::sort(dates.begin(), dates.end());
-
-    //put the dates in a QString vector list
-    QStringList date_strs;
-    for (int i=0; i < dates.size(); i++) {
-        string datestr = static_cast<ostringstream*>( &(ostringstream() << dates.at(i)) )->str();
-        date_strs << QString::fromStdString(datestr);
-    }
     // set the dates list to the combo boxes
     ui->start_date1->addItems(date_strs);
     ui->end_date1->addItems(date_strs);
@@ -75,28 +39,29 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
 
     /// LIST TREE VIEW ///
 
-        ui->pub_tree->setColumnCount(2);
-        ui->pub_tree->setHeaderLabels(QStringList() << "Field" << "Total");
+    ui->pub_tree->setColumnCount(2);
+    ui->pub_tree->setHeaderLabels(QStringList() << "Field" << "Total");
 
-        /* algorithm for implementing this
-         * create a view object type which has a list of publication types,
-         * which each item in the list has a list of authors
-         * then loop through the list of types, and for each one add all the children to the list
-         */
+    // top item
+    QTreeWidgetItem *top1 = new QTreeWidgetItem(ui->pub_tree, QStringList() << "Publications" << "275");
+    top1->setExpanded(true);
 
-        AddRoot("Publications", "275");
+    // first child
+    QTreeWidgetItem *child1 =
+                   new QTreeWidgetItem(top1, QStringList() << "Journal Articles" << "82");
 
-        // for demonstration purposes, here is a tree vie example
-        AddChild(ui->pub_tree->topLevelItem(0), "Journal Articles", "82");
+    // first's grandchildren.
+    new QTreeWidgetItem(child1, QStringList() << "Jean-Luc Picard" << "30");
+    new QTreeWidgetItem(child1, QStringList() << "James T. Kirk" << "15");
 
-        AddGrandChild(ui->pub_tree->itemBelow(ui->pub_tree->topLevelItem(0)), "Jean-Luc Picard", "30");
-        AddGrandChild(ui->pub_tree->itemBelow(ui->pub_tree->topLevelItem(0)), "James T. Kirk", "15");
-        AddGrandChild(ui->pub_tree->itemBelow(ui->pub_tree->topLevelItem(0)), "Kathryn Janeway", "25");
-        AddGrandChild(ui->pub_tree->itemBelow(ui->pub_tree->topLevelItem(0)), "Benjamin Lafayette Sisko", "12");
+    // second child
+    QTreeWidgetItem *child2 =
+                   new QTreeWidgetItem(top1, QStringList() << "Books" << "4");
 
-        AddChild(ui->pub_tree->topLevelItem(0), "Books", "4");
-        AddChild(ui->pub_tree->topLevelItem(0), "Book Chapters", "20");
-        AddChild(ui->pub_tree->topLevelItem(0), "Letters to Editor", "19");
+    // second child's grandchildren.
+    new QTreeWidgetItem(child2, QStringList() << "Kathryn Janeway" << "2");
+    new QTreeWidgetItem(child2, QStringList() << "Benjamin Lafayette Sisko" << "12");
+
 }
 
 AnalyzeCSV::~AnalyzeCSV()
@@ -134,26 +99,39 @@ void AnalyzeCSV::on_verify_btn_clicked()
     //else do nothing
 }
 
-void AnalyzeCSV::AddRoot(QString field, QString total) {
-    QTreeWidgetItem *root = new QTreeWidgetItem(ui->pub_tree);
-    root->setText(0, field);
-    root->setText(1, total);
-    root->setExpanded(true);
+QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<PublicationDTO>> data) {
+    std::vector<int> dates;
 
-    ui->pub_tree->addTopLevelItem(root);
-}
+    // loop through the dtos to get a list of dates
+    for (int i=0; i < data->dtos->size(); i++) {
+        // loop again to see if the current date is already in the list
+        if (dates.empty()) {
+            dates.push_back((int)data->dtos->at(i).date);
+        }else {
+            bool add = true;
+            for (int j=0; j < dates.size(); j++) {
+                // if it isn't add it to the list
+                if ((int)data->dtos->at(i).date == dates.at(j)) {
+                    add = false;
+                    break;
+                }
+            }
+            if (add) {
+                dates.push_back((int)data->dtos->at(i).date);
+            }
+        }
+    }
 
-void AnalyzeCSV::AddChild(QTreeWidgetItem *parent, QString field, QString total) {
-    QTreeWidgetItem *child = new QTreeWidgetItem();
-    child->setText(0, field);
-    child->setText(1, total);
-    parent->addChild(child);
-}
+    //sort the dates
+    std::sort(dates.begin(), dates.end());
 
-void AnalyzeCSV::AddGrandChild(QTreeWidgetItem *parent, QString field, QString total) {
-    QTreeWidgetItem *grandchild = new QTreeWidgetItem();
-    grandchild->setText(0, field);
-    grandchild->setText(1, total);
-    parent->addChild(grandchild);
+    //put the dates in a QString vector list
+    QStringList date_strs;
+    for (int i=0; i < dates.size(); i++) {
+        string datestr = static_cast<ostringstream*>( &(ostringstream() << dates.at(i)) )->str();
+        date_strs << QString::fromStdString(datestr);
+    }
+
+    return date_strs;
 }
 
