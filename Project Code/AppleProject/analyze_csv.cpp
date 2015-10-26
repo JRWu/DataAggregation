@@ -168,7 +168,7 @@ void AnalyzeCSV::on_filter_btn_clicked()
     unsigned long e = ui->end_date1->itemData(ui->end_date1->currentIndex()).toInt();
 
     // Ensure the retrieved years are in the accepted range in date_str
-    if (s < date_strs[0].toInt() || e > date_strs[date_strs.length()].toInt()) {
+    if (e < s) {
         cout << "Filter dates error" << endl;
     }
     else {

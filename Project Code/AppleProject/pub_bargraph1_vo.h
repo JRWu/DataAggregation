@@ -15,7 +15,7 @@ public:
     std::vector<std::string> years;
     std::vector<std::string> pubTypes;
     std::vector<std::vector<int>> values;
-    Pub_BarGraph1_VO(std::shared_ptr<CSVData<PublicationDTO>> data);
+    Pub_BarGraph1_VO(std::shared_ptr<CSVData<PublicationDTO>> data, int start = 0, int end = 4000);
 };
 
 #endif // PUB_BARGRAPH1_VO_H

@@ -2,18 +2,20 @@
 
 using namespace std;
 
-Pub_BarGraph1_VO::Pub_BarGraph1_VO(std::shared_ptr<CSVData<PublicationDTO> > data)
+Pub_BarGraph1_VO::Pub_BarGraph1_VO(std::shared_ptr<CSVData<PublicationDTO> > data, int start, int end)
 {
     name = data->dtos->at(0).name;  // Gets original name
     cout << name << endl;
     for(int i = 0; i < (int) data->dtos->size(); i++){
         PublicationDTO dto = data->dtos->at(i);
         if(dto.name == name){
-            vector<string>::iterator index;
-            index = find(pubTypes.begin(), pubTypes.end(), dto.type);
-            if(index == pubTypes.end()) pubTypes.push_back(dto.type);
-            index = find(years.begin(), years.end(), to_string(dto.date));
-            if(index == years.end()) years.push_back(to_string(dto.date));
+            if((start <= dto.date)&&(dto.date <= end)){
+                vector<string>::iterator index;
+                index = find(pubTypes.begin(), pubTypes.end(), dto.type);
+                if(index == pubTypes.end()) pubTypes.push_back(dto.type);
+                index = find(years.begin(), years.end(), to_string(dto.date));
+                if(index == years.end()) years.push_back(to_string(dto.date));
+            }
         }
     }
 
