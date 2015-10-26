@@ -2,6 +2,8 @@
 #include "analyze_csv.h"
 #include "ui_analyze_csv.h"
 
+QStringList date_strs;
+
 AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::AnalyzeCSV)
@@ -13,7 +15,7 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     ui->domain_lbl1->setText(QString::fromStdString(data->dtos->at(0).domain));
 
     /// DATE FILTER COMBO BOX ///
-    QStringList date_strs = PopulateDateCombos(data);
+    date_strs = PopulateDateCombos(data);
 
     // set the dates list to the combo boxes
     ui->start_date1->addItems(date_strs);
@@ -163,13 +165,39 @@ QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<PublicationDT
 
 void AnalyzeCSV::on_filter_btn_clicked()
 {
-    // Here
-    // Add check for the date filter objects
-    // MAke sure the range is acceptable
-    // Call functions to re generate the tree_list_vo and regenerate the pub_bargraph1_vo here (passing the filter parameters)
 
+    // get the user selection from the QComboBox
+    unsigned long s = ui->start_date1->itemData(ui->start_date1->currentIndex()).toInt();
+    unsigned long e = ui->end_date1->itemData(ui->end_date1->currentIndex()).toInt();
+
+    // Ensure the retrieved years are in the accepted range in date_str
+    if (s < date_strs[0].toInt() || e > date_strs[date_strs.length()].toInt()) {
+        cout << "Filter dates error" << endl;
+    }
+    else {
+
+
+    // Call functions to re generate the tree_list_vo and regenerate the pub_bargraph1_vo here (passing the filter parameters)
     // Constructor for tree_list_vo    void tree_list_vo::populate_publication_set(shared_ptr<CSVData<PublicationDTO> > _data)
     // Constructor for bar graphPub_BarGraph1_VO::Pub_BarGraph1_VO(std::shared_ptr<CSVData<PublicationDTO> > data)
     // Re-call the draw functions here
 
+        /*
+
+        scene = new QGraphicsScene(this);   // Added for graphics window
+
+        QCustomPlot *customPlot = new QCustomPlot();
+        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+
+        // Graph handling functions go here
+        Graphvisualizations *graph_handler = new Graphvisualizations();
+        graph_handler->plot_pub_vs_type(customPlot, graphable);
+
+        scene->addWidget(customPlot);   // Add plot to the window & Essential
+        ui->graph_area->setScene(scene);    // Added for grpahics & Essential
+
+*/
+
+
+    }
 }
