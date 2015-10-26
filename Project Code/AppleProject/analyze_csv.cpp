@@ -25,43 +25,38 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     ui->graph_area->setScene(scene);    // Added for grpahics & Essential
 
     /// DOMAIN LABEL SET ///
-
     ui->domain_lbl1->setText(QString::fromStdString(data->dtos->at(0).domain));
 
     /// DATE FILTER COMBO BOX ///
 
-    QStringList date_strs = PopulateDateCombos(data);
+    tree_list_vo *p_tree = new tree_list_vo(_data);
+    cout << "***made new tree***\n";
 
-    // set the dates list to the combo boxes
-    ui->start_date1->addItems(date_strs);
-    ui->end_date1->addItems(date_strs);
+    // Populates the VO
+    p_tree->populate_publication_set(_data);
 
+    //for demonstration purposes only
 
     /// LIST TREE VIEW ///
-
     ui->pub_tree->setColumnCount(2);
     ui->pub_tree->setColumnWidth(0, 275);
     ui->pub_tree->setHeaderLabels(QStringList() << "Field" << "Total");
 
-    // top item
-    QTreeWidgetItem *top1 = new QTreeWidgetItem(ui->pub_tree, QStringList() << "Publications" << "275");
-    top1->setExpanded(true);
+    QTreeWidgetItem *root = new QTreeWidgetItem(ui->pub_tree, QStringList() << "Publications" << QString::fromStdString(std::to_string(_data->dtos->size())));
+    for (int i = 0; i < p_tree->get_publication_types().size(); i ++) // per 12
+    {
+        cout << i << endl;
+        QTreeWidgetItem * child = new QTreeWidgetItem(root, QStringList() << QString::fromStdString(p_tree->get_publication_types().at(i))
+                                                      <<QString::fromStdString(std::to_string(p_tree->get_publication_type_sums().at(i))) );
 
-    // first child
-    QTreeWidgetItem *child1 =
-                   new QTreeWidgetItem(top1, QStringList() << "Journal Articles" << "82");
-
-    // first's grandchildren.
-    new QTreeWidgetItem(child1, QStringList() << "Jean-Luc Picard" << "30");
-    new QTreeWidgetItem(child1, QStringList() << "James T. Kirk" << "15");
-
-    // second child
-    QTreeWidgetItem *child2 =
-                   new QTreeWidgetItem(top1, QStringList() << "Books" << "4");
-
-    // second child's grandchildren.
-    new QTreeWidgetItem(child2, QStringList() << "Kathryn Janeway" << "2");
-    new QTreeWidgetItem(child2, QStringList() << "Benjamin Lafayette Sisko" << "12");
+        vector<author_number> tmp = p_tree->get_author_name_set().at(i);
+        for (int j = 0; j < tmp.size(); j++)  // per 5?
+        {
+            new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).author)
+                                << QString::fromStdString(std::to_string(tmp.at(j).num)) );
+        }
+   }
+/// LIST TREE VIEW ///
 
 }
 
@@ -128,8 +123,12 @@ QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<PublicationDT
 
     //put the dates in a QString vector list
     QStringList date_strs;
-    for (int i=0; i < dates.size(); i++) {
-        string datestr = static_cast<ostringstream*>( &(ostringstream() << dates.at(i)) )->str();
+    for (int i=0; i < dates.size(); i++)
+    {
+
+        ostringstream stream;
+        stream << dates.at(i);
+        string datestr = stream.str();
         date_strs << QString::fromStdString(datestr);
     }
 

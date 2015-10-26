@@ -24,6 +24,9 @@ class AnalyzeCSV : public QMainWindow
     Q_OBJECT
 
 QStringList PopulateDateCombos(std::shared_ptr<CSVData<PublicationDTO>> data);
+void AddRoot(QString field, QString total);
+QTreeWidgetItem* AddChild(QTreeWidgetItem *parent, QString field, QString total);
+QTreeWidgetItem* AddGrandChild(QTreeWidgetItem *parent, QString field, QString total);
 
 public:
     explicit AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> data, QWidget *parent = 0);
