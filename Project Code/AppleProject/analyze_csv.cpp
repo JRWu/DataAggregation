@@ -61,6 +61,8 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
                                 << QString::fromStdString(std::to_string(tmp.at(j).num)) );
         }
    }
+    // expand publications root by default
+    ui->pub_tree->expandItem(root);
 /// LIST TREE VIEW ///
 
 }
