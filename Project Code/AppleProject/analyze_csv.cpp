@@ -160,3 +160,16 @@ QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<PublicationDT
     return date_strs;
 }
 
+
+void AnalyzeCSV::on_filter_btn_clicked()
+{
+    // Here
+    // Add check for the date filter objects
+    // MAke sure the range is acceptable
+    // Call functions to re generate the tree_list_vo and regenerate the pub_bargraph1_vo here (passing the filter parameters)
+
+    // Constructor for tree_list_vo    void tree_list_vo::populate_publication_set(shared_ptr<CSVData<PublicationDTO> > _data)
+    // Constructor for bar graphPub_BarGraph1_VO::Pub_BarGraph1_VO(std::shared_ptr<CSVData<PublicationDTO> > data)
+    // Re-call the draw functions here
+
+}
