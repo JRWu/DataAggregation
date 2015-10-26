@@ -166,16 +166,15 @@ QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<PublicationDT
 void AnalyzeCSV::on_filter_btn_clicked()
 {
 
-    // get the user selection from the QComboBox
+   // get the user selection from the QComboBox
     unsigned long s = ui->start_date1->itemData(ui->start_date1->currentIndex()).toInt();
     unsigned long e = ui->end_date1->itemData(ui->end_date1->currentIndex()).toInt();
 
     // Ensure the retrieved years are in the accepted range in date_str
-    if (s < date_strs[0].toInt() || e > date_strs[date_strs.length()].toInt()) {
+    if (e < s) {
         cout << "Filter dates error" << endl;
     }
     else {
-
 
     // Call functions to re generate the tree_list_vo and regenerate the pub_bargraph1_vo here (passing the filter parameters)
     // Constructor for tree_list_vo    void tree_list_vo::populate_publication_set(shared_ptr<CSVData<PublicationDTO> > _data)
