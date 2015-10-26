@@ -7,6 +7,8 @@
 
 >2015-2016 Academic Year
 
+**Current Stage:** Demo 1
+
 ## Team Members:
 ---
 
