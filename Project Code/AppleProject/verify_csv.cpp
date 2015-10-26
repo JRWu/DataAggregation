@@ -52,9 +52,9 @@ void VerifyCSV::on_ignoreall_btn_clicked()
     for(int i=0; i< size; i++)
     {
         ui->error_table->hideRow(i);
-        data->errorRows->erase(data->errorRows->begin() + i);
     }
-
+    data->errorRows->clear();
+    data->errorRows->shrink_to_fit();
 }
 
 
