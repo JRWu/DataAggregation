@@ -37,7 +37,7 @@ QStandardItemModel* VerifyCSV::PublicationTableModel()
         QStandardItemModel *model = new QStandardItemModel(data->errorRows->size(),data->nMan,NULL);
 
         //Set headers
-        for (int i = 0; i < 27;i++)
+        for (int i = 0; i < data->nMan;i++)
         {
             model->setHorizontalHeaderItem(i, new QStandardItem(QString::fromStdString(data->header->at(i))));
         }
@@ -96,9 +96,12 @@ void VerifyCSV::on_ignore_btn_clicked()
     QModelIndexList selection = ui->error_table->selectionModel()->selectedRows();
 
     // Multiple rows can be selected
-    for(int i=0; i< selection.count(); i++)
+    for(int i=selection.count()-1; i >= 0; i--)
     {
+
         QModelIndex index = selection.at(i);
+        cout<<"Index: "<<index.data().toString().toStdString()<<endl;
+        cout<<"Index row: "<<index.row()<<endl;
         ui->error_table->model()->removeRow(index.row());
         data->errorRows->erase(data->errorRows->begin() + index.row());
     }
@@ -131,16 +134,15 @@ void VerifyCSV::on_confirm_btn_clicked()
     */
 
     cout << "Confirming changes"<<endl;
-    data->errorRows->clear();
+
     for(int i = 0; i < data->errorRows->size(); i++){
-        vector<string> line;
+
         for(int j = 0; j < data->nMan; j++){
             idx = ui->error_table->model()->index(i, j);
             str = ui->error_table->model()->data(idx).toString().toStdString();
-            line.push_back(str);
+            //line.push_back(str);
+            (data->errorRows->at(i))[j] = str;
         };
-        data->addError(line);
-        ui->error_table->model()->removeRow(i);
     }
     data->validateErrors();//This is leaving the errors vector empty?
 
