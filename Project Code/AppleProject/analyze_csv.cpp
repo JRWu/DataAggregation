@@ -39,18 +39,12 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
 
     /// LIST TREE VIEW ///
 
-<<<<<<< HEAD
     ui->pub_tree->setColumnCount(2);
     ui->pub_tree->setHeaderLabels(QStringList() << "Field" << "Total");
 
     // top item
     QTreeWidgetItem *top1 = new QTreeWidgetItem(ui->pub_tree, QStringList() << "Publications" << "275");
     top1->setExpanded(true);
-=======
-        ui->pub_tree->setColumnCount(2);
-        ui->pub_tree->setColumnWidth(0, 275);
-        ui->pub_tree->setHeaderLabels(QStringList() << "Field" << "Total");
->>>>>>> 975500bec646f99c5838cceb3218c18b5af84bba
 
     // first child
     QTreeWidgetItem *child1 =
