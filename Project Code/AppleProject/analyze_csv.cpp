@@ -37,13 +37,40 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
          */
 
         //for demonstration purposes only
-    std::vector<QString> *dates;
+    std::vector<int> dates;
 
-//    for (int i=0; i < data->dtos->size(); i++) {
-//        if ()
-//    }
-        ui->end_date1->addItem("2015");
-        ui->start_date1->addItem("2014");
+    // loop through the dtos to get a list of dates
+    for (int i=0; i < data->dtos->size(); i++) {
+        // loop again to see if the current date is already in the list
+        if (dates.empty()) {
+            dates.push_back((int)data->dtos->at(i).date);
+        }else {
+            bool add = true;
+            for (int j=0; j < dates.size(); j++) {
+                // if it isn't add it to the list
+                if ((int)data->dtos->at(i).date == dates.at(j)) {
+                    add = false;
+                    break;
+                }
+            }
+            if (add) {
+                dates.push_back((int)data->dtos->at(i).date);
+            }
+        }
+    }
+
+    //sort the dates
+    std::sort(dates.begin(), dates.end());
+
+    //put the dates in a QString vector list
+    QStringList date_strs;
+    for (int i=0; i < dates.size(); i++) {
+        string datestr = static_cast<ostringstream*>( &(ostringstream() << dates.at(i)) )->str();
+        date_strs << QString::fromStdString(datestr);
+    }
+    // set the dates list to the combo boxes
+    ui->start_date1->addItems(date_strs);
+    ui->end_date1->addItems(date_strs);
 
 
     /// LIST TREE VIEW ///

@@ -7,7 +7,7 @@
 #include <qcustomplot.h>
 #include <QtCore>
 #include <QtGui>
-#include <vector>
+#include <QStringList>
 
 #include <iostream> // rm later
 #include <stdio.h>  // rem later
