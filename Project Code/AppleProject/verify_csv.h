@@ -22,18 +22,22 @@ private slots:
     //void on_verify_btn_clicked();
     void on_load_btn_clicked();
     void on_analyze_btn_clicked();
-
     void on_ignoreall_btn_clicked();
-
     void on_ignore_btn_clicked();
+    void onDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
+
+    void on_confirm_btn_clicked();
 
 private:
     Ui::VerifyCSV *ui;
     //VerifyCSV *verify_csv_page;
     AnalyzeCSV *analyze_csv_page;
-    QStandardItemModel* PublicationTableModel(QString filename);
+    QStandardItemModel* PublicationTableModel();
     shared_ptr<CSVData<PublicationDTO>> data;
     QItemSelectionModel *select;
+    bool changesMade;
+    void enableConfirmChanges();
+
 };
 
 #endif // VERIFY_CSV_H
