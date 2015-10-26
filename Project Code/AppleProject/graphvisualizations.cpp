@@ -67,14 +67,13 @@ void Graphvisualizations::plot_pub_vs_type(QCustomPlot* customPlot, Pub_BarGraph
         QVector<double> y_component = yvalues.at(i);
         bars->setData(xvalues,y_component);
         bars->setBrush(QColor(  (i*21)%255  ,(i*11)%255 ,255-(i*21)%255,50));  // 255/12 ~= 21 (21 gives best coverage)
-        bars->setPen(QColor( (i*21)%255, (i*11)%255 , 255-(i*21)%255));
-        bars->setWidth(0.25);
+        bars->setPen(QColor( (i*21)%255, (i*2)%255 , 255-(i*21)%255));
+        bars->setWidth(0.3);
         bars->setBarsGroup(group);
     }
 
-
-
-    customPlot->xAxis->setRange((xvalues.at(0))-10, (xvalues.at(xvalues.size()-1))+10);   // Set range of graph
+    // Angus you can add the title of the graph here
+    customPlot->xAxis->setRange((xvalues.at(0))-3, (xvalues.at(xvalues.size()-1))+3);   // Set range of graph   +/-3 so bars wont be on edges
     customPlot ->yAxis->setRange(0,maxY);
     customPlot->xAxis->setLabel("Year");
     customPlot->yAxis->setLabel("Publications");

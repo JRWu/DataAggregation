@@ -13,6 +13,7 @@ tree_list_vo::tree_list_vo(shared_ptr<CSVData<PublicationDTO> > _data)
 
 void tree_list_vo::populate_publication_set(shared_ptr<CSVData<PublicationDTO> > _data)
 {
+// Pass vector with the date range, check somewhere before we add
 
     vector<author_number> t;
     author_name_set.push_back(t);    // add empty vector
@@ -27,6 +28,7 @@ void tree_list_vo::populate_publication_set(shared_ptr<CSVData<PublicationDTO> >
 
     for (int i = 0; i < _data->dtos->size(); i ++)  // Iterate through DTO's    (237)
     {
+        // ADd iff statement to filter for certain dates***
         string author = _data->dtos->at(i).name;    // Temp name
         string pubtype = _data->dtos->at(i).type;   // Temp publication type
 
