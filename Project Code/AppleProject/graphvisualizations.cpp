@@ -72,7 +72,12 @@ void Graphvisualizations::plot_pub_vs_type(QCustomPlot* customPlot, Pub_BarGraph
         bars->setBarsGroup(group);
     }
 
-    // Angus you can add the title of the graph here
+    //Title = first name in the list
+    customPlot->plotLayout()->insertRow(0);
+    char * x = &bargraph_vo->name[0];
+    QString str = x;
+
+    customPlot->plotLayout()->addElement(0, 0, new QCPPlotTitle(customPlot, str)); //title of the graph
     customPlot->xAxis->setRange((xvalues.at(0))-3, (xvalues.at(xvalues.size()-1))+3);   // Set range of graph   +/-3 so bars wont be on edges
     customPlot ->yAxis->setRange(0,maxY);
     customPlot->xAxis->setLabel("Year");
