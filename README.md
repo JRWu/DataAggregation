@@ -22,7 +22,7 @@ Implemented DTOs and Assemblers for the DTOs and database of parsed data. Made t
 * Brett Russell  
 
 * Jia (Jerry) Wu  
-
+Implemented VO (view object) for the tree list. Displayed tree list from the VO, and graph from a separate VO. Wrote tree_list_vo.cpp/h and graphvisualizations.cpp/h.
 * Emily Yip  
 
 * Robert Canton  
