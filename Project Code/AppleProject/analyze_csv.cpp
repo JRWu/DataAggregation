@@ -23,10 +23,11 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     cout << "***made new tree***\n";
 
     // Populates the VO
-    p_tree->populate_publication_set(_data);
+    p_tree->populate_publication_set(_data, 1975,2025);
 
-    //for demonstration purposes only
 
+
+    // PUT THIS IN FUNCTION vvv
     /// LIST TREE VIEW ///
     ui->pub_tree->setColumnCount(2);
     ui->pub_tree->setColumnWidth(0, 275);
@@ -49,6 +50,8 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     // expand publications root by default
     ui->pub_tree->expandItem(root);
     /// LIST TREE VIEW ///
+    // PUT THIS IN FUNCTION ^^^
+
 
     Pub_BarGraph1_VO* graphable = new Pub_BarGraph1_VO(_data);
 
@@ -161,17 +164,22 @@ QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<PublicationDT
 }
 
 
-void AnalyzeCSV::on_filter_btn_clicked()
+void AnalyzeCSV::on_filter_btn_clicked(std::shared_ptr<CSVData<PublicationDTO>> _data)
 {
    // get the user selection from the QComboBox
     unsigned long s = ui->start_date1->itemData(ui->start_date1->currentIndex()).toInt();
     unsigned long e = ui->end_date1->itemData(ui->end_date1->currentIndex()).toInt();
 
     // Ensure the retrieved years are in the accepted range in date_str
-    if (s < date_strs[0].toInt() || e > date_strs[date_strs.length()].toInt()) {
-        cout << "Filter dates error" << endl;
-    }
-    else {
+    // confirm this with Eric*
+    //    if (s < date_strs[0].toInt() || e > date_strs[date_strs.length()].toInt())
+    //    {
+    //        cout << "Filter dates error" << endl;
+    //    }
+    //    else {
+    {
+    p_tree->populate_publication_set(_data, (int)s,(int)e);
+    Ui::AnalyzeCSV * tmpUI = get_ui_ptr();
 
 
     // Call functions to re generate the tree_list_vo and regenerate the pub_bargraph1_vo here (passing the filter parameters)
@@ -197,4 +205,9 @@ void AnalyzeCSV::on_filter_btn_clicked()
 
 
     }
+}
+
+Ui::AnalyzeCSV* AnalyzeCSV::get_ui_ptr()
+{
+    return ui;
 }

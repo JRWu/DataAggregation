@@ -33,7 +33,7 @@ public:
     vector<vector<author_number>> get_author_name_set(void);
     vector<int> get_publication_type_sums(void);
 
-    void populate_publication_set(shared_ptr<CSVData<PublicationDTO>> _data);
+    int populate_publication_set(shared_ptr<CSVData<PublicationDTO>> _data, int start, int end);
     void populate_pub_tree(QTreeWidget t);
 
 private:
