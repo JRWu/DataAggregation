@@ -45,7 +45,6 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
         cout << i << endl;
         QTreeWidgetItem * child = new QTreeWidgetItem(root, QStringList() << QString::fromStdString(p_tree->get_publication_types().at(i))
                                                       <<QString::fromStdString(std::to_string(p_tree->get_publication_type_sums().at(i))) );
-
         vector<author_number> tmp = p_tree->get_author_name_set().at(i);
         for (int j = 0; j < tmp.size(); j++)  // per 5?
         {

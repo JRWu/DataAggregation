@@ -46,7 +46,7 @@ int tree_list_vo::populate_publication_set(shared_ptr<CSVData<PublicationDTO> > 
     // Need to loop till the first valid before adding
     author_number new_auth;
     new_auth.author = _data->dtos->at(x).name;  // add first author
-    new_auth.num = 1;   // No publications of this type yet
+    new_auth.num = 0;   // No publications of this type yet
     author_name_set.at(0).push_back(new_auth);
     publication_types.push_back(_data->dtos->at(x).type);   // Add 1st publication type
 
