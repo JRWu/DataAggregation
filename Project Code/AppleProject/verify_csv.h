@@ -34,9 +34,8 @@ private:
     AnalyzeCSV *analyze_csv_page;
     QStandardItemModel* PublicationTableModel();
     shared_ptr<CSVData<PublicationDTO>> data;
-    QItemSelectionModel *select;
-    bool changesMade;
     void enableConfirmChanges();
+    bool changesMade;
 
 };
 

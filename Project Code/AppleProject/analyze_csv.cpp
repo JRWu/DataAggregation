@@ -21,7 +21,9 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
 
     // set the dates list to the combo boxes
     ui->start_date1->addItems(date_strs);
+    ui->start_date1->setCurrentIndex(0);
     ui->end_date1->addItems(date_strs);
+    ui->end_date1->setCurrentIndex(date_strs.size()-1);
 
     tree_list_vo *p_tree = new tree_list_vo(_data);
     cout << "***made new tree***\n";
@@ -53,6 +55,7 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
    }
     // expand publications root by default
     ui->pub_tree->expandItem(root);
+
     /// LIST TREE VIEW ///
     // PUT THIS IN FUNCTION ^^^
 
@@ -180,17 +183,8 @@ void AnalyzeCSV::on_filter_btn_clicked()
     QString st_string = ui->start_date1->itemText(ui->start_date1->currentIndex());
     QString en_string = ui->end_date1->itemText(ui->end_date1->currentIndex());
 
-    long s = stol(st_string.toStdString());
-    long e = stol(en_string.toStdString());
-
-/*
-    cout <<"Sindex: " << ui->start_date1->currentIndex();
-
-    QString cd = ui->start_date1->itemText(ui->start_date1->currentIndex());
-    cout << "CD: " << cd.toStdString() << endl;
-*/
-    cout << "S: " << s << endl;
-    cout << "E: " << e <<endl;
+    long s = stol(st_string.toStdString()); // start date
+    long e = stol(en_string.toStdString()); // end date
 
     // Ensure the retrieved years are in the accepted range
     if (e <= s)
@@ -234,9 +228,11 @@ void AnalyzeCSV::on_filter_btn_clicked()
         root->setText(1,QString::fromStdString(std::to_string(pubCounter)));    // updates text
 
 
+
+
         // Create a new graphics scene
         scene = new QGraphicsScene(this);   // Added for graphics window
-        Pub_BarGraph1_VO* g = new Pub_BarGraph1_VO(_data, s, e);
+        Pub_BarGraph1_VO* g = new Pub_BarGraph1_VO(_data, s, e);        // BUG IS BREAKING THIS HERE
 
         QCustomPlot *plot = new QCustomPlot();
         customPlot->setGeometry(0,0,345,375);   // added to resize graph
