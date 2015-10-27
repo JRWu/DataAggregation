@@ -2,10 +2,14 @@
 #include "analyze_csv.h"
 #include "ui_analyze_csv.h"
 
+std::shared_ptr<CSVData<PublicationDTO>> datanew;
+
 AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::AnalyzeCSV)
 {
+    datanew = _data;
+
     std::shared_ptr<CSVData<PublicationDTO>> data = _data;
     ui->setupUi(this);
 
@@ -53,7 +57,7 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     // PUT THIS IN FUNCTION ^^^
 
 
-    Pub_BarGraph1_VO* graphable = new Pub_BarGraph1_VO(_data);
+    Pub_BarGraph1_VO* graphable = new Pub_BarGraph1_VO(_data, 1900, 4000);
 
 
     // RM THIS vvv LATER
@@ -164,50 +168,86 @@ QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<PublicationDT
 }
 
 
-void AnalyzeCSV::on_filter_btn_clicked(std::shared_ptr<CSVData<PublicationDTO>> _data)
-{
-   // get the user selection from the QComboBox
-    unsigned long s = ui->start_date1->itemData(ui->start_date1->currentIndex()).toInt();
-    unsigned long e = ui->end_date1->itemData(ui->end_date1->currentIndex()).toInt();
-
-    // Ensure the retrieved years are in the accepted range in date_str
-    // confirm this with Eric*
-    //    if (s < date_strs[0].toInt() || e > date_strs[date_strs.length()].toInt())
-    //    {
-    //        cout << "Filter dates error" << endl;
-    //    }
-    //    else {
-    {
-    p_tree->populate_publication_set(_data, (int)s,(int)e);
-    Ui::AnalyzeCSV * tmpUI = get_ui_ptr();
-
-
-    // Call functions to re generate the tree_list_vo and regenerate the pub_bargraph1_vo here (passing the filter parameters)
-    // Constructor for tree_list_vo    void tree_list_vo::populate_publication_set(shared_ptr<CSVData<PublicationDTO> > _data)
-    // Constructor for bar graphPub_BarGraph1_VO::Pub_BarGraph1_VO(std::shared_ptr<CSVData<PublicationDTO> > data)
-    // Re-call the draw functions here
-
-        /*
-
-        scene = new QGraphicsScene(this);   // Added for graphics window
-
-        QCustomPlot *customPlot = new QCustomPlot();
-        customPlot->setGeometry(0,0,345,375);   // added to resize graph
-
-        // Graph handling functions go here
-        Graphvisualizations *graph_handler = new Graphvisualizations();
-        graph_handler->plot_pub_vs_type(customPlot, graphable);
-
-        scene->addWidget(customPlot);   // Add plot to the window & Essential
-        ui->graph_area->setScene(scene);    // Added for grpahics & Essential
-
-*/
-
-
-    }
-}
-
 Ui::AnalyzeCSV* AnalyzeCSV::get_ui_ptr()
 {
     return ui;
+}
+
+void AnalyzeCSV::on_filter_btn_clicked()
+{
+    std::shared_ptr<CSVData<PublicationDTO>> _data = datanew;
+    //std::shared_ptr<CSVData<PublicationDTO>> _data = datanew;
+    QString st_string = ui->start_date1->itemText(ui->start_date1->currentIndex());
+    QString en_string = ui->end_date1->itemText(ui->end_date1->currentIndex());
+
+    long s = stol(st_string.toStdString());
+    long e = stol(en_string.toStdString());
+
+/*
+    cout <<"Sindex: " << ui->start_date1->currentIndex();
+
+    QString cd = ui->start_date1->itemText(ui->start_date1->currentIndex());
+    cout << "CD: " << cd.toStdString() << endl;
+*/
+    cout << "S: " << s << endl;
+    cout << "E: " << e <<endl;
+
+    // Ensure the retrieved years are in the accepted range
+    if (e <= s)
+    {
+        cout << "Filter dates error" << endl;
+    }
+    else
+    {
+        Ui::AnalyzeCSV * tmpUI = get_ui_ptr();
+
+        // Create new tree list from the selcted interval
+        tree_list_vo *p_treeNew = new tree_list_vo(_data);
+        // Populates the VO , still needs the new params
+        p_treeNew->populate_publication_set(_data, (int)s,(int)e);
+        tmpUI->pub_tree->clear();
+
+        /// LIST TREE VIEW ///
+        tmpUI->pub_tree->setColumnCount(2);
+        tmpUI->pub_tree->setColumnWidth(0, 275);
+        tmpUI->pub_tree->setHeaderLabels(QStringList() << "Field" << "Total");
+
+        int pubCounter = 0;
+        QTreeWidgetItem *root = new QTreeWidgetItem(tmpUI->pub_tree, QStringList() << "Publications" << QString::fromStdString(std::to_string(_data->dtos->size())));
+        for (int i = 0; i < p_treeNew->get_publication_types().size(); i ++) // per 12
+        {
+            cout << i << endl;
+            QTreeWidgetItem * child = new QTreeWidgetItem(root, QStringList() << QString::fromStdString(p_treeNew->get_publication_types().at(i))
+                                                      <<QString::fromStdString(std::to_string(p_treeNew->get_publication_type_sums().at(i))) );
+
+            vector<author_number> tmp = p_treeNew->get_author_name_set().at(i);
+            for (int j = 0; j < tmp.size(); j++)  // per 5?
+            {
+                new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).author)
+                                << QString::fromStdString(std::to_string(tmp.at(j).num)) );
+                pubCounter += tmp.at(j).num;
+            }
+        }
+        // expand publications root by default
+        tmpUI->pub_tree->expandItem(root);
+        /// LIST TREE VIEW ///
+        root->setText(1,QString::fromStdString(std::to_string(pubCounter)));    // updates text
+
+
+        // Create a new graphics scene
+        scene = new QGraphicsScene(this);   // Added for graphics window
+        Pub_BarGraph1_VO* g = new Pub_BarGraph1_VO(_data, s, e);
+
+        QCustomPlot *plot = new QCustomPlot();
+        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+
+        // Graph handling functions go here
+        Graphvisualizations *graph_handlerNew = new Graphvisualizations();
+        graph_handlerNew->plot_pub_vs_type(plot, g);
+
+        scene->addWidget(plot);   // Add plot to the window & Essential
+        ui->graph_area->close();
+        ui->graph_area->setScene(scene);    // Added for grpahics & Essential
+
+    }
 }
