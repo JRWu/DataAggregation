@@ -229,7 +229,7 @@ void AnalyzeCSV::on_filter_btn_clicked()
 
 
 
-
+        /*
         // Create a new graphics scene
         scene = new QGraphicsScene(this);   // Added for graphics window
         Pub_BarGraph1_VO* g = new Pub_BarGraph1_VO(_data, s, e);        // BUG IS BREAKING THIS HERE
@@ -244,6 +244,6 @@ void AnalyzeCSV::on_filter_btn_clicked()
         scene->addWidget(plot);   // Add plot to the window & Essential
         ui->graph_area->close();
         ui->graph_area->setScene(scene);    // Added for grpahics & Essential
-
+        */
     }
 }
