@@ -12,16 +12,25 @@
 ## Team Members:
 ---
 
-* Vanessa Synesael
+* Vanessa Synesael  
+
 * Vince Sippola
-Implemented DTOs and Assemblers for the DTOs and database of parsed data. Made the VO for the graph with which the UI builds the first type of graph implemented. Added Csv Parser library for use in the program.
-* Jennifer Xin
-* Brett Russell
-* Jia (Jerry) Wu
-* Emily Yip
-* Robert Canton
-* Angus Poole
-* Eric Bachmeier (ebachme@uwo.ca) has contributed to the team as of the Demo 1 deadline by being the team liaison by keeping in contact with the customer / teaching assistant to get the latest project specifications. This involved getting any of my team’s questions answered promptly. In the first stages of development I worked on the backend design and workflow of our program. I worked on parts of the user interface including the publications list, page organization, and tab view in Qt Creator. 
+Implemented DTOs and Assemblers for the DTOs and database of parsed data. Made the VO for the graph with which the UI builds the first type of graph implemented. Added Csv Parser library for use in the program.  
+
+* Jennifer Xin  
+
+* Brett Russell  
+
+* Jia (Jerry) Wu  
+
+* Emily Yip  
+
+* Robert Canton  
+
+* Angus Poole  
+
+* Eric Bachmeier (ebachme@uwo.ca) has contributed to the team as of the Demo 1 deadline by being the team liaison by keeping in contact with the customer / teaching assistant to get the latest project specifications. This involved getting any of the team’s questions answered promptly. In the first stages of development he worked on the backend design and workflow of our program. Eric worked on parts of the user interface including the publications list, page organization, and tab view in Qt Creator. He also implemented the method to filter the data by year from the drop down boxes.  
+
 * Jaisen Bynoe
 
 ## Project Description
