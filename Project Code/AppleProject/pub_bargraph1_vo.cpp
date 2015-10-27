@@ -36,12 +36,14 @@ Pub_BarGraph1_VO::Pub_BarGraph1_VO(std::shared_ptr<CSVData<PublicationDTO> > dat
     for(int i = 0; i < (int) data->dtos->size(); i++){
         PublicationDTO dto = data->dtos->at(i);
         if(dto.name == name){
-            vector<string>::iterator index;
-            index = find(pubTypes.begin(), pubTypes.end(), dto.type);
-            int i = distance(pubTypes.begin(),index);
-            index = find(years.begin(), years.end(), to_string(dto.date));
-            int j = distance(years.begin(),index);
-            values.at(i).at(j) += 1;
+            if((start <= dto.date)&&(dto.date <= end)){
+                vector<string>::iterator index;
+                index = find(pubTypes.begin(), pubTypes.end(), dto.type);
+                int i = distance(pubTypes.begin(),index);
+                index = find(years.begin(), years.end(), to_string(dto.date));
+                int j = distance(years.begin(),index);
+                values.at(i).at(j) += 1;
+            }
         }
     }
     cout << "pass 3" << endl;

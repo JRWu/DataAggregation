@@ -245,7 +245,7 @@ void AnalyzeCSV::on_filter_btn_clicked()
         graph_handlerNew->plot_pub_vs_type(plot, g);
 
         scene->addWidget(plot);   // Add plot to the window & Essential
-        ui->graph_area->close();
+
         ui->graph_area->setScene(scene);    // Added for grpahics & Essential
 
     }
