@@ -29,10 +29,11 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     cout << "***made new tree***\n";
 
     // Populates the VO
-    p_tree->populate_publication_set(_data);
+    p_tree->populate_publication_set(_data, 1975,2025);
 
-    //for demonstration purposes only
 
+
+    // PUT THIS IN FUNCTION vvv
     /// LIST TREE VIEW ///
     ui->pub_tree->setColumnCount(2);
     ui->pub_tree->setColumnWidth(0, 275);
@@ -56,8 +57,10 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     ui->pub_tree->expandItem(root);
 
     /// LIST TREE VIEW ///
+    // PUT THIS IN FUNCTION ^^^
 
-    Pub_BarGraph1_VO* graphable = new Pub_BarGraph1_VO(_data);
+
+    Pub_BarGraph1_VO* graphable = new Pub_BarGraph1_VO(_data, 1900, 4000);
 
 
     // RM THIS vvv LATER
@@ -168,29 +171,68 @@ QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<PublicationDT
 }
 
 
+Ui::AnalyzeCSV* AnalyzeCSV::get_ui_ptr()
+{
+    return ui;
+}
+
 void AnalyzeCSV::on_filter_btn_clicked()
 {
-
     std::shared_ptr<CSVData<PublicationDTO>> _data = datanew;
+    //std::shared_ptr<CSVData<PublicationDTO>> _data = datanew;
+    QString st_string = ui->start_date1->itemText(ui->start_date1->currentIndex());
+    QString en_string = ui->end_date1->itemText(ui->end_date1->currentIndex());
 
-   // get the user selection from the QComboBox
-    unsigned long s = ui->start_date1->itemData(ui->start_date1->currentIndex()).toInt();
-    unsigned long e = ui->end_date1->itemData(ui->end_date1->currentIndex()).toInt();
+    long s = stol(st_string.toStdString()); // start date
+    long e = stol(en_string.toStdString()); // end date
 
     // Ensure the retrieved years are in the accepted range
-    if (e <= s) {
+    if (e <= s)
+    {
         cout << "Filter dates error" << endl;
     }
-    else {
+    else
+    {
+        Ui::AnalyzeCSV * tmpUI = get_ui_ptr();
 
         // Create new tree list from the selcted interval
         tree_list_vo *p_treeNew = new tree_list_vo(_data);
         // Populates the VO , still needs the new params
-        p_treeNew->populate_publication_set(_data); // (_data, s, e);
+        p_treeNew->populate_publication_set(_data, (int)s,(int)e);
+        tmpUI->pub_tree->clear();
 
+        /// LIST TREE VIEW ///
+        tmpUI->pub_tree->setColumnCount(2);
+        tmpUI->pub_tree->setColumnWidth(0, 275);
+        tmpUI->pub_tree->setHeaderLabels(QStringList() << "Field" << "Total");
+
+        int pubCounter = 0;
+        QTreeWidgetItem *root = new QTreeWidgetItem(tmpUI->pub_tree, QStringList() << "Publications" << QString::fromStdString(std::to_string(_data->dtos->size())));
+        for (int i = 0; i < p_treeNew->get_publication_types().size(); i ++) // per 12
+        {
+            cout << i << endl;
+            QTreeWidgetItem * child = new QTreeWidgetItem(root, QStringList() << QString::fromStdString(p_treeNew->get_publication_types().at(i))
+                                                      <<QString::fromStdString(std::to_string(p_treeNew->get_publication_type_sums().at(i))) );
+
+            vector<author_number> tmp = p_treeNew->get_author_name_set().at(i);
+            for (int j = 0; j < tmp.size(); j++)  // per 5?
+            {
+                new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).author)
+                                << QString::fromStdString(std::to_string(tmp.at(j).num)) );
+                pubCounter += tmp.at(j).num;
+            }
+        }
+        // expand publications root by default
+        tmpUI->pub_tree->expandItem(root);
+        /// LIST TREE VIEW ///
+        root->setText(1,QString::fromStdString(std::to_string(pubCounter)));    // updates text
+
+
+
+        /*
         // Create a new graphics scene
         scene = new QGraphicsScene(this);   // Added for graphics window
-        Pub_BarGraph1_VO* g = new Pub_BarGraph1_VO(_data);
+        Pub_BarGraph1_VO* g = new Pub_BarGraph1_VO(_data, s, e);        // BUG IS BREAKING THIS HERE
 
         QCustomPlot *plot = new QCustomPlot();
         customPlot->setGeometry(0,0,345,375);   // added to resize graph
@@ -200,7 +242,8 @@ void AnalyzeCSV::on_filter_btn_clicked()
         graph_handlerNew->plot_pub_vs_type(plot, g);
 
         scene->addWidget(plot);   // Add plot to the window & Essential
+        ui->graph_area->close();
         ui->graph_area->setScene(scene);    // Added for grpahics & Essential
-
+        */
     }
 }

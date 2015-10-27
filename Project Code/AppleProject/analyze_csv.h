@@ -16,6 +16,8 @@
 #include "graphvisualizations.h"
 #include "pub_bargraph1_vo.h"
 
+class tree_list_vo;     //forward pointer
+
 namespace Ui {
 class AnalyzeCSV;
 }
@@ -33,18 +35,20 @@ public:
     explicit AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> data, QWidget *parent = 0);
     ~AnalyzeCSV();
 
+//    void GenerateTreeView()
+
 private slots:
     void on_load_btn_clicked();
-
     void on_verify_btn_clicked();
-
-
+    Ui::AnalyzeCSV* get_ui_ptr();
     void on_filter_btn_clicked();
 
 private:
     Ui::AnalyzeCSV *ui;
     QGraphicsScene * scene; // Added to display the graph through the graph area
     QCustomPlot *customPlot;
+    tree_list_vo* p_tree;
+    std::shared_ptr<CSVData<PublicationDTO>> data;
 };
 
 #endif // ANALYZE_CSV_H
