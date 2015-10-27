@@ -228,14 +228,18 @@ void AnalyzeCSV::on_filter_btn_clicked()
 
 
 
-        /*
+
         // Create a new graphics scene
         scene = new QGraphicsScene(this);   // Added for graphics window
         Pub_BarGraph1_VO* g = new Pub_BarGraph1_VO(_data, s, e);        // BUG IS BREAKING THIS HERE
+        cout << "exit constructor" << endl;
+        cout << g->pubTypes.size() << endl;
+        cout << g->values.size() << endl;
 
         QCustomPlot *plot = new QCustomPlot();
-        customPlot->setGeometry(0,0,345,375);   // added to resize graph
-
+        cout << "pass 4" << endl;
+        plot->setGeometry(0,0,345,375);   // added to resize graph
+        cout << "pass 5" << endl;
         // Graph handling functions go here
         Graphvisualizations *graph_handlerNew = new Graphvisualizations();
         graph_handlerNew->plot_pub_vs_type(plot, g);
@@ -243,6 +247,6 @@ void AnalyzeCSV::on_filter_btn_clicked()
         scene->addWidget(plot);   // Add plot to the window & Essential
         ui->graph_area->close();
         ui->graph_area->setScene(scene);    // Added for grpahics & Essential
-        */
+
     }
 }

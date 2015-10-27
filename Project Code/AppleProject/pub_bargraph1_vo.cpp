@@ -4,8 +4,9 @@ using namespace std;
 
 Pub_BarGraph1_VO::Pub_BarGraph1_VO(std::shared_ptr<CSVData<PublicationDTO> > data, int start, int end)
 {
+    cout << start << " " << end << endl;
     name = data->dtos->at(0).name;  // Gets original name
-    cout << name << endl;
+
     for(int i = 0; i < (int) data->dtos->size(); i++){
         PublicationDTO dto = data->dtos->at(i);
         if(dto.name == name){
@@ -28,9 +29,10 @@ Pub_BarGraph1_VO::Pub_BarGraph1_VO(std::shared_ptr<CSVData<PublicationDTO> > dat
             temp.push_back(0);
         }
         values.push_back(temp);
-        cout <<  values.size() << endl;
     }
+
     cout << "pass 2" << endl;
+
     for(int i = 0; i < (int) data->dtos->size(); i++){
         PublicationDTO dto = data->dtos->at(i);
         if(dto.name == name){
@@ -39,7 +41,6 @@ Pub_BarGraph1_VO::Pub_BarGraph1_VO(std::shared_ptr<CSVData<PublicationDTO> > dat
             int i = distance(pubTypes.begin(),index);
             index = find(years.begin(), years.end(), to_string(dto.date));
             int j = distance(years.begin(),index);
-            cout << i << " " << j << endl;
             values.at(i).at(j) += 1;
         }
     }
