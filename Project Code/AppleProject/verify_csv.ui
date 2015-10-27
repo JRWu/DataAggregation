@@ -775,7 +775,7 @@
         </font>
        </property>
        <property name="text">
-        <string>CONFIRM CHANGE</string>
+        <string>CONFIRM CHANGES</string>
        </property>
       </widget>
      </item>

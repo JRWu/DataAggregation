@@ -14,6 +14,7 @@
 #include <stdio.h>  // rem later
 
 #include "graphvisualizations.h"
+#include "pub_bargraph1_vo.h"
 
 namespace Ui {
 class AnalyzeCSV;
@@ -24,6 +25,9 @@ class AnalyzeCSV : public QMainWindow
     Q_OBJECT
 
 QStringList PopulateDateCombos(std::shared_ptr<CSVData<PublicationDTO>> data);
+void AddRoot(QString field, QString total);
+QTreeWidgetItem* AddChild(QTreeWidgetItem *parent, QString field, QString total);
+QTreeWidgetItem* AddGrandChild(QTreeWidgetItem *parent, QString field, QString total);
 
 public:
     explicit AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> data, QWidget *parent = 0);
@@ -34,6 +38,8 @@ private slots:
 
     void on_verify_btn_clicked();
 
+
+    void on_filter_btn_clicked();
 
 private:
     Ui::AnalyzeCSV *ui;
