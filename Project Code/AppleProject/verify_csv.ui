@@ -594,7 +594,7 @@
            <brush brushstyle="SolidPattern">
             <color alpha="255">
              <red>0</red>
-             <green>134</green>
+             <green>170</green>
              <blue>0</blue>
             </color>
            </brush>
@@ -605,7 +605,7 @@
            <brush brushstyle="SolidPattern">
             <color alpha="255">
              <red>0</red>
-             <green>134</green>
+             <green>170</green>
              <blue>0</blue>
             </color>
            </brush>
@@ -698,7 +698,7 @@
        </property>
       </widget>
      </item>
-     <item>
+     <item alignment="Qt::AlignVCenter">
       <widget class="QPushButton" name="ignoreall_btn">
        <property name="minimumSize">
         <size>
@@ -725,7 +725,7 @@
        </property>
       </widget>
      </item>
-     <item>
+     <item alignment="Qt::AlignVCenter">
       <widget class="QPushButton" name="ignore_btn">
        <property name="minimumSize">
         <size>
@@ -752,7 +752,7 @@
        </property>
       </widget>
      </item>
-     <item>
+     <item alignment="Qt::AlignVCenter">
       <widget class="QPushButton" name="confirm_btn">
        <property name="minimumSize">
         <size>
