@@ -25,41 +25,13 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     ui->end_date1->addItems(date_strs);
     ui->end_date1->setCurrentIndex(date_strs.size()-1);
 
-    tree_list_vo *p_tree = new tree_list_vo(_data);
-    cout << "***made new tree***\n";
-
-    // Populates the VO
-//    p_tree->populate_for_publications(_data, 0, 4000);
-    p_tree->populate_for_publications(data, 0,4000);
-
-    // PUT THIS IN FUNCTION vvv
-    /// LIST TREE VIEW ///
-    ui->pub_tree->setColumnCount(2);
-    ui->pub_tree->setColumnWidth(0, 275);
-    ui->pub_tree->setHeaderLabels(QStringList() << "Field" << "Total");
-
-    QTreeWidgetItem *root = new QTreeWidgetItem(ui->pub_tree, QStringList() << "Publications" << QString::fromStdString(std::to_string(_data->dtos->size())));
-    for (int i = 0; i < p_tree->get_parent_set().size(); i ++) // per 12
-    {
-        cout << i << endl;
-        QTreeWidgetItem * child = new QTreeWidgetItem(root, QStringList() << QString::fromStdString(p_tree->get_parent_set().at(i).label)
-                                                      <<QString::fromStdString(std::to_string((int)p_tree->get_parent_set().at(i).num)) );
-        vector<string_data_object> tmp = p_tree->get_child_set().at(i);
-        for (int j = 0; j < tmp.size(); j++)  // per 5?
-        {
-            new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
-                                << QString::fromStdString(std::to_string((int)tmp.at(j).num)) );
-        }
-   }
-    // expand publications root by default
-    ui->pub_tree->expandItem(root);
-
-    /// LIST TREE VIEW ///
-    // PUT THIS IN FUNCTION ^^^
+    // Populate the QTreeWidget item
+    populate_publication_tree();
 
 
+
+    // PUT THIS IN A FUNCTION vvvvv
     Pub_BarGraph1_VO* graphable = new Pub_BarGraph1_VO(_data, 1900, 4000);
-
 
     // RM THIS vvv LATER
     cout <<"Name: "<< graphable->name << endl;
@@ -176,8 +148,16 @@ Ui::AnalyzeCSV* AnalyzeCSV::get_ui_ptr()
 
 void AnalyzeCSV::on_filter_btn_clicked()
 {
+    populate_publication_tree();
+}
+
+/**
+ * @brief AnalyzeCSV::populate_publication_tree fills the tree_list_vo with publication info
+ * @param p_tree holds the publication info to be written to the QTreeWidget
+ */
+void AnalyzeCSV::populate_publication_tree()
+{
     std::shared_ptr<CSVData<PublicationDTO>> _data = datanew;
-    //std::shared_ptr<CSVData<PublicationDTO>> _data = datanew;
     QString st_string = ui->start_date1->itemText(ui->start_date1->currentIndex());
     QString en_string = ui->end_date1->itemText(ui->end_date1->currentIndex());
 
@@ -225,9 +205,6 @@ void AnalyzeCSV::on_filter_btn_clicked()
         /// LIST TREE VIEW ///
         root->setText(1,QString::fromStdString(std::to_string(pubCounter)));    // updates text
 
-
-
-
         // Create a new graphics scene
         scene = new QGraphicsScene(this);   // Added for graphics window
         Pub_BarGraph1_VO* g = new Pub_BarGraph1_VO(_data, s, e);        // BUG IS BREAKING THIS HERE
@@ -248,4 +225,31 @@ void AnalyzeCSV::on_filter_btn_clicked()
         ui->graph_area->setScene(scene);    // Added for grpahics & Essential
 
     }
+}
+
+/**
+ * @brief AnalyzeCSV::populate_grant_tree fills the tree_list_vo with grant info
+ * @param p_tree holds the grant info to be written to QTreeWidget
+ */
+void AnalyzeCSV::populate_grant_tree()
+{
+
+}
+
+/**
+ * @brief AnalyzeCSV::populate_teaching_tree fills the tree_list_vo with teaching info
+ * @param p_tree holds the teaching info to be written to QTreeWidget
+ */
+void AnalyzeCSV::populate_teaching_tree()
+{
+
+}
+
+/**
+ * @brief AnalyzeCSV::populate_presentation_tree fills the tree_list_vo with presentation info
+ * @param p_tree holds the presentation info to be written to QTreeWidget
+ */
+void AnalyzeCSV::pouplate_presentation_tree()
+{
+
 }

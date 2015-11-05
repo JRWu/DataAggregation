@@ -49,6 +49,11 @@ private:
     QCustomPlot *customPlot;
     tree_list_vo* p_tree;
     std::shared_ptr<CSVData<PublicationDTO>> data;
+
+    void populate_publication_tree();
+    void populate_grant_tree();
+    void populate_teaching_tree();
+    void pouplate_presentation_tree();
 };
 
 #endif // ANALYZE_CSV_H
