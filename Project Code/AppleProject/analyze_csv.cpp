@@ -29,9 +29,8 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     cout << "***made new tree***\n";
 
     // Populates the VO
-    p_tree->populate_publication_set(_data, 1975,2025);
-
-
+//    p_tree->populate_for_publications(_data, 0, 4000);
+    p_tree->populate_for_publications(data, 0,4000);
 
     // PUT THIS IN FUNCTION vvv
     /// LIST TREE VIEW ///
@@ -40,16 +39,16 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     ui->pub_tree->setHeaderLabels(QStringList() << "Field" << "Total");
 
     QTreeWidgetItem *root = new QTreeWidgetItem(ui->pub_tree, QStringList() << "Publications" << QString::fromStdString(std::to_string(_data->dtos->size())));
-    for (int i = 0; i < p_tree->get_publication_types().size(); i ++) // per 12
+    for (int i = 0; i < p_tree->get_parent_set().size(); i ++) // per 12
     {
         cout << i << endl;
-        QTreeWidgetItem * child = new QTreeWidgetItem(root, QStringList() << QString::fromStdString(p_tree->get_publication_types().at(i))
-                                                      <<QString::fromStdString(std::to_string(p_tree->get_publication_type_sums().at(i))) );
-        vector<author_number> tmp = p_tree->get_author_name_set().at(i);
+        QTreeWidgetItem * child = new QTreeWidgetItem(root, QStringList() << QString::fromStdString(p_tree->get_parent_set().at(i).label)
+                                                      <<QString::fromStdString(std::to_string((int)p_tree->get_parent_set().at(i).num)) );
+        vector<string_data_object> tmp = p_tree->get_child_set().at(i);
         for (int j = 0; j < tmp.size(); j++)  // per 5?
         {
-            new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).author)
-                                << QString::fromStdString(std::to_string(tmp.at(j).num)) );
+            new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
+                                << QString::fromStdString(std::to_string((int)tmp.at(j).num)) );
         }
    }
     // expand publications root by default
@@ -197,7 +196,7 @@ void AnalyzeCSV::on_filter_btn_clicked()
         // Create new tree list from the selcted interval
         tree_list_vo *p_treeNew = new tree_list_vo(_data);
         // Populates the VO , still needs the new params
-        p_treeNew->populate_publication_set(_data, (int)s,(int)e);
+        p_treeNew->populate_for_publications(_data, (int)s,(int)e);
         tmpUI->pub_tree->clear();
 
         /// LIST TREE VIEW ///
@@ -207,17 +206,17 @@ void AnalyzeCSV::on_filter_btn_clicked()
 
         int pubCounter = 0;
         QTreeWidgetItem *root = new QTreeWidgetItem(tmpUI->pub_tree, QStringList() << "Publications" << QString::fromStdString(std::to_string(_data->dtos->size())));
-        for (int i = 0; i < p_treeNew->get_publication_types().size(); i ++) // per 12
+        for (int i = 0; i < p_treeNew->get_parent_set().size(); i ++) // per 12
         {
             cout << i << endl;
-            QTreeWidgetItem * child = new QTreeWidgetItem(root, QStringList() << QString::fromStdString(p_treeNew->get_publication_types().at(i))
-                                                      <<QString::fromStdString(std::to_string(p_treeNew->get_publication_type_sums().at(i))) );
+            QTreeWidgetItem * child = new QTreeWidgetItem(root, QStringList() << QString::fromStdString(p_treeNew->get_parent_set().at(i).label)
+                                                      <<QString::fromStdString(std::to_string((int)p_treeNew->get_parent_set().at(i).num)) );
 
-            vector<author_number> tmp = p_treeNew->get_author_name_set().at(i);
+            vector<string_data_object> tmp = p_treeNew->get_child_set().at(i);
             for (int j = 0; j < tmp.size(); j++)  // per 5?
             {
-                new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).author)
-                                << QString::fromStdString(std::to_string(tmp.at(j).num)) );
+                new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
+                                << QString::fromStdString(std::to_string((int)tmp.at(j).num)) );
                 pubCounter += tmp.at(j).num;
             }
         }

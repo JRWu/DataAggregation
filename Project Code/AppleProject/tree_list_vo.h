@@ -1,5 +1,5 @@
-#ifndef TREE_LIST_VO_H
-#define TREE_LIST_VO_H
+#ifndef TREE_H
+#define TREE_H
 
 #include <iostream>
 #include <vector>
@@ -8,37 +8,39 @@
 
 using namespace std;
 
-
-// Holds the author and their respective publications*
-struct author_number
+// Holds information of subnode + information associated
+struct string_data_object
 {
-    string author="";
-    int num=0;
+    string label="";    // Represents, Author |Peer/Industry |Academic Year |Faculty Nam
+    double num=0;   // Represents count
+    double value=0; // Represents sum (if present)
 };
-
-
 
 class tree_list_vo
 {
-    int num_pub_types;
-    vector<string> publication_types;       // Contains publication titles
-    vector< vector<author_number> > author_name_set;   // Contains author:number set
-    vector<int> publication_type_sums;
-
 public:
-    tree_list_vo(); // Default constructor
-    tree_list_vo(shared_ptr<CSVData<PublicationDTO>> _data); // For publications
+    // Public Functions
+    tree_list_vo(); // Constructor
+    tree_list_vo(shared_ptr<CSVData<PublicationDTO> > _data); // Overloaded constructor
 
-    vector<string> get_publication_types(void);
-    vector<vector<author_number>> get_author_name_set(void);
-    vector<int> get_publication_type_sums(void);
+    vector<string_data_object> get_parent_set(void);
+    vector<vector<string_data_object> > get_child_set(void);
 
-    int populate_publication_set(shared_ptr<CSVData<PublicationDTO>> _data, int start, int end);
-    void populate_pub_tree(QTreeWidget t);
+    // These functions all populate the data slightly differently based on what is being passed
+    int populate_for_publications(shared_ptr<CSVData<PublicationDTO>> _data, int start, int end);
+    int populate_for_grants(shared_ptr<CSVData<PublicationDTO>> _data, int start, int end);
+    int populate_for_teaching(shared_ptr<CSVData<PublicationDTO>> _data, int start, int end);
+    int poulate_for_presentations(shared_ptr<CSVData<PublicationDTO>> _data, int start, int end);
 
 private:
-    int find_pub_type(string typ, vector<string> p_types); // Iterates vector<string> types for string typ
-    int find_author(string name, vector<author_number> a_n_set);
+    // Private Attributess
+    int num_pub_types;
+    vector<string_data_object> parent_set;    // Has label + sum per each child_set
+    vector<vector<string_data_object> > child_set;
+
+    //Private Functions
+    int find_label_index(string label, vector<string_data_object> set);
+
 };
 
-#endif // TREE_LIST_VO_H
+#endif // TREE_H

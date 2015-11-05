@@ -1,149 +1,152 @@
 #include "tree_list_vo.h"
 
+/**
+ * @brief tree_list_vo::tree_list_vo default constructor for tree_list_vo
+ */
 tree_list_vo::tree_list_vo()
 {
-}
-
-// Constructor for setting the pointer of the data tree
-tree_list_vo::tree_list_vo(shared_ptr<CSVData<PublicationDTO> > _data)
-{
-    _data = _data;
+    // default constructor
     num_pub_types = 0;
 }
 
-int tree_list_vo::populate_publication_set(shared_ptr<CSVData<PublicationDTO> > _data, int start, int end)
+
+/**
+/** * @brief tree_list_vo::tree_list_vo overloaded constructor for tree_list_vo
+/** * @param _data is the data pointer to be implemented later
+/** */tree_list_vo::tree_list_vo(shared_ptr<CSVData<PublicationDTO> > _data)
 {
-    // Consider this as a new object
-    // Assume 2 int values passed
-    int range_begin = start;
-    int range_ends = end;
+    _data = _data;
+    num_pub_types = 0;  // default 0 publication types
+}
 
-    // Pass vector with the date range, check somewhere before we add
-    vector<author_number> t;
-    author_name_set.push_back(t);       // add empty vector
-    publication_type_sums.push_back(0); // add 0 counts for first
 
-    // Loop through and find first index of valid date
-    int x = 0;
+/**
+ * @brief tree_list_vo::get_parent_set returns the parent set of the tree list vo object
+ * @return parent_set of the tree_list_vo object
+ */
+vector<string_data_object> tree_list_vo::get_parent_set()
+{
+    return parent_set;
+}
+
+/**
+ * @brief tree_list_vo::get_child_set returns the child set of the tree list vo object
+ * @return child_set of the tree_list_vo object
+ */
+vector<vector<string_data_object> > tree_list_vo::get_child_set()
+{
+    return child_set;
+}
+
+/**
+ * @brief tree_list_vo::populate_for_publications populates the tree VO with publication data
+ * @param _data shared pointer containing the csv parsed data
+ * @param start is the initial date range filter
+ * @param end is the final date range filter
+ * @return 0 if it's executed successfully
+ */
+int tree_list_vo::populate_for_publications(shared_ptr<CSVData<PublicationDTO> > _data, int start, int end)
+{
+    // Create the first empty child set
+    vector<string_data_object> t;
+    child_set.push_back(t);
+
+    int start_index = 0;
     int date = 0;
-    while (x < _data->dtos->size())
+    while(start_index < _data->dtos->size())    // Iterates through data to find first valid range
     {
-        date = _data->dtos->at(x).date;
-        cout << date;
+        date = _data->dtos->at(start_index).date;
 
-        if ((range_begin <= date) && (range_ends >= date))
+        if ((start <= date) && (end >= date))
         {
-            // Found first index that's vaild
-            cout << " yes" << endl;
-            break;  // Value is saved in "x"
+            break;            // Found the index of dto where the first legal date range is found
         }
-        cout << " ";
-
-        x += 1;
+        start_index += 1;
     }
-    // X is the first range
 
-    // Need to loop till the first valid before adding
-    author_number new_auth;
-    new_auth.author = _data->dtos->at(x).name;  // add first author
-    new_auth.num = 0;   // No publications of this type yet
-    author_name_set.at(0).push_back(new_auth);
-    publication_types.push_back(_data->dtos->at(x).type);   // Add 1st publication type
+    string_data_object first_sd;
+    first_sd.label = _data->dtos->at(start_index).name; // Add first Member Name
+    first_sd.num = 0;                                                        // Default is 0 publications
+    child_set.at(0).push_back(first_sd);                          // Add first publication author
 
+    string_data_object first_pub;                                   // Add first publication type
+    first_pub.label = _data->dtos->at(start_index).type;
+    first_pub.num = 0;                                                    // 0 publications first
+    first_pub.value = -1;
 
-    for (int i = x; i < _data->dtos->size(); i ++)  // Iterate through DTO's    (237)
+    parent_set.push_back(first_pub);                             // 1 Author and 1 Pub inserted
+
+    // start_index now contains the first DTO we begin at.
+    for (int i = start_index; i < _data->dtos->size(); i ++)
     {
-        date = _data->dtos->at(i).date; // check for the date
-        if ((range_begin <= date) && (range_ends >= date))  // check for date
+        date = _data->dtos->at(i).date;            // Get date of starting index
+        if ((start <= date) && (end >= date))   // Should pass b/c starting at 1st valid data index
         {
-
-
-            // ADd iff statement to filter for certain dates***
             string author = _data->dtos->at(i).name;    // Temp name
             string pubtype = _data->dtos->at(i).type;   // Temp publication type
 
-            int t_pub = find_pub_type(pubtype,publication_types);
-            if (t_pub == -1)    // New publication type         // 12 of these
+            int pub_value = find_label_index(pubtype, parent_set);
+            if (pub_value == -1)    // New publication type
             {
-                num_pub_types ++;
-                publication_types.push_back(pubtype); // Add publication type
-                vector<author_number> t;
-                author_name_set.push_back(t);    // add empty vector
-                publication_type_sums.push_back(1);
+                num_pub_types += 1;                      // Increment total publication count
 
-                author_number new_auth;                         // Add first author of new pub type
-                new_auth.author = author;
-                new_auth.num = 1;   // No publications of this type yet
+                string_data_object new_pub;
+                new_pub.label = pubtype;                // Set label of the new publication type
+                new_pub.num = 1;                            // 1st of its pubtype found
+                new_pub.value = -1;
 
-                int index = find_pub_type(pubtype, publication_types);
+                vector<string_data_object> empty_child;
+                child_set.push_back(empty_child);
 
-                author_name_set.at(index).push_back(new_auth);  // Bug here need to have index
-            }
-            if(t_pub != -1)                // Publication type exists, look for authors
-            {
-                publication_type_sums.at(t_pub) ++; // Increment total publications
-                int t_auth =find_author(author,author_name_set.at(t_pub));
-                if(t_auth == -1 )   // New Author
-                {
-                    author_number tmp_auth;
-                    tmp_auth.author = author;
-                    tmp_auth.num = 1;
-                    author_name_set.at(t_pub).push_back(tmp_auth);
+                parent_set.push_back(new_pub);
 
-                }
-                else
-                {
-                    vector<author_number> *tmp = &author_name_set.at(t_pub);
-                    tmp->at(t_auth).num += 1;
-                }
+                string_data_object new_auth;        // Add 1st author of new publicaiton type
+                new_auth.label = author;
+                new_auth.num = 1;
+                new_auth.value = -1;
+
+                int index = find_label_index(pubtype, parent_set);
+                child_set.at(index).push_back(new_auth);    // Add author to specific publication
             }
 
-        }   // End of if statement to check for years
+            if (pub_value != -1)    // Publication type exists, look for potential authors
+            {
+                parent_set.at(pub_value).num += 1;      // Add another entry for publications
+                int auth_value = find_label_index(author, child_set.at(pub_value));
 
-    }
-
-    return 0;
-}
-
-
-
-vector<string> tree_list_vo::get_publication_types(void)
-{
-    return publication_types;
-}
-
-vector<vector<author_number>> tree_list_vo::get_author_name_set(void)
-{
-    return author_name_set;
-}
-
-vector<int>  tree_list_vo::get_publication_type_sums(void)
-{
-    return publication_type_sums;
-}
-
-
-// Gets index of vector type
-// returns index of vector type
-// returns -1 otherwise
-int tree_list_vo::find_pub_type(string typ, vector<string> p_types)
-{
-    for (int i = 0; i < p_types.size(); i ++)
-    {
-        if ( p_types.at(i).compare(typ) == 0)
-        {
-            return i;
+                if (auth_value == -1)   // New author is encountered
+                {
+                    string_data_object new_auth;    // Create new author
+                    new_auth.label = author;
+                    new_auth.num = 1;
+                    new_auth.value = -1;
+                    child_set.at(pub_value).push_back(new_auth);
+                }
+                else        // Author is already found, increment their count for publications
+                {
+                    vector<string_data_object> *tmp = &child_set.at(pub_value);
+                    tmp->at(auth_value).num += 1;
+                }
+            }
         }
     }
-    return -1;
+
+    return 0;   // Exited with success.
 }
 
-// Gets index of author
-int tree_list_vo::find_author(string name, vector<author_number> a_n_set)
+
+/**
+ * @brief tree_list_vo::find_label_index will return the index of a label stored in
+ * the list specified by param set
+ * @param label is the label being searched for
+ * @param set is the vector that stores string:data objects
+ * @return the index at which label is stored if found, -1 otherwise
+ */
+int tree_list_vo::find_label_index(string label, vector<string_data_object> set)
 {
-    for (int i = 0; i < a_n_set.size(); i++)
+    for (int i = 0; i < set.size(); i ++)
     {
-        if ( (a_n_set.at(i).author).compare(name) == 0  )
+        if( (set.at(i).label).compare(label) == 0)
         {
             return i;
         }
