@@ -11,9 +11,10 @@ tree_list_vo::tree_list_vo()
 
 
 /**
-/** * @brief tree_list_vo::tree_list_vo overloaded constructor for tree_list_vo
-/** * @param _data is the data pointer to be implemented later
-/** */tree_list_vo::tree_list_vo(shared_ptr<CSVData<PublicationDTO> > _data)
+ * @brief tree_list_vo::tree_list_vo overloaded constructor for tree_list_vo
+ * @param _data is the data pointer to be implemented later
+ */
+tree_list_vo::tree_list_vo(shared_ptr<CSVData<PublicationDTO> > _data)
 {
     _data = _data;
     num_pub_types = 0;  // default 0 publication types

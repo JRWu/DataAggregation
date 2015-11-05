@@ -30,7 +30,7 @@ public:
     int populate_for_publications(shared_ptr<CSVData<PublicationDTO>> _data, int start, int end);
     int populate_for_grants(shared_ptr<CSVData<PublicationDTO>> _data, int start, int end);
     int populate_for_teaching(shared_ptr<CSVData<PublicationDTO>> _data, int start, int end);
-    int poulate_for_presentations(shared_ptr<CSVData<PublicationDTO>> _data, int start, int end);
+    int populate_for_presentations(shared_ptr<CSVData<PublicationDTO>> _data, int start, int end);
 
 private:
     // Private Attributess
