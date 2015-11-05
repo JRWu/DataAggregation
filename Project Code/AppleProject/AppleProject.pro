@@ -12,6 +12,8 @@ TARGET = AppleProject
 TEMPLATE = app
 
 CONFIG += c++11
+CONFIG += static
+#CONFIG += release
 
 SOURCES += main.cpp\
         mainwindow.cpp \
