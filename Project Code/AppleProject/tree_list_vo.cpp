@@ -135,6 +135,25 @@ int tree_list_vo::populate_for_publications(shared_ptr<CSVData<PublicationDTO> >
 }
 
 
+// To implement later once DO _data pointer is known
+int tree_list_vo::tree_list_vo::populate_for_grants(shared_ptr<CSVData<PublicationDTO> > _data, int start, int end)
+{
+    return 0;
+}
+
+// To implement later once DO _data pointer is known
+int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<PublicationDTO> > _data, int start, int end)
+{
+    return 0;
+}
+
+// To implement later once DO _data pointer is known
+int tree_list_vo::tree_list_vo::populate_for_presentations(shared_ptr<CSVData<PublicationDTO> > _data, int start, int end)
+{
+    return 0;
+}
+
+
 /**
  * @brief tree_list_vo::find_label_index will return the index of a label stored in
  * the list specified by param set
