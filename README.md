@@ -7,6 +7,8 @@
 
 >2015-2016 Academic Year
 
+>Chat: https://gitter.im/ericbachmeier5/team-apple
+
 **Current Stage:** Demo 1
 
 ## Team Members:
