@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     dtoassembler.cpp \
     tree_list_vo.cpp \
     graphvisualizations.cpp \
-    pub_bargraph1_vo.cpp
+    pub_bargraph1_vo.cpp \
+    grantdto.cpp
 
 HEADERS  += mainwindow.h \
     load_csv.h \
@@ -43,7 +44,8 @@ HEADERS  += mainwindow.h \
     dtoassembler.h \
     tree_list_vo.h \
     graphvisualizations.h \
-    pub_bargraph1_vo.h
+    pub_bargraph1_vo.h \
+    grantdto.h
     QT += printsupport
 
 FORMS    += mainwindow.ui \
