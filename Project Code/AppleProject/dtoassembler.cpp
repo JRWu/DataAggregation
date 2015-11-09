@@ -38,36 +38,3 @@ void assembleDTO(PublicationDTO *dto, vector<string> f){
     dto->education = f[25];
     dto->ISBN = f[26];
 }
-
-void assembleDTO(PresentationDTO *dto, vector<string> f){
-
-    //Mandatory Fields
-    dto->date = atoi(f[0].c_str());
-    dto->name = f[1];
-    dto->domain = f[2];
-    dto->type = f[3];
-    dto->role = f[4];
-    dto->title = f[5];
-
-    //Optional Fields
-    dto->activityType = f[6];
-    dto->geoScope = f[7];
-    dto->host = f[8];
-    dto->country = f[9];
-    dto->province = f[10];
-    dto->city = f[11];
-    dto->attendeeNum = f[12];
-    dto->hours = f[13];
-    dto->teachScore = f[14];
-    dto->presentation = f[15];
-    dto->remarks = f[16];
-
-    //Split up the authors list
-    stringstream ss(f[17]);
-    string item;
-    //Split around ,
-    while(getline(ss, item, ',')) dto->authorship->push_back(item);
-
-    dto->citation = f[18];
-    dto->personalRenumeration = f[19];
-}

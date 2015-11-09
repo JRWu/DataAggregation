@@ -15,7 +15,7 @@ class VerifyCSV : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit VerifyCSV(QString filename, int csvType, QWidget *parent = 0);
+    explicit VerifyCSV(QString filename,QWidget *parent = 0);
     ~VerifyCSV();
 
 private slots:
@@ -34,11 +34,8 @@ private:
     AnalyzeCSV *analyze_csv_page;
     QStandardItemModel* PublicationTableModel();
     shared_ptr<CSVData<PublicationDTO>> data;
-    shared_ptr<CSVData<PresentationDTO>> data4;
     void enableConfirmChanges();
     bool changesMade;
-    int dtoType;
-    bool assembled;
 
 };
 

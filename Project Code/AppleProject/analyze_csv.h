@@ -29,14 +29,12 @@ class AnalyzeCSV : public QMainWindow
     Q_OBJECT
 
 QStringList PopulateDateCombos(std::shared_ptr<CSVData<PublicationDTO>> data);
-QStringList PopulateDateCombos(std::shared_ptr<CSVData<PresentationDTO>> data);
 void AddRoot(QString field, QString total);
 QTreeWidgetItem* AddChild(QTreeWidgetItem *parent, QString field, QString total);
 QTreeWidgetItem* AddGrandChild(QTreeWidgetItem *parent, QString field, QString total);
 
 public:
     explicit AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> data, QWidget *parent = 0);
-    explicit AnalyzeCSV(std::shared_ptr<CSVData<PresentationDTO>> data, QWidget *parent = 0);
     explicit AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> data, QWidget *parent = 0);
     ~AnalyzeCSV();
 
@@ -55,7 +53,6 @@ private:
     QCustomPlot *customPlot;
     tree_list_vo* p_tree;
     std::shared_ptr<CSVData<PublicationDTO>> data;
-    std::shared_ptr<CSVData<PresentationDTO>> data4; //data for presentation
 
     void populate_publication_tree();
     void populate_grant_tree();

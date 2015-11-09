@@ -8,6 +8,5 @@
 
 int validatePublication(std::vector<std::string> *fields);
 
-int validatePresentation(std::vector<std::string> *fields);
 
 #endif // VALIDATEDTO_H

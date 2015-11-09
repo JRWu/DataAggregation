@@ -29,8 +29,7 @@ SOURCES += main.cpp\
     tree_list_vo.cpp \
     graphvisualizations.cpp \
     pub_bargraph1_vo.cpp \
-    teach_bargraph1_vo.cpp \
-    presentationdto.cpp
+    teach_bargraph1_vo.cpp
 
 HEADERS  += mainwindow.h \
     load_csv.h \
@@ -46,8 +45,7 @@ HEADERS  += mainwindow.h \
     tree_list_vo.h \
     graphvisualizations.h \
     pub_bargraph1_vo.h \
-    teach_bargraph1_vo.h \
-    presentationdto.h
+    teach_bargraph1_vo.h
     QT += printsupport
 
 FORMS    += mainwindow.ui \
