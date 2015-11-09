@@ -45,8 +45,8 @@ public:
     //These might not be numbers or bool??
     string peerReviewed, industryGrant, monetary, rpt, rnw, edGrant, DupReported;
       
-    PublicationDTO();
-    ~PublicationDTO();
+    GrantDTO();
+    ~GrantDTO();
 };
 
 #endif // PUBLICATIONDTO

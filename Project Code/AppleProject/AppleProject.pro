@@ -5,6 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
+QT       += printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -50,7 +51,6 @@ HEADERS  += mainwindow.h \
     grantdto.h \
     teach_bargraph1_vo.h \
     presentationdto.h \
-    QT += printsupport
 
 FORMS    += mainwindow.ui \
     load_csv.ui \
