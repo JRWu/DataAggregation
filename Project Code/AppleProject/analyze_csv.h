@@ -17,11 +17,8 @@
 
 #include "graphvisualizations.h"
 #include "pub_bargraph1_vo.h"
-<<<<<<< HEAD
 #include "grant_bargraph1_vo.h"
-=======
 #include "teach_bargraph1_vo.h"
->>>>>>> master
 
 class tree_list_vo;     //forward pointer
 
@@ -41,12 +38,9 @@ QTreeWidgetItem* AddGrandChild(QTreeWidgetItem *parent, QString field, QString t
 
 public:
     explicit AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> data, QWidget *parent = 0);
-<<<<<<< HEAD
     explicit AnalyzeCSV(std::shared_ptr<CSVData<GrantDTO>> data, QWidget *parent = 0);
-=======
     explicit AnalyzeCSV(std::shared_ptr<CSVData<PresentationDTO>> data, QWidget *parent = 0);
     explicit AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> data, QWidget *parent = 0);
->>>>>>> master
     ~AnalyzeCSV();
 
 //    void GenerateTreeView()
@@ -64,11 +58,8 @@ private:
     QCustomPlot *customPlot;
     tree_list_vo* p_tree;
     std::shared_ptr<CSVData<PublicationDTO>> data;
-<<<<<<< HEAD
     std::shared_ptr<CSVData<GrantDTO>> gdata;
-=======
     std::shared_ptr<CSVData<PresentationDTO>> data4; //data for presentation
->>>>>>> master
 
     void populate_publication_tree();
     void populate_grant_tree();
