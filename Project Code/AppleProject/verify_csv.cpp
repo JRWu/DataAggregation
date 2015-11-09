@@ -17,6 +17,7 @@ VerifyCSV::VerifyCSV(QString filename, int csvType, QWidget *parent) :
 
     //empty data pointer accessible to the verify class
     data = shared_ptr<CSVData<PublicationDTO>>(new CSVData<PublicationDTO>);
+    gdata = shared_ptr<CSVData<GrantDTO>>(new CSVData<GrantDTO>);
     data4 = shared_ptr<CSVData<PresentationDTO>>(new CSVData<PresentationDTO>);
 
     //Assemble data from a given file and store in a data pointer
@@ -96,6 +97,31 @@ QStandardItemModel* VerifyCSV::PublicationTableModel()
         }
   return NULL;
 }
+
+QStandardItemModel* VerifyCSV::GrantTableModel()
+{
+    /*define a model with the number of rows as error lines, and columns as mandatory columns*/
+    QStandardItemModel *model = new QStandardItemModel(data->errorRows->size(),data->nMan,NULL);
+    
+    //Set headers
+    size_t i;
+    for (i = 0; i < data->nMan;i++)
+    {
+        model->setHorizontalHeaderItem(i, new QStandardItem(QString::fromStdString(data->header->at(i))));
+    }
+    
+    /*loop through strings and add each to the table model*/
+    for(i = 0; i < data->errorRows->size(); i++){
+        vector<string> line = data->errorRows->at(i);
+        for(size_t j = 0; j < data->nMan; j++){
+            QString qstr = QString::fromStdString(line[j]);
+            QStandardItem *newRow = new QStandardItem(qstr);
+            model->setItem(i,j,newRow);
+        };
+    }
+    return model;
+}
+
 
 void VerifyCSV::enableConfirmChanges()
 {
