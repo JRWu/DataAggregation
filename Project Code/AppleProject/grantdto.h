@@ -32,7 +32,7 @@ class GrantDTO{
 public:
     
     //Mandatory Fields
-    string memberName, domain, title, PRINCIPAL_INVESTIGATOR, COINVESTIGATOR;
+    string Name, domain, title, PRINCIPAL_INVESTIGATOR, COINVESTIGATOR;
     float totalAmount;
     
     unsigned int startDate, endDate;

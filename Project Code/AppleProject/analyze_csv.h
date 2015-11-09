@@ -2,6 +2,7 @@
 #define ANALYZE_CSV_H
 
 #include "csvdata.h"
+#include "grantdto.h"
 #include "publicationdto.h"
 #include "tree_list_vo.h"
 #include <QMainWindow>
@@ -15,6 +16,7 @@
 
 #include "graphvisualizations.h"
 #include "pub_bargraph1_vo.h"
+#include "grant_bargraph1_vo.h"
 
 class tree_list_vo;     //forward pointer
 
@@ -33,6 +35,7 @@ QTreeWidgetItem* AddGrandChild(QTreeWidgetItem *parent, QString field, QString t
 
 public:
     explicit AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> data, QWidget *parent = 0);
+    explicit AnalyzeCSV(std::shared_ptr<CSVData<GrantDTO>> data, QWidget *parent = 0);
     ~AnalyzeCSV();
 
 //    void GenerateTreeView()
@@ -49,6 +52,7 @@ private:
     QCustomPlot *customPlot;
     tree_list_vo* p_tree;
     std::shared_ptr<CSVData<PublicationDTO>> data;
+    std::shared_ptr<CSVData<GrantDTO>> gdata;
 
     void populate_publication_tree();
     void populate_grant_tree();

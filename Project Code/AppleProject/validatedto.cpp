@@ -161,3 +161,24 @@ int validatePublication(std::vector<string> *fields){
     if(!validateDate(&(*fields)[0])) result+=1;
     return result;
 }
+
+/* Checks the 13 mandatory fields for a publication DTO.
+ * The check is made in reverse order for ease of unpacking
+ * the encoded int to display which entries are invalid.
+ */
+int validatePublication(std::vector<string> *fields){
+    int result = 0;
+    
+    if(!validateAuthors(&(*fields)[12])) result+=1;
+    result <<= 1;
+    
+    //Check the 13 mandatory fields
+    for(int i = 12; i > 0; i--){
+        if(!validateString((*fields)[i])) result+=1;
+        result <<= 1;
+    }
+    
+    if(!validateDate(&(*fields)[0])) result+=1;
+    return result;
+}
+
