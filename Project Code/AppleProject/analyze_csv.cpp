@@ -3,7 +3,7 @@
 #include "ui_analyze_csv.h"
 
 std::shared_ptr<CSVData<PublicationDTO>> datanew;
-
+std::shared_ptr<CSVData<PublicationDTO>> datanew4; //presentation data
 // Create a new pointer the for Teaching CSV data
 std::shared_ptr<CSVData<TeachingDTO>> teaching_data_new;
 
@@ -112,6 +112,53 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
 
 
 }
+
+//Constructor for Presentation - ideally merge this with the above one
+AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PresentationDTO>> _data, QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::AnalyzeCSV)
+{
+    /*datanew4 = _data;
+    std::shared_ptr<CSVData<PresentationDTO>> data = _data;
+    dtoType = 4;
+    ui->setupUi(this);
+    /// DOMAIN LABEL SET ///
+    ui->domain_lbl1->setText(QString::fromStdString(data->dtos->at(0).domain));
+    /// DATE FILTER COMBO BOX ///
+    QStringList date_strs = PopulateDateCombos(data);
+    // set the dates list to the combo boxes
+    ui->start_date1->addItems(date_strs);
+    ui->start_date1->setCurrentIndex(0);
+    ui->end_date1->addItems(date_strs);
+    ui->end_date1->setCurrentIndex(date_strs.size()-1);
+    // Populate the QTreeWidget item
+    populate_publication_tree();
+    // PUT THIS IN A FUNCTION vvvvv
+    /*Pub_BarGraph1_VO* graphable = new Pub_BarGraph1_VO(_data, 1900, 4000);
+    // RM THIS vvv LATER
+    cout <<"Name: "<< graphable->name << endl;
+    cout <<"Values size: "<< graphable->values.size()<< endl;
+    cout <<"Years size: "<< graphable->years.size()<< endl;
+    cout <<"PubTypes size: "<< graphable->pubTypes.size()<<endl;
+    for (int i = 0; i < graphable->years.size(); i++)
+    {
+        cout << "Years["<<to_string(i)<<"] " << graphable->years.at(i) << endl;
+    }
+    for (int i = 0; i < graphable->pubTypes.size(); i++)
+    {
+        cout << "PubTypes["<<std::to_string(i)<<"] " << graphable->pubTypes.at(i) << endl;
+    }
+    // RM THIS ^^^ LATER
+    scene = new QGraphicsScene(this);   // Added for graphics window
+    QCustomPlot *customPlot = new QCustomPlot();
+    customPlot->setGeometry(0,0,345,375);   // added to resize graph
+    // Graph handling functions go here
+    Graphvisualizations *graph_handler = new Graphvisualizations();
+    graph_handler->plot_pub_vs_type(customPlot, graphable);
+    scene->addWidget(customPlot);   // Add plot to the window & Essential
+    ui->graph_area->setScene(scene);    // Added for grpahics & Essential*/
+}
+
 
 AnalyzeCSV::~AnalyzeCSV()
 {
