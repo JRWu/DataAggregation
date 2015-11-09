@@ -34,7 +34,7 @@ private:
     AnalyzeCSV *analyze_csv_page;
     QStandardItemModel* PublicationTableModel();
     shared_ptr<CSVData<PublicationDTO>> data;
-    shared_ptr<CSVData<GrantDTO>> gdata; //
+    //shared_ptr<CSVData<GrantDTO>> gdata; //
     void enableConfirmChanges();
     bool changesMade;
 

@@ -233,7 +233,7 @@ void AnalyzeCSV::populate_publication_tree()
  */
 void AnalyzeCSV::populate_grant_tree()
 {
-    std::shared_ptr<CSVData<PublicationDTO>> _data = datanew; //
+    std::shared_ptr<CSVData<GrantDTO>> _data = datanew; //
     QString st_string = ui->start_date1->itemText(ui->start_date1->currentIndex());
     QString en_string = ui->end_date1->itemText(ui->end_date1->currentIndex());
     
@@ -252,7 +252,7 @@ void AnalyzeCSV::populate_grant_tree()
         // Create new tree list from the selcted interval
         tree_list_vo *p_treeNew = new tree_list_vo(_data);
         // Populates the VO , still needs the new params
-        p_treeNew->populate_for_publications(_data, (int)s,(int)e);
+        p_treeNew->populate_for_grants(_data, (int)s,(int)e);
         tmpUI->pub_tree->clear();
         
         /// LIST TREE VIEW ///
@@ -261,7 +261,7 @@ void AnalyzeCSV::populate_grant_tree()
         tmpUI->pub_tree->setHeaderLabels(QStringList() << "Field" << "Total");
         
         int pubCounter = 0;
-        QTreeWidgetItem *root = new QTreeWidgetItem(tmpUI->pub_tree, QStringList() << "Publications" << QString::fromStdString(std::to_string(_data->dtos->size())));
+        QTreeWidgetItem *root = new QTreeWidgetItem(tmpUI->pub_tree, QStringList() << "Grants" << QString::fromStdString(std::to_string(_data->dtos->size())));
         for (int i = 0; i < p_treeNew->get_parent_set().size(); i ++) // per 12
         {
             cout << i << endl;
