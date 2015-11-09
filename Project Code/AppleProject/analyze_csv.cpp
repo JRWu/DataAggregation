@@ -4,6 +4,8 @@
 
 std::shared_ptr<CSVData<PublicationDTO>> datanew;
 
+std::shared_ptr<CSVData<GrantDTO>> gdatanew;
+
 AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::AnalyzeCSV)
@@ -61,8 +63,65 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     scene->addWidget(customPlot);   // Add plot to the window & Essential
     ui->graph_area->setScene(scene);    // Added for grpahics & Essential
 
+}
 
-
+// Populate Grant tab
+AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<GrantDTO>> _data, QWidget *parent) :
+QMainWindow(parent),
+ui(new Ui::AnalyzeCSV)
+{
+    gdatanew = _data;
+    
+    std::shared_ptr<CSVData<GrantDTO>> data = _data;
+    ui->setupUi(this);
+    
+    /// DOMAIN LABEL SET ///
+    ui->domain_lbl1->setText(QString::fromStdString(data->dtos->at(0).domain));
+    
+    /// DATE FILTER COMBO BOX ///
+    QStringList date_strs = PopulateDateCombos(data);
+    
+    // set the dates list to the combo boxes
+    ui->start_date1->addItems(date_strs);
+    ui->start_date1->setCurrentIndex(0);
+    ui->end_date1->addItems(date_strs);
+    ui->end_date1->setCurrentIndex(date_strs.size()-1);
+    
+    // Populate the QTreeWidget item
+    populate_grant_tree();
+    
+    
+    // PUT THIS IN A FUNCTION vvvvv
+    Pub_BarGraph1_VO* graphable = new Pub_BarGraph1_VO(_data, 1900, 4000);
+    
+    // LEAVE THIS IN FOR GRANT??
+    // RM THIS vvv LATER
+    cout <<"Name: "<< graphable->name << endl;
+    cout <<"Values size: "<< graphable->values.size()<< endl;
+    cout <<"Years size: "<< graphable->years.size()<< endl;
+    cout <<"PubTypes size: "<< graphable->pubTypes.size()<<endl;
+    for (int i = 0; i < graphable->years.size(); i++)
+    {
+        cout << "Years["<<to_string(i)<<"] " << graphable->years.at(i) << endl;
+    }
+    for (int i = 0; i < graphable->pubTypes.size(); i++)
+    {
+        cout << "PubTypes["<<std::to_string(i)<<"] " << graphable->pubTypes.at(i) << endl;
+    }
+    // RM THIS ^^^ LATER
+    ////////////////////////////
+    
+    scene = new QGraphicsScene(this);   // Added for graphics window
+    
+    QCustomPlot *customPlot = new QCustomPlot();
+    customPlot->setGeometry(0,0,345,375);   // added to resize graph
+    
+    // Graph handling functions go here
+    Graphvisualizations *graph_handler = new Graphvisualizations();
+    graph_handler->plot_pub_vs_type(customPlot, graphable);
+    
+    scene->addWidget(customPlot);   // Add plot to the window & Essential
+    ui->graph_area->setScene(scene);    // Added for grpahics & Essential
 }
 
 AnalyzeCSV::~AnalyzeCSV()
@@ -149,6 +208,12 @@ Ui::AnalyzeCSV* AnalyzeCSV::get_ui_ptr()
 void AnalyzeCSV::on_filter_btn_clicked()
 {
     populate_publication_tree();
+}
+
+// for Grants
+void AnalyzeCSV::on_filter_btn_clicked_grant()
+{
+    populate_grant_tree();
 }
 
 /**
@@ -256,11 +321,11 @@ void AnalyzeCSV::populate_grant_tree()
         tmpUI->pub_tree->clear();
         
         /// LIST TREE VIEW ///
-        tmpUI->pub_tree->setColumnCount(2);
-        tmpUI->pub_tree->setColumnWidth(0, 275);
-        tmpUI->pub_tree->setHeaderLabels(QStringList() << "Field" << "Total");
+        tmpUI->grant_tree->setColumnCount(2);
+        tmpUI->grant_tree->setColumnWidth(0, 275);
+        tmpUI->grant_tree->setHeaderLabels(QStringList() << "Funding" << "Total");
         
-        int pubCounter = 0;
+        int gCounter = 0;
         QTreeWidgetItem *root = new QTreeWidgetItem(tmpUI->pub_tree, QStringList() << "Grants" << QString::fromStdString(std::to_string(_data->dtos->size())));
         for (int i = 0; i < p_treeNew->get_parent_set().size(); i ++) // per 12
         {
@@ -277,7 +342,7 @@ void AnalyzeCSV::populate_grant_tree()
             }
         }
         // expand publications root by default
-        tmpUI->pub_tree->expandItem(root);
+        tmpUI->grant_tree->expandItem(root);
         /// LIST TREE VIEW ///
         root->setText(1,QString::fromStdString(std::to_string(pubCounter)));    // updates text
         
@@ -285,7 +350,7 @@ void AnalyzeCSV::populate_grant_tree()
         scene = new QGraphicsScene(this);   // Added for graphics window
         Pub_BarGraph1_VO* g = new Pub_BarGraph1_VO(_data, s, e);        // BUG IS BREAKING THIS HERE
         cout << "exit constructor" << endl;
-        cout << g->pubTypes.size() << endl;
+        cout << g->grantTypes.size() << endl;
         cout << g->values.size() << endl;
         
         QCustomPlot *plot = new QCustomPlot();
