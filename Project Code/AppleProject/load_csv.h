@@ -26,11 +26,13 @@ private slots:
     
     void on_grant_btn_clicked();
 
+    void on_presentation_btn_clicked();
 private:
     Ui::LoadCSV *ui;
     VerifyCSV *verify_csv_page;
     AnalyzeCSV *analyze_csv_page;
     QString filename;
+    int csvType;
 };
 
 #endif // LOAD_CSV_H
