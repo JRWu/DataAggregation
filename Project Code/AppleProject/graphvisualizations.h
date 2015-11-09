@@ -37,6 +37,7 @@ public:
 
     //4)For faculty name, graph teaching by program level
         // ^ for a certain date range
+    void Graphvisualizations::plot_teaching_vs_course(QCustomPlot* customPlot, Teach_BarGraph1_VO* bargraph_vo);
 
     //5)For faculty name, graph course/activity by program level
         // ^ For a certain date range

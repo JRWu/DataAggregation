@@ -142,9 +142,93 @@ int tree_list_vo::tree_list_vo::populate_for_grants(shared_ptr<CSVData<Publicati
     return 0;
 }
 
-// To implement later once DO _data pointer is known
-int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<PublicationDTO> > _data, int start, int end)
+int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<TeachingDTO> > _data, int start, int end)
 {
+    // Create the first empty child set
+    vector<string_data_object> t;
+    child_set.push_back(t);
+
+    int start_index = 0;
+    int date = 0;
+    while(start_index < _data->dtos->size())    // Iterates through data to find first valid range
+    {
+        date = _data->dtos->at(start_index).date;
+
+        if ((start <= date) && (end >= date))
+        {
+            break;            // Found the index of dto where the first legal date range is found
+        }
+        start_index += 1;
+    }
+
+    string_data_object first_sd;
+    first_sd.label = _data->dtos->at(start_index).name; // Add first Member Name
+    first_sd.num = 0;                                                        // Default is 0 publications
+    child_set.at(0).push_back(first_sd);                          // Add first publication author
+
+    string_data_object first_pub;                                   // Add first publication type
+    first_pub.label = _data->dtos->at(start_index).type;
+    first_pub.num = 0;                                                    // 0 publications first
+    first_pub.value = -1;
+
+    parent_set.push_back(first_pub);                             // 1 Author and 1 Pub inserted
+
+    // start_index now contains the first DTO we begin at.
+    for (int i = start_index; i < _data->dtos->size(); i ++)
+    {
+        date = _data->dtos->at(i).date;            // Get date of starting index
+        if ((start <= date) && (end >= date))   // Should pass b/c starting at 1st valid data index
+        {
+            string author = _data->dtos->at(i).name;    // Temp name
+            string pubtype = _data->dtos->at(i).type;   // Temp publication type
+
+            int pub_value = find_label_index(pubtype, parent_set);
+            if (pub_value == -1)    // New publication type
+            {
+                num_pub_types += 1;                      // Increment total publication count
+
+                string_data_object new_pub;
+                new_pub.label = pubtype;                // Set label of the new publication type
+                new_pub.num = 1;                            // 1st of its pubtype found
+                new_pub.value = -1;
+
+                vector<string_data_object> empty_child;
+                child_set.push_back(empty_child);
+
+                parent_set.push_back(new_pub);
+
+                string_data_object new_auth;        // Add 1st author of new publicaiton type
+                new_auth.label = author;
+                new_auth.num = 1;
+                new_auth.value = -1;
+
+                int index = find_label_index(pubtype, parent_set);
+                child_set.at(index).push_back(new_auth);    // Add author to specific publication
+            }
+
+            if (pub_value != -1)    // Publication type exists, look for potential authors
+            {
+                parent_set.at(pub_value).num += 1;      // Add another entry for publications
+                int auth_value = find_label_index(author, child_set.at(pub_value));
+
+                if (auth_value == -1)   // New author is encountered
+                {
+                    string_data_object new_auth;    // Create new author
+                    new_auth.label = author;
+                    new_auth.num = 1;
+                    new_auth.value = -1;
+                    child_set.at(pub_value).push_back(new_auth);
+                }
+                else        // Author is already found, increment their count for publications
+                {
+                    vector<string_data_object> *tmp = &child_set.at(pub_value);
+                    tmp->at(auth_value).num += 1;
+                }
+            }
+        }
+    }
+
+    // Exit success
     return 0;
 }
 
