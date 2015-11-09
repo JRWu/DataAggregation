@@ -2,6 +2,8 @@
 #define DTOASSEMBLER_H
 
 #include "publicationdto.h"
+#include "grantdto.h"
+#include <sstream>
 #include "presentationdto.h"
 #include <sstream>
 

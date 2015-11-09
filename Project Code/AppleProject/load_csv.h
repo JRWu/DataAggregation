@@ -23,6 +23,8 @@ private slots:
     void on_analyze_btn_clicked();
 
     void on_publication_btn_clicked();
+    
+    void on_grant_btn_clicked();
 
     void on_presentation_btn_clicked();
 private:

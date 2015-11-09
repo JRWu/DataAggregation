@@ -65,3 +65,17 @@ void LoadCSV::on_presentation_btn_clicked()
     ui->verify_btn->setDisabled(false);
     csvType = 4;
 }
+
+void LoadCSV::on_grant_btn_clicked()
+{
+    // This is what happens when user clicks the button for Grants
+    std::cout << "Grant button registered." << "\n";
+    filename=QFileDialog::getOpenFileName(
+                                          this,
+                                          tr("Open File"),        // Dialog for prompt
+                                          "C://",                 // Default folder to open
+                                          "CSV Files (*.csv)"     // File extension to filter for
+                                          );
+    ui->verify_btn->setDisabled(false);
+}
+
