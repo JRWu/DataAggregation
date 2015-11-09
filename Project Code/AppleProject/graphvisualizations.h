@@ -3,7 +3,7 @@
 
 #include <qcustomplot.h>
 class Pub_BarGraph1_VO; // Forward pointer to silence warning
-
+class Teach_BarGraph1_VO;
 
 class Graphvisualizations
 {

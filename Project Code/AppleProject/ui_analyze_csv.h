@@ -43,7 +43,7 @@ public:
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout;
     QLabel *date_filter_lbl;
-    QComboBox *start_date1;
+    QComboBox *start_date_publications;
     QComboBox *end_date1;
     QPushButton *filter_btn;
     QLabel *domain_lbl1;
@@ -77,7 +77,18 @@ public:
     QVBoxLayout *verticalLayout_7;
     QComboBox *graph_combo_7;
     QGraphicsView *graph_area_7;
+
+    // declarations for teaching
     QWidget *teach_tab;
+    QTreeWidget *teach_tree;
+    QLabel *date_filter_lbl_teach;
+    QComboBox *start_date_teach;
+    QComboBox *end_date_teach;
+    QPushButton *filter_btn_teach;
+    QLabel *domain_lbl_teach;
+    QComboBox *graph_combo_teach;
+    QGraphicsView *graph_area_teach;
+
     QWidget *horizontalLayoutWidget_5;
     QHBoxLayout *tab_area_8;
     QVBoxLayout *verticalLayout_10;
@@ -86,10 +97,10 @@ public:
     QComboBox *comboBox;
     QPushButton *date_filter_btn4;
     QLabel *domain_lbl4;
-    QTreeWidget *teach_tree;
     QVBoxLayout *verticalLayout_8;
     QComboBox *graph_combo_8;
     QGraphicsView *graph_area_8;
+
 
     void setupUi(QMainWindow *AnalyzeCSV)
     {
@@ -202,10 +213,10 @@ public:
 
         horizontalLayout->addWidget(date_filter_lbl);
 
-        start_date1 = new QComboBox(horizontalLayoutWidget_2);
-        start_date1->setObjectName(QStringLiteral("start_date1"));
+        start_date_publications = new QComboBox(horizontalLayoutWidget_2);
+        start_date_publications->setObjectName(QStringLiteral("start_date1"));
 
-        horizontalLayout->addWidget(start_date1);
+        horizontalLayout->addWidget(start_date_publications);
 
         end_date1 = new QComboBox(horizontalLayoutWidget_2);
         end_date1->setObjectName(QStringLiteral("end_date1"));

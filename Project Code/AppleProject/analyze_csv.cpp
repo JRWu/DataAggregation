@@ -17,23 +17,31 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> _data, QWidget *par
     teaching_data_new = _data;
 
 
-    std::shared_ptr<CSVData<PublicationDTO>> teaching_data = _data;
+    std::shared_ptr<CSVData<TeachingDTO>> teaching_data = _data;
     ui->setupUi(this);
 
     /// DOMAIN LABEL SET for Teaching ///
-    ui->domain_lbl4->setText(QString::fromStdString(data->dtos->at(0).domain));
+    ui->domain_lbl_teach->setText(QString::fromStdString(data->dtos->at(0).domain));
 
     /// DATE FILTER COMBO BOX ///
     QStringList date_strs = PopulateDateCombos(data);
 
     // set the dates list to the combo boxes
-    ui->start_date4->addItems(date_strs);
-    ui->start_date4->setCurrentIndex(0);
-    ui->end_date4->addItems(date_strs);
-    ui->end_date4->setCurrentIndex(date_strs.size()-1);
+
+
+
+    ui->start_date_teach->addItems(date_strs);
+    ui->start_date_teach->setCurrentIndex(0);
+    ui->end_date_teach->addItems(date_strs);
+    ui->end_date_teach->setCurrentIndex(date_strs.size()-1);
+
+
+
+
+
 
     // Populate the QTreeWidget item
-    populate_publication_tree();
+    populate_teaching_tree();
 
     // PUT THIS IN A FUNCTION vvvvv
     Teach_BarGraph1_VO* graphable = new Teach_BarGraph1_VO(_data, 1900, 4000);
@@ -48,7 +56,7 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> _data, QWidget *par
 
     scene->addWidget(customPlot);   // Add plot to the window & Essential
 
-    ui->graph_area4->setScene(scene);    // Added for graphics & Essential
+    ui->graph_area_teach->setScene(scene);    // Added for graphics & Essential
 }
 
 /* Populating the Publications tab */
@@ -68,8 +76,8 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     QStringList date_strs = PopulateDateCombos(data);
 
     // set the dates list to the combo boxes
-    ui->start_date1->addItems(date_strs);
-    ui->start_date1->setCurrentIndex(0);
+    ui->start_date_publications->addItems(date_strs);
+    ui->start_date_publications->setCurrentIndex(0);
     ui->end_date1->addItems(date_strs);
     ui->end_date1->setCurrentIndex(date_strs.size()-1);
 
@@ -128,8 +136,8 @@ ui(new Ui::AnalyzeCSV)
     QStringList date_strs = PopulateDateCombos(data);
     
     // set the dates list to the combo boxes
-    ui->start_date1->addItems(date_strs);
-    ui->start_date1->setCurrentIndex(0);
+    ui->start_date_publications->addItems(date_strs);
+    ui->start_date_publications->setCurrentIndex(0);
     ui->end_date1->addItems(date_strs);
     ui->end_date1->setCurrentIndex(date_strs.size()-1);
     
@@ -138,24 +146,8 @@ ui(new Ui::AnalyzeCSV)
     
     
     // PUT THIS IN A FUNCTION vvvvv
-    Pub_BarGraph1_VO* graphable = new Pub_BarGraph1_VO(_data, 1900, 4000);
-    
-    // LEAVE THIS IN FOR GRANT??
-    // RM THIS vvv LATER
-    cout <<"Name: "<< graphable->name << endl;
-    cout <<"Values size: "<< graphable->values.size()<< endl;
-    cout <<"Years size: "<< graphable->years.size()<< endl;
-    cout <<"PubTypes size: "<< graphable->pubTypes.size()<<endl;
-    for (int i = 0; i < graphable->years.size(); i++)
-    {
-        cout << "Years["<<to_string(i)<<"] " << graphable->years.at(i) << endl;
-    }
-    for (int i = 0; i < graphable->pubTypes.size(); i++)
-    {
-        cout << "PubTypes["<<std::to_string(i)<<"] " << graphable->pubTypes.at(i) << endl;
-    }
-    // RM THIS ^^^ LATER
-    ////////////////////////////
+    Grant_BarGraph1_VO* graphable = new Grant_BarGraph1_VO(_data, 1900, 4000);
+
     
     scene = new QGraphicsScene(this);   // Added for graphics window
     
@@ -309,10 +301,9 @@ void AnalyzeCSV::on_filter_btn_clicked_grant()
     populate_grant_tree();
 }
 
-void AnalyzeCSV::on_filter_btn_clicked_teaching()
-{
-    populate_teaching_tree();
-}
+//void AnalyzeCSV::on_filter_btn_clicked_teaching()
+//{
+//}
 
 /**
  * @brief AnalyzeCSV::populate_publication_tree fills the tree_list_vo with publication info
@@ -321,7 +312,7 @@ void AnalyzeCSV::on_filter_btn_clicked_teaching()
 void AnalyzeCSV::populate_publication_tree()
 {
     std::shared_ptr<CSVData<PublicationDTO>> _data = datanew;
-    QString st_string = ui->start_date1->itemText(ui->start_date1->currentIndex());
+    QString st_string = ui->start_date_publications->itemText(ui->start_date_publications->currentIndex());
     QString en_string = ui->end_date1->itemText(ui->end_date1->currentIndex());
 
     long s = stol(st_string.toStdString()); // start date
@@ -396,8 +387,8 @@ void AnalyzeCSV::populate_publication_tree()
  */
 void AnalyzeCSV::populate_grant_tree()
 {
-    std::shared_ptr<CSVData<GrantDTO>> _data = datanew; //
-    QString st_string = ui->start_date1->itemText(ui->start_date1->currentIndex());
+    std::shared_ptr<CSVData<GrantDTO>> _data = gdatanew; //
+    QString st_string = ui->start_date_publications->itemText(ui->start_date_publications->currentIndex());
     QString en_string = ui->end_date1->itemText(ui->end_date1->currentIndex());
     
     long s = stol(st_string.toStdString()); // start date
@@ -476,7 +467,7 @@ void AnalyzeCSV::populate_teaching_tree()
 
     std::shared_ptr<CSVData<TeachingDTO>> _data = teaching_data_new;
 
-    QString st_string = ui->start_date1->itemText(ui->start_date1->currentIndex());
+    QString st_string = ui->start_date_publications->itemText(ui->start_date_publications->currentIndex());
     QString en_string = ui->end_date1->itemText(ui->end_date1->currentIndex());
     long s = stol(st_string.toStdString()); // start date
     long e = stol(en_string.toStdString()); // end date
@@ -542,15 +533,11 @@ void AnalyzeCSV::populate_teaching_tree()
 
         ui->graph_area->setScene(scene);    // Added for grpahics & Essential
 
-//    }
+    }
 
 }
 
-/**
- * @brief AnalyzeCSV::populate_presentation_tree fills the tree_list_vo with presentation info
- * @param p_tree holds the presentation info to be written to QTreeWidget
- */
-void AnalyzeCSV::pouplate_presentation_tree()
+void AnalyzeCSV::on_filter_btn_teach_clicked()
 {
-
+    populate_teaching_tree();
 }

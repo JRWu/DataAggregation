@@ -1,0 +1,5 @@
+#ifndef GRANT_BARGRAPH1_VO
+#define GRANT_BARGRAPH1_VO
+
+#endif // GRANT_BARGRAPH1_VO
+

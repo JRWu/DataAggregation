@@ -32,6 +32,9 @@ class AnalyzeCSV : public QMainWindow
 
 QStringList PopulateDateCombos(std::shared_ptr<CSVData<PublicationDTO>> data);
 QStringList PopulateDateCombos(std::shared_ptr<CSVData<PresentationDTO>> data);
+QStringList PopulateDateCombos(std::shared_ptr<CSVData<GrantDTO>> gdata);
+
+
 void AddRoot(QString field, QString total);
 QTreeWidgetItem* AddChild(QTreeWidgetItem *parent, QString field, QString total);
 QTreeWidgetItem* AddGrandChild(QTreeWidgetItem *parent, QString field, QString total);
@@ -50,13 +53,16 @@ private slots:
     void on_verify_btn_clicked();
     Ui::AnalyzeCSV* get_ui_ptr();
     void on_filter_btn_clicked();
-    void AnalyzeCSV::on_filter_btn_clicked_teaching();
+    void on_filter_btn_clicked_teaching();
+
+    void on_filter_btn_teach_clicked();
 
 private:
     Ui::AnalyzeCSV *ui;
     QGraphicsScene * scene; // Added to display the graph through the graph area
     QCustomPlot *customPlot;
     tree_list_vo* p_tree;
+    tree_list_vo* teach_tree;
     std::shared_ptr<CSVData<PublicationDTO>> data;
     std::shared_ptr<CSVData<GrantDTO>> gdata;
     std::shared_ptr<CSVData<PresentationDTO>> data4; //data for presentation

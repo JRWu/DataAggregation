@@ -33,9 +33,13 @@ private:
     //VerifyCSV *verify_csv_page;
     AnalyzeCSV *analyze_csv_page;
     QStandardItemModel* PublicationTableModel();
+    QStandardItemModel* GrantTableModel();
+
+    // Shared pointers for VO generation
     shared_ptr<CSVData<PublicationDTO>> data;
-    //shared_ptr<CSVData<GrantDTO>> gdata; //
+    shared_ptr<CSVData<GrantDTO>> gdata;
     shared_ptr<CSVData<PresentationDTO>> data4;
+
     void enableConfirmChanges();
     bool changesMade;
     int dtoType;

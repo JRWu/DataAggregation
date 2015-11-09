@@ -5,13 +5,13 @@ using namespace std;
 Pub_BarGraph1_VO::Pub_BarGraph1_VO(std::shared_ptr<CSVData<PublicationDTO> > data, int start, int end)
 {
     cout << start << " " << end << endl;
-    name = data->dtos->at(0).name;  // Gets original name
+    name = data->dtos->at(0).name;  // Gets original name of the first entry because we don't have a filter for name yet*
 
     for(int i = 0; i < (int) data->dtos->size(); i++){
         PublicationDTO dto = data->dtos->at(i);
-        if(dto.name == name){
-            if((start <= dto.date)&&(dto.date <= end)){
-                vector<string>::iterator index;
+        if(dto.name == name){                                       // For every publication w/ the first name "name"
+            if((start <= dto.date)&&(dto.date <= end)){   // If the publication entry falls within the date range
+                vector<string>::iterator index;                        // Finds the entries within pubtypes that fall within this range
                 index = find(pubTypes.begin(), pubTypes.end(), dto.type);
                 if(index == pubTypes.end()) pubTypes.push_back(dto.type);
                 index = find(years.begin(), years.end(), to_string(dto.date));
