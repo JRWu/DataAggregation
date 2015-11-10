@@ -19,7 +19,6 @@
 #include "pub_bargraph1_vo.h"
 #include "grant_bargraph1_vo.h"
 #include "teach_bargraph1_vo.h"
-#include "ui_analyze_csv.h"
 
 class tree_list_vo;     //forward pointer
 
@@ -58,9 +57,6 @@ private slots:
     void on_filter_btn_teach_clicked();
     void on_filter_btn_2_clicked();
 
-    void on_filter_btn_presentation_clicked();
-
-
 private:
     Ui::AnalyzeCSV *ui;
     QGraphicsScene * scene; // Added to display the graph through the graph area
@@ -74,12 +70,12 @@ private:
     std::shared_ptr<CSVData<PublicationDTO>> data;
     std::shared_ptr<CSVData<GrantDTO>> gdata;
     std::shared_ptr<CSVData<TeachingDTO>> tdata;
-    std::shared_ptr<CSVData<PresentationDTO>> pr_data; //data for presentation
+    std::shared_ptr<CSVData<PresentationDTO>> data4; //data for presentation
 
     void populate_publication_tree();
     void populate_grant_tree();
     void populate_teaching_tree();
-    void populate_presentation_tree();
+    void pouplate_presentation_tree();
 };
 
 #endif // ANALYZE_CSV_H

@@ -230,7 +230,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="pub_tab">
      <property name="palette">
@@ -374,10 +374,10 @@
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="start_date_publications"/>
+            <widget class="QComboBox" name="start_date1"/>
            </item>
            <item>
-            <widget class="QComboBox" name="end_date_publications">
+            <widget class="QComboBox" name="end_date1">
              <property name="minimumSize">
               <size>
                <width>0</width>
@@ -856,7 +856,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_8">
            <item>
-            <widget class="QLabel" name="date_filter_lbl_presentation">
+            <widget class="QLabel" name="date_filter_lbl3">
              <property name="minimumSize">
               <size>
                <width>75</width>
@@ -912,20 +912,10 @@
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="end_date_presentation">
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-            </widget>
+            <widget class="QComboBox" name="date_filter_combo3"/>
            </item>
            <item>
-            <widget class="QComboBox" name="start_date_presentation"/>
-           </item>
-           <item>
-            <widget class="QPushButton" name="filter_btn_presentation">
+            <widget class="QPushButton" name="date_filter_btn3">
              <property name="minimumSize">
               <size>
                <width>75</width>
@@ -941,15 +931,12 @@
              <property name="text">
               <string>Filter</string>
              </property>
-             <property name="flat">
-              <bool>false</bool>
-             </property>
             </widget>
            </item>
           </layout>
          </item>
          <item>
-          <widget class="QLabel" name="domain_lbl_presentation">
+          <widget class="QLabel" name="domain_lbl3">
            <property name="palette">
             <palette>
              <active>

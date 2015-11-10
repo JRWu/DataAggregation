@@ -44,7 +44,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QLabel *date_filter_lbl;
     QComboBox *start_date_publications;
-    QComboBox *end_date_publications;
+    QComboBox *end_date1;
     QPushButton *filter_btn;
     QLabel *domain_lbl1;
     QTreeWidget *pub_tree;
@@ -52,47 +52,55 @@ public:
     QComboBox *graph_combo;
     QGraphicsView *graph_area;
     QWidget *grant_tab;
-    QWidget *horizontalLayoutWidget_6;
-    QHBoxLayout *tab_area_6;
-    QVBoxLayout *verticalLayout_11;
-    QHBoxLayout *horizontalLayout_10;
-    QLabel *date_filter_lbl3_2;
-    QComboBox *end_date1_2;
-    QComboBox *start_date1_2;
-    QPushButton *filter_btn_2;
-    QLabel *domain_lbl3_2;
-    QTreeWidget *present_tree_2;
-    QVBoxLayout *verticalLayout_12;
-    QComboBox *graph_combo_9;
-    QGraphicsView *graph_area_9;
+    QWidget *horizontalLayoutWidget_3;
+    QHBoxLayout *tab_area_4;
+    QVBoxLayout *verticalLayout_5;
+    QHBoxLayout *horizontalLayout_7;
+    QLabel *date_filter_lbl2;
+    QComboBox *date_filter_combo2;
+    QPushButton *filter_btn2;
+    QLabel *domain_lbl2;
+    QTreeWidget *grant_tree;
+    QVBoxLayout *verticalLayout_6;
+    QComboBox *graph_combo_6;
+    QGraphicsView *graph_area_6;
     QWidget *present_tab;
     QWidget *horizontalLayoutWidget_4;
     QHBoxLayout *tab_area_5;
     QVBoxLayout *verticalLayout_9;
     QHBoxLayout *horizontalLayout_8;
-    QLabel *date_filter_lbl_presentation;
-    QComboBox *end_date_presentation;
-    QComboBox *start_date_presentation;
-    QPushButton *filter_btn_presentation;
-    QLabel *domain_lbl_presentation;
+    QLabel *date_filter_lbl3;
+    QComboBox *date_filter_combo3;
+    QPushButton *date_filter_btn3;
+    QLabel *domain_lbl3;
     QTreeWidget *present_tree;
     QVBoxLayout *verticalLayout_7;
     QComboBox *graph_combo_7;
     QGraphicsView *graph_area_7;
+
+    // declarations for teaching
     QWidget *teach_tab;
-    QWidget *horizontalLayoutWidget_5;
-    QHBoxLayout *tab_area_4;
-    QVBoxLayout *verticalLayout_10;
-    QHBoxLayout *horizontalLayout_9;
+    QTreeWidget *teach_tree;
     QLabel *date_filter_lbl_teach;
     QComboBox *start_date_teach;
     QComboBox *end_date_teach;
-    QPushButton *filter_btn_teaching;
+    QPushButton *filter_btn_teach;
     QLabel *domain_lbl_teach;
-    QTreeWidget *teach_tree;
-    QVBoxLayout *verticalLayout_8;
     QComboBox *graph_combo_teach;
     QGraphicsView *graph_area_teach;
+
+    QWidget *horizontalLayoutWidget_5;
+    QHBoxLayout *tab_area_8;
+    QVBoxLayout *verticalLayout_10;
+    QHBoxLayout *horizontalLayout_9;
+    QLabel *date_filter_lbl4;
+    QComboBox *comboBox;
+    QPushButton *date_filter_btn4;
+    QLabel *domain_lbl4;
+    QVBoxLayout *verticalLayout_8;
+    QComboBox *graph_combo_8;
+    QGraphicsView *graph_area_8;
+
 
     void setupUi(QMainWindow *AnalyzeCSV)
     {
@@ -206,15 +214,15 @@ public:
         horizontalLayout->addWidget(date_filter_lbl);
 
         start_date_publications = new QComboBox(horizontalLayoutWidget_2);
-        start_date_publications->setObjectName(QStringLiteral("start_date_publications"));
+        start_date_publications->setObjectName(QStringLiteral("start_date1"));
 
         horizontalLayout->addWidget(start_date_publications);
 
-        end_date_publications = new QComboBox(horizontalLayoutWidget_2);
-        end_date_publications->setObjectName(QStringLiteral("end_date_publications"));
-        end_date_publications->setMinimumSize(QSize(0, 0));
+        end_date1 = new QComboBox(horizontalLayoutWidget_2);
+        end_date1->setObjectName(QStringLiteral("end_date1"));
+        end_date1->setMinimumSize(QSize(0, 0));
 
-        horizontalLayout->addWidget(end_date_publications);
+        horizontalLayout->addWidget(end_date1);
 
         filter_btn = new QPushButton(horizontalLayoutWidget_2);
         filter_btn->setObjectName(QStringLiteral("filter_btn"));
@@ -279,87 +287,80 @@ public:
         palette6.setBrush(QPalette::Disabled, QPalette::Window, brush5);
         grant_tab->setPalette(palette6);
         grant_tab->setAutoFillBackground(true);
-        horizontalLayoutWidget_6 = new QWidget(grant_tab);
-        horizontalLayoutWidget_6->setObjectName(QStringLiteral("horizontalLayoutWidget_6"));
-        horizontalLayoutWidget_6->setGeometry(QRect(10, 10, 741, 501));
-        tab_area_6 = new QHBoxLayout(horizontalLayoutWidget_6);
-        tab_area_6->setObjectName(QStringLiteral("tab_area_6"));
-        tab_area_6->setContentsMargins(0, 0, 0, 0);
-        verticalLayout_11 = new QVBoxLayout();
-        verticalLayout_11->setObjectName(QStringLiteral("verticalLayout_11"));
-        horizontalLayout_10 = new QHBoxLayout();
-        horizontalLayout_10->setObjectName(QStringLiteral("horizontalLayout_10"));
-        date_filter_lbl3_2 = new QLabel(horizontalLayoutWidget_6);
-        date_filter_lbl3_2->setObjectName(QStringLiteral("date_filter_lbl3_2"));
-        date_filter_lbl3_2->setMinimumSize(QSize(75, 0));
-        date_filter_lbl3_2->setMaximumSize(QSize(75, 16777215));
+        horizontalLayoutWidget_3 = new QWidget(grant_tab);
+        horizontalLayoutWidget_3->setObjectName(QStringLiteral("horizontalLayoutWidget_3"));
+        horizontalLayoutWidget_3->setGeometry(QRect(10, 10, 741, 491));
+        tab_area_4 = new QHBoxLayout(horizontalLayoutWidget_3);
+        tab_area_4->setObjectName(QStringLiteral("tab_area_4"));
+        tab_area_4->setContentsMargins(0, 0, 0, 0);
+        verticalLayout_5 = new QVBoxLayout();
+        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
+        horizontalLayout_7 = new QHBoxLayout();
+        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
+        date_filter_lbl2 = new QLabel(horizontalLayoutWidget_3);
+        date_filter_lbl2->setObjectName(QStringLiteral("date_filter_lbl2"));
+        date_filter_lbl2->setMinimumSize(QSize(75, 0));
+        date_filter_lbl2->setMaximumSize(QSize(75, 16777215));
         QPalette palette7;
         palette7.setBrush(QPalette::Active, QPalette::WindowText, brush4);
         palette7.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
         palette7.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
-        date_filter_lbl3_2->setPalette(palette7);
+        date_filter_lbl2->setPalette(palette7);
 
-        horizontalLayout_10->addWidget(date_filter_lbl3_2);
+        horizontalLayout_7->addWidget(date_filter_lbl2);
 
-        end_date1_2 = new QComboBox(horizontalLayoutWidget_6);
-        end_date1_2->setObjectName(QStringLiteral("end_date1_2"));
-        end_date1_2->setMinimumSize(QSize(0, 0));
+        date_filter_combo2 = new QComboBox(horizontalLayoutWidget_3);
+        date_filter_combo2->setObjectName(QStringLiteral("date_filter_combo2"));
 
-        horizontalLayout_10->addWidget(end_date1_2);
+        horizontalLayout_7->addWidget(date_filter_combo2);
 
-        start_date1_2 = new QComboBox(horizontalLayoutWidget_6);
-        start_date1_2->setObjectName(QStringLiteral("start_date1_2"));
+        filter_btn2 = new QPushButton(horizontalLayoutWidget_3);
+        filter_btn2->setObjectName(QStringLiteral("filter_btn2"));
+        filter_btn2->setMinimumSize(QSize(75, 0));
+        filter_btn2->setMaximumSize(QSize(75, 16777215));
 
-        horizontalLayout_10->addWidget(start_date1_2);
-
-        filter_btn_2 = new QPushButton(horizontalLayoutWidget_6);
-        filter_btn_2->setObjectName(QStringLiteral("filter_btn_2"));
-        filter_btn_2->setMinimumSize(QSize(75, 0));
-        filter_btn_2->setMaximumSize(QSize(75, 16777215));
-        filter_btn_2->setFlat(false);
-
-        horizontalLayout_10->addWidget(filter_btn_2);
+        horizontalLayout_7->addWidget(filter_btn2);
 
 
-        verticalLayout_11->addLayout(horizontalLayout_10);
+        verticalLayout_5->addLayout(horizontalLayout_7);
 
-        domain_lbl3_2 = new QLabel(horizontalLayoutWidget_6);
-        domain_lbl3_2->setObjectName(QStringLiteral("domain_lbl3_2"));
+        domain_lbl2 = new QLabel(horizontalLayoutWidget_3);
+        domain_lbl2->setObjectName(QStringLiteral("domain_lbl2"));
         QPalette palette8;
         palette8.setBrush(QPalette::Active, QPalette::WindowText, brush4);
         palette8.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
         palette8.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
-        domain_lbl3_2->setPalette(palette8);
-        domain_lbl3_2->setAlignment(Qt::AlignCenter);
+        domain_lbl2->setPalette(palette8);
+        domain_lbl2->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_11->addWidget(domain_lbl3_2);
+        verticalLayout_5->addWidget(domain_lbl2);
 
-        present_tree_2 = new QTreeWidget(horizontalLayoutWidget_6);
+        grant_tree = new QTreeWidget(horizontalLayoutWidget_3);
         QTreeWidgetItem *__qtreewidgetitem1 = new QTreeWidgetItem();
         __qtreewidgetitem1->setText(0, QStringLiteral("1"));
-        present_tree_2->setHeaderItem(__qtreewidgetitem1);
-        present_tree_2->setObjectName(QStringLiteral("present_tree_2"));
+        grant_tree->setHeaderItem(__qtreewidgetitem1);
+        grant_tree->setObjectName(QStringLiteral("grant_tree"));
 
-        verticalLayout_11->addWidget(present_tree_2);
-
-
-        tab_area_6->addLayout(verticalLayout_11);
-
-        verticalLayout_12 = new QVBoxLayout();
-        verticalLayout_12->setObjectName(QStringLiteral("verticalLayout_12"));
-        graph_combo_9 = new QComboBox(horizontalLayoutWidget_6);
-        graph_combo_9->setObjectName(QStringLiteral("graph_combo_9"));
-
-        verticalLayout_12->addWidget(graph_combo_9);
-
-        graph_area_9 = new QGraphicsView(horizontalLayoutWidget_6);
-        graph_area_9->setObjectName(QStringLiteral("graph_area_9"));
-        graph_area_9->setEnabled(true);
-
-        verticalLayout_12->addWidget(graph_area_9);
+        verticalLayout_5->addWidget(grant_tree);
 
 
-        tab_area_6->addLayout(verticalLayout_12);
+        tab_area_4->addLayout(verticalLayout_5);
+
+        verticalLayout_6 = new QVBoxLayout();
+        verticalLayout_6->setObjectName(QStringLiteral("verticalLayout_6"));
+        graph_combo_6 = new QComboBox(horizontalLayoutWidget_3);
+        graph_combo_6->setObjectName(QStringLiteral("graph_combo_6"));
+
+        verticalLayout_6->addWidget(graph_combo_6);
+
+        graph_area_6 = new QGraphicsView(horizontalLayoutWidget_3);
+        graph_area_6->setObjectName(QStringLiteral("graph_area_6"));
+        graph_area_6->setEnabled(true);
+
+        verticalLayout_6->addWidget(graph_area_6);
+
+
+        tab_area_4->addLayout(verticalLayout_6);
 
         tabWidget->addTab(grant_tab, QString());
         present_tab = new QWidget();
@@ -385,50 +386,43 @@ public:
         verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
         horizontalLayout_8 = new QHBoxLayout();
         horizontalLayout_8->setObjectName(QStringLiteral("horizontalLayout_8"));
-        date_filter_lbl_presentation = new QLabel(horizontalLayoutWidget_4);
-        date_filter_lbl_presentation->setObjectName(QStringLiteral("date_filter_lbl_presentation"));
-        date_filter_lbl_presentation->setMinimumSize(QSize(75, 0));
-        date_filter_lbl_presentation->setMaximumSize(QSize(75, 16777215));
+        date_filter_lbl3 = new QLabel(horizontalLayoutWidget_4);
+        date_filter_lbl3->setObjectName(QStringLiteral("date_filter_lbl3"));
+        date_filter_lbl3->setMinimumSize(QSize(75, 0));
+        date_filter_lbl3->setMaximumSize(QSize(75, 16777215));
         QPalette palette10;
         palette10.setBrush(QPalette::Active, QPalette::WindowText, brush4);
         palette10.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
         palette10.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
-        date_filter_lbl_presentation->setPalette(palette10);
+        date_filter_lbl3->setPalette(palette10);
 
-        horizontalLayout_8->addWidget(date_filter_lbl_presentation);
+        horizontalLayout_8->addWidget(date_filter_lbl3);
 
-        end_date_presentation = new QComboBox(horizontalLayoutWidget_4);
-        end_date_presentation->setObjectName(QStringLiteral("end_date_presentation"));
-        end_date_presentation->setMinimumSize(QSize(0, 0));
+        date_filter_combo3 = new QComboBox(horizontalLayoutWidget_4);
+        date_filter_combo3->setObjectName(QStringLiteral("date_filter_combo3"));
 
-        horizontalLayout_8->addWidget(end_date_presentation);
+        horizontalLayout_8->addWidget(date_filter_combo3);
 
-        start_date_presentation = new QComboBox(horizontalLayoutWidget_4);
-        start_date_presentation->setObjectName(QStringLiteral("start_date_presentation"));
+        date_filter_btn3 = new QPushButton(horizontalLayoutWidget_4);
+        date_filter_btn3->setObjectName(QStringLiteral("date_filter_btn3"));
+        date_filter_btn3->setMinimumSize(QSize(75, 0));
+        date_filter_btn3->setMaximumSize(QSize(75, 16777215));
 
-        horizontalLayout_8->addWidget(start_date_presentation);
-
-        filter_btn_presentation = new QPushButton(horizontalLayoutWidget_4);
-        filter_btn_presentation->setObjectName(QStringLiteral("filter_btn_presentation"));
-        filter_btn_presentation->setMinimumSize(QSize(75, 0));
-        filter_btn_presentation->setMaximumSize(QSize(75, 16777215));
-        filter_btn_presentation->setFlat(false);
-
-        horizontalLayout_8->addWidget(filter_btn_presentation);
+        horizontalLayout_8->addWidget(date_filter_btn3);
 
 
         verticalLayout_9->addLayout(horizontalLayout_8);
 
-        domain_lbl_presentation = new QLabel(horizontalLayoutWidget_4);
-        domain_lbl_presentation->setObjectName(QStringLiteral("domain_lbl_presentation"));
+        domain_lbl3 = new QLabel(horizontalLayoutWidget_4);
+        domain_lbl3->setObjectName(QStringLiteral("domain_lbl3"));
         QPalette palette11;
         palette11.setBrush(QPalette::Active, QPalette::WindowText, brush4);
         palette11.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
         palette11.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
-        domain_lbl_presentation->setPalette(palette11);
-        domain_lbl_presentation->setAlignment(Qt::AlignCenter);
+        domain_lbl3->setPalette(palette11);
+        domain_lbl3->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_9->addWidget(domain_lbl_presentation);
+        verticalLayout_9->addWidget(domain_lbl3);
 
         present_tree = new QTreeWidget(horizontalLayoutWidget_4);
         QTreeWidgetItem *__qtreewidgetitem2 = new QTreeWidgetItem();
@@ -458,6 +452,7 @@ public:
         tab_area_5->addLayout(verticalLayout_7);
 
         tabWidget->addTab(present_tab, QString());
+        horizontalLayoutWidget_4->raise();
         teach_tab = new QWidget();
         teach_tab->setObjectName(QStringLiteral("teach_tab"));
         QPalette palette12;
@@ -474,47 +469,40 @@ public:
         horizontalLayoutWidget_5 = new QWidget(teach_tab);
         horizontalLayoutWidget_5->setObjectName(QStringLiteral("horizontalLayoutWidget_5"));
         horizontalLayoutWidget_5->setGeometry(QRect(10, 10, 741, 501));
-        tab_area_4 = new QHBoxLayout(horizontalLayoutWidget_5);
-        tab_area_4->setObjectName(QStringLiteral("tab_area_4"));
-        tab_area_4->setContentsMargins(0, 0, 0, 0);
+        tab_area_8 = new QHBoxLayout(horizontalLayoutWidget_5);
+        tab_area_8->setObjectName(QStringLiteral("tab_area_8"));
+        tab_area_8->setContentsMargins(0, 0, 0, 0);
         verticalLayout_10 = new QVBoxLayout();
         verticalLayout_10->setObjectName(QStringLiteral("verticalLayout_10"));
         horizontalLayout_9 = new QHBoxLayout();
         horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
-        date_filter_lbl_teach = new QLabel(horizontalLayoutWidget_5);
-        date_filter_lbl_teach->setObjectName(QStringLiteral("date_filter_lbl_teach"));
-        date_filter_lbl_teach->setMinimumSize(QSize(75, 0));
-        date_filter_lbl_teach->setMaximumSize(QSize(75, 16777215));
+        date_filter_lbl4 = new QLabel(horizontalLayoutWidget_5);
+        date_filter_lbl4->setObjectName(QStringLiteral("date_filter_lbl4"));
+        date_filter_lbl4->setMinimumSize(QSize(75, 0));
+        date_filter_lbl4->setMaximumSize(QSize(75, 16777215));
 
-        horizontalLayout_9->addWidget(date_filter_lbl_teach);
+        horizontalLayout_9->addWidget(date_filter_lbl4);
 
-        start_date_teach = new QComboBox(horizontalLayoutWidget_5);
-        start_date_teach->setObjectName(QStringLiteral("start_date_teach"));
+        comboBox = new QComboBox(horizontalLayoutWidget_5);
+        comboBox->setObjectName(QStringLiteral("comboBox"));
 
-        horizontalLayout_9->addWidget(start_date_teach);
+        horizontalLayout_9->addWidget(comboBox);
 
-        end_date_teach = new QComboBox(horizontalLayoutWidget_5);
-        end_date_teach->setObjectName(QStringLiteral("end_date_teach"));
-        end_date_teach->setMinimumSize(QSize(0, 0));
+        date_filter_btn4 = new QPushButton(horizontalLayoutWidget_5);
+        date_filter_btn4->setObjectName(QStringLiteral("date_filter_btn4"));
+        date_filter_btn4->setMinimumSize(QSize(75, 0));
+        date_filter_btn4->setMaximumSize(QSize(75, 16777213));
 
-        horizontalLayout_9->addWidget(end_date_teach);
-
-        filter_btn_teaching = new QPushButton(horizontalLayoutWidget_5);
-        filter_btn_teaching->setObjectName(QStringLiteral("filter_btn_teaching"));
-        filter_btn_teaching->setMinimumSize(QSize(75, 0));
-        filter_btn_teaching->setMaximumSize(QSize(75, 16777215));
-        filter_btn_teaching->setFlat(false);
-
-        horizontalLayout_9->addWidget(filter_btn_teaching);
+        horizontalLayout_9->addWidget(date_filter_btn4);
 
 
         verticalLayout_10->addLayout(horizontalLayout_9);
 
-        domain_lbl_teach = new QLabel(horizontalLayoutWidget_5);
-        domain_lbl_teach->setObjectName(QStringLiteral("domain_lbl_teach"));
-        domain_lbl_teach->setAlignment(Qt::AlignCenter);
+        domain_lbl4 = new QLabel(horizontalLayoutWidget_5);
+        domain_lbl4->setObjectName(QStringLiteral("domain_lbl4"));
+        domain_lbl4->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_10->addWidget(domain_lbl_teach);
+        verticalLayout_10->addWidget(domain_lbl4);
 
         teach_tree = new QTreeWidget(horizontalLayoutWidget_5);
         QTreeWidgetItem *__qtreewidgetitem3 = new QTreeWidgetItem();
@@ -525,23 +513,23 @@ public:
         verticalLayout_10->addWidget(teach_tree);
 
 
-        tab_area_4->addLayout(verticalLayout_10);
+        tab_area_8->addLayout(verticalLayout_10);
 
         verticalLayout_8 = new QVBoxLayout();
         verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
-        graph_combo_teach = new QComboBox(horizontalLayoutWidget_5);
-        graph_combo_teach->setObjectName(QStringLiteral("graph_combo_teach"));
+        graph_combo_8 = new QComboBox(horizontalLayoutWidget_5);
+        graph_combo_8->setObjectName(QStringLiteral("graph_combo_8"));
 
-        verticalLayout_8->addWidget(graph_combo_teach);
+        verticalLayout_8->addWidget(graph_combo_8);
 
-        graph_area_teach = new QGraphicsView(horizontalLayoutWidget_5);
-        graph_area_teach->setObjectName(QStringLiteral("graph_area_teach"));
-        graph_area_teach->setEnabled(true);
+        graph_area_8 = new QGraphicsView(horizontalLayoutWidget_5);
+        graph_area_8->setObjectName(QStringLiteral("graph_area_8"));
+        graph_area_8->setEnabled(true);
 
-        verticalLayout_8->addWidget(graph_area_teach);
+        verticalLayout_8->addWidget(graph_area_8);
 
 
-        tab_area_4->addLayout(verticalLayout_8);
+        tab_area_8->addLayout(verticalLayout_8);
 
         tabWidget->addTab(teach_tab, QString());
         AnalyzeCSV->setCentralWidget(centralwidget);
@@ -570,19 +558,19 @@ public:
          << QApplication::translate("AnalyzeCSV", "Graph 3", 0)
         );
         tabWidget->setTabText(tabWidget->indexOf(pub_tab), QApplication::translate("AnalyzeCSV", "PUBLICATIONS", 0));
-        date_filter_lbl3_2->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
-        filter_btn_2->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
-        domain_lbl3_2->setText(QString());
-        graph_combo_9->clear();
-        graph_combo_9->insertItems(0, QStringList()
+        date_filter_lbl2->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
+        filter_btn2->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
+        domain_lbl2->setText(QString());
+        graph_combo_6->clear();
+        graph_combo_6->insertItems(0, QStringList()
          << QApplication::translate("AnalyzeCSV", "Graph 1", 0)
          << QApplication::translate("AnalyzeCSV", "Graph 2", 0)
          << QApplication::translate("AnalyzeCSV", "Graph 3", 0)
         );
         tabWidget->setTabText(tabWidget->indexOf(grant_tab), QApplication::translate("AnalyzeCSV", "GRANTS", 0));
-        date_filter_lbl_presentation->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
-        filter_btn_presentation->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
-        domain_lbl_presentation->setText(QString());
+        date_filter_lbl3->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
+        date_filter_btn3->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
+        domain_lbl3->setText(QString());
         graph_combo_7->clear();
         graph_combo_7->insertItems(0, QStringList()
          << QApplication::translate("AnalyzeCSV", "Graph 1", 0)
@@ -590,11 +578,11 @@ public:
          << QApplication::translate("AnalyzeCSV", "Graph 3", 0)
         );
         tabWidget->setTabText(tabWidget->indexOf(present_tab), QApplication::translate("AnalyzeCSV", "PRESENTATIONS", 0));
-        date_filter_lbl_teach->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
-        filter_btn_teaching->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
-        domain_lbl_teach->setText(QString());
-        graph_combo_teach->clear();
-        graph_combo_teach->insertItems(0, QStringList()
+        date_filter_lbl4->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
+        date_filter_btn4->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
+        domain_lbl4->setText(QString());
+        graph_combo_8->clear();
+        graph_combo_8->insertItems(0, QStringList()
          << QApplication::translate("AnalyzeCSV", "Graph 1", 0)
          << QApplication::translate("AnalyzeCSV", "Graph 2", 0)
          << QApplication::translate("AnalyzeCSV", "Graph 3", 0)

@@ -282,7 +282,7 @@ int tree_list_vo::tree_list_vo::populate_for_grants(shared_ptr<CSVData<GrantDTO>
 }
 
 // Eric/Emily please update this to populate either PME, UME, CME or Other data
-// Remember that the parent_set represents the Academic Year
+// Remember that the child_set represents the Academic Year
 // Remember that the child_set represents the Faculty 1, Faculty 2 etc...
 // There should be 1 of these VO's created for each PME, UME, CME and Other data (4 in total I think)
 int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<TeachingDTO> > _data, int start, int end)
@@ -380,25 +380,6 @@ int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<Teachin
 // Jerry will implement
 int tree_list_vo::tree_list_vo::populate_for_presentations(shared_ptr<CSVData<PresentationDTO> > _data, int start, int end)
 {
-    // Invited
-    // Lectures
-    // Abstracts
-    // Presented
-    // Next Presentation
-    // type
-    // Other
-
-    //Mandatory Fields
-    //name, domain, type, role, title, date
-
-    cout << "Testing for first user." << endl;
-    cout <<"name"<<_data->dtos->at(0).name << endl;
-    cout << "domain" << _data->dtos->at(0).domain << endl;
-    cout << "type" << _data->dtos->at(0).type << endl;
-    cout << "role" << _data->dtos->at(0).role << endl;
-    cout << "title" << _data->dtos->at(0).title << endl;
-    cout << "date" << _data->dtos->at(0).date << endl;
-
     return 0;
 }
 
