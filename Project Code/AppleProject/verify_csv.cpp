@@ -175,9 +175,13 @@ void VerifyCSV::on_analyze_btn_clicked()
     if(dtoType == 1){
         analyze_csv_page = new AnalyzeCSV(data);
     } else if (dtoType == 4){
+<<<<<<< HEAD
         analyze_csv_page = new AnalyzeCSV(data4);
     } else if (dtoType == 5) {
         analyze_csv_page = new AnalyzeCSV(datat);
+=======
+        analyze_csv_page = new AnalyzeCSV(data4);   //dtoTYPE 4 signifies Presentation data
+>>>>>>> origin/master
     }
 
     this->setCentralWidget(analyze_csv_page);
