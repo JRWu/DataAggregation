@@ -124,6 +124,23 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<GrantDTO>> _data, QWidget *parent
 QMainWindow(parent),
 ui(new Ui::AnalyzeCSV)
 {
+    /*
+    Jennifer/Jaisen
+
+    I commented this out because there are some errors in populating the grant tab for Analyze
+    I think its mostly because of the fact that populate_grant_tree doesn't 100% work yet
+    Also,the ui->start_date_publications name seems kinda weird since this is on the Grants tab
+    You may want to verify the names of the actual objects being populated on the analyze_csv.ui form
+    PopulateDateCombos for GraphDTO's needs to be written, I've included the function
+    prototypes and tagged your guys' names there as well
+
+    This is the one you're interested in, in analyze_csv.cpp
+    QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<GrantDTO>> data) {
+
+
+    */
+
+    /*
     gdatanew = _data;
     
     std::shared_ptr<CSVData<GrantDTO>> data = _data;
@@ -133,11 +150,11 @@ ui(new Ui::AnalyzeCSV)
     ui->domain_lbl1->setText(QString::fromStdString(data->dtos->at(0).domain));
     
     /// DATE FILTER COMBO BOX ///
-    QStringList date_strs = PopulateDateCombos(data);
+    QStringList date_strs = PopulateDateCombos(_data);
     
     // set the dates list to the combo boxes
-    ui->start_date_publications->addItems(date_strs);
-    ui->start_date_publications->setCurrentIndex(0);
+    ui->start_date_publications->addItems(date_strs);       // Why is this start_date_publications?
+    ui->start_date_publications->setCurrentIndex(0);        // Why is this start_date_publications?
     ui->end_date1->addItems(date_strs);
     ui->end_date1->setCurrentIndex(date_strs.size()-1);
     
@@ -156,13 +173,15 @@ ui(new Ui::AnalyzeCSV)
     
     // Graph handling functions go here
     Graphvisualizations *graph_handler = new Graphvisualizations();
-    graph_handler->plot_pub_vs_type(customPlot, graphable);
+    graph_handler->plot_grants_vs_trials(customPlot, graphable);
     
     scene->addWidget(customPlot);   // Add plot to the window & Essential
     ui->graph_area->setScene(scene);    // Added for grpahics & Essential
+    */
 }
 
 //Constructor for Presentation - ideally merge this with the above one
+// Jerry will do this one
 AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PresentationDTO>> _data, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::AnalyzeCSV)
@@ -244,6 +263,31 @@ void AnalyzeCSV::on_verify_btn_clicked()
     //else do nothing
 }
 
+// Jaisen/Jennifer (Need to implement this function to populate the date combos box)
+// Its very similar to PopulateDateCombos for PublicationDTO however theres no "date" field
+// in the constructor for the GrantDTO so just be weary of that when writing the line
+//                 if ((int)data->dtos->at(i).date == dates.at(j)) {
+QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<GrantDTO>> data) {
+    QStringList date_strs;// DUMMY DATA REPLACE WITH REAL DATA WHEN IMPLEMENTING
+    return date_strs;// DUMMY DATA REPLACE WITH REAL DATA WHEN IMPLEMENTING
+}
+
+// Eric/Emily  (Need to implement this function to populate the date combos box)
+// I don't know how the Teaching DTO is implemented yet so you guys will have to figure
+// out how tocreate this function
+QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<TeachingDTO>> data) {
+    QStringList date_strs;  // DUMMY DATA REPLACE WITH REAL DATA WHEN IMPLEMENTING
+    return date_strs;   // DUMMY DATA REPLACE WITH REAL DATA WHEN IMPLEMENTING
+}
+
+// Jerry will implement this later
+QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<PresentationDTO>> data) {
+    QStringList date_strs;
+    return date_strs;
+}
+
+// Use this to model the other 3 PopulateDateCombos functions
+// Remember the DTOs you wrote (Presentations/Teaching/Grants) may/may not have the .date fields
 QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<PublicationDTO>> data) {
     std::vector<int> dates;
 
@@ -294,16 +338,6 @@ void AnalyzeCSV::on_filter_btn_clicked()
 {
     populate_publication_tree();
 }
-
-// for Grants
-void AnalyzeCSV::on_filter_btn_clicked_grant()
-{
-    populate_grant_tree();
-}
-
-//void AnalyzeCSV::on_filter_btn_clicked_teaching()
-//{
-//}
 
 /**
  * @brief AnalyzeCSV::populate_publication_tree fills the tree_list_vo with publication info
@@ -387,7 +421,34 @@ void AnalyzeCSV::populate_publication_tree()
  */
 void AnalyzeCSV::populate_grant_tree()
 {
-    std::shared_ptr<CSVData<GrantDTO>> _data = gdatanew; //
+    // Jaisen/Jennifer
+    /*
+   This is where you would make 2 tree_list_vo objects.
+   There would be 2 roots added to the tree.
+
+   For example:
+   i.e. for Publications, the 2 lines necessary to generate the tree and data are:
+   tree_list_vo *p_treeNew = new tree_list_vo(_data);
+   p_treeNew->populate_for_publications(_data, (int)s,(int)e);
+
+   You would create 2 tree_list_vo objects; 1 for Grants and 1 for Clinical Funding
+   You should have written the function populate_for_grants in tree_list_vo.cpp
+   such that it can populate either a Grants field or a Clinical Funding field
+
+    Then using these 2 tree_list_vo objects, follow the code in populate_publication_tree()
+    in order to generate the Grants Tree (it should have 2 roots vs the 1 in publications)
+    https://www.youtube.com/watch?v=TpkiVlOS3o4
+
+    ^^ This is a useful resource I used to generate it
+    I didn't delete any of your code, but it might be worthwhile to re-write this function
+    from beginning so you can debug it as you go along.
+    As always, feel free to message me if you have issues with generating the tree_list_vo's
+    and subsequently updating the QTreeWidget! - Jerry
+    */
+
+
+    /*
+    std::shared_ptr<CSVData<GrantDTO>> _data = gdatanew;
     QString st_string = ui->start_date_publications->itemText(ui->start_date_publications->currentIndex());
     QString en_string = ui->end_date1->itemText(ui->end_date1->currentIndex());
     
@@ -427,13 +488,13 @@ void AnalyzeCSV::populate_grant_tree()
             {
                 new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
                                     << QString::fromStdString(std::to_string((int)tmp.at(j).num)) );
-                pubCounter += tmp.at(j).num;
+                gCounter += tmp.at(j).num;
             }
         }
         // expand publications root by default
         tmpUI->grant_tree->expandItem(root);
         /// LIST TREE VIEW ///
-        root->setText(1,QString::fromStdString(std::to_string(pubCounter)));    // updates text
+        root->setText(1,QString::fromStdString(std::to_string(gCounter)));    // updates text
         
         // Create a new graphics scene
         scene = new QGraphicsScene(this);   // Added for graphics window
@@ -455,7 +516,7 @@ void AnalyzeCSV::populate_grant_tree()
         ui->graph_area->setScene(scene);    // Added for grpahics & Essential
         
     }
-
+*/
 }
 
 /**
@@ -464,7 +525,32 @@ void AnalyzeCSV::populate_grant_tree()
  */
 void AnalyzeCSV::populate_teaching_tree()
 {
+    // Eric/Emily
+    /*
+   This is where you would make 4 tree_list_vo objects.
+   There would be 4 roots added to the tree.
 
+   For example:
+   i.e. for Publications, the 2 lines necessary to generate the tree and data are:
+   tree_list_vo *p_treeNew = new tree_list_vo(_data);
+   p_treeNew->populate_for_publications(_data, (int)s,(int)e);
+
+   You would create 4 tree_list_vo objects; PME, UME, CME, Other
+   You should have written the function populate_for_teaching in tree_list_vo.cpp
+   such that it can populate for 1 of the 4 objects
+
+    Then using these 4  tree_list_vo objects, follow the code in populate_publication_tree()
+    in order to generate the Teaching Tree (it should have 4 roots vs the 1 in publications)
+    https://www.youtube.com/watch?v=TpkiVlOS3o4
+
+    ^^ This is a useful resource I used to generate it
+    I didn't delete any of your code, but it might be worthwhile to re-write this function
+    from beginning so you can debug it as you go along.
+    As always, feel free to message me if you have issues with generating the tree_list_vo's
+    and subsequently updating the QTreeWidget! - Jerry
+    */
+
+    /*
     std::shared_ptr<CSVData<TeachingDTO>> _data = teaching_data_new;
 
     QString st_string = ui->start_date_publications->itemText(ui->start_date_publications->currentIndex());
@@ -534,10 +620,17 @@ void AnalyzeCSV::populate_teaching_tree()
         ui->graph_area->setScene(scene);    // Added for grpahics & Essential
 
     }
+    */
 
 }
 
 void AnalyzeCSV::on_filter_btn_teach_clicked()
 {
     populate_teaching_tree();
+}
+
+// Jennifer/Jaisen this is called when the filter button on the Grants page is clicked
+void AnalyzeCSV::on_filter_btn_2_clicked()
+{
+    populate_grant_tree();
 }

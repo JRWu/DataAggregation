@@ -5,9 +5,15 @@ Graphvisualizations::Graphvisualizations()
     // default constructor
 }
 
+
+/**
+ * @brief Graphvisualizations::plot_pub_vs_type takes 1 (ONE) publication type and graphs it
+ * @param customPlot    is the plot being generated (constructed in analyze_csv.cpp)
+ * @param bargraph_vo is the publicationsVO being graphed (recall the graphvisualizations for the other CSV's need to have multiple VO's!)
+ * FINISHED by JERRY DO NOT MODIFY
+ */
 void Graphvisualizations::plot_pub_vs_type(QCustomPlot* customPlot, Pub_BarGraph1_VO* bargraph_vo)
 {
-
     QCPBarsGroup *group = new QCPBarsGroup(customPlot);
     QCPBars *bars = new QCPBars(customPlot->xAxis, customPlot->yAxis);
 
@@ -37,10 +43,10 @@ void Graphvisualizations::plot_pub_vs_type(QCustomPlot* customPlot, Pub_BarGraph
     int maxY = 0;   // Save the maximum value for y range
 
     //TEST  RM LATER vvv
+    // Used to debug the values being saved
     cout << "TESTING FOR SAVED VALUES\n";
     for(int i = 0; i < yvalues.size(); i ++)
     {
-
         QVector<double> size = yvalues.at(i);
         cout <<"QVector<double> size.size: " << std::to_string(size.size()) << endl;
         for (int j = 0; j < size.size(); j ++)
@@ -53,11 +59,11 @@ void Graphvisualizations::plot_pub_vs_type(QCustomPlot* customPlot, Pub_BarGraph
         }
         cout << endl;
     }
-
     //TEST  RM LATER ^^^
 
 
-
+    // FOR THOSE IMPLEMENTING OTHER VO's FOR NON-PUBLICAITON DATA
+    // THIS IS THE LOOP THAT YOU WOULD MOST LIKELY HAVE TO MODIFY
 
     // Add each component, with the colour changing based on index
     for (int i = 0; i < bargraph_vo->pubTypes.size(); i ++)
@@ -74,7 +80,7 @@ void Graphvisualizations::plot_pub_vs_type(QCustomPlot* customPlot, Pub_BarGraph
 
     //Title = first name in the list
     customPlot->plotLayout()->insertRow(0);
-    char * x = &bargraph_vo->name[0];
+    char * x = &bargraph_vo->name[0];           // Set the name of the first author, can be modified later to select for a certain author
     QString str = x;
 
     customPlot->plotLayout()->addElement(0, 0, new QCPPlotTitle(customPlot, str)); //title of the graph
@@ -86,7 +92,24 @@ void Graphvisualizations::plot_pub_vs_type(QCustomPlot* customPlot, Pub_BarGraph
 
 void Graphvisualizations::plot_teaching_vs_course(QCustomPlot* customPlot, Teach_BarGraph1_VO* bargraph_vo)
 {
+    /*
+    Eric/Emily
 
+    I commented this out because when you do the teaching_vs_course graphs, you need
+    to be passing all the vo's to it (PME, UME, CME, and Other)
+
+    i.e. I think the function header needs to be changed to
+    Graphvisualizations::plot_teaching_vs_course(QCustomPlot* customPlot, Teach_BarGraph1_VO* PME, Teach_BarGraph1_VO* UME, Teach_BarGraph1_VO* CME, Teach_BarGraph1_VO* other))
+
+    With these VO's you need to iterate through each one separately and add its values
+    to the bar graph
+
+    This is gonna be kinda challenging because my example plot_pub_vs_type() only plots a Publications type;
+    I think you guys can adapt to it though, let me know if theres any hiccups implementing this part - Jerry
+    */
+
+
+    /*
     QCPBarsGroup *group = new QCPBarsGroup(customPlot);
     QCPBars *bars = new QCPBars(customPlot->xAxis, customPlot->yAxis);
 
@@ -135,4 +158,5 @@ void Graphvisualizations::plot_teaching_vs_course(QCustomPlot* customPlot, Teach
     customPlot ->yAxis->setRange(0,maxY);
     customPlot->xAxis->setLabel("Program / Course");
     customPlot->yAxis->setLabel("Number of Hours");
+    */
 }

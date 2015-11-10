@@ -2,11 +2,18 @@
 #define DTOASSEMBLER_H
 
 #include "publicationdto.h"
-#include "grantdto.h"
-#include <sstream>
 #include "presentationdto.h"
+#include "grantdto.h"
+#include "teachingdto.h"
 #include <sstream>
+#include <sstream>
+
+
 
 void assembleDTO(PublicationDTO *dto, vector<string> f);
 void assembleDTO(PresentationDTO *dto, vector<string> f);
+void assembleDTO(TeachingDTO *dto, vector<string> f);   // Eric + Emily add
+void assembleDTO(GrantDTO *dto, vector<string> f);   // Jaisen + Jennifer add
+
+
 #endif // DTOASSEMBLER_H

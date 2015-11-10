@@ -31,8 +31,9 @@ class AnalyzeCSV : public QMainWindow
     Q_OBJECT
 
 QStringList PopulateDateCombos(std::shared_ptr<CSVData<PublicationDTO>> data);
-QStringList PopulateDateCombos(std::shared_ptr<CSVData<PresentationDTO>> data);
-QStringList PopulateDateCombos(std::shared_ptr<CSVData<GrantDTO>> gdata);
+QStringList PopulateDateCombos(std::shared_ptr<CSVData<PresentationDTO>> data); // Needs to be implemented
+QStringList PopulateDateCombos(std::shared_ptr<CSVData<GrantDTO>> gdata);          // Needs to be implemented
+QStringList PopulateDateCombos(std::shared_ptr<CSVData<TeachingDTO>> gdata);     // Needs to be implemented
 
 
 void AddRoot(QString field, QString total);
@@ -53,18 +54,22 @@ private slots:
     void on_verify_btn_clicked();
     Ui::AnalyzeCSV* get_ui_ptr();
     void on_filter_btn_clicked();
-    void on_filter_btn_clicked_teaching();
-
     void on_filter_btn_teach_clicked();
+    void on_filter_btn_2_clicked();
 
 private:
     Ui::AnalyzeCSV *ui;
     QGraphicsScene * scene; // Added to display the graph through the graph area
     QCustomPlot *customPlot;
+
+    // tree_list_vo pointers for respective csv generation
     tree_list_vo* p_tree;
     tree_list_vo* teach_tree;
+
+    // Shared pointers for VO generation
     std::shared_ptr<CSVData<PublicationDTO>> data;
     std::shared_ptr<CSVData<GrantDTO>> gdata;
+    std::shared_ptr<CSVData<TeachingDTO>> tdata;
     std::shared_ptr<CSVData<PresentationDTO>> data4; //data for presentation
 
     void populate_publication_tree();

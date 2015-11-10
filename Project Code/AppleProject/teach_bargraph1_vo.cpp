@@ -4,6 +4,8 @@ using namespace std;
 
 Teach_BarGraph1_VO::Teach_BarGraph1_VO(std::shared_ptr<CSVData<TeachingDTO> > data, int start, int end)
 {
+    // Eric/Emily please uncomment when you've implemented TeachingDTO's
+    /*
     cout << start << " " << end << endl;
     name = data->dtos->at(0).name;  // Gets original name
 
@@ -47,5 +49,6 @@ Teach_BarGraph1_VO::Teach_BarGraph1_VO(std::shared_ptr<CSVData<TeachingDTO> > da
         }
     }
     cout << "pass 3" << endl;
+    */
 }
 

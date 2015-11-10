@@ -12,8 +12,8 @@ using namespace std;
 struct string_data_object
 {
     string label="";    // Represents, Author |Peer/Industry |Academic Year |Faculty Nam
-    double num=0;   // Represents count
-    double value=0; // Represents sum (if present)
+    double num=0;   // Represents count of field at child set
+    double value=0; // Represents sum (if present) (i.e. value in Grants)
 };
 
 class tree_list_vo
@@ -21,16 +21,19 @@ class tree_list_vo
 public:
     // Public Functions
     tree_list_vo(); // Constructor
-    tree_list_vo(shared_ptr<CSVData<PublicationDTO> > _data); // Overloaded constructor
+    tree_list_vo(shared_ptr<CSVData<PublicationDTO> > _data);       // For Publications
+    tree_list_vo(shared_ptr<CSVData<GrantDTO> > _gdata);              // For grants
+    tree_list_vo(shared_ptr<CSVData<TeachingDTO> > _tdata);         // For teaching
+    tree_list_vo(shared_ptr<CSVData<PresentationDTO> > _prdata); // For presentations
 
     vector<string_data_object> get_parent_set(void);
     vector<vector<string_data_object> > get_child_set(void);
 
     // These functions all populate the data slightly differently based on what is being passed
     int populate_for_publications(shared_ptr<CSVData<PublicationDTO>> _data, int start, int end);
-    int populate_for_grants(shared_ptr<CSVData<PublicationDTO>> _data, int start, int end);
-    int populate_for_teaching(shared_ptr<CSVData<PublicationDTO>> _data, int start, int end);
-    int populate_for_presentations(shared_ptr<CSVData<PublicationDTO>> _data, int start, int end);
+    int populate_for_grants(shared_ptr<CSVData<GrantDTO>> _data, int start, int end);
+    int populate_for_teaching(shared_ptr<CSVData<TeachingDTO>> _data, int start, int end);
+    int populate_for_presentations(shared_ptr<CSVData<PresentationDTO>> _data, int start, int end);
 
 private:
     // Private Attributess

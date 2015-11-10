@@ -41,40 +41,35 @@ void assembleDTO(PublicationDTO *dto, vector<string> f){
 
 void assembleDTO(GrantDTO *dto, vector<string> f){
     //Mandatory Fields
-    dto->name = f[0];
-    dto->domain = f[1];
-    dto->startDate = atoi(f[2].c_str());
-    dto->endDate = atoi(f[3].c_str());
-    dto->fType = f[4];
-    dto->status = f[5];
-    dto->peerReviewed = f[6];
-    dto->industryGrant = f[7];
-    dto->role = f[8];
-    dto->title = f[9];
-    dto->principal_investigator = f[10];
-    dto->totalAmount = f[11];
-    dto->title = f[12];
-    
-    //Optional Fields
-    dto->shortTitle = f[13];
-    dto->applicationSummary = f[14];
-    dto->generalPurpose = f[15];
-    dto->area = f[16];
-    dto->grantNum = f[17];
-    dto->proratedAmount = f[18];
-    dto->administeredBy = f[19];
-    dto->fundingSource = f[20];
-    dto->project = f[21];
-    dto->currency = f[22];
-    dto->receivedAmount = f[23];
-    dto->memberShare = f[24];
-    dto->monetary = f[25];
-    dto->rpt = f[26];
-    dto->HrPerWk = f[27];
-    dto->personnelPaid = f[28];
-    dto->Rnw = f[29];
-    dto->edGrant = f[30];
-    dto->DupReported = f[31];
+    dto->startDate = atoi(f[0].c_str());
+    dto->endDate=atoi(f[1].c_str());
+    dto->memberName = f[2];
+    dto->domain = f[3];
+    dto->PRINCIPAL_INVESTIGATOR = f[4];
+    dto->fundingType = f[6];
+    dto->peerReviewed = f[7];
+    dto->title = f[8];
+    dto ->industryGrant = f[9];
+    dto->role = f[10];
+    dto->totalAmount = atof(f[11].c_str());
+
+
+//Optional fields
+    dto->monetary = f[12];
+    dto->rpt = f[13];
+    dto->rnw = f[14];
+    dto->edGrant = f[15];
+    dto->DupReported = f[16];
+    dto->proratedAmount = atof(f[17].c_str());
+    dto->receivedAmount = atof(f[18].c_str());
+    dto->memberShare = atof(f[19].c_str());
+    dto->HrPerWk= atof(f[20].c_str());
+
+    //Split up the coinvestigator list
+    stringstream ss(f[21]);
+    string item;
+    //Split around ,
+    while(getline(ss, item, ',')) dto->grant->push_back(item);
 }
 
 void assembleDTO(PresentationDTO *dto, vector<string> f){

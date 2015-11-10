@@ -30,21 +30,23 @@ using namespace std;
 
 class GrantDTO{
 public:
-    
+
     //Mandatory Fields
-    string Name, domain, title, PRINCIPAL_INVESTIGATOR, COINVESTIGATOR;
+    string memberName, domain, title, PRINCIPAL_INVESTIGATOR, COINVESTIGATOR, fundingType,role;
     float totalAmount;
-    
+
+     shared_ptr<vector<string>> grant;
+
+
     unsigned int startDate, endDate;
-    
+
     //Optional Fields
     string shortTitle, applicationSummary, generalPurpose, area, grantNum, administeredBy, fundingSource, project, personnelPaid;
-    
+
     float proratedAmount, receivedAmount, memberShare, HrPerWk;
-    
+
     //These might not be numbers or bool??
     string peerReviewed, industryGrant, monetary, rpt, rnw, edGrant, DupReported;
-      
     GrantDTO();
     ~GrantDTO();
 };

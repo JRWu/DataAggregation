@@ -3,13 +3,13 @@
 
 #include <qcustomplot.h>
 class Pub_BarGraph1_VO; // Forward pointer to silence warning
-class Teach_BarGraph1_VO;
+class Teach_BarGraph1_VO;   // To add by Eric + Emily
+class Grant_BarGraph1_VO;   // to add by Jaisen/Jennifer
+class Pres_BarGraph1_VO;        // To add for Jerry
 
 class Graphvisualizations
 {
     //
-
-
 
 public:
     Graphvisualizations();
@@ -20,20 +20,13 @@ public:
     //1)  For faculty member (name), graph publications by type
         // ^ For a certain date range
 
-
-
-
     //2)For faculty member (name), graph funded research(grants/trials)
         // ^ For a certain date range
-    void plot_grants_vs_trials(QCustomPlot* plot);
-
-
-
+    void plot_grants_vs_trials(QCustomPlot* plot, Grant_BarGraph1_VO* grant_vo);
 
 
     //3)For faculty name, graph publication types by date (bar chart?)
     void plot_pubtype_vs_date(QCustomPlot* plot);
-
 
     //4)For faculty name, graph teaching by program level
         // ^ for a certain date range
@@ -43,9 +36,8 @@ public:
         // ^ For a certain date range
 
 private:
-    void bar_plot(QCustomPlot* plot);
-    void pie_chart(QCustomPlot* plot);
-
+    void bar_plot(QCustomPlot* plot);        // Deal with later
+    void pie_chart(QCustomPlot* plot);      // Implement later
 };
 
 #endif // GRAPHVISUALIZATIONS_H

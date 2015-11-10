@@ -182,11 +182,12 @@ int validatePresentation(std::vector<string> *fields){
     return result;
 }
 
-/* Checks the 13 mandatory fields for a publication DTO.
+/* Checks the 13 mandatory fields for a grant DTO.
  * The check is made in reverse order for ease of unpacking
  * the encoded int to display which entries are invalid.
+ * Jennifer/Jaisen, did you mean to call this validateGrant? I renamed it to silence errors
  */
-int validatePublication(std::vector<string> *fields){
+int validateGrant(std::vector<string> *fields){
     int result = 0;
     
     if(!validateAuthors(&(*fields)[12])) result+=1;
@@ -202,3 +203,8 @@ int validatePublication(std::vector<string> *fields){
     return result;
 }
 
+
+int validateTeaching(std::vector<std::string> * fields)
+{
+    return 0; // DUMMY DATA MUST RETURN RESULT
+}

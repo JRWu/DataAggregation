@@ -9,10 +9,9 @@ tree_list_vo::tree_list_vo()
     num_pub_types = 0;
 }
 
-
 /**
  * @brief tree_list_vo::tree_list_vo overloaded constructor for tree_list_vo
- * @param _data is the data pointer to be implemented later
+ * @param _data is PUBLICATION data
  */
 tree_list_vo::tree_list_vo(shared_ptr<CSVData<PublicationDTO> > _data)
 {
@@ -22,13 +21,35 @@ tree_list_vo::tree_list_vo(shared_ptr<CSVData<PublicationDTO> > _data)
 
 /**
  * @brief tree_list_vo::tree_list_vo overloaded constructor for tree_list_vo
- * @param _data is the data pointer to be implemented later
+ * @param _data is GRANT data
  */
 tree_list_vo::tree_list_vo(shared_ptr<CSVData<GrantDTO> > _data)
 {
     _data = _data;
-    num_grant_types = 0;  // default 0 publication types
+    num_pub_types = 0;  // default 0 grant types
 }
+
+/**
+ * @brief tree_list_vo::tree_list_vo overloaded constructor for tree_list_vo
+ * @param _data is TEACHING data
+ */
+tree_list_vo::tree_list_vo(shared_ptr<CSVData<TeachingDTO> > _data)
+{
+    _data = _data;
+    num_pub_types = 0;  // default 0 teaching types
+}
+
+/**
+ * @brief tree_list_vo::tree_list_vo overloaded constructor for tree_list_vo
+ * @param _data is PRESENTATION data
+ */
+tree_list_vo::tree_list_vo(shared_ptr<CSVData<PresentationDTO> > _data)
+{
+    _data = _data;
+    num_pub_types = 0;  // default 0 presentation types
+}
+
+
 
 
 /**
@@ -49,12 +70,27 @@ vector<vector<string_data_object> > tree_list_vo::get_child_set()
     return child_set;
 }
 
+
+
+
+
+
+// Functions to populate VO with various CSV data pointers
+// Functions to populate VO with various CSV data pointers
+// Functions to populate VO with various CSV data pointers
+// Functions to populate VO with various CSV data pointers
+
+
+
+
+
 /**
  * @brief tree_list_vo::populate_for_publications populates the tree VO with publication data
  * @param _data shared pointer containing the csv parsed data
  * @param start is the initial date range filter
  * @param end is the final date range filter
  * @return 0 if it's executed successfully
+ * COMPLETED BY JERRY DO NOT MODIFY
  */
 int tree_list_vo::populate_for_publications(shared_ptr<CSVData<PublicationDTO> > _data, int start, int end)
 {
@@ -146,10 +182,18 @@ int tree_list_vo::populate_for_publications(shared_ptr<CSVData<PublicationDTO> >
 }
 
 
-// tree_list_vo::populate_for_grants populates the tree VO with grant data
-// returns 0 if successful
+
+// Jaisen/Jennifer please update this to populate either Grants or Clinical Funding data
+// Remember that Parent set is either Peer Reviewed or Industry Sponsored
+// Remember that the Child Set is the Faculty name 1, Faculty name2 etc
+// string_data_object num represents the total # of grants/fundings
+// string_data_object value represents the monetary value of each grant/fund
+// There should be 1 of these VO's created for Grants and 1 for Clinical Funding (2 in total)
 int tree_list_vo::tree_list_vo::populate_for_grants(shared_ptr<CSVData<GrantDTO> > _data, int start, int end)
 {
+
+
+    /*
     // Create the first empty child set
     vector<string_data_object> t;
     child_set.push_back(t);
@@ -233,12 +277,17 @@ int tree_list_vo::tree_list_vo::populate_for_grants(shared_ptr<CSVData<GrantDTO>
             }
         }
     }
-    
+    */
     return 0;   // Exited with success.
 }
 
+// Eric/Emily please update this to populate either PME, UME, CME or Other data
+// Remember that the child_set represents the Academic Year
+// Remember that the child_set represents the Faculty 1, Faculty 2 etc...
+// There should be 1 of these VO's created for each PME, UME, CME and Other data (4 in total I think)
 int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<TeachingDTO> > _data, int start, int end)
 {
+    /*
     // Create the first empty child set
     vector<string_data_object> t;
     child_set.push_back(t);
@@ -322,18 +371,24 @@ int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<Teachin
             }
         }
     }
-
+    */
     // Exit success
     return 0;
 }
 
 // To implement later once DO _data pointer is known
-int tree_list_vo::tree_list_vo::populate_for_presentations(shared_ptr<CSVData<PublicationDTO> > _data, int start, int end)
+// Jerry will implement
+int tree_list_vo::tree_list_vo::populate_for_presentations(shared_ptr<CSVData<PresentationDTO> > _data, int start, int end)
 {
     return 0;
 }
 
 
+
+
+
+
+// PRIVATE FUNCTIONS FOR USAGE
 /**
  * @brief tree_list_vo::find_label_index will return the index of a label stored in
  * the list specified by param set

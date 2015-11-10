@@ -17,7 +17,7 @@ CONFIG += static
 #CONFIG += release
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
+    mainwindow.cpp \
     load_csv.cpp \
     verify_csv.cpp \
     analyze_csv.cpp \
@@ -51,6 +51,7 @@ HEADERS  += mainwindow.h \
     grantdto.h \
     teach_bargraph1_vo.h \
     presentationdto.h \
+    grant_bargraph1_vo.h
 
 FORMS    += mainwindow.ui \
     load_csv.ui \
@@ -59,5 +60,5 @@ FORMS    += mainwindow.ui \
 
 DISTFILES += \
     AppleProject.pro.user \
-    publication.csv
+    publication.csv\
 
