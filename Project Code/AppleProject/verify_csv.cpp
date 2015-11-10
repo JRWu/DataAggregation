@@ -155,7 +155,7 @@ void VerifyCSV::on_analyze_btn_clicked()
     if(dtoType == 1){
         analyze_csv_page = new AnalyzeCSV(data);
     } else if (dtoType == 4){
-        analyze_csv_page = new AnalyzeCSV(data4);
+        analyze_csv_page = new AnalyzeCSV(data4);   //dtoTYPE 4 signifies Presentation data
     }
 
     this->setCentralWidget(analyze_csv_page);

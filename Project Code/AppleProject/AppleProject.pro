@@ -32,7 +32,7 @@ SOURCES += main.cpp\
     pub_bargraph1_vo.cpp \
     grantdto.cpp \
     teach_bargraph1_vo.cpp \
-    presentationdto.cpp \
+    presentationdto.cpp
 
 HEADERS  += mainwindow.h \
     load_csv.h \
@@ -60,5 +60,7 @@ FORMS    += mainwindow.ui \
 
 DISTFILES += \
     AppleProject.pro.user \
-    publication.csv\
-
+    publication.csv \
+    Presentations.csv \
+    Teaching.csv \
+    Grants.csv
