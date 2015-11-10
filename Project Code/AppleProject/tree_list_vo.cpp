@@ -399,6 +399,93 @@ int tree_list_vo::tree_list_vo::populate_for_presentations(shared_ptr<CSVData<Pr
     cout << "title" << _data->dtos->at(0).title << endl;
     cout << "date" << _data->dtos->at(0).date << endl;
 
+
+
+    // Adding 1st empty child set
+    vector<string_data_object> t;
+    child_set.push_back(t);
+
+    int start_index = 0;
+    int date = 0;
+    while(start_index < _data->dtos->size())
+    {
+        date = _data->dtos->at(start_index).date;
+
+        if ((start <= date) && (end >= date))
+        {
+            break;
+        }
+        start_index += 1;
+    }
+
+    string_data_object first_sd;
+    first_sd.label = _data->dtos->at(start_index).name; // Add presenter's name
+    first_sd.num = 0;
+    first_sd.value = -1; // No value field for presentations
+
+    child_set.at(0).push_back(first_sd);
+
+    string_data_object first_pres;
+    first_pres.label = _data->dtos->at(start_index).type;
+    first_pres.num = 0;
+    first_pres.value = -1;
+
+    parent_set.push_back(first_pres);
+
+    for (int i = start_index; i < _data->dtos->size(); i ++)
+    {
+        date = _data->dtos->at(i).date;
+        if ((start <= date) && (end >=date))
+        {
+            string presenter = _data->dtos->at(i).name;
+            string subject = _data->dtos->at(i).type;
+
+            int pres_value = find_label_index(subject, parent_set);
+            if (pres_value == -1)
+            {
+                num_pub_types +=1;
+
+                string_data_object new_pres;
+                new_pres.label = subject;
+                new_pres.num = 1;
+                new_pres.value = -1;
+
+                vector <string_data_object> empty_child;
+                child_set.push_back(empty_child);
+
+                parent_set.push_back(new_pres);
+
+                string_data_object new_presenter;
+                new_presenter.label = presenter;
+                new_presenter.num = 1;
+                new_presenter.value = -1;
+
+                int index = find_label_index(subject, parent_set);
+                child_set.at(index).push_back(new_presenter);
+            }
+
+            if (pres_value != -1)
+            {
+                parent_set.at(pres_value).num += 1; // Add another presenter
+                int presenter_value = find_label_index(presenter, child_set.at(pres_value));
+
+                if (presenter_value == -1)      // Add new presenter
+                {
+                    string_data_object new_presenter;
+                    new_presenter.label = presenter;
+                    new_presenter.num = 1;
+                    new_presenter.value = -1;
+                    child_set.at(pres_value).push_back(new_presenter);
+                }
+                else
+                {
+                    vector<string_data_object> * tmp = &child_set.at(pres_value);
+                    tmp->at(presenter_value).num +=1;
+                }
+            }
+        }
+    }
+
     return 0;
 }
 

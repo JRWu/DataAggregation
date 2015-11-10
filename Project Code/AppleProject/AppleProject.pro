@@ -51,7 +51,11 @@ HEADERS  += mainwindow.h \
     grantdto.h \
     teach_bargraph1_vo.h \
     presentationdto.h \
-    grant_bargraph1_vo.h
+    grant_bargraph1_vo.h \
+    ui_analyze_csv.h \
+    ui_load_csv.h \
+    ui_verify_csv.h \
+    ui_mainwindow.h
 
 FORMS    += mainwindow.ui \
     load_csv.ui \

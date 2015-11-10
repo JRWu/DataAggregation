@@ -189,28 +189,22 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PresentationDTO>> _data, QWidget 
     pr_data = _data;
     ui->setupUi(this);
 
-    // Include domain label stuff here
+    /// DOMAIN LABEL SET ///
+    ui->domain_lbl_presentation->setText(QString::fromStdString(_data->dtos->at(0).domain));
+
+    /// DATE FILTER COMBO BOX //
+    QStringList date_strs = PopulateDateCombos(_data);
+
+    ui->start_date_presentation->addItems(date_strs);
+    ui->start_date_presentation->setCurrentIndex(0);
+    ui->end_date_presentation->addItems(date_strs);
+    ui->end_date_presentation->setCurrentIndex(date_strs.size()-1);
 
     populate_presentation_tree();
 
 
 
-    /*datanew4 = _data;
-    std::shared_ptr<CSVData<PresentationDTO>> data = _data;
-    dtoType = 4;
-    ui->setupUi(this);
-    /// DOMAIN LABEL SET ///
-    ui->domain_lbl1->setText(QString::fromStdString(data->dtos->at(0).domain));
-    /// DATE FILTER COMBO BOX ///
-    QStringList date_strs = PopulateDateCombos(data);
-    // set the dates list to the combo boxes
-    ui->start_date1->addItems(date_strs);
-    ui->start_date1->setCurrentIndex(0);
-    ui->end_date1->addItems(date_strs);
-    ui->end_date1->setCurrentIndex(date_strs.size()-1);
-    // Populate the QTreeWidget item
-    populate_publication_tree();
-    // PUT THIS IN A FUNCTION vvvvv
+    /*    // PUT THIS IN A FUNCTION vvvvv
     /*Pub_BarGraph1_VO* graphable = new Pub_BarGraph1_VO(_data, 1900, 4000);
     // RM THIS vvv LATER
     cout <<"Name: "<< graphable->name << endl;
@@ -291,7 +285,43 @@ QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<TeachingDTO>>
 
 // Jerry will implement this later
 QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<PresentationDTO>> data) {
-    QStringList date_strs;
+    std::vector<int> dates;
+
+    // Loop through DTOs to get list of the dates in them
+    for (int i = 0; i < data->dtos->size(); i ++)
+    {
+        if(dates.empty())
+        {
+            dates.push_back((int)data->dtos->at(i).date);   // Add the first date
+        }
+        else
+        {
+            bool add = true;    // Assume new date encountered is novel
+            for (int j = 0; j < dates.size(); j++)
+            {
+                if ((int)data->dtos->at(i).date==dates.at(j))   // check to prevent duplicate dates
+                {
+                    add = false;
+                    break;
+                }
+            }
+            if (add)    // New date encountered, add it to the list
+            {
+                dates.push_back((int)data->dtos->at(i).date);
+            }
+        }
+    }
+    std::sort(dates.begin(), dates.end());  // Sort the date list
+    QStringList date_strs;                          // Add dates to a qstringlist for qcombobox
+
+    for (int i = 0; i < dates.size(); i ++)
+    {
+        ostringstream stream;
+        stream << dates.at(i);
+        string datestr = stream.str();
+        date_strs << QString::fromStdString(datestr);
+    }
+
     return date_strs;
 }
 
@@ -637,12 +667,59 @@ void AnalyzeCSV::populate_teaching_tree()
 // Do by jerry
 void AnalyzeCSV::populate_presentation_tree()
 {
-   // tree_list_vo *p_treeNew = new tree_list_vo(_data);
-    // Populates the VO , still needs the new params
-  //  p_treeNew->populate_for_publications(_data, (int)s,(int)e);
 
-    tree_list_vo *pr_treeNew = new tree_list_vo(pr_data);
-    pr_treeNew->populate_for_presentations(pr_data,0, 4000);
+    std::shared_ptr<CSVData<PresentationDTO>> _data = pr_data;
+    QString st_string = ui->start_date_presentation->itemText(ui->start_date_presentation->currentIndex());
+    QString en_string = ui->end_date_presentation->itemText(ui->end_date_presentation->currentIndex());
+
+    long s = stol(st_string.toStdString());
+    long e = stol(en_string.toStdString());
+
+    if (e <= s)
+    {
+        cout << "Cannot filter. Filter dates error." << endl;
+    }
+    else
+    {
+        Ui::AnalyzeCSV *tmpUI = get_ui_ptr();
+
+        // Create 1 tree list VO for the Presentation data
+        tree_list_vo *pr_treeNew = new tree_list_vo(pr_data);
+        // Populate the VO with Presentation data and complete range
+        pr_treeNew->populate_for_presentations(pr_data,(int)s,(int)e);
+        tmpUI->present_tree->clear();
+
+        ///LIST TREE VIEW (POPULATE TREE LIST IN GUI WITH DATA)///
+        tmpUI->present_tree->setColumnCount(2);
+        tmpUI->present_tree->setColumnWidth(0,275);
+        tmpUI->present_tree->setHeaderLabels(QStringList() << "Presentation Type" << "# Presentations");
+
+
+        int presCounter = 0;    // Counter for presentations added
+        QTreeWidgetItem * root = new QTreeWidgetItem(tmpUI->present_tree, QStringList() << "Presentations" << QString::fromStdString(std::to_string(_data->dtos->size())));
+        for (int i = 0; i < pr_treeNew->get_parent_set().size(); i ++)
+        {
+            QTreeWidgetItem * child = new QTreeWidgetItem(root, QStringList() << QString::fromStdString(pr_treeNew->get_parent_set().at(i).label)
+                                                      <<QString::fromStdString(std::to_string((int)pr_treeNew->get_parent_set().at(i).num)) );
+
+            vector<string_data_object> tmp = pr_treeNew->get_child_set().at(i);
+            for (int j = 0; j < tmp.size(); j ++)
+            {
+                new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
+                                << QString::fromStdString(std::to_string((int)tmp.at(j).num)) );
+                presCounter += tmp.at(j).num;
+            }
+        }
+
+        tmpUI->present_tree->expandItem(root);
+        root->setText(1, QString::fromStdString(std::to_string(presCounter)));
+
+
+        // JERRY ADD CODE TO COMPLETE THE PLOT HERE
+
+
+
+    }
 
     // OUTPUT:
 

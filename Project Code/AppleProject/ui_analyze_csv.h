@@ -71,8 +71,8 @@ public:
     QVBoxLayout *verticalLayout_9;
     QHBoxLayout *horizontalLayout_8;
     QLabel *date_filter_lbl_presentation;
-    QComboBox *end_date_presentation;
     QComboBox *start_date_presentation;
+    QComboBox *end_date_presentation;
     QPushButton *filter_btn_presentation;
     QLabel *domain_lbl_presentation;
     QTreeWidget *present_tree;
@@ -87,7 +87,7 @@ public:
     QLabel *date_filter_lbl_teach;
     QComboBox *start_date_teach;
     QComboBox *end_date_teach;
-    QPushButton *filter_btn_teaching;
+    QPushButton *filter_btn_teach;
     QLabel *domain_lbl_teach;
     QTreeWidget *teach_tree;
     QVBoxLayout *verticalLayout_8;
@@ -397,16 +397,16 @@ public:
 
         horizontalLayout_8->addWidget(date_filter_lbl_presentation);
 
+        start_date_presentation = new QComboBox(horizontalLayoutWidget_4);
+        start_date_presentation->setObjectName(QStringLiteral("start_date_presentation"));
+
+        horizontalLayout_8->addWidget(start_date_presentation);
+
         end_date_presentation = new QComboBox(horizontalLayoutWidget_4);
         end_date_presentation->setObjectName(QStringLiteral("end_date_presentation"));
         end_date_presentation->setMinimumSize(QSize(0, 0));
 
         horizontalLayout_8->addWidget(end_date_presentation);
-
-        start_date_presentation = new QComboBox(horizontalLayoutWidget_4);
-        start_date_presentation->setObjectName(QStringLiteral("start_date_presentation"));
-
-        horizontalLayout_8->addWidget(start_date_presentation);
 
         filter_btn_presentation = new QPushButton(horizontalLayoutWidget_4);
         filter_btn_presentation->setObjectName(QStringLiteral("filter_btn_presentation"));
@@ -499,13 +499,13 @@ public:
 
         horizontalLayout_9->addWidget(end_date_teach);
 
-        filter_btn_teaching = new QPushButton(horizontalLayoutWidget_5);
-        filter_btn_teaching->setObjectName(QStringLiteral("filter_btn_teaching"));
-        filter_btn_teaching->setMinimumSize(QSize(75, 0));
-        filter_btn_teaching->setMaximumSize(QSize(75, 16777215));
-        filter_btn_teaching->setFlat(false);
+        filter_btn_teach = new QPushButton(horizontalLayoutWidget_5);
+        filter_btn_teach->setObjectName(QStringLiteral("filter_btn_teach"));
+        filter_btn_teach->setMinimumSize(QSize(75, 0));
+        filter_btn_teach->setMaximumSize(QSize(75, 16777215));
+        filter_btn_teach->setFlat(false);
 
-        horizontalLayout_9->addWidget(filter_btn_teaching);
+        horizontalLayout_9->addWidget(filter_btn_teach);
 
 
         verticalLayout_10->addLayout(horizontalLayout_9);
@@ -548,7 +548,7 @@ public:
 
         retranslateUi(AnalyzeCSV);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(AnalyzeCSV);
@@ -591,7 +591,7 @@ public:
         );
         tabWidget->setTabText(tabWidget->indexOf(present_tab), QApplication::translate("AnalyzeCSV", "PRESENTATIONS", 0));
         date_filter_lbl_teach->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
-        filter_btn_teaching->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
+        filter_btn_teach->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
         domain_lbl_teach->setText(QString());
         graph_combo_teach->clear();
         graph_combo_teach->insertItems(0, QStringList()
