@@ -89,5 +89,5 @@ void LoadCSV::on_teaching_btn_clicked()
                 "CSV Files (*.csv)"     // File extension to filter for
                 );
     ui->verify_btn->setDisabled(false);
-    csvType = 3;
+    csvType = 5;
 }

@@ -38,6 +38,7 @@ private:
     // Shared pointers for VO generation
     shared_ptr<CSVData<PublicationDTO>> data;
     shared_ptr<CSVData<GrantDTO>> gdata;
+    shared_ptr<CSVData<TeachingDTO>> datat;
     shared_ptr<CSVData<PresentationDTO>> data4;
 
     void enableConfirmChanges();

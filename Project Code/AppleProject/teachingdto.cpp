@@ -1,8 +1,8 @@
 #include "teachingdto.h"
 
 TeachingDTO::TeachingDTO() {
-    //mandatory:
-    name = domain = program = type = program = type = scope = "";
+    // mandatory
+    name = domain = program = type = scope = "";
 
     startDate = endDate = 0;
 
@@ -10,7 +10,7 @@ TeachingDTO::TeachingDTO() {
 
     totalHours = 0;
 
-    //optional:
+    //optional
     institution = faculty = department = division = location = facultyComments = students = lecture = development = stipend = comment = "";
 }
 
