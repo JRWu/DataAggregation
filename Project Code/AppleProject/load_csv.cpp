@@ -79,3 +79,15 @@ void LoadCSV::on_grant_btn_clicked()
     ui->verify_btn->setDisabled(false);
 }
 
+void LoadCSV::on_teaching_btn_clicked()
+{
+    std::cout << "Teaching button registered." << "\n";
+    filename=QFileDialog::getOpenFileName(
+                this,
+                tr("Open File"),        // Dialog for prompt
+                "C://",                 // Default folder to open
+                "CSV Files (*.csv)"     // File extension to filter for
+                );
+    ui->verify_btn->setDisabled(false);
+    csvType = 3;
+}

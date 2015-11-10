@@ -27,6 +27,8 @@ private slots:
     void on_grant_btn_clicked();
 
     void on_presentation_btn_clicked();
+
+    void on_teaching_btn_clicked();
 private:
     Ui::LoadCSV *ui;
     VerifyCSV *verify_csv_page;
