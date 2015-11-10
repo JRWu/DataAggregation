@@ -19,7 +19,6 @@
 #include "pub_bargraph1_vo.h"
 #include "grant_bargraph1_vo.h"
 #include "teach_bargraph1_vo.h"
-#include "ui_analyze_csv.h"
 
 class tree_list_vo;     //forward pointer
 
@@ -59,7 +58,6 @@ private slots:
     void on_filter_btn_2_clicked();
 
     void on_filter_btn_presentation_clicked();
-
 
 private:
     Ui::AnalyzeCSV *ui;

@@ -282,7 +282,7 @@ int tree_list_vo::tree_list_vo::populate_for_grants(shared_ptr<CSVData<GrantDTO>
 }
 
 // Eric/Emily please update this to populate either PME, UME, CME or Other data
-// Remember that the parent_set represents the Academic Year
+// Remember that the child_set represents the Academic Year
 // Remember that the child_set represents the Faculty 1, Faculty 2 etc...
 // There should be 1 of these VO's created for each PME, UME, CME and Other data (4 in total I think)
 int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<TeachingDTO> > _data, int start, int end)
@@ -485,8 +485,7 @@ int tree_list_vo::tree_list_vo::populate_for_presentations(shared_ptr<CSVData<Pr
             }
         }
     }
-
-    return 0;
+     return 0;
 }
 
 

@@ -104,3 +104,30 @@ void assembleDTO(PresentationDTO *dto, vector<string> f){
     dto->citation = f[18];
     dto->personalRenumeration = f[19];
 }
+
+void assembleDTO(TeachingDTO *dto, vector<string> f) {
+    //mandatory:
+    dto->name = f[0];
+    dto->domain = f[1];
+    dto->startDate = atoi(f[2].c_str());
+    dto->endDate = atoi(f[3].c_str());
+    dto->program = f[4];
+    dto->type = f[5];
+    dto->scope = f[6];
+    dto->hoursSession = atof(f[7].c_str());
+    dto->numberSession = atof(f[8].c_str());
+    dto->totalHours = atof(f[9].c_str());
+
+    //optional:
+    dto->institution = f[10];
+    dto->faculty = f[11];
+    dto->department = f[12];
+    dto->division = f[13];
+    dto->location = f[14];
+    dto->facultyComments = f[15];
+    dto->students = f[16];
+    dto->lecture = f[17];
+    dto->development = f[18];
+    dto->stipend = f[19];
+    dto->comment = f[20];
+}

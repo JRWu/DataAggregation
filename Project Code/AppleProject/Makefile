@@ -64,7 +64,8 @@ SOURCES       = main.cpp \
 		pub_bargraph1_vo.cpp \
 		grantdto.cpp \
 		teach_bargraph1_vo.cpp \
-		presentationdto.cpp moc_mainwindow.cpp \
+		presentationdto.cpp \
+		teachingdto.cpp moc_mainwindow.cpp \
 		moc_load_csv.cpp \
 		moc_verify_csv.cpp \
 		moc_analyze_csv.cpp \
@@ -86,6 +87,7 @@ OBJECTS       = main.o \
 		grantdto.o \
 		teach_bargraph1_vo.o \
 		presentationdto.o \
+		teachingdto.o \
 		moc_mainwindow.o \
 		moc_load_csv.o \
 		moc_verify_csv.o \
@@ -93,9 +95,6 @@ OBJECTS       = main.o \
 		moc_qcustomplot.o
 DIST          = AppleProject.pro.user \
 		publication.csv \
-		Presentations.csv \
-		Teaching.csv \
-		Grants.csv \
 		/Users/jwu/Qt/5.5/clang_64/mkspecs/features/spec_pre.prf \
 		/Users/jwu/Qt/5.5/clang_64/mkspecs/qdevice.pri \
 		/Users/jwu/Qt/5.5/clang_64/mkspecs/features/device_config.prf \
@@ -260,7 +259,8 @@ DIST          = AppleProject.pro.user \
 		ui_analyze_csv.h \
 		ui_load_csv.h \
 		ui_verify_csv.h \
-		ui_mainwindow.h main.cpp \
+		ui_mainwindow.h \
+		teachingdto.h main.cpp \
 		mainwindow.cpp \
 		load_csv.cpp \
 		verify_csv.cpp \
@@ -276,7 +276,8 @@ DIST          = AppleProject.pro.user \
 		pub_bargraph1_vo.cpp \
 		grantdto.cpp \
 		teach_bargraph1_vo.cpp \
-		presentationdto.cpp
+		presentationdto.cpp \
+		teachingdto.cpp
 QMAKE_TARGET  = AppleProject
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = AppleProject.app/Contents/MacOS/AppleProject
@@ -646,8 +647,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents mainwindow.h load_csv.h verify_csv.h analyze_csv.h publicationdto.h fast-cpp-csv-parser-master/csv.h csvdata.h csvdataassembler.h qcustomplot.h validatedto.h dtoassembler.h tree_list_vo.h graphvisualizations.h pub_bargraph1_vo.h grantdto.h teach_bargraph1_vo.h presentationdto.h grant_bargraph1_vo.h ui_analyze_csv.h ui_load_csv.h ui_verify_csv.h ui_mainwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp mainwindow.cpp load_csv.cpp verify_csv.cpp analyze_csv.cpp publicationdto.cpp csvdata.cpp csvdataassembler.cpp qcustomplot.cpp validatedto.cpp dtoassembler.cpp tree_list_vo.cpp graphvisualizations.cpp pub_bargraph1_vo.cpp grantdto.cpp teach_bargraph1_vo.cpp presentationdto.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents mainwindow.h load_csv.h verify_csv.h analyze_csv.h publicationdto.h fast-cpp-csv-parser-master/csv.h csvdata.h csvdataassembler.h qcustomplot.h validatedto.h dtoassembler.h tree_list_vo.h graphvisualizations.h pub_bargraph1_vo.h grantdto.h teach_bargraph1_vo.h presentationdto.h grant_bargraph1_vo.h ui_analyze_csv.h ui_load_csv.h ui_verify_csv.h ui_mainwindow.h teachingdto.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp mainwindow.cpp load_csv.cpp verify_csv.cpp analyze_csv.cpp publicationdto.cpp csvdata.cpp csvdataassembler.cpp qcustomplot.cpp validatedto.cpp dtoassembler.cpp tree_list_vo.cpp graphvisualizations.cpp pub_bargraph1_vo.cpp grantdto.cpp teach_bargraph1_vo.cpp presentationdto.cpp teachingdto.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents mainwindow.ui load_csv.ui verify_csv.ui analyze_csv.ui $(DISTDIR)/
 
 
@@ -998,7 +999,6 @@ moc_mainwindow.cpp: /Users/jwu/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/Q
 		pub_bargraph1_vo.h \
 		grant_bargraph1_vo.h \
 		teach_bargraph1_vo.h \
-		ui_analyze_csv.h \
 		mainwindow.h
 	/Users/jwu/Qt/5.5/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -I/Users/jwu/Qt/5.5/clang_64/mkspecs/macx-clang -I'/Users/jwu/Documents/Coding/CS3307/GROUP_PROJECT/team-apple/Project Code/AppleProject' -I/Users/jwu/Qt/5.5/clang_64/lib/QtPrintSupport.framework/Headers -I/Users/jwu/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers -I/Users/jwu/Qt/5.5/clang_64/lib/QtGui.framework/Headers -I/Users/jwu/Qt/5.5/clang_64/lib/QtCore.framework/Headers -F/Users/jwu/Qt/5.5/clang_64/lib mainwindow.h -o moc_mainwindow.cpp
 
@@ -1322,7 +1322,6 @@ moc_load_csv.cpp: /Users/jwu/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QMa
 		pub_bargraph1_vo.h \
 		grant_bargraph1_vo.h \
 		teach_bargraph1_vo.h \
-		ui_analyze_csv.h \
 		load_csv.h
 	/Users/jwu/Qt/5.5/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -I/Users/jwu/Qt/5.5/clang_64/mkspecs/macx-clang -I'/Users/jwu/Documents/Coding/CS3307/GROUP_PROJECT/team-apple/Project Code/AppleProject' -I/Users/jwu/Qt/5.5/clang_64/lib/QtPrintSupport.framework/Headers -I/Users/jwu/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers -I/Users/jwu/Qt/5.5/clang_64/lib/QtGui.framework/Headers -I/Users/jwu/Qt/5.5/clang_64/lib/QtCore.framework/Headers -F/Users/jwu/Qt/5.5/clang_64/lib load_csv.h -o moc_load_csv.cpp
 
@@ -1645,7 +1644,6 @@ moc_verify_csv.cpp: /Users/jwu/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/Q
 		pub_bargraph1_vo.h \
 		grant_bargraph1_vo.h \
 		teach_bargraph1_vo.h \
-		ui_analyze_csv.h \
 		verify_csv.h
 	/Users/jwu/Qt/5.5/clang_64/bin/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -I/Users/jwu/Qt/5.5/clang_64/mkspecs/macx-clang -I'/Users/jwu/Documents/Coding/CS3307/GROUP_PROJECT/team-apple/Project Code/AppleProject' -I/Users/jwu/Qt/5.5/clang_64/lib/QtPrintSupport.framework/Headers -I/Users/jwu/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers -I/Users/jwu/Qt/5.5/clang_64/lib/QtGui.framework/Headers -I/Users/jwu/Qt/5.5/clang_64/lib/QtCore.framework/Headers -F/Users/jwu/Qt/5.5/clang_64/lib verify_csv.h -o moc_verify_csv.cpp
 
@@ -1965,7 +1963,6 @@ moc_analyze_csv.cpp: csvdata.h \
 		pub_bargraph1_vo.h \
 		grant_bargraph1_vo.h \
 		teach_bargraph1_vo.h \
-		ui_analyze_csv.h \
 		/Users/jwu/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QTreeWidget \
 		/Users/jwu/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qtreewidget.h \
 		analyze_csv.h
@@ -2374,7 +2371,6 @@ main.o: main.cpp mainwindow.h \
 		pub_bargraph1_vo.h \
 		grant_bargraph1_vo.h \
 		teach_bargraph1_vo.h \
-		ui_analyze_csv.h \
 		/Users/jwu/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QApplication \
 		/Users/jwu/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qapplication.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
@@ -2701,7 +2697,6 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		pub_bargraph1_vo.h \
 		grant_bargraph1_vo.h \
 		teach_bargraph1_vo.h \
-		ui_analyze_csv.h \
 		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o mainwindow.cpp
 
@@ -3026,7 +3021,6 @@ load_csv.o: load_csv.cpp load_csv.h \
 		pub_bargraph1_vo.h \
 		grant_bargraph1_vo.h \
 		teach_bargraph1_vo.h \
-		ui_analyze_csv.h \
 		ui_load_csv.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o load_csv.o load_csv.cpp
 
@@ -3351,7 +3345,6 @@ verify_csv.o: verify_csv.cpp load_csv.h \
 		pub_bargraph1_vo.h \
 		grant_bargraph1_vo.h \
 		teach_bargraph1_vo.h \
-		ui_analyze_csv.h \
 		ui_verify_csv.h \
 		/Users/jwu/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QtWidgets \
 		/Users/jwu/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qaccessiblewidget.h \
@@ -4213,7 +4206,6 @@ tree_list_vo.o: tree_list_vo.cpp tree_list_vo.h \
 		pub_bargraph1_vo.h \
 		grant_bargraph1_vo.h \
 		teach_bargraph1_vo.h \
-		ui_analyze_csv.h \
 		/Users/jwu/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/QTreeWidget \
 		/Users/jwu/Qt/5.5/clang_64/lib/QtWidgets.framework/Headers/qtreewidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tree_list_vo.o tree_list_vo.cpp
@@ -4316,6 +4308,9 @@ teach_bargraph1_vo.o: teach_bargraph1_vo.cpp teach_bargraph1_vo.h \
 
 presentationdto.o: presentationdto.cpp presentationdto.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o presentationdto.o presentationdto.cpp
+
+teachingdto.o: teachingdto.cpp teachingdto.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o teachingdto.o teachingdto.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

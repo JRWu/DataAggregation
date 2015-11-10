@@ -204,7 +204,15 @@ int validateGrant(std::vector<string> *fields){
 }
 
 
-int validateTeaching(std::vector<std::string> * fields)
+int validateTeaching(std::vector<string> * fields)
 {
-    return 0; // DUMMY DATA MUST RETURN RESULT
+    int result = 0;
+
+    for(int i = 9; i > 0; i--) {
+        if(!validateString((*fields)[i])) result+=1;
+        result <<= 1;
+    }
+
+    if(!validateDate(&(*fields)[2])) result+=1;
+    return result;
 }

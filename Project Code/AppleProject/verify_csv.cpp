@@ -19,6 +19,8 @@ VerifyCSV::VerifyCSV(QString filename, int csvType, QWidget *parent) :
     data = shared_ptr<CSVData<PublicationDTO>>(new CSVData<PublicationDTO>);
     gdata = shared_ptr<CSVData<GrantDTO>>(new CSVData<GrantDTO>);
     data4 = shared_ptr<CSVData<PresentationDTO>>(new CSVData<PresentationDTO>);
+    datat = shared_ptr<CSVData<TeachingDTO>>(new CSVData<TeachingDTO>);
+
 
     //Assemble data from a given file and store in a data pointer
     switch(dtoType) {
@@ -27,6 +29,9 @@ VerifyCSV::VerifyCSV(QString filename, int csvType, QWidget *parent) :
             break;
         case 4:
             assembled = AssembleData(data4,filename.toStdString());
+            break;
+        case 5:
+            assembled = AssembleData(datat,filename.toStdString());
             break;
     }
     if (assembled)
@@ -94,6 +99,22 @@ QStandardItemModel* VerifyCSV::PublicationTableModel()
                 };
             }
             return model;
+        } else if (dtoType == 5) {
+            QStandardItemModel *model = new QStandardItemModel(datat->errorRows->size(),datat->nMan,NULL);
+
+            for (i = 0; i < datat->nMan;i++) {
+                model->setHorizontalHeaderItem(i, new QStandardItem(QString::fromStdString(datat->header->at(i))));
+            }
+
+            for(i = 0; i < datat->errorRows->size(); i++) {
+                vector<string> line = datat->errorRows->at(i);
+                for(size_t j = 0; j < datat->nMan; j++) {
+                    QString qstr = QString::fromStdString(line[j]);
+                    QStandardItem *newRow = new QStandardItem(qstr);
+                    model->setItem(i,j,newRow);
+                };
+            }
+            return model;
         }
   return NULL;
 }
@@ -121,7 +142,6 @@ QStandardItemModel* VerifyCSV::GrantTableModel()
     }
     return model;
 }
-
 
 void VerifyCSV::enableConfirmChanges()
 {
@@ -155,7 +175,9 @@ void VerifyCSV::on_analyze_btn_clicked()
     if(dtoType == 1){
         analyze_csv_page = new AnalyzeCSV(data);
     } else if (dtoType == 4){
-        analyze_csv_page = new AnalyzeCSV(data4);   //dtoTYPE 4 signifies Presentation data
+        analyze_csv_page = new AnalyzeCSV(data4);
+    } else if (dtoType == 5) {
+        analyze_csv_page = new AnalyzeCSV(datat);
     }
 
     this->setCentralWidget(analyze_csv_page);
@@ -173,6 +195,10 @@ void VerifyCSV::on_ignoreall_btn_clicked()
         ui->error_table->model()->removeRows(0,data4->errorRows->size());
         data4->errorRows->clear();
         data4->errorRows->shrink_to_fit();
+    } else if (dtoType == 5) {
+        ui->error_table->model()->removeRows(0,datat->errorRows->size());
+        datat->errorRows->clear();
+        datat->errorRows->shrink_to_fit();
     }
     enableConfirmChanges();
 }
@@ -191,6 +217,8 @@ void VerifyCSV::on_ignore_btn_clicked()
             data->errorRows->erase(data->errorRows->begin() + index.row());
         } else if (dtoType == 4) {
             data4->errorRows->erase(data4->errorRows->begin() + index.row());
+        } else if (dtoType == 5) {
+            datat->errorRows->erase(datat->errorRows->begin() + index.row());
         }
     }
     enableConfirmChanges();
@@ -254,6 +282,25 @@ void VerifyCSV::on_confirm_btn_clicked()
 
         //If all errors have been either corrected or ignored, the user may proceed to the analyze page
         if (data4->errorRows->size() == 0)
+        {
+            ui->analyze_btn->setDisabled(false);
+        }
+    } else if (dtoType == 5) {
+        for(size_t i = 0; i < datat->errorRows->size(); i++){
+            for(size_t j = 0; j < datat->nMan; j++){
+                idx = ui->error_table->model()->index(i, j);
+                str = ui->error_table->model()->data(idx).toString().toStdString();
+                (datat->errorRows->at(i))[j] = str;
+            };
+        }
+        datat->validateErrors();
+
+        ui->error_table->setModel(PublicationTableModel());
+
+        changesMade = false;
+        ui->confirm_btn->setDisabled(true);
+
+        if (datat->errorRows->size() == 0)
         {
             ui->analyze_btn->setDisabled(false);
         }

@@ -1,4 +1,6 @@
 Project Code/AppleProject.pro.user.*
+Project Code/AppleProject/*.o
+Project Code/AppleProject/moc_*
 Project Code/build*
 Project\ Code/build*
 *~

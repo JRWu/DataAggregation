@@ -1157,7 +1157,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="filter_btn_teach">
+            <widget class="QPushButton" name="filter_btn_teaching">
              <property name="minimumSize">
               <size>
                <width>75</width>
