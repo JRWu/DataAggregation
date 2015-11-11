@@ -59,6 +59,8 @@ private slots:
 
     void on_filter_btn_presentation_clicked();
 
+    void on_filter_btn_teaching_clicked();
+
 private:
     Ui::AnalyzeCSV *ui;
     QGraphicsScene * scene; // Added to display the graph through the graph area

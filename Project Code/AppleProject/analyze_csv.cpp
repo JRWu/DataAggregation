@@ -735,13 +735,6 @@ void AnalyzeCSV::populate_presentation_tree()
 
 }
 
-
-
-void AnalyzeCSV::on_filter_btn_teach_clicked()
-{
-    populate_teaching_tree();
-}
-
 // Jennifer/Jaisen this is called when the filter button on the Grants page is clicked
 void AnalyzeCSV::on_filter_btn_2_clicked()
 {
@@ -752,4 +745,9 @@ void AnalyzeCSV::on_filter_btn_2_clicked()
 void AnalyzeCSV::on_filter_btn_presentation_clicked()
 {
     populate_presentation_tree();
+}
+
+void AnalyzeCSV::on_filter_btn_teaching_clicked()
+{
+    populate_teaching_tree();
 }
