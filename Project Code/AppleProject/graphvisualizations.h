@@ -2,10 +2,11 @@
 #define GRAPHVISUALIZATIONS_H
 
 #include <qcustomplot.h>
+#include "pres_bargraph1_vo.h"
 class Pub_BarGraph1_VO; // Forward pointer to silence warning
 class Teach_BarGraph1_VO;   // To add by Eric + Emily
 class Grant_BarGraph1_VO;   // to add by Jaisen/Jennifer
-class Pres_BarGraph1_VO;        // To add for Jerry
+//class Pres_BarGraph1_VO;        // To add for Jerry
 
 class Graphvisualizations
 {
@@ -16,6 +17,8 @@ public:
 
     // Add support for shared pointer afterwards
     void plot_pub_vs_type(QCustomPlot* plot, Pub_BarGraph1_VO* bargraph_vo);
+
+    void plot_pres_vs_type(QCustomPlot* plot, Pres_BarGraph1_VO* bargraph_vo);
 
     //1)  For faculty member (name), graph publications by type
         // ^ For a certain date range

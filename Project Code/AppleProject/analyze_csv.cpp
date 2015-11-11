@@ -64,7 +64,7 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     QMainWindow(parent),
     ui(new Ui::AnalyzeCSV)
 {
-    datanew = _data;
+    datanew = _data;    // set the global data poiner
 
     std::shared_ptr<CSVData<PublicationDTO>> data = _data;
     ui->setupUi(this);
@@ -81,48 +81,16 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> _data, QWidget *
     ui->end_date_publications->addItems(date_strs);
     ui->end_date_publications->setCurrentIndex(date_strs.size()-1);
 
-    // Populate the QTreeWidget item
+    // Populate the Tree Drop down list and the Graph View
     populate_publication_tree();
-
-
-
-    // PUT THIS IN A FUNCTION vvvvv
-    Pub_BarGraph1_VO* graphable = new Pub_BarGraph1_VO(_data, 1900, 4000);
-
-    // RM THIS vvv LATER
-    cout <<"Name: "<< graphable->name << endl;
-    cout <<"Values size: "<< graphable->values.size()<< endl;
-    cout <<"Years size: "<< graphable->years.size()<< endl;
-    cout <<"PubTypes size: "<< graphable->pubTypes.size()<<endl;
-    for (int i = 0; i < graphable->years.size(); i++)
-    {
-        cout << "Years["<<to_string(i)<<"] " << graphable->years.at(i) << endl;
-    }
-    for (int i = 0; i < graphable->pubTypes.size(); i++)
-    {
-        cout << "PubTypes["<<std::to_string(i)<<"] " << graphable->pubTypes.at(i) << endl;
-    }
-    // RM THIS ^^^ LATER
-
-
-    scene = new QGraphicsScene(this);   // Added for graphics window
-
-    QCustomPlot *customPlot = new QCustomPlot();
-    customPlot->setGeometry(0,0,345,375);   // added to resize graph
-
-    // Graph handling functions go here
-    Graphvisualizations *graph_handler = new Graphvisualizations();
-    graph_handler->plot_pub_vs_type(customPlot, graphable);
-
-    scene->addWidget(customPlot);   // Add plot to the window & Essential
-    ui->graph_area->setScene(scene);    // Added for grpahics & Essential
+    populate_publication_bargraph();
 
 }
 
 // Populate Grant tab
 AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<GrantDTO>> _data, QWidget *parent) :
-QMainWindow(parent),
-ui(new Ui::AnalyzeCSV)
+    QMainWindow(parent),
+    ui(new Ui::AnalyzeCSV)
 {
     /*
     Jennifer/Jaisen
@@ -201,34 +169,8 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PresentationDTO>> _data, QWidget 
     ui->end_date_presentation->setCurrentIndex(date_strs.size()-1);
 
     populate_presentation_tree();
+    populate_presentation_bargraph();
 
-
-
-    /*
-    // PUT THIS IN A FUNCTION vvvvv
-    /*Pub_BarGraph1_VO* graphable = new Pub_BarGraph1_VO(_data, 1900, 4000);
-    // RM THIS vvv LATER
-    cout <<"Name: "<< graphable->name << endl;
-    cout <<"Values size: "<< graphable->values.size()<< endl;
-    cout <<"Years size: "<< graphable->years.size()<< endl;
-    cout <<"PubTypes size: "<< graphable->pubTypes.size()<<endl;
-    for (int i = 0; i < graphable->years.size(); i++)
-    {
-        cout << "Years["<<to_string(i)<<"] " << graphable->years.at(i) << endl;
-    }
-    for (int i = 0; i < graphable->pubTypes.size(); i++)
-    {
-        cout << "PubTypes["<<std::to_string(i)<<"] " << graphable->pubTypes.at(i) << endl;
-    }
-    // RM THIS ^^^ LATER
-    scene = new QGraphicsScene(this);   // Added for graphics window
-    QCustomPlot *customPlot = new QCustomPlot();
-    customPlot->setGeometry(0,0,345,375);   // added to resize graph
-    // Graph handling functions go here
-    Graphvisualizations *graph_handler = new Graphvisualizations();
-    graph_handler->plot_pub_vs_type(customPlot, graphable);
-    scene->addWidget(customPlot);   // Add plot to the window & Essential
-    ui->graph_area->setScene(scene);    // Added for grpahics & Essential*/
 }
 
 
@@ -377,6 +319,7 @@ Ui::AnalyzeCSV* AnalyzeCSV::get_ui_ptr()
 void AnalyzeCSV::on_filter_btn_clicked()
 {
     populate_publication_tree();
+    populate_publication_bargraph();
 }
 
 /**
@@ -418,13 +361,13 @@ void AnalyzeCSV::populate_publication_tree()
         {
             cout << i << endl;
             QTreeWidgetItem * child = new QTreeWidgetItem(root, QStringList() << QString::fromStdString(p_treeNew->get_parent_set().at(i).label)
-                                                      <<QString::fromStdString(std::to_string((int)p_treeNew->get_parent_set().at(i).num)) );
+                                                          <<QString::fromStdString(std::to_string((int)p_treeNew->get_parent_set().at(i).num)) );
 
             vector<string_data_object> tmp = p_treeNew->get_child_set().at(i);
             for (int j = 0; j < tmp.size(); j++)  // per 5?
             {
                 new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
-                                << QString::fromStdString(std::to_string((int)tmp.at(j).num)) );
+                                    << QString::fromStdString(std::to_string((int)tmp.at(j).num)) );
                 pubCounter += tmp.at(j).num;
             }
         }
@@ -522,7 +465,7 @@ void AnalyzeCSV::populate_grant_tree()
             cout << i << endl;
             QTreeWidgetItem * child = new QTreeWidgetItem(root, QStringList() << QString::fromStdString(p_treeNew->get_parent_set().at(i).label)
                                                           <<QString::fromStdString(std::to_string((int)p_treeNew->get_parent_set().at(i).num)) );
-            
+
             vector<string_data_object> tmp = p_treeNew->get_child_set().at(i);
             for (int j = 0; j < tmp.size(); j++)  // per 5?
             {
@@ -700,40 +643,92 @@ void AnalyzeCSV::populate_presentation_tree()
         for (int i = 0; i < pr_treeNew->get_parent_set().size(); i ++)
         {
             QTreeWidgetItem * child = new QTreeWidgetItem(root, QStringList() << QString::fromStdString(pr_treeNew->get_parent_set().at(i).label)
-                                                      <<QString::fromStdString(std::to_string((int)pr_treeNew->get_parent_set().at(i).num)) );
+                                                          <<QString::fromStdString(std::to_string((int)pr_treeNew->get_parent_set().at(i).num)) );
 
             vector<string_data_object> tmp = pr_treeNew->get_child_set().at(i);
             for (int j = 0; j < tmp.size(); j ++)
             {
                 new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
-                                << QString::fromStdString(std::to_string((int)tmp.at(j).num)) );
+                                    << QString::fromStdString(std::to_string((int)tmp.at(j).num)) );
                 presCounter += tmp.at(j).num;
             }
         }
 
         tmpUI->present_tree->expandItem(root);
         root->setText(1, QString::fromStdString(std::to_string(presCounter)));
-
-
-        // JERRY ADD CODE TO COMPLETE THE PLOT HERE
-
-
-
     }
 
-    // OUTPUT:
-
-    //name  Malcomson, Paul
-    //domain    Psychiatry
-    //type  Student Presentation
-    //role  Presenter
-    //title "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-    //date  2009
-
-
-    // As soon as Analyze is registered, information is displayed..
-
 }
+
+/**
+ * @brief AnalyzeCSV::populate_publication_bargraph populates the Graph1 tab
+ * also known as the Publication bargraph on the Analyze  Page
+ * DO NOT MODIFY (Jerry)
+ */
+void AnalyzeCSV::populate_publication_bargraph()
+{
+    QString st_string = ui->start_date_publications->itemText(ui->start_date_publications->currentIndex());
+    QString en_string = ui->end_date_publications->itemText(ui->end_date_publications->currentIndex());
+
+    int s = stoi(st_string.toStdString()); // start date
+    int e = stoi(en_string.toStdString()); // end date
+
+    if (e <= s)
+    {
+        cout << "Cannot filter. Filter dates error." << endl;
+    }
+    else
+    {
+        // pub_bargraph is where it throws the error
+        Pub_BarGraph1_VO* graphable = new Pub_BarGraph1_VO(datanew, s, e);
+        scene = new QGraphicsScene(this);   // Added for graphics window
+
+        QCustomPlot *customPlot = new QCustomPlot();
+        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+
+        // Graph handling functions go here
+        Graphvisualizations *graph_handler = new Graphvisualizations();
+        graph_handler->plot_pub_vs_type(customPlot, graphable);
+
+        scene->addWidget(customPlot);   // Add plot to the window & Essential
+        ui->graph_area->setScene(scene);    // Added for grpahics & Essential
+    }
+}
+
+/**
+ * @brief AnalyzeCSV::populate_presentation_bargraph populates the Graph1 tab
+ * also known as Presentation bargraph on the Analyze Page
+ *  DO NOT MODIFY(Jerry)
+ */
+void AnalyzeCSV::populate_presentation_bargraph()
+{
+    std::shared_ptr<CSVData<PresentationDTO>> _data = pr_data;
+    QString st_string = ui->start_date_presentation->itemText(ui->start_date_presentation->currentIndex());
+    QString en_string = ui->end_date_presentation->itemText(ui->end_date_presentation->currentIndex());
+
+    int s = stoi(st_string.toStdString());
+    int e = stoi(en_string.toStdString());
+
+    if (e <= s)
+    {
+        cout << "Cannot filter. Filter dates error." << endl;
+    }
+    else
+    {
+        Pres_BarGraph1_VO* graphable = new Pres_BarGraph1_VO(pr_data, s, e);
+        scene = new QGraphicsScene(this);
+
+        QCustomPlot *customPlot = new QCustomPlot();
+        customPlot->setGeometry(0,0,345,375);   // Should make this dynamic
+
+        Graphvisualizations *graph_handler = new Graphvisualizations();
+        graph_handler->plot_pres_vs_type(customPlot, graphable);
+        scene->addWidget(customPlot);
+        ui->graph_area_7->setScene(scene);  // rename graph_are_7 to graph_area_Presentations
+    }
+}
+
+
 
 // Jennifer/Jaisen this is called when the filter button on the Grants page is clicked
 void AnalyzeCSV::on_filter_btn_2_clicked()
@@ -745,6 +740,7 @@ void AnalyzeCSV::on_filter_btn_2_clicked()
 void AnalyzeCSV::on_filter_btn_presentation_clicked()
 {
     populate_presentation_tree();
+    populate_presentation_bargraph();
 }
 
 void AnalyzeCSV::on_filter_btn_teaching_clicked()
