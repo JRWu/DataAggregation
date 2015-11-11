@@ -54,7 +54,6 @@ private slots:
     void on_verify_btn_clicked();
     Ui::AnalyzeCSV* get_ui_ptr();
     void on_filter_btn_clicked();
-    void on_filter_btn_teach_clicked();
     void on_filter_btn_2_clicked();
 
     void on_filter_btn_presentation_clicked();

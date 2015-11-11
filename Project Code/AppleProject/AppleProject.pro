@@ -66,5 +66,7 @@ FORMS    += mainwindow.ui \
 
 DISTFILES += \
     AppleProject.pro.user \
-    publication.csv\
-
+    publication.csv \
+    Grants.csv \
+    Presentations.csv \
+    Teaching.csv
