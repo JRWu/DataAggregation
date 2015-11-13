@@ -14,17 +14,17 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> _data, QWidget *par
     ui(new Ui::AnalyzeCSV)
 {
     // set the pointer to the passed data
-    teaching_data_new = _data;
+    //teaching_data_new = _data;
 
 
     std::shared_ptr<CSVData<TeachingDTO>> teaching_data = _data;
     ui->setupUi(this);
 
     /// DOMAIN LABEL SET for Teaching ///
-    ui->domain_lbl_teach->setText(QString::fromStdString(data->dtos->at(0).domain));
+    ui->domain_lbl_teach->setText(QString::fromStdString(_data->dtos->at(0).domain));
 
     /// DATE FILTER COMBO BOX ///
-    QStringList date_strs = PopulateDateCombos(data);
+    QStringList date_strs = PopulateDateCombos(_data);
 
     // set the dates list to the combo boxes
 
