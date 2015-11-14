@@ -19,9 +19,7 @@
 * Vince Sippola
 Implemented DTOs and Assemblers for the DTOs and database of parsed data. Made the VO for the graph with which the UI builds the first type of graph implemented. Added Csv Parser library for use in the program.  
 
-* Jennifer Xin  
-
-* Brett Russell  
+* Jennifer Xin
 
 * Jia (Jerry) Wu  
 Implemented VO (view object) for the tree list. Displayed tree list from the VO, and graph from a separate VO. Wrote tree_list_vo.cpp/h and graphvisualizations.cpp/h.
