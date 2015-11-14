@@ -9,7 +9,7 @@
 
 >Chat: https://gitter.im/ericbachmeier5/team-apple
 
-**Current Stage:** Demo 1
+**Current Stage:** Demo 2
 
 ## Team Members:
 ---
