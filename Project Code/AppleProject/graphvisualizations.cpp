@@ -86,6 +86,10 @@ void Graphvisualizations::plot_pub_vs_type(QCustomPlot* customPlot, Pub_BarGraph
 
     customPlot->plotLayout()->addElement(0, 0, new QCPPlotTitle(customPlot, str)); //title of the graph
     customPlot->xAxis->setRange((xvalues.at(0))-3, (xvalues.at(xvalues.size()-1))+3);   // Set range of graph   +/-3 so bars wont be on edges
+
+    customPlot->yAxis->setAutoTickStep(false);  // force integer for Y only (be wary of doing this with grants)
+    customPlot->yAxis->setTickStep(1);  // force integer for Y only (be wary of doing this with grants)
+
     customPlot ->yAxis->setRange(0,maxY);
     customPlot->xAxis->setLabel("Year");
     customPlot->yAxis->setLabel("Publications");
@@ -140,6 +144,10 @@ void Graphvisualizations::plot_pres_vs_type(QCustomPlot* customPlot, Pres_BarGra
 
     customPlot->plotLayout()->addElement(0, 0, new QCPPlotTitle(customPlot, str)); //title of the graph
     customPlot->xAxis->setRange((xvalues.at(0))-3, (xvalues.at(xvalues.size()-1))+3);   // Set range of graph   +/-3 so bars wont be on edges
+
+    customPlot->yAxis->setAutoTickStep(false);  // force integer for Y only (be wary of doing this with grants)
+    customPlot->yAxis->setTickStep(1);  // force integer for Y only (be wary of doing this with grants)
+
     customPlot ->yAxis->setRange(0,maxY);
     customPlot->xAxis->setLabel("Year");
     customPlot->yAxis->setLabel("Presentations");

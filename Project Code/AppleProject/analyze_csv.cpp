@@ -316,10 +316,27 @@ Ui::AnalyzeCSV* AnalyzeCSV::get_ui_ptr()
     return ui;
 }
 
+// For publications display the updated tree and updated graph
+// JERRY
 void AnalyzeCSV::on_filter_btn_clicked()
 {
-    populate_publication_tree();
-    populate_publication_bargraph();
+    //ui->graph_area;           // update this to display what plot is being updated
+    //ui->graph_combo;      // used to get type of plot (0 is bargraph)
+
+    // Catch to prevent analysis on a null pointer
+    // Only catches error if data is loaded ONCE, therefore the pointers not being cleared at the end of a session
+    if (datanew == NULL)
+    {
+        // Add code to inform user that they didn't load proper information
+    }
+    else
+    {
+        // Index 0 bargraph
+        // Index 1 is pie chart
+        cout <<"CURRENT INDEX:"<< ui->graph_combo->currentIndex() << endl;
+        populate_publication_tree();
+        populate_publication_bargraph();
+    }
 }
 
 /**
@@ -739,8 +756,20 @@ void AnalyzeCSV::on_filter_btn_2_clicked()
 // Jerry This populates the preseentation tree in the tree view
 void AnalyzeCSV::on_filter_btn_presentation_clicked()
 {
-    populate_presentation_tree();
-    populate_presentation_bargraph();
+    // Catch to prevent analysis on a null pointer
+    // Only catches error if data is loaded ONCE, therefore the pointers not being cleared at the end of a session
+    if (pr_data == NULL)
+    {
+        // Add code to inform user that they didn't load proper information
+    }
+    else
+    {
+        // Index 0 bargraph
+        // Index 1 is pie chart
+        cout <<"CURRENT INDEX:"<< ui->graph_combo->currentIndex() << endl;
+        populate_presentation_tree();
+        populate_presentation_bargraph();
+    }
 }
 
 void AnalyzeCSV::on_filter_btn_teaching_clicked()
