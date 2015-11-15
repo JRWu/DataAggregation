@@ -32,21 +32,22 @@ class GrantDTO{
 public:
 
     //Mandatory Fields
-    string memberName, domain, title, PRINCIPAL_INVESTIGATOR, COINVESTIGATOR, fundingType,role;
+    string memberName, domain, fundingType, status, role, title, pInvestigator;
+    
+    unsigned int startDate, endDate;
+    
     float totalAmount;
 
-     shared_ptr<vector<string>> grant;
-
-
-    unsigned int startDate, endDate;
+    shared_ptr<vector<string>> cInvestigator;
+    
 
     //Optional Fields
-    string shortTitle, applicationSummary, generalPurpose, area, grantNum, administeredBy, fundingSource, project, personnelPaid;
+    string shortTitle, applicationSummary, grantPurpose, area, grantNum, administeredBy, fundingSource, project, currency, personnelPaid;
 
     float proratedAmount, receivedAmount, memberShare, HrPerWk;
 
     //These might not be numbers or bool??
-    string peerReviewed, industryGrant, monetary, rpt, rnw, edGrant, DupReported;
+    string peerReviewed, industryGrant, monetary, rpt, rnw, edGrant, dupReported;
     GrantDTO();
     ~GrantDTO();
 };

@@ -1,25 +1,28 @@
 #include "grantdto.h"
 
 GrantDTO::GrantDTO(){
-
-memberName=domain=title=PRINCIPAL_INVESTIGATOR=COINVESTIGATOR=
-        fundingType=peerReviewed=industryGrant=
-        role="";
+    
+    // Mandatory fields
+    memberName = domain = fundingType = status = role = title = pInvestigator = "";
 
     startDate=endDate=0;
+    
     totalAmount=0.00;
 
-    grant = shared_ptr<vector<string>>( new vector<string> );
+    cInvestigator = shared_ptr<vector<string>>(new vector<string>);
 
-    //optional
-    proratedAmount=receivedAmount=memberShare=HrPerWk=0;
+    //Optional fields
+    shortTitle = applicationSummary = grantPurpose = area = grantNum = administeredBy = fundingSource, project = currency = personnelPaid = "";
+    
+    proratedAmount = receivedAmount = memberShare = HrPerWk = 0;
 
-    monetary=rpt=rnw=edGrant=DupReported="";
+    // bools or string?
+    peerReviewed, industryGrant, monetary, rpt, rnw, edGrant, dupReported = "";
 
 }
 
 GrantDTO::~GrantDTO(){
 
-    grant.reset();
+    cInvestigator.reset();
 }
 

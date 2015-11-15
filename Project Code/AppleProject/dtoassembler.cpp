@@ -40,36 +40,47 @@ void assembleDTO(PublicationDTO *dto, vector<string> f){
 }
 
 void assembleDTO(GrantDTO *dto, vector<string> f){
-    //Mandatory Fields
-    dto->startDate = atoi(f[0].c_str());
-    dto->endDate=atoi(f[1].c_str());
-    dto->memberName = f[2];
-    dto->domain = f[3];
-    dto->PRINCIPAL_INVESTIGATOR = f[4];
-    dto->fundingType = f[6];
-    dto->peerReviewed = f[7];
-    dto->title = f[8];
-    dto ->industryGrant = f[9];
-    dto->role = f[10];
-    dto->totalAmount = atof(f[11].c_str());
+    // Mandatory Fields (13)
+    dto->memberName = f[0];
+    dto->domain = f[1];
+    dto->startDate = atoi(f[2].c_str());
+    dto->endDate=atoi(f[3].c_str());
+    dto->fundingType = f[4];
+    dto->status = f[5];
+    dto->peerReviewed = f[6];
+    dto ->industryGrant = f[7];
+    dto->role = f[8];
+    dto->title = f[9];
+    dto->pInvestigator = f[10];
+    dto->totalAmount = atof(f[12].c_str());
 
 
-//Optional fields
-    dto->monetary = f[12];
-    dto->rpt = f[13];
-    dto->rnw = f[14];
-    dto->edGrant = f[15];
-    dto->DupReported = f[16];
-    dto->proratedAmount = atof(f[17].c_str());
-    dto->receivedAmount = atof(f[18].c_str());
-    dto->memberShare = atof(f[19].c_str());
-    dto->HrPerWk= atof(f[20].c_str());
+    // Optional fields (19)
+    dto->shortTitle = f[13];
+    dto->applicationSummary = f[14];
+    dto->grantPurpose = f[15];
+    dto->area = f[16];
+    dto->grantNum = f[17];
+    dto->proratedAmount = atof(f[18].c_str());
+    dto->administeredBy = f[19];
+    dto->fundingSource = f[20];
+    dto->project = f[21];
+    dto->currency = f[22];
+    dto->receivedAmount = atof(f[23].c_str());
+    dto->memberShare = atof(f[24].c_str());
+    dto->monetary = f[25];
+    dto->rpt = f[26];
+    dto->HrPerWk = atof(f[27].c_str());
+    dto->personnelPaid = f[28];
+    dto->rnw = f[29];
+    dto->edGrant = f[30];
+    dto->dupReported = f[31];
 
     //Split up the coinvestigator list
-    stringstream ss(f[21]);
+    stringstream ss(f[11]);
     string item;
     //Split around ,
-    while(getline(ss, item, ',')) dto->grant->push_back(item);
+    while(getline(ss, item, ',')) dto->cInvestigator->push_back(item);
 }
 
 void assembleDTO(PresentationDTO *dto, vector<string> f){
