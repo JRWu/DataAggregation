@@ -31,14 +31,14 @@ public:
 
     // These functions all populate the data slightly differently based on what is being passed
     int populate_for_publications(shared_ptr<CSVData<PublicationDTO>> _data, int start, int end);
-    int populate_for_grants(shared_ptr<CSVData<GrantDTO>> _data, int start, int end);
+    int populate_for_grants(shared_ptr<CSVData<GrantDTO>> _data, int start, int end, string fType);
     int populate_for_teaching(shared_ptr<CSVData<TeachingDTO>> _data, int start, int end);
     int populate_for_presentations(shared_ptr<CSVData<PresentationDTO>> _data, int start, int end);
 
 private:
     // Private Attributess
     int num_pub_types;
-    int num_grant_types;
+    int num_funding_types;
     vector<string_data_object> parent_set;    // Has label + sum per each child_set
     vector<vector<string_data_object> > child_set;
 

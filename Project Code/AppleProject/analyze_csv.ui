@@ -230,7 +230,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="pub_tab">
      <property name="palette">
@@ -643,6 +643,9 @@
             </widget>
            </item>
            <item>
+            <widget class="QComboBox" name="start_date1_2"/>
+           </item>
+           <item>
             <widget class="QComboBox" name="end_date1_2">
              <property name="minimumSize">
               <size>
@@ -651,9 +654,6 @@
               </size>
              </property>
             </widget>
-           </item>
-           <item>
-            <widget class="QComboBox" name="start_date1_2"/>
            </item>
            <item>
             <widget class="QPushButton" name="filter_btn_2">
