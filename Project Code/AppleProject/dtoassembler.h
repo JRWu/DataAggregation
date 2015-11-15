@@ -13,7 +13,7 @@
 void assembleDTO(PublicationDTO *dto, vector<string> f);
 void assembleDTO(PresentationDTO *dto, vector<string> f);
 void assembleDTO(TeachingDTO *dto, vector<string> f);   // Eric + Emily add
-void assembleDTO(GrantDTO *dto, vector<string> f);   // Jaisen + Jennifer add
+void assembleDTO(GrantDTO *dto, vector<string> f);   // Jaisen + Jennifer add ==> added by JX 11.14.15
 
 
 #endif // DTOASSEMBLER_H

@@ -38,6 +38,7 @@ public:
 private:
     // Private Attributess
     int num_pub_types;
+    int num_grant_types;
     vector<string_data_object> parent_set;    // Has label + sum per each child_set
     vector<vector<string_data_object> > child_set;
 

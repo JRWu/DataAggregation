@@ -26,7 +26,7 @@ tree_list_vo::tree_list_vo(shared_ptr<CSVData<PublicationDTO> > _data)
 tree_list_vo::tree_list_vo(shared_ptr<CSVData<GrantDTO> > _data)
 {
     _data = _data;
-    num_pub_types = 0;  // default 0 grant types
+    num_grant_types = 0;  // default 0 grant types
 }
 
 /**
@@ -181,90 +181,108 @@ int tree_list_vo::populate_for_publications(shared_ptr<CSVData<PublicationDTO> >
     return 0;   // Exited with success.
 }
 
-
+/**
+ * @param _data shared pointer containing the csv parsed data
+ * @param start is the initial date range filter
+ * @param end is the final date range filter
+ * @return 0 if it's executed successfully
+ */
 
 // Jaisen/Jennifer please update this to populate either Grants or Clinical Funding data
 // Remember that Parent set is either Peer Reviewed or Industry Sponsored
 // Remember that the Child Set is the Faculty name 1, Faculty name2 etc
-// string_data_object num represents the total # of grants/fundings
-// string_data_object value represents the monetary value of each grant/fund
+// For string_data_object:
+    // label represents  peerReviewed/industryGrant
+    // num represents the total # of grants/fundings
+    // value represents the monetary value of each grant/fund
 // There should be 1 of these VO's created for Grants and 1 for Clinical Funding (2 in total)
 int tree_list_vo::tree_list_vo::populate_for_grants(shared_ptr<CSVData<GrantDTO> > _data, int start, int end)
 {
 
-
-    /*
     // Create the first empty child set
     vector<string_data_object> t;
     child_set.push_back(t);
     
     int start_index = 0;
-    int date = 0;
-    while(start_index < _data->dtos->size())                    // Iterates through data to find first valid range
+    // grants have a start and an end date
+    int grant_start_date = 0;
+    int grant_end_date = 0;
+    
+    // Iterates through data to find first valid range
+    // valid --> EITHER grant_start_date OR grant_end_state is in the date range chosen by the user
+    while(start_index < _data->dtos->size())
     {
-        date = _data->dtos->at(start_index).date;
+        grant_start_date = _data->dtos->at(start_index).startDate;
+        grant_end_date = _data->dtos->at(start_index).endDate;
         
-        if ((start <= date) && (end >= date))
+         if ((start <= grant_start_date) && (end >= grant_start_date) || (start <= grant_end_date) && (end >= grant_end_date))
         {
-            break;                                              // Found the index of dto where the first legal date range is found
+            break;                                                 // Found the index of dto where the first legal date range is found
         }
+        
         start_index += 1;
     }
     
     string_data_object first_sd;
-    first_sd.label = _data->dtos->at(start_index).name;         // Add first Member Name
+    
+    //string_data_object.label holds author
+    first_sd.label = _data->dtos->at(start_index).memberName;    // Add first Member Name
     first_sd.num = 0;                                           // Default is 0 grants
-    child_set.at(0).push_back(first_sd);                        // Add first grant's principal investigator
+    child_set.at(0).push_back(first_sd);                        // Add first grant's member name
     
     string_data_object first_grant;                               // Add first funding type
-    first_grant.label = _data->dtos->at(start_index).type;
+    first_grant.label = _data->dtos->at(start_index).fundingType;
     first_grant.num = 0;                                          // 0 grants first
-    first_grant.value = -1;
+    first_grant.value = _data->dtos->at(start_index).totalAmount;   // add the value of grant to the total sum of grants in the department
     
     parent_set.push_back(first_grant);                            // 1 investigator and 1 grant inserted
     
     // start_index now contains the first DTO we begin at.
     for (int i = start_index; i < _data->dtos->size(); i ++)
     {
-        date = _data->dtos->at(i).date;                         // Get date of starting index
-        if ((start <= date) && (end >= date))                   // Should pass b/c starting at 1st valid data index
+        //date = _data->dtos->at(i).date;
+        grant_start_date = _data->dtos->at(i).startDate;            // Get start date of starting index
+        grant_end_date = _data->dtos->at(i).endDate;                // Get end date of starting index
+        
+        // Should pass b/c starting at 1st valid data index
+        if ((start <= grant_start_date) && (end >= grant_start_date) || (start <= grant_end_date) && (end >= grant_end_date))
         {
-            string author = _data->dtos->at(i).name;              // Temp name
-            string granttype = _data->dtos->at(i).type;           // Temp grant type
+            string memberName = _data->dtos->at(i).memberName;             // Temp name
+            string fundingType = _data->dtos->at(i).fundingType;           // Temp grant type
             
-            int grant_value = find_label_index(granttype, parent_set);
+            int grant_value = find_label_index(fundingType, parent_set);
             if (grant_value == -1)                                // New grant type
             {
                 num_grant_types += 1;                             // Increment total grant count
                 
                 string_data_object new_grant;
-                new_grant.label = granttype;                      // Set label of the new publication type
-                new_grant.num = 1;                                // 1st of its pubtype found
-                new_grant.value = -1;
+                new_grant.label = fundingType;                      // Set label of the new publication type
+                new_grant.num = 1;                                // 1st of its granttype found
+                new_grant.value = _data->dtos->at(i).totalAmount;  //add grant value
                 
                 vector<string_data_object> empty_child;
                 child_set.push_back(empty_child);
                 
                 parent_set.push_back(new_grant);
                 
-                string_data_object new_auth;                    // Add 1st author of new publicaiton type
-                new_auth.label = author;
+                string_data_object new_auth;                    // Add 1st author of new publication type
+                new_auth.label = memberName;
                 new_auth.num = 1;
-                new_auth.value = -1;
+                new_auth.value = _data->dtos->at(i).totalAmount;
                 
-                int index = find_label_index(granttype, parent_set);
+                int index = find_label_index(fundingType, parent_set);
                 child_set.at(index).push_back(new_auth);        // Add author to specific publication
             }
             
             if (grant_value != -1)                                // If grant type exists, look for potential investigators
             {
                 parent_set.at(grant_value).num += 1;              // Add another entry for grants
-                int auth_value = find_label_index(author, child_set.at(grant_value));
+                int inv_value = find_label_index(memberName, child_set.at(grant_value));
                 
                 if (inv_value == -1)                           // New investigator is encountered
                 {
                     string_data_object new_inv;                // Create new investigator
-                    new_inv.label = investigator;
+                    new_inv.label = memberName;
                     new_inv.num = 1;
                     new_inv.value = -1;
                     child_set.at(grant_value).push_back(new_inv);
@@ -277,7 +295,7 @@ int tree_list_vo::tree_list_vo::populate_for_grants(shared_ptr<CSVData<GrantDTO>
             }
         }
     }
-    */
+
     return 0;   // Exited with success.
 }
 
