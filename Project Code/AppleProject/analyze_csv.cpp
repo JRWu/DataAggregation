@@ -917,7 +917,7 @@ void AnalyzeCSV::populate_teaching_bargraph(){
         scene = new QGraphicsScene(this);   // Added for graphics window
 
         QCustomPlot *customPlot = new QCustomPlot();
-        customPlot->setGeometry(0,0,500,375);   // added to resize graph
+        customPlot->setGeometry(0,0,345,375);   // added to resize graph
 
         // Graph handling functions go here
         Graphvisualizations *graph_handler = new Graphvisualizations();
@@ -974,8 +974,8 @@ void AnalyzeCSV::populate_presentation_bargraph()
     QString st_string = ui->start_date_presentation->itemText(ui->start_date_presentation->currentIndex());
     QString en_string = ui->end_date_presentation->itemText(ui->end_date_presentation->currentIndex());
 
-    int s = stoi(st_string.toStdString());
-    int e = stoi(en_string.toStdString());
+    string s = st_string.toStdString();
+    string e = en_string.toStdString();
 
     if (e <= s)
     {
@@ -983,14 +983,20 @@ void AnalyzeCSV::populate_presentation_bargraph()
     }
     else
     {
-        Pres_BarGraph1_VO* graphable = new Pres_BarGraph1_VO(pr_data, s, e);
+
+           // define name
+        string name = pr_data->dtos->at(0).getName();
+
+        shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(pr_data,name, s, e, 1));
+
+//        Pres_BarGraph1_VO* graphable = new Pres_BarGraph1_VO(pr_data, s, e);
         scene = new QGraphicsScene(this);
 
         QCustomPlot *customPlot = new QCustomPlot();
         customPlot->setGeometry(0,0,345,375);   // Should make this dynamic
 
         Graphvisualizations *graph_handler = new Graphvisualizations();
-        graph_handler->plot_pres_vs_type(customPlot, graphable);
+        graph_handler->plot_bargraph(customPlot, graphable);
         scene->addWidget(customPlot);
         ui->graph_area_7->setScene(scene);  // rename graph_are_7 to graph_area_Presentations
     }
