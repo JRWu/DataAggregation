@@ -11,23 +11,23 @@ Grant_BarGraph1_VO::Grant_BarGraph1_VO(std::shared_ptr<CSVData<GrantDTO> > data,
     cout << start << " " << end << endl;
     name = data->dtos->at(0).memberName;// Gets original name
 
-    /*
+
 
     for(int i = 0; i < (int) data->dtos->size(); i++){
         GrantDTO dto = data->dtos->at(i);
 
         if(dto.memberName == name){
-              if((start <= dto.endDate)&&(dto.endDate <= end))
+              if((start <= dto.endDate)&&(dto.endDate <= end)){
                 vector<string>::iterator index;
                 index = find(grantTypes.begin(), grantTypes.end(), dto.fundingType);
 
                 if(index == grantTypes.end()) grantTypes.push_back(dto.fundingType);
 
                 index = find(years.begin(), years.end(), to_string(dto.endDate));
-
+                }
             }
         }
-    */
+
 
     sort(grantTypes.begin(), grantTypes.end());
     sort(years.begin(), years.end());
@@ -60,5 +60,3 @@ Grant_BarGraph1_VO::Grant_BarGraph1_VO(std::shared_ptr<CSVData<GrantDTO> > data,
     }
     cout << "pass 3" << endl;
 }
-
-
