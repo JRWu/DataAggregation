@@ -60,9 +60,9 @@ bool AssembleData(shared_ptr<CSVData<PublicationDTO>> data, string fileName)
 
 bool AssembleData(shared_ptr<CSVData<GrantDTO>> data, string fileName)
 {
-    string h[] = {"Member Name","Primary Domain","Start Date","End Date",
+    string h[] = {"Start Date","End Date","Member Name","Primary Domain",
                   "Funding Type","Status", "Peer Reviewed?","Industry Grant?", "Role",
-                  "Title", "Principal Investigator", "Total Amount", "Co Investigators",
+                  "Title", "Principal Investigator", "Total Amount", "Co-Investigators",
                   "Short Title", "Application Summary", "Grant Purpose", "Area",
                   "Grand and/or Account #", "Prorated Amount", "Administered By",
                   "Funding Source", "Project", "Currency", "Received Amount",
@@ -84,7 +84,9 @@ bool AssembleData(shared_ptr<CSVData<GrantDTO>> data, string fileName)
 
     //check that all mandatory headers are present.
     for(int i = 0; i < nMan; i++){
-        if(!in.has_column(h[i])) return false;
+         if(!in.has_column(h[i])) {
+             return false;
+         }
     }
 
     //Read all lines of the CSV, verify them, and the catch errors or build DTOs
@@ -92,7 +94,6 @@ bool AssembleData(shared_ptr<CSVData<GrantDTO>> data, string fileName)
     while(in.read_row(f[0],f[1],f[2],f[3],f[4],f[5],f[6],f[7],f[8],f[9],f[10],
                       f[11],f[12],f[13],f[14],f[15],f[16],f[17],f[18],f[19],
                       f[20],f[21],f[22],f[23],f[24],f[25],f[26],h[27],h[28],h[29],h[30],h[31])){
-
 
         if(validateGrant(&f) == 0){
             GrantDTO dto;

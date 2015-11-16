@@ -41,10 +41,10 @@ void assembleDTO(PublicationDTO *dto, vector<string> f){
 
 void assembleDTO(GrantDTO *dto, vector<string> f){
     // Mandatory Fields (13)
-    dto->memberName = f[0];
-    dto->domain = f[1];
-    dto->startDate = atoi(f[2].c_str());
-    dto->endDate=atoi(f[3].c_str());
+    dto->startDate = atoi(f[0].c_str());
+    dto->endDate=atoi(f[1].c_str());
+    dto->memberName = f[2];
+    dto->domain = f[3];
     dto->fundingType = f[4];
     dto->status = f[5];
     dto->peerReviewed = f[6];

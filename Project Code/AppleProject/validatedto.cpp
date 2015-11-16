@@ -138,6 +138,40 @@ bool makeAuthors(string *str){
     return true;
 }
 
+bool makeMoney(string *str){
+    string s = *str;
+    if(s.length() == 0) return false;
+    if(s[0] == '$') s = s.substr(1,s.length());
+
+    vector<string> elm;
+    stringstream ss(s);
+    string item;
+
+    //Split around ,
+    while(getline(ss, item, ',')) elm.push_back(item);
+    s = "";
+
+    for(int i = 0; i < (int)elm.size(); i++){
+        trimString(&(elm[i]));
+        s = s + elm[i];
+    }
+
+    bool period = false;
+
+    for(int i = 0; i < (int)s.length(); i++){
+        if(!isdigit(s[i])){
+            if((period)||(s[i] != '.')) return false;
+            else period = true;
+        }
+    }
+
+    *str = s;
+}
+
+bool validateMoney(string *s){
+    return makeMoney(s);
+}
+
 bool validateAuthors(string *s){
     return makeAuthors(s);
 }
@@ -193,12 +227,17 @@ int validateGrant(std::vector<string> *fields){
     if(!validateAuthors(&(*fields)[12])) result+=1;
     result <<= 1;
     
+    if(!validateMoney(&(*fields)[11])) result+=1;
+    result <<= 1;
+
     //Check the 13 mandatory fields - the coinvestigators
-    for(int i = 11; i > 0; i--){
+    for(int i = 10; i > 1; i--){
         if(!validateString((*fields)[i])) result+=1;
         result <<= 1;
     }
     
+    if(!validateDate(&(*fields)[1])) result+=1;
+    result <<= 1;
     if(!validateDate(&(*fields)[0])) result+=1;
     return result;
 }
