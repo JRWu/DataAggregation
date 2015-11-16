@@ -349,7 +349,7 @@ QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<TeachingDTO>>
     {
         string date = to_string(data->dtos->at(i).endDate);
         vector<string>::iterator index;
-        index = ::find(dates.begin(), dates.end(), date);
+        index = std::find(dates.begin(), dates.end(), date);
         if(index == dates.end()) dates.push_back(date);
     }
     std::sort(dates.begin(), dates.end());  // Sort the date list

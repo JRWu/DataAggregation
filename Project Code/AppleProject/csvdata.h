@@ -53,6 +53,7 @@ void CSVData<DTOType>::validateErrors(){
         if(validatePublication(&(errorRows->at(i))) == 0){
             DTOType dto;
             assembleDTO(&dto, errorRows->at(i));
+            addDTO(dto);
             errorRows->erase(errorRows->begin() + i);
         }
     }
