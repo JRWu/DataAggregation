@@ -7,7 +7,7 @@ GrantDTO::GrantDTO(){
 
     startDate=endDate=0;
     
-    totalAmount=0.00;
+    totalAmount=0;
 
     cInvestigator = shared_ptr<vector<string>>(new vector<string>);
 
@@ -17,7 +17,7 @@ GrantDTO::GrantDTO(){
     proratedAmount = receivedAmount = memberShare = HrPerWk = 0;
 
     // bools or string?
-    peerReviewed, industryGrant, monetary, rpt, rnw, edGrant, dupReported = "";
+    peerReviewed = industryGrant = monetary = rpt = rnw = edGrant = dupReported = "";
 
 }
 

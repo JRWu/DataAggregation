@@ -173,7 +173,7 @@ int tree_list_vo::populate_for_publications(shared_ptr<CSVData<PublicationDTO> >
  * @param _data shared pointer containing the csv parsed data
  * @param start is the initial date range filter
  * @param end is the final date range filter
- * @param fundingType is the type of funding that the tree will populate
+ * @param fType is the type of funding that the tree will populate
  * @return 0 if it's executed successfully
  */
 
@@ -204,9 +204,9 @@ int tree_list_vo::tree_list_vo::populate_for_grants(shared_ptr<CSVData<GrantDTO>
         grant_start_date = _data->dtos->at(start_index).startDate;
         grant_end_date = _data->dtos->at(start_index).endDate;
         
-         if ( ((start <= grant_start_date) && (end >= grant_start_date)) || ((start <= grant_end_date) && (end >= grant_end_date))){
+         if ( ((start <= grant_start_date) && (end >= grant_start_date)) || ((start <= grant_end_date) && (end >= grant_end_date))){ // If either grant_start_date or grant_end_date is in the valid date range
              
-            if (fType == _data->dtos->at(start_index).fundingType) // check that the fundingtype if the one we're looking for
+            if (fType == _data->dtos->at(start_index).fundingType) // check that the fundingtype is the one we're looking for
             {
                 break;          // Found the index of dto where the first legal date range is found
             }
@@ -218,7 +218,7 @@ int tree_list_vo::tree_list_vo::populate_for_grants(shared_ptr<CSVData<GrantDTO>
     // CHILD SET
     //string_data_object.label holds author(memberName)
     string_data_object first_sd;
-    first_sd.label = _data->dtos->at(start_index).memberName;       // Add first Member Name
+    first_sd.label = _data->dtos->at(start_index).memberName;       // Add first faculty Name
     first_sd.num = 0;                                               // Default for this author is 0 grants
     child_set.at(0).push_back(first_sd);                            // Add first grant author
     
@@ -227,8 +227,8 @@ int tree_list_vo::tree_list_vo::populate_for_grants(shared_ptr<CSVData<GrantDTO>
     string_data_object first_grant;                                 // Add first funding type
     first_grant.label = _data->dtos->at(start_index).fundingType;
     first_grant.num = 0;                                            // Default for this funding type is 0
-    first_grant.value = _data->dtos->at(start_index).totalAmount;   // add the value of grant to the total sum of grants in the department
-    parent_set.push_back(first_grant);                              // 1 investigator and 1 grant inserted
+    first_grant.value = _data->dtos->at(start_index).totalAmount;   // add the value of the grant to the total sum for this funding type
+    parent_set.push_back(first_grant);                              // 1 faculty1 and 1 grant inserted
     
     
     // start_index now contains the first DTO we begin at.
@@ -243,6 +243,7 @@ int tree_list_vo::tree_list_vo::populate_for_grants(shared_ptr<CSVData<GrantDTO>
         if (((start <= grant_start_date) && (end >= grant_start_date)) || ((start <= grant_end_date) && (end >= grant_end_date)))
         {
             if (fType == grant_fundingType){                            // check that the funding type is as specified
+                
                 string memberName = _data->dtos->at(i).memberName;      // Temp name
                 string fundingType = _data->dtos->at(i).fundingType;    // Temp grant type
 

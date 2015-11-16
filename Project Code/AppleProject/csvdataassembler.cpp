@@ -62,7 +62,7 @@ bool AssembleData(shared_ptr<CSVData<GrantDTO>> data, string fileName)
 {
     string h[] = {"Member Name","Primary Domain","Start Date","End Date",
                   "Funding Type","Status", "Peer Reviewed?","Industry Grant?", "Role",
-                  "Title", "Principal Investigator", "Co-Investigators", "Total Amount",
+                  "Title", "Principal Investigator", "Total Amount", "Co Investigators",
                   "Short Title", "Application Summary", "Grant Purpose", "Area",
                   "Grand and/or Account #", "Prorated Amount", "Administered By",
                   "Funding Source", "Project", "Currency", "Received Amount",
@@ -105,7 +105,7 @@ bool AssembleData(shared_ptr<CSVData<GrantDTO>> data, string fileName)
         }
 
         //Clear all rows
-        for(int i = 0; i < 20; i++){
+        for(int i = 0; i < 32; i++){
             f[i] = "";
         }
     }
