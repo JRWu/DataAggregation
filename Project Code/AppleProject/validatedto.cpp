@@ -193,8 +193,8 @@ int validateGrant(std::vector<string> *fields){
     if(!validateAuthors(&(*fields)[12])) result+=1;
     result <<= 1;
     
-    //Check the 13 mandatory fields
-    for(int i = 12; i > 0; i--){
+    //Check the 13 mandatory fields - the coinvestigators
+    for(int i = 11; i > 0; i--){
         if(!validateString((*fields)[i])) result+=1;
         result <<= 1;
     }
