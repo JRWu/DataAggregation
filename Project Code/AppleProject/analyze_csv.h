@@ -34,8 +34,8 @@ class AnalyzeCSV : public QMainWindow
 QStringList PopulateDateCombos(std::shared_ptr<CSVData<PublicationDTO>> data);
 QStringList PopulateDateCombos(std::shared_ptr<CSVData<PresentationDTO>> data); // Needs to be implemented
 QStringList PopulateDateCombos(std::shared_ptr<CSVData<GrantDTO>> gdata);          // Needs to be implemented
-QStringList PopulateDateCombos(std::shared_ptr<CSVData<TeachingDTO>> gdata);     // Needs to be implemented
-
+QStringList PopulateStartDateCombos(std::shared_ptr<CSVData<TeachingDTO>> tdata);     // Needs to be implemented
+QStringList PopulateEndDateCombos(std::shared_ptr<CSVData<TeachingDTO>> tdata);     // Needs to be implemented
 
 void AddRoot(QString field, QString total);
 QTreeWidgetItem* AddChild(QTreeWidgetItem *parent, QString field, QString total);

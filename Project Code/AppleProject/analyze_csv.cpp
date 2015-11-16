@@ -14,7 +14,7 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> _data, QWidget *par
     ui(new Ui::AnalyzeCSV)
 {
     // set the pointer to the passed data
-    //teaching_data_new = _data;
+    teaching_data_new = _data;
 
 
     std::shared_ptr<CSVData<TeachingDTO>> teaching_data = _data;
@@ -24,20 +24,21 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> _data, QWidget *par
     ui->domain_lbl_teach->setText(QString::fromStdString(_data->dtos->at(0).domain));
 
     /// DATE FILTER COMBO BOX ///
-    QStringList date_strs = PopulateDateCombos(_data);
+    QStringList startDate_strs = PopulateStartDateCombos(_data);
+    QStringList endDate_strs = PopulateEndDateCombos(_data);
 
     // set the dates list to the combo boxes
 
 
 
-    ui->start_date_teach->addItems(date_strs);
+    ui->start_date_teach->addItems(startDate_strs);
     ui->start_date_teach->setCurrentIndex(0);
-    ui->end_date_teach->addItems(date_strs);
-    ui->end_date_teach->setCurrentIndex(date_strs.size()-1);
+    ui->end_date_teach->addItems(endDate_strs);
+    ui->end_date_teach->setCurrentIndex(endDate_strs.size()-1);
 
+    populate_teaching_tree();
 
-
-
+/*
 
 
     // Populate the QTreeWidget item
@@ -57,6 +58,7 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> _data, QWidget *par
     scene->addWidget(customPlot);   // Add plot to the window & Essential
 
     ui->graph_area_teach->setScene(scene);    // Added for graphics & Essential
+    */
 }
 
 /* Populating the Publications tab */
@@ -218,11 +220,93 @@ QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<GrantDTO>> da
     return date_strs;// DUMMY DATA REPLACE WITH REAL DATA WHEN IMPLEMENTING
 }
 
-// Eric/Emily  (Need to implement this function to populate the date combos box)
-// I don't know how the Teaching DTO is implemented yet so you guys will have to figure
-// out how tocreate this function
-QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<TeachingDTO>> data) {
-    QStringList date_strs;  // DUMMY DATA REPLACE WITH REAL DATA WHEN IMPLEMENTING
+// Angus wrote this function
+QStringList AnalyzeCSV::PopulateStartDateCombos(std::shared_ptr<CSVData<TeachingDTO>> data) {
+    //QStringList date_strs;  // DUMMY DATA REPLACE WITH REAL DATA WHEN IMPLEMENTING
+
+    std::vector<int> startDates;
+
+    // loop through the dtos to get a list of dates
+    for (int i=0; i < data->dtos->size(); i++) {
+        // loop again to see if the current date is already in the list
+        if (startDates.empty()) {
+            startDates.push_back((int)data->dtos->at(i).startDate);
+        }else {
+            bool add = true;
+            for (int j=0; j < startDates.size(); j++) {
+                // if it isn't add it to the list
+                if ((int)data->dtos->at(i).startDate == startDates.at(j)) {
+                    add = false;
+                    break;
+                }
+            }
+            if (add) {
+                startDates.push_back((int)data->dtos->at(i).startDate);
+            }
+        }
+    }
+
+    //sort the dates
+    std::sort(startDates.begin(), startDates.end());
+
+    //put the dates in a QString vector list
+    QStringList date_strs;
+    for (int i=0; i < startDates.size(); i++)
+    {
+
+        ostringstream stream;
+        stream << startDates.at(i);
+        string datestr = stream.str();
+        date_strs << QString::fromStdString(datestr);
+    }
+
+    //std::sort(date_strs.begin(), date_strs.end());
+
+    return date_strs;   // DUMMY DATA REPLACE WITH REAL DATA WHEN IMPLEMENTING
+}
+
+// Angus wrote this function
+QStringList AnalyzeCSV::PopulateEndDateCombos(std::shared_ptr<CSVData<TeachingDTO>> data) {
+    //QStringList date_strs;  // DUMMY DATA REPLACE WITH REAL DATA WHEN IMPLEMENTING
+
+    std::vector<int> endDates;
+
+    // loop through the dtos to get a list of dates
+    for (int i=0; i < data->dtos->size(); i++) {
+        // loop again to see if the current date is already in the list
+        if (endDates.empty()) {
+            endDates.push_back((int)data->dtos->at(i).endDate);
+        }else {
+            bool add = true;
+            for (int j=0; j < endDates.size(); j++) {
+                // if it isn't add it to the list
+                if ((int)data->dtos->at(i).endDate == endDates.at(j)) {
+                    add = false;
+                    break;
+                }
+            }
+            if (add) {
+                endDates.push_back((int)data->dtos->at(i).endDate);
+            }
+        }
+    }
+
+    //sort the dates
+    std::sort(endDates.begin(), endDates.end());
+
+    //put the dates in a QString vector list
+    QStringList date_strs;
+    for (int i=0; i < endDates.size(); i++)
+    {
+
+        ostringstream stream;
+        stream << endDates.at(i);
+        string datestr = stream.str();
+        date_strs << QString::fromStdString(datestr);
+    }
+
+    //std::sort(date_strs.begin(), date_strs.end());
+
     return date_strs;   // DUMMY DATA REPLACE WITH REAL DATA WHEN IMPLEMENTING
 }
 
@@ -550,11 +634,10 @@ void AnalyzeCSV::populate_teaching_tree()
     and subsequently updating the QTreeWidget! - Jerry
     */
 
-    /*
     std::shared_ptr<CSVData<TeachingDTO>> _data = teaching_data_new;
 
-    QString st_string = ui->start_date_publications->itemText(ui->start_date_publications->currentIndex());
-    QString en_string = ui->end_date1->itemText(ui->end_date1->currentIndex());
+    QString st_string = ui->start_date_teach->itemText(ui->start_date_teach->currentIndex());
+    QString en_string = ui->end_date_teach->itemText(ui->end_date_teach->currentIndex());
     long s = stol(st_string.toStdString()); // start date
     long e = stol(en_string.toStdString()); // end date
 
@@ -565,43 +648,101 @@ void AnalyzeCSV::populate_teaching_tree()
     }
     else
     {
-
         Ui::AnalyzeCSV * tmpUI = get_ui_ptr();
 
         // Create new tree list from the selcted interval
-        tree_list_vo *p_treeNew = new tree_list_vo(_data);
+        //Sort by Program, then by Date, then by Faculty
+        tree_list_vo *p_PMEtree = new tree_list_vo(_data);
+        tree_list_vo *p_UMEtree = new tree_list_vo(_data);
+        tree_list_vo *p_CMEtree = new tree_list_vo(_data);
+        //tree_list_vo *p_Othertree = new tree_list_vo(_data);
         // Populates the VO , still needs the new params
-        p_treeNew->populate_for_teaching(_data, (int)s,(int)e);
+
+        //p_PMEtree->populate_for_teaching(_data, std::string str, (int)s,(int)e);
+        std::string PMEstr = "Postgraduate Medical Education";
+        std::string UMEstr = "Undergraduate Medical Education";
+        std::string CMEstr = "Continuing Medical Education";
+        std::string Otherstr = "";
+
+        p_PMEtree->populate_for_teaching(_data, PMEstr.c_str(), (int)s,(int)e);
+        p_UMEtree->populate_for_teaching(_data, UMEstr.c_str(), (int)s,(int)e);
+        p_CMEtree->populate_for_teaching(_data, CMEstr.c_str(), (int)s,(int)e);
+        //p_Othertree->populate_for_teaching(_data, PMEstr.c_str(), (int)s,(int)e);
         tmpUI->teach_tree->clear();
 
         /// LIST TREE VIEW ///
-        tmpUI->teach_tree->setColumnCount(2);
-        tmpUI->teach_tree->setColumnWidth(0, 275);
-        tmpUI->teach_tree->setHeaderLabels(QStringList() << "Program / Course" << "Total Sessions");
+        tmpUI->teach_tree->setColumnCount(3);   //Main field, hours, students
+        tmpUI->teach_tree->setColumnWidth(0, 175);
+        tmpUI->teach_tree->setHeaderLabels(QStringList() << "Type" << "Hours" << "Hours/Session");
 
         int tCounter = 0;
-        QTreeWidgetItem *root = new QTreeWidgetItem(tmpUI->teach_tree, QStringList() << "Teaching" << QString::fromStdString(std::to_string(_data->dtos->size())));
-        for (int i = 0; i < p_treeNew->get_parent_set().size(); i ++)
+        //change Teaching to PME/UME/etc. - get it from the actual data
+        QTreeWidgetItem *PMEroot = new QTreeWidgetItem(tmpUI->teach_tree, QStringList() << "PME" << QString::fromStdString(std::to_string(_data->dtos->size())));
+        QTreeWidgetItem *UMEroot = new QTreeWidgetItem(tmpUI->teach_tree, QStringList() << "UME" << QString::fromStdString(std::to_string(_data->dtos->size())));
+        QTreeWidgetItem *CMEroot = new QTreeWidgetItem(tmpUI->teach_tree, QStringList() << "CME" << QString::fromStdString(std::to_string(_data->dtos->size())));
+        //QTreeWidgetItem *Otherroot = new QTreeWidgetItem(tmpUI->teach_tree, QStringList() << "Other" << QString::fromStdString(std::to_string(_data->dtos->size())));
+        for (int i = 0; i < p_PMEtree->get_parent_set().size(); i ++)
         {
-            cout << i << endl;
-            QTreeWidgetItem * child = new QTreeWidgetItem(root, QStringList() << QString::fromStdString(p_treeNew->get_parent_set().at(i).label)
-                                                      <<QString::fromStdString(std::to_string((int)p_treeNew->get_parent_set().at(i).num)) );
+            QTreeWidgetItem * child = new QTreeWidgetItem(PMEroot, QStringList() << QString::fromStdString(p_PMEtree->get_parent_set().at(i).label)
+                                                      <<QString::fromStdString(std::to_string((int)p_PMEtree->get_parent_set().at(i).num))
+                                                      <<QString::fromStdString(std::to_string((int)p_PMEtree->get_parent_set().at(i).num2)));
 
-            vector<string_data_object> tmp = p_treeNew->get_child_set().at(i);
+            vector<string_data_object> tmp = p_PMEtree->get_child_set().at(i);
             for (int j = 0; j < tmp.size(); j++)
             {
                 new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
-                                << QString::fromStdString(std::to_string((int)tmp.at(j).num)) );
+                                << QString::fromStdString(std::to_string((int)tmp.at(j).num))
+                                << QString::fromStdString(std::to_string((int)tmp.at(j).num2)));
                 tCounter += tmp.at(j).num;
             }
         }
         // expand the initial root of teachings by default
-        tmpUI->teach_tree->expandItem(root);
+        tmpUI->teach_tree->expandItem(PMEroot);
         /// LIST TREE VIEW ///
-        root->setText(1,QString::fromStdString(std::to_string(tCounter)));
+        PMEroot->setText(1,QString::fromStdString(std::to_string(tCounter)));
+
+        for (int i = 0; i < p_UMEtree->get_parent_set().size(); i ++)
+        {
+            QTreeWidgetItem * child = new QTreeWidgetItem(UMEroot, QStringList() << QString::fromStdString(p_UMEtree->get_parent_set().at(i).label)
+                                                      <<QString::fromStdString(std::to_string((int)p_UMEtree->get_parent_set().at(i).num))
+                                                      <<QString::fromStdString(std::to_string((int)p_UMEtree->get_parent_set().at(i).num2)));
+
+            vector<string_data_object> tmp = p_UMEtree->get_child_set().at(i);
+            for (int j = 0; j < tmp.size(); j++)
+            {
+                new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
+                                << QString::fromStdString(std::to_string((int)tmp.at(j).num))
+                                << QString::fromStdString(std::to_string((int)tmp.at(j).num2)));
+                tCounter += tmp.at(j).num;
+            }
+        }
+        // expand the initial root of teachings by default
+        tmpUI->teach_tree->expandItem(UMEroot);
+        /// LIST TREE VIEW ///
+        UMEroot->setText(1,QString::fromStdString(std::to_string(tCounter)));
+
+        for (int i = 0; i < p_CMEtree->get_parent_set().size(); i ++)
+        {
+            QTreeWidgetItem * child = new QTreeWidgetItem(CMEroot, QStringList() << QString::fromStdString(p_CMEtree->get_parent_set().at(i).label)
+                                                      <<QString::fromStdString(std::to_string((int)p_CMEtree->get_parent_set().at(i).num))
+                                                      <<QString::fromStdString(std::to_string((int)p_CMEtree->get_parent_set().at(i).num2)) );
+
+            vector<string_data_object> tmp = p_CMEtree->get_child_set().at(i);
+            for (int j = 0; j < tmp.size(); j++)
+            {
+                new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
+                                << QString::fromStdString(std::to_string((int)tmp.at(j).num))
+                                << QString::fromStdString(std::to_string((int)tmp.at(j).num2)));
+                tCounter += tmp.at(j).num;
+            }
+        }
+        // expand the initial root of teachings by default
+        tmpUI->teach_tree->expandItem(CMEroot);
+        /// LIST TREE VIEW ///
+        CMEroot->setText(1,QString::fromStdString(std::to_string(tCounter)));
 
         // create a new graphics scene for teachings
-        scene = new QGraphicsScene(this);
+/*        scene = new QGraphicsScene(this);
         Teach_BarGraph1_VO* g = new Teach_BarGraph1_VO(_data, s, e);
         cout << "exit constructor" << endl;
         cout << g->teachingTypes.size() << endl;
@@ -618,9 +759,8 @@ void AnalyzeCSV::populate_teaching_tree()
         scene->addWidget(plot);   // Add plot to the window & Essential
 
         ui->graph_area->setScene(scene);    // Added for grpahics & Essential
-
+*/
     }
-    */
 
 }
 
