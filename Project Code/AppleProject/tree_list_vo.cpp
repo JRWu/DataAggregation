@@ -70,19 +70,7 @@ vector<vector<string_data_object> > tree_list_vo::get_child_set()
     return child_set;
 }
 
-
-
-
-
-
 // Functions to populate VO with various CSV data pointers
-// Functions to populate VO with various CSV data pointers
-// Functions to populate VO with various CSV data pointers
-// Functions to populate VO with various CSV data pointers
-
-
-
-
 
 /**
  * @brief tree_list_vo::populate_for_publications populates the tree VO with publication data
@@ -309,26 +297,23 @@ int tree_list_vo::tree_list_vo::populate_for_grants(shared_ptr<CSVData<GrantDTO>
     return 0;   // Exited with success.
 }
 
-// Eric/Emily please update this to populate either PME, UME, CME or Other data
-// Remember that the child_set represents the Academic Year
-// Remember that the child_set represents the Faculty 1, Faculty 2 etc...
-// There should be 1 of these VO's created for each PME, UME, CME and Other data (4 in total I think)
+// Eric
 int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<TeachingDTO> > _data, const char* program, int start, int end)
 {
 
-    // Create the first empty child set
+    // Create the first empty child set of the tree
     vector<string_data_object> t;
     child_set.push_back(t);
 
     int start_index = 0;
-    // teaching has a start and an end date
+    
+    // Start and end date for teaching
     int start_date = 0;
     int end_date = 0;
     std::string str;
 
-    // Iterates through data to find first valid range
-    // valid --> EITHER start_date OR end_state is in the date range chosen by the user
-    //cout << _data->dtos->size();
+    // Iterate to find the first valid range in the data
+    
     while(start_index < _data->dtos->size())
     {
         start_date = _data->dtos->at(start_index).startDate;
@@ -344,24 +329,23 @@ int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<Teachin
     }
 
     string_data_object first_sd;
-    first_sd.label = _data->dtos->at(start_index).faculty; // Add first Faculty
-    first_sd.num = 0;                                                        // Default is 0 hours
+    first_sd.label = _data->dtos->at(start_index).faculty;          // Add first Faculty
+    first_sd.num = 0;                                               // Default is 0 hours
     first_sd.num2 = 0;
-    child_set.at(0).push_back(first_sd);                          // Add first teaching member's name
+    child_set.at(0).push_back(first_sd);                            // Add first teaching member's name
 
-    string_data_object first_teach;                                   // Add first teaching type
+    string_data_object first_teach;                                 // Add first teaching type
     first_teach.label = std::to_string(_data->dtos->at(start_index).startDate) + "-" + std::to_string(_data->dtos->at(start_index).endDate);
-    first_teach.num = 0;                                                    // 0 teachings first
+    first_teach.num = 0;                                            // 0 teachings first
     first_teach.num2 = 0;
     first_teach.value = -1;
-    //first_teach.value = _data->dtos->at(start_index).totalHours;
 
-    parent_set.push_back(first_teach);                             // 1 Teaching inserted
+    parent_set.push_back(first_teach);                              // 1 Teaching inserted
 
     // start_index now contains the first DTO we begin at.
     for (int i = start_index; i < _data->dtos->size(); i ++)
     {
-        start_date = _data->dtos->at(i).startDate;            // Get date of starting index
+        start_date = _data->dtos->at(i).startDate;                  // Get date of starting index
         end_date = _data->dtos->at(i).endDate;
         str = _data->dtos->at(i).program;
 
