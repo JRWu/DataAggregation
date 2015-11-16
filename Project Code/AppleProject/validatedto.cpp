@@ -1,10 +1,11 @@
 #include "validatedto.h"
-
+#include <iostream>
 using namespace std;
+
 
 //http://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring
 void trimLeft(string *s){
-    size_t startpos = s->find_first_not_of(" \t");
+    size_t startpos = s->find_first_not_of(" \t\n");
     if( string::npos != startpos )
     {
         *s = s->substr( startpos );
@@ -12,7 +13,7 @@ void trimLeft(string *s){
 }
 
 void trimRight(string *s){
-    size_t endpos = s->find_last_not_of(" \t");
+    size_t endpos = s->find_last_not_of(" \t\n");
     if( string::npos != endpos )
     {
         *s = s->substr( 0, endpos+1 );
@@ -95,19 +96,36 @@ bool validateDate(string *s){
     return makeDate(s);
 }
 
-bool validateAuthorName(string s){
+bool validateAuthorName(string *str){
+    string s = *str;
+    if(s[s.length() - 1] == '.'){
+        s = s.substr(0, s.length() - 1);
+    }
+
+    vector<string> elm;
+    stringstream ss(s);
+    string item;
+
+    //Split around ' '
+    while(getline(ss, item, ' ')) elm.push_back(item);
+
+
     string alpha = u8"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                   "ùûüÿàâæçéèêëïîôœÙÛÜŸÀÂÆÇÉÈÊËÏÎÔŒ";
-    for(int j = 0; j < (int)s.length(); j++){
-        if(alpha.find(s[j]) == string::npos){
-            if((s[j] != '-')||(s[j] == ' ')){
-                if(((j+1)==(int)s.length())||
-                        (alpha.find(s[j+1]) == string::npos)){
-                    return false;
-                }
+                   "ùûüÿàâæçéèêëïîôœÙÛÜŸÀÂÆÇÉÈÊËÏÎÔŒ-";
+    for(int k = 0; k < (int)elm.size(); k++){
+        trimString(&(elm[k]));
+        for(int j = 0; j < (int)elm[k].length(); j++){
+            if(alpha.find(elm[k][j]) == string::npos){
+                return false;
             }
         }
     }
+
+    *str = "";
+    for(size_t k = 0; k < elm.size(); k++){
+        *str = *str + elm[k] + " ";
+    }
+
     return true;
 }
 
@@ -115,7 +133,6 @@ bool makeAuthors(string *str){
     //return true;
     string s = *str;
     if(s.length() == 0) return false;
-    if(s.back() == '.') s = s.substr(0, s.length() - 1);
 
     vector<string> elm;
     stringstream ss(s);
@@ -127,7 +144,7 @@ bool makeAuthors(string *str){
         //Make sure no comma deliniated entry is whitespace
         trimString(&elm[i]);
         if(elm[i].length() == 0) return false;
-        if(!validateAuthorName(elm[i])) return false;
+        if(!validateAuthorName(&(elm[i]))) return false;
     }
 
     *str = "";

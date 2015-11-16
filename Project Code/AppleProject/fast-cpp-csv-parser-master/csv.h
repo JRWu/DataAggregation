@@ -1049,7 +1049,7 @@ namespace io{
                                             if(!line) return false;
 
                                             newline = std::string(line);
-                                            newline = oldline+newline;
+                                            newline = oldline+"\n"+newline;
                                             oldline = newline;
 
                                             line = (char*)malloc(newline.size() + 1);
