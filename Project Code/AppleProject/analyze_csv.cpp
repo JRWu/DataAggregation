@@ -36,29 +36,8 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> _data, QWidget *par
     ui->end_date_teach->addItems(endDate_strs);
     ui->end_date_teach->setCurrentIndex(endDate_strs.size()-1);
 
+    // Populate the teaching tree with the parsed data
     populate_teaching_tree();
-
-/*
-
-
-    // Populate the QTreeWidget item
-    populate_teaching_tree();
-
-    // PUT THIS IN A FUNCTION vvvvv
-    Teach_BarGraph1_VO* graphable = new Teach_BarGraph1_VO(_data, 1900, 4000);
-    scene = new QGraphicsScene(this);   // Added for graphics window
-
-    QCustomPlot *customPlot = new QCustomPlot();
-    customPlot->setGeometry(0,0,345,375);   // added to resize graph
-
-    // Graph handling functions go here
-    Graphvisualizations *graph_handler = new Graphvisualizations();
-    graph_handler->plot_teaching_vs_course(customPlot, graphable);
-
-    scene->addWidget(customPlot);   // Add plot to the window & Essential
-
-    ui->graph_area_teach->setScene(scene);    // Added for graphics & Essential
-    */
 }
 
 /* Populating the Publications tab */
@@ -321,7 +300,6 @@ QStringList AnalyzeCSV::PopulateStartDateCombos(std::shared_ptr<CSVData<Teaching
 
 // Angus wrote this function
 QStringList AnalyzeCSV::PopulateEndDateCombos(std::shared_ptr<CSVData<TeachingDTO>> data) {
-    //QStringList date_strs;  // DUMMY DATA REPLACE WITH REAL DATA WHEN IMPLEMENTING
 
     std::vector<int> endDates;
 
@@ -345,7 +323,7 @@ QStringList AnalyzeCSV::PopulateEndDateCombos(std::shared_ptr<CSVData<TeachingDT
         }
     }
 
-    //sort the dates
+    // Sort the dates in increasing order
     std::sort(endDates.begin(), endDates.end());
 
     //put the dates in a QString vector list
