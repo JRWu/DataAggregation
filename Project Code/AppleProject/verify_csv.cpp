@@ -33,6 +33,10 @@ VerifyCSV::VerifyCSV(QString filename, int csvType, QWidget *parent) :
         case 5:
             assembled = AssembleData(datat,filename.toStdString());
             break;
+
+        case 6:
+            assembled = AssembleData(gdata,filename.toStdString());
+            break;
     }
     if (assembled)
     {
@@ -115,7 +119,29 @@ QStandardItemModel* VerifyCSV::PublicationTableModel()
                 };
             }
             return model;
+        }else if(dtoType == 6) {
+            /*define a model with the number of rows as error lines, and columns as mandatory columns*/
+            QStandardItemModel *model = new QStandardItemModel(gdata->errorRows->size(),gdata->nMan,NULL);
+
+            for (i = 0; i < gdata->nMan;i++)
+            {
+             model->setHorizontalHeaderItem(i, new QStandardItem(QString::fromStdString(gdata->header->at(i))));
+            }
+
+            /*loop through strings and add each to the table model*/
+            for(i = 0; i < gdata->errorRows->size(); i++){
+                vector<string> line = gdata->errorRows->at(i);
+                for(size_t j = 0; j < gdata->nMan; j++){
+                    QString qstr = QString::fromStdString(line[j]);
+                    QStandardItem *newRow = new QStandardItem(qstr);
+                    model->setItem(i,j,newRow);
+                };
+            }
+            return model;
+
+
         }
+
   return NULL;
 }
 
@@ -178,6 +204,8 @@ void VerifyCSV::on_analyze_btn_clicked()
         analyze_csv_page = new AnalyzeCSV(data4);
     } else if (dtoType == 5) {
         analyze_csv_page = new AnalyzeCSV(datat);
+    } else if (dtoType == 6){
+        analyze_csv_page = new AnalyzeCSV(gdata);
     }
 
     this->setCentralWidget(analyze_csv_page);
@@ -200,6 +228,12 @@ void VerifyCSV::on_ignoreall_btn_clicked()
         datat->errorRows->clear();
         datat->errorRows->shrink_to_fit();
     }
+    else if (dtoType == 6) {
+        //Remove all errors from the table and errors list
+        ui->error_table->model()->removeRows(0,gdata->errorRows->size());
+        gdata->errorRows->clear();
+        gdata->errorRows->shrink_to_fit();
+    }
     enableConfirmChanges();
 }
 
@@ -219,6 +253,8 @@ void VerifyCSV::on_ignore_btn_clicked()
             data4->errorRows->erase(data4->errorRows->begin() + index.row());
         } else if (dtoType == 5) {
             datat->errorRows->erase(datat->errorRows->begin() + index.row());
+        }else if (dtoType == 6) {
+            gdata->errorRows->erase(gdata->errorRows->begin() + index.row());
         }
     }
     enableConfirmChanges();
@@ -301,6 +337,31 @@ void VerifyCSV::on_confirm_btn_clicked()
         ui->confirm_btn->setDisabled(true);
 
         if (datat->errorRows->size() == 0)
+        {
+            ui->analyze_btn->setDisabled(false);
+        }
+    } else if(dtoType == 6) {
+        /*clear all errors
+       then reload all data from the table into errors vector*/
+        for(size_t i = 0; i < gdata->errorRows->size(); i++){
+            for(size_t j = 0; j < gdata->nMan; j++){
+                idx = ui->error_table->model()->index(i, j);
+                str = ui->error_table->model()->data(idx).toString().toStdString();
+                (gdata->errorRows->at(i))[j] = str;
+            };
+        }
+        //Validate errors, corrected errors will move to dtos, uncorrected remain as errors
+        gdata->validateErrors();
+
+        //Reload the model onto the table, remaining errors will display
+        ui->error_table->setModel(PublicationTableModel());
+
+        //Reset confirm changes button
+        changesMade = false;
+        ui->confirm_btn->setDisabled(true);
+
+        //If all errors have been either corrected or ignored, the user may proceed to the analyze page
+        if (gdata->errorRows->size() == 0)
         {
             ui->analyze_btn->setDisabled(false);
         }
