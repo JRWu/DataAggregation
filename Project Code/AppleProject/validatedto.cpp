@@ -80,7 +80,7 @@ bool makeDate(string *s){
     //Check that DD/MM/YYYY is valid
     if(ielm.size() == 3){
         int m[] = {31,isLeapYear(ielm.back())?29:28,31,30,31,30,31,31,30,31,30,31};
-        if((ielm[1] > m[ielm[0]])&&(ielm[0] > m[ielm[1]])) return false;
+        if(((ielm[0] < 12)&&(ielm[1] > m[ielm[0]]))||((ielm[1] < 12)&&(ielm[0] > m[ielm[1]]))) return false;
     }
     //Check that MM/YYYY is valid
     if(ielm.size() == 2){

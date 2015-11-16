@@ -24,13 +24,11 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> _data, QWidget *par
     ui->domain_lbl_teach->setText(QString::fromStdString(_data->dtos->at(0).domain));
 
     /// DATE FILTER COMBO BOX ///
-    QStringList startDate_strs = PopulateStartDateCombos(_data);
-    QStringList endDate_strs = PopulateEndDateCombos(_data);
+    /// \brief startDate_strs
+    QStringList startDate_strs = PopulateDateCombos(_data);
+    QStringList endDate_strs = PopulateDateCombos(_data);
 
     // set the dates list to the combo boxes
-
-
-
     ui->start_date_teach->addItems(startDate_strs);
     ui->start_date_teach->setCurrentIndex(0);
     ui->end_date_teach->addItems(endDate_strs);
@@ -38,6 +36,7 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> _data, QWidget *par
 
     // Populate the teaching tree with the parsed data
     populate_teaching_tree();
+    populate_teaching_bargraph();
 }
 
 /* Populating the Publications tab */
@@ -340,6 +339,28 @@ QStringList AnalyzeCSV::PopulateEndDateCombos(std::shared_ptr<CSVData<TeachingDT
     //std::sort(date_strs.begin(), date_strs.end());
 
     return date_strs;   // DUMMY DATA REPLACE WITH REAL DATA WHEN IMPLEMENTING
+}
+
+QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<TeachingDTO>> data) {
+    std::vector<string> dates;
+
+    // Loop through DTOs to get list of the dates in them
+    for (int i = 0; i < (int)data->dtos->size(); i ++)
+    {
+        string date = to_string(data->dtos->at(i).endDate);
+        vector<string>::iterator index;
+        index = ::find(dates.begin(), dates.end(), date);
+        if(index == dates.end()) dates.push_back(date);
+    }
+    std::sort(dates.begin(), dates.end());  // Sort the date list
+    QStringList date_strs;                          // Add dates to a qstringlist for qcombobox
+
+    for (int i = 0; i < dates.size(); i ++)
+    {
+        date_strs << QString::fromStdString(dates.at(i));
+    }
+
+    return date_strs;
 }
 
 // Jerry will implement this later
@@ -878,6 +899,35 @@ void AnalyzeCSV::populate_presentation_tree()
 
 }
 
+void AnalyzeCSV::populate_teaching_bargraph(){
+    QString st_string = ui->start_date_teach->itemText(ui->start_date_teach->currentIndex());
+    QString en_string = ui->end_date_teach->itemText(ui->end_date_teach->currentIndex());
+
+    string s = st_string.toStdString(); // start date
+    string e = en_string.toStdString(); // end date
+
+    if (e <= s)
+    {
+        cout << "Cannot filter. Filter dates error." << endl;
+    }
+    else
+    {
+        string name = teaching_data_new->dtos->at(0).getName();
+        shared_ptr<BarGraph_VO<TeachingDTO>> graphable(new BarGraph_VO<TeachingDTO>(teaching_data_new, name, s, e, 1));
+        scene = new QGraphicsScene(this);   // Added for graphics window
+
+        QCustomPlot *customPlot = new QCustomPlot();
+        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+
+        // Graph handling functions go here
+        Graphvisualizations *graph_handler = new Graphvisualizations();
+        graph_handler->plot_bargraph(customPlot, graphable);
+
+        scene->addWidget(customPlot);   // Add plot to the window & Essential
+        ui->graph_area_teach->setScene(scene);    // Added for grpahics & Essential
+    }
+}
+
 /**
  * @brief AnalyzeCSV::populate_publication_bargraph populates the Graph1 tab
  * also known as the Publication bargraph on the Analyze  Page
@@ -993,4 +1043,5 @@ void AnalyzeCSV::on_filter_btn_presentation_clicked()
 void AnalyzeCSV::on_filter_btn_teaching_clicked()
 {
     populate_teaching_tree();
+    populate_teaching_bargraph();
 }

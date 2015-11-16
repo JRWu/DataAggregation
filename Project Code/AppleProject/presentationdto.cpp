@@ -18,3 +18,19 @@ PresentationDTO::~PresentationDTO()
 {
     authorship.reset();
 }
+
+std::string PresentationDTO::getName(){
+    return name;
+}
+
+std::string PresentationDTO::getBarField1(int btype){
+    return to_string(date);
+}
+
+std::string PresentationDTO::getBarField2(int btype){
+    return type;
+}
+
+double PresentationDTO::getBarValue(int btype){
+    return 1.0;
+}

@@ -11,6 +11,10 @@
 #include <QtCore>
 #include <QtGui>
 #include <QStringList>
+#include <memory>
+#include <vector>
+#include <algorithm>
+#include <string>
 
 #include <iostream> // rm later
 #include <stdio.h>  // rem later
@@ -19,6 +23,8 @@
 #include "pub_bargraph1_vo.h"
 #include "grant_bargraph1_vo.h"
 #include "teach_bargraph1_vo.h"
+
+#include "bargraph_vo.h"
 
 
 class tree_list_vo;     //forward pointer
@@ -32,8 +38,9 @@ class AnalyzeCSV : public QMainWindow
     Q_OBJECT
 
 QStringList PopulateDateCombos(std::shared_ptr<CSVData<PublicationDTO>> data);
-QStringList PopulateDateCombos(std::shared_ptr<CSVData<PresentationDTO>> data); // Needs to be implemented
+QStringList PopulateDateCombos(std::shared_ptr<CSVData<TeachingDTO> > data); // Needs to be implemented
 QStringList PopulateDateCombos(std::shared_ptr<CSVData<GrantDTO>> gdata);          // Needs to be implemented
+QStringList PopulateDateCombos(std::shared_ptr<CSVData<PresentationDTO>> data);
 QStringList PopulateStartDateCombos(std::shared_ptr<CSVData<TeachingDTO>> tdata);     // Needs to be implemented
 QStringList PopulateEndDateCombos(std::shared_ptr<CSVData<TeachingDTO>> tdata);     // Needs to be implemented
 
@@ -81,6 +88,7 @@ private:
     void populate_teaching_tree();
     void populate_presentation_tree();
 
+    void populate_teaching_bargraph();
     void populate_publication_bargraph();
     void populate_presentation_bargraph();
     // add other modular functions to graph here

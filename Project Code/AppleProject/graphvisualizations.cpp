@@ -18,9 +18,9 @@ void Graphvisualizations::plot_pub_vs_type(QCustomPlot* customPlot, Pub_BarGraph
     QCPBarsGroup *group = new QCPBarsGroup(customPlot);
     QCPBars *bars = new QCPBars(customPlot->xAxis, customPlot->yAxis);
 
-    //Sort the year strings to int values
     QVector<double> xvalues;
 
+    //Sort the year strings to int values
     for (int i = 0; i < bargraph_vo->years.size(); i ++)    // Iterate through years, assign double values
     {
         xvalues.push_back(std::stod(bargraph_vo->years.at(i)) );

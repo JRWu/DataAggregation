@@ -46,3 +46,19 @@ PublicationDTO::~PublicationDTO()
 {
     authors.reset();
 }
+
+std::string PublicationDTO::getName(){
+    return name;
+}
+
+std::string PublicationDTO::getBarField1(int btype){
+    return to_string(date);
+}
+
+std::string PublicationDTO::getBarField2(int btype){
+    return type;
+}
+
+double PublicationDTO::getBarValue(int btype){
+    return 1.0;
+}

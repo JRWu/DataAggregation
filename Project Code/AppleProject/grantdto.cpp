@@ -26,3 +26,19 @@ GrantDTO::~GrantDTO(){
     cInvestigator.reset();
 }
 
+std::string GrantDTO::getName(){
+    return memberName;
+}
+
+std::string GrantDTO::getBarField1(int btype){
+    return to_string(endDate);
+}
+
+std::string GrantDTO::getBarField2(int btype){
+    return fundingType;
+}
+
+double GrantDTO::getBarValue(int btype){
+    if(status == "Funded") return totalAmount;
+    return 0.0;
+}

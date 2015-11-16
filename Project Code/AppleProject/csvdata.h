@@ -25,7 +25,8 @@ public:
     void validateErrors();
 };
 
-template <class DTOType> CSVData<DTOType>::CSVData(){
+template <class DTOType>
+CSVData<DTOType>::CSVData(){
     errorRows = std::shared_ptr<std::vector<std::vector<std::string>>>
                                     (new std::vector<std::vector<std::string>> );
     dtos = std::shared_ptr<std::vector<DTOType>>(new std::vector<DTOType>);

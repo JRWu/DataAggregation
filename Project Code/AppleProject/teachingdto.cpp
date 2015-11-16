@@ -1,5 +1,7 @@
 #include "teachingdto.h"
 
+using namespace std;
+
 TeachingDTO::TeachingDTO() {
     // mandatory
     name = domain = program = type = scope = "";
@@ -15,4 +17,25 @@ TeachingDTO::TeachingDTO() {
 }
 
 TeachingDTO::~TeachingDTO() {
+}
+
+std::string TeachingDTO::getName(){
+    return name;
+}
+
+std::string TeachingDTO::getBarField1(int btype){
+    return to_string(endDate);
+}
+
+std::string TeachingDTO::getBarField2(int btype){
+    if(btype == 1){
+        return program;
+    }
+    else{
+        return program + "(" + type + ")";
+    }
+}
+
+double TeachingDTO::getBarValue(int btype){
+    return 1.0;
 }

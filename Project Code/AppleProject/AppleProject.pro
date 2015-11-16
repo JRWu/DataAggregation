@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     teach_bargraph1_vo.cpp \
     presentationdto.cpp \
     teachingdto.cpp \
-    pres_bargraph1_vo.cpp
+    pres_bargraph1_vo.cpp \
+    bargraph_vo.cpp
 
 HEADERS  += mainwindow.h \
     load_csv.h \
@@ -60,6 +61,7 @@ HEADERS  += mainwindow.h \
     ui_mainwindow.h \
     teachingdto.h \
     pres_bargraph1_vo.h \
+    bargraph_vo.h
 
 FORMS    += mainwindow.ui \
     load_csv.ui \

@@ -1,52 +1,59 @@
-#include "pub_bargraph1_vo.h"
+#ifndef BARGRAPH_H
+#define BARGRAPH_H
 
-using namespace std;
+#include <string>
 
-/*
- * Note I use a two pass system hear, you can do it in one pass if you wish, though you will
- * likely have to deal with sorting both lists will keeping the 2d array in a consistant ordering
- */
-Pub_BarGraph1_VO::Pub_BarGraph1_VO(std::shared_ptr<CSVData<PublicationDTO> > data, int start, int end)
+template <class DTOType> class BarGraph
 {
-    name = data->dtos->at(0).name;  // Gets first name as a default. Later we will add a combo box to select a neame and pass that as a parameter
+public:
+    std::string name;
+    std::vector<std::string> field1;
+    std::vector<std::string> field2;
+    std::vector<std::vector<double>> values;
+    BarGraph(CSVData<DTOType> data, string name, string start = "0", string end = "3000", int type = 1);
+};
 
+template <class DTOType> BarGraph::BarGraph(CSVData<DTOType> data, string name, string start, string end, int type){
     //Loop through all the dtos
-    for(int i = 0; i < (int) data->dtos->size(); i++){
-        PublicationDTO dto = data->dtos->at(i);
+    int n = (int) data->dtos->size();
+    for(int i = 0; i < n; i++){
+        DTOType dto = data->dtos->at(i);
         //Check if this dto is for the faculity memeber we are graphing
-        if(dto.name == name){
+        if(dto.getName() == name){
             //Make sure the date is in the correct range
-            if((start <= dto.date)&&(dto.date <= end)){
+            string date = dto.getBarField1;
+            if((start <= date)&&(date <= end)){
+                string f2 = dto.getBarField2;
                 vector<string>::iterator index;
                 //Check to see if the type of publication is already in the list of all types of publications for this faculty memebr
-                index = find(pubTypes.begin(), pubTypes.end(), dto.type);
+                index = find(field2.begin(), field2.end(), f2);
                 //If not add it to the list
-                if(index == pubTypes.end()) pubTypes.push_back(dto.type);
+                if(index == field2.end()) field2.push_back(f2);
 
 
                 //Check to see if the current year is already in the list of all the years the fauculty member has been active
-                index = find(years.begin(), years.end(), to_string(dto.date));
+                index = find(field1.begin(), field1.end(), date);
                 //If not add it to the list.
-                if(index == years.end()) years.push_back(to_string(dto.date));
+                if(index == field1.end()) field1.push_back(date);
             }
         }
     }
 
     //Sort both list so that years are in order and publication types are consistant in their ordering from graph to graph
-    sort(pubTypes.begin(), pubTypes.end());
-    sort(years.begin(), years.end());
+    sort(field1.begin(), field1.end());
+    sort(field2.begin(), field2.end());
 
     //Initialize a 2d array of (types x years)
-    for(int i = 0; i < (int)pubTypes.size(); i++){
+    for(int i = 0; i < (int)field1.size(); i++){
         vector<int> temp;
-        for(int j = 0; j < (int)years.size(); j++){
+        for(int j = 0; j < (int)field1.size(); j++){
             temp.push_back(0);
         }
         values.push_back(temp);
     }
 
     //Loop though all the dtos again
-    for(int i = 0; i < (int) data->dtos->size(); i++){
+    for(int i = 0; i < n; i++){
         PublicationDTO dto = data->dtos->at(i);
         //Check if this dto is for the faculity memeber we are graphing
         if(dto.name == name){
@@ -66,3 +73,4 @@ Pub_BarGraph1_VO::Pub_BarGraph1_VO(std::shared_ptr<CSVData<PublicationDTO> > dat
     }
 }
 
+#endif // BARGRAPH_H
