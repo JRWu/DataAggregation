@@ -330,6 +330,15 @@ int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<Teachin
     }
 
     string_data_object first_sd;
+
+    if(start_index == _data->dtos->size()) {
+        first_sd.label = "";          // Add first Faculty
+        first_sd.num = 0;                                               // Default is 0 hours
+        first_sd.num2 = 0;
+        parent_set.push_back(first_sd);
+        return 0;
+    }
+
     first_sd.label = _data->dtos->at(start_index).faculty;          // Add first Faculty
     first_sd.num = 0;                                               // Default is 0 hours
     first_sd.num2 = 0;

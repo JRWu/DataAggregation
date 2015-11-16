@@ -746,7 +746,7 @@ void AnalyzeCSV::populate_teaching_tree()
         std::string CMEstr = "Continuing Medical Education";
         std::string Otherstr = "";
 
-        p_PMEtree->populate_for_teaching(_data, PMEstr.c_str(), (int)s,(int)e);
+        p_PMEtree->populate_for_teaching(_data, PMEstr.c_str(), (int)s,(int)e);        
         p_UMEtree->populate_for_teaching(_data, UMEstr.c_str(), (int)s,(int)e);
         p_CMEtree->populate_for_teaching(_data, CMEstr.c_str(), (int)s,(int)e);
         //p_Othertree->populate_for_teaching(_data, PMEstr.c_str(), (int)s,(int)e);
@@ -758,10 +758,11 @@ void AnalyzeCSV::populate_teaching_tree()
         tmpUI->teach_tree->setHeaderLabels(QStringList() << "Type" << "Hours" << "Hours/Session");
 
         int tCounter = 0;
+
         //change Teaching to PME/UME/etc. - get it from the actual data
-        QTreeWidgetItem *PMEroot = new QTreeWidgetItem(tmpUI->teach_tree, QStringList() << "PME" << QString::fromStdString(std::to_string(_data->dtos->size())));
-        QTreeWidgetItem *UMEroot = new QTreeWidgetItem(tmpUI->teach_tree, QStringList() << "UME" << QString::fromStdString(std::to_string(_data->dtos->size())));
-        QTreeWidgetItem *CMEroot = new QTreeWidgetItem(tmpUI->teach_tree, QStringList() << "CME" << QString::fromStdString(std::to_string(_data->dtos->size())));
+        QTreeWidgetItem *PMEroot = new QTreeWidgetItem(tmpUI->teach_tree, QStringList() << "PME" << QString::fromStdString(std::to_string(_data->dtos->size())) << "None");
+        QTreeWidgetItem *UMEroot = new QTreeWidgetItem(tmpUI->teach_tree, QStringList() << "UME" << QString::fromStdString(std::to_string(_data->dtos->size())) << "None");
+        QTreeWidgetItem *CMEroot = new QTreeWidgetItem(tmpUI->teach_tree, QStringList() << "CME" << QString::fromStdString(std::to_string(_data->dtos->size())) << "None");
         //QTreeWidgetItem *Otherroot = new QTreeWidgetItem(tmpUI->teach_tree, QStringList() << "Other" << QString::fromStdString(std::to_string(_data->dtos->size())));
         for (int i = 0; i < p_PMEtree->get_parent_set().size(); i ++)
         {
@@ -782,6 +783,7 @@ void AnalyzeCSV::populate_teaching_tree()
         tmpUI->teach_tree->expandItem(PMEroot);
         /// LIST TREE VIEW ///
         PMEroot->setText(1,QString::fromStdString(std::to_string(tCounter)));
+        tCounter = 0;
 
         for (int i = 0; i < p_UMEtree->get_parent_set().size(); i ++)
         {
@@ -802,6 +804,7 @@ void AnalyzeCSV::populate_teaching_tree()
         tmpUI->teach_tree->expandItem(UMEroot);
         /// LIST TREE VIEW ///
         UMEroot->setText(1,QString::fromStdString(std::to_string(tCounter)));
+        tCounter = 0;
 
         for (int i = 0; i < p_CMEtree->get_parent_set().size(); i ++)
         {
@@ -822,6 +825,7 @@ void AnalyzeCSV::populate_teaching_tree()
         tmpUI->teach_tree->expandItem(CMEroot);
         /// LIST TREE VIEW ///
         CMEroot->setText(1,QString::fromStdString(std::to_string(tCounter)));
+        tCounter = 0;
 
         // create a new graphics scene for teachings
 /*        scene = new QGraphicsScene(this);
@@ -1048,6 +1052,17 @@ void AnalyzeCSV::on_filter_btn_presentation_clicked()
 
 void AnalyzeCSV::on_filter_btn_teaching_clicked()
 {
-    populate_teaching_tree();
-    populate_teaching_bargraph();
+
+    if (teaching_data_new == NULL)
+    {
+        // Add code to inform user that they didn't load proper information
+    }
+    else
+    {
+        // Index 0 bargraph
+        // Index 1 is pie chart
+        //cout <<"CURRENT INDEX:"<< ui->graph_combo->currentIndex() << endl;
+        populate_teaching_tree();
+        populate_teaching_bargraph();
+    }
 }
