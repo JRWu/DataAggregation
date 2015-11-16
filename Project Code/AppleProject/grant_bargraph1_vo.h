@@ -6,9 +6,12 @@
 class Grant_BarGraph1_VO
 {
 public:
+    std::string name;
+    std::vector<std::string> years;
+    std::vector<std::string> grantTypes;
+    std::vector<std::vector<int>> values;
     Grant_BarGraph1_VO();
-    Grant_BarGraph1_VO(std::shared_ptr<CSVData<GrantDTO> >, int, int);
-
+    Grant_BarGraph1_VO(std::shared_ptr<CSVData<GrantDTO>> data, int start, int end);
     ~Grant_BarGraph1_VO();
 };
 
