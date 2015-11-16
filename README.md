@@ -1,4 +1,4 @@
-# Team Apple #
+# Team Apple
 ---
 
 >Western University - Computer Science
