@@ -52,66 +52,46 @@ private:
 };
 
 
-template <class DTOType> void Graphvisualizations::plot_bargraph(QCustomPlot* customPlot, std::shared_ptr<BarGraph_VO<DTOType>> vo){
-
-    double maxY = 0;   // Save the maximum value for y range
+template <class DTOType>
+void Graphvisualizations::plot_bargraph(QCustomPlot* customPlot, std::shared_ptr<BarGraph_VO<DTOType>> vo){
 
     QCPBarsGroup *group = new QCPBarsGroup(customPlot);
-    QCPBars *bars = new QCPBars(customPlot->xAxis, customPlot->yAxis);
+    group->setSpacing(.025);
 
-    QVector<double> xvalues;
-
-    //Store the year strings to double values
-    for (int i = 0; i < (int)vo->field1.size(); i ++)    // Iterate through years, assign double values
-    {
-        xvalues.push_back(std::stod(vo->field1.at(i)) );
-    }
-
-    QVector<QVector<double>> yvalues; // Contains converted double vector of QVector type
-    for (int i = 0; i < (int)vo->field2.size(); i ++)
-    {
-        vector<double> y_add = vo->values.at(i);  // Load the set data for each year for this field
-
-        QVector<double> y_add_to_yval;  // retrieve QVector<double> ytemp
-        for (int j = 0; j < (int)vo->field1.size(); j ++) // Iterate  through years
-        {
-            y_add_to_yval.push_back(y_add.at(j));
-
-            if(y_add.at(j) > maxY)
-            {
-                maxY = y_add.at(j);
-            }
-        }
-        yvalues.push_back(y_add_to_yval);   // Add the converted set to final double vector of QVector type
-    }
+    QCPBars *bars;
 
     // Add each component, with the colour changing based on index
     for (int i = 0; i < vo->field2.size(); i++)
     {
         bars = new QCPBars(customPlot->xAxis, customPlot->yAxis);
         customPlot->addPlottable(bars);
-        QVector<double> y_component = yvalues.at(i);
-        bars->setData(xvalues,y_component);
+        bars->setData(vo->yearTick, vo->values.at(i));
         bars->setBrush(QColor(  (i*21)%255  ,(i*11)%255 ,255-(i*21)%255,50));  // 255/12 ~= 21 (21 gives best coverage)
         bars->setPen(QColor( (i*21)%255, (i*2)%255 , 255-(i*21)%255));
-        bars->setWidth(0.1);
+        bars->setWidth(0.2);
         bars->setBarsGroup(group);
     }
 
     //Title = faculty name
     customPlot->plotLayout()->insertRow(0);
-    QString str = vo->name.c_str();  // Set the name of the author
+    QString str = QString::fromStdString(vo->name);  // Set the name of the author
 
     customPlot->plotLayout()->addElement(0, 0, new QCPPlotTitle(customPlot, str)); //title of the graph
-    customPlot->xAxis->setRange((xvalues.at(0))-1, (xvalues.at(xvalues.size()-1))+1);   // Set range of graph   +/-3 so bars wont be on edges
-    customPlot->xAxis->setAutoTickStep(false);
-    customPlot->xAxis->setTickStep(1);
+
+    customPlot->xAxis->setAutoTicks(false);
+    customPlot->xAxis->setAutoTickLabels(false);
+    customPlot->xAxis->setAutoTicks(false);
+    customPlot->yAxis->setTickStep(1);
+    customPlot->xAxis->setRange(0, (vo->yearTick.at(vo->yearTick.size()-1))+1);
+    customPlot->xAxis->setTickVector(vo->yearTick);
+    customPlot->xAxis->setTickVectorLabels(vo->yearLabel);
+    customPlot->xAxis->setTickLabelRotation(90);
+    customPlot->xAxis->setTickStep(3);
+    customPlot->xAxis->setLabel("Year");
 
     customPlot->yAxis->setAutoTickStep(false);  // force integer for Y only (be wary of doing this with grants)
     customPlot->yAxis->setTickStep(1);  // force integer for Y only (be wary of doing this with grants)
-
-    customPlot ->yAxis->setRange(0,maxY+1);
-    customPlot->xAxis->setLabel("Year");
+    customPlot ->yAxis->setRange(0,vo->maxY + 1);
     customPlot->yAxis->setLabel("Publications");
 }
 

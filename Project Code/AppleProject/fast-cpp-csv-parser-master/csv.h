@@ -44,6 +44,7 @@
 #endif
 #include <cassert>
 #include <cerrno>
+#include <iostream>
 
 namespace io{
         ////////////////////////////////////////////////////////////////////////////
@@ -677,7 +678,7 @@ namespace io{
                                         throw ::io::error::too_few_columns();
                                 char*col_begin, *col_end;
                                 chop_next_column<quote_policy>(line, col_begin, col_end);
-
+                                //std::cout << "-" << col_begin << std::endl;
                                 if(col_order[i] != -1){
                                         trim_policy::trim(col_begin, col_end);
                                         quote_policy::unescape(col_begin, col_end);
@@ -1039,18 +1040,34 @@ namespace io{
                                 "too many columns specified");
                         try{
                                 try{
-       
-                                        char*line;
-                                        do{
-                                                line = in.next_line();
-                                                if(!line)
-                                                        return false;
-                                        }while(comment_policy::is_comment(line));
-                                       
-                                        detail::parse_line<trim_policy, quote_policy>
-                                                (line, row, col_order);
-               
-                                        parse_helper(0, cols...);
+                                    bool parsed = false;
+                                    std::string oldline = "", newline;
+                                    char*line;
+                                    do{
+                                        try{
+                                            line = in.next_line();
+                                            if(!line) return false;
+
+                                            newline = std::string(line);
+                                            newline = oldline+newline;
+                                            oldline = newline;
+
+                                            line = (char*)malloc(newline.size() + 1);
+                                            strcpy(line, (char*)newline.c_str());
+
+                                            detail::parse_line<trim_policy, quote_policy>
+                                                    (line, row, col_order);
+                                            parsed = true;
+
+                                            parse_helper(0, cols...);
+                                            free(line);
+                                        }catch(error::escaped_string_not_closed&err){
+                                            free(line);
+                                        }catch(error::too_few_columns&err){
+                                            free(line);
+                                        }
+
+                                    }while(!parsed);
                                 }catch(error::with_file_name&err){
                                         err.set_file_name(in.get_truncated_file_name());
                                         throw;

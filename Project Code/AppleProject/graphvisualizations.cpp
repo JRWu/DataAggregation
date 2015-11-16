@@ -21,14 +21,14 @@ void Graphvisualizations::plot_pub_vs_type(QCustomPlot* customPlot, Pub_BarGraph
     QVector<double> xvalues;
 
     //Sort the year strings to int values
-    for (int i = 0; i < bargraph_vo->years.size(); i ++)    // Iterate through years, assign double values
+    for (int i = 0; i < (int)bargraph_vo->years.size(); i ++)    // Iterate through years, assign double values
     {
         xvalues.push_back(std::stod(bargraph_vo->years.at(i)) );
         cout <<"ixvalues: " << xvalues.at(i)<<endl;
     }   // Successfully stores string years into a set of doubles
 
     QVector<QVector<double>> yvalues; // Contains converted double vector of QVector type
-    for (int i = 0; i < bargraph_vo->values.size(); i ++)   // Iterate through # Publications [13]
+    for (int i = 0; i < (int)bargraph_vo->values.size(); i ++)   // Iterate through # Publications [13]
     {
         vector<int> y_add;          // Load the set of years from the bargraph_vo object
         y_add = bargraph_vo->values.at(i);

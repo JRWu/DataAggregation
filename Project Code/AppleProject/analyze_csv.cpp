@@ -353,7 +353,7 @@ QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<TeachingDTO>>
         if(index == dates.end()) dates.push_back(date);
     }
     std::sort(dates.begin(), dates.end());  // Sort the date list
-    QStringList date_strs;                          // Add dates to a qstringlist for qcombobox
+    QStringList date_strs;        // Add dates to a qstringlist for qcombobox
 
     for (int i = 0; i < dates.size(); i ++)
     {
@@ -917,7 +917,7 @@ void AnalyzeCSV::populate_teaching_bargraph(){
         scene = new QGraphicsScene(this);   // Added for graphics window
 
         QCustomPlot *customPlot = new QCustomPlot();
-        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+        customPlot->setGeometry(0,0,500,375);   // added to resize graph
 
         // Graph handling functions go here
         Graphvisualizations *graph_handler = new Graphvisualizations();
@@ -938,8 +938,8 @@ void AnalyzeCSV::populate_publication_bargraph()
     QString st_string = ui->start_date_publications->itemText(ui->start_date_publications->currentIndex());
     QString en_string = ui->end_date_publications->itemText(ui->end_date_publications->currentIndex());
 
-    int s = stoi(st_string.toStdString()); // start date
-    int e = stoi(en_string.toStdString()); // end date
+    string s = st_string.toStdString(); // start date
+    string e = en_string.toStdString(); // end date
 
     if (e <= s)
     {
@@ -947,8 +947,8 @@ void AnalyzeCSV::populate_publication_bargraph()
     }
     else
     {
-        // pub_bargraph is where it throws the error
-        Pub_BarGraph1_VO* graphable = new Pub_BarGraph1_VO(datanew, s, e);
+        string name = datanew->dtos->at(0).getName();
+        shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(datanew, name, s, e, 1));
         scene = new QGraphicsScene(this);   // Added for graphics window
 
         QCustomPlot *customPlot = new QCustomPlot();
@@ -956,11 +956,11 @@ void AnalyzeCSV::populate_publication_bargraph()
 
         // Graph handling functions go here
         Graphvisualizations *graph_handler = new Graphvisualizations();
-        graph_handler->plot_pub_vs_type(customPlot, graphable);
+        graph_handler->plot_bargraph(customPlot, graphable);
 
         scene->addWidget(customPlot);   // Add plot to the window & Essential
         ui->graph_area->setScene(scene);    // Added for grpahics & Essential
-    }
+     }
 }
 
 /**
