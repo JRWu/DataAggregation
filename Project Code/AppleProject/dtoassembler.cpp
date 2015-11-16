@@ -48,12 +48,17 @@ void assembleDTO(GrantDTO *dto, vector<string> f){
     dto->fundingType = f[4];
     dto->status = f[5];
     dto->peerReviewed = f[6];
-    dto ->industryGrant = f[7];
+    dto->industryGrant = f[7];
     dto->role = f[8];
     dto->title = f[9];
     dto->pInvestigator = f[10];
-    dto->totalAmount = atof(f[12].c_str());
+    dto->totalAmount = atof(f[11].c_str());
 
+    //Split up the coinvestigator list
+    stringstream ss(f[12]);
+    string item;
+    //Split around ,
+    while(getline(ss, item, ',')) dto->cInvestigator->push_back(item);
 
     // Optional fields (19)
     dto->shortTitle = f[13];
@@ -75,12 +80,6 @@ void assembleDTO(GrantDTO *dto, vector<string> f){
     dto->rnw = f[29];
     dto->edGrant = f[30];
     dto->dupReported = f[31];
-
-    //Split up the coinvestigator list
-    stringstream ss(f[11]);
-    string item;
-    //Split around ,
-    while(getline(ss, item, ',')) dto->cInvestigator->push_back(item);
 }
 
 void assembleDTO(PresentationDTO *dto, vector<string> f){

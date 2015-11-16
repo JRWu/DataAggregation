@@ -6,6 +6,7 @@
 
 #include "pres_bargraph1_vo.h"
 #include "bargraph_vo.h"
+#include "grant_bargraph1_vo.h"
 
 class Pub_BarGraph1_VO; // Forward pointer to silence warning
 class Teach_BarGraph1_VO;   // To add by Eric + Emily
@@ -23,17 +24,17 @@ public:
     template <class DTOType> void plot_bargraph(QCustomPlot* customPlot, std::shared_ptr<BarGraph_VO<DTOType>> vo);
 
     // Add support for shared pointer afterwards
+    //1)  For faculty member (name), graph publications by type
+    // ^ For a certain date range
     void plot_pub_vs_type(QCustomPlot* plot, Pub_BarGraph1_VO* bargraph_vo);
 
+    
     void plot_pres_vs_type(QCustomPlot* plot, Pres_BarGraph1_VO* bargraph_vo);
 
-    //1)  For faculty member (name), graph publications by type
-        // ^ For a certain date range
 
     //2)For faculty member (name), graph funded research(grants/trials)
         // ^ For a certain date range
-    void plot_grants_vs_trials(QCustomPlot* plot, Grant_BarGraph1_VO* grant_vo);
-
+    void plot_grants_vs_trials(QCustomPlot *plot, Grant_BarGraph1_VO *bargraph_vo);
 
     //3)For faculty name, graph publication types by date (bar chart?)
     void plot_pubtype_vs_date(QCustomPlot* plot);

@@ -36,6 +36,8 @@ SOURCES += main.cpp\
     teachingdto.cpp \
     pres_bargraph1_vo.cpp \
     bargraph_vo.cpp
+    grant_bargraph1_vo.cpp
+
 
 HEADERS  += mainwindow.h \
     load_csv.h \
