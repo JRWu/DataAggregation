@@ -93,7 +93,7 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<GrantDTO>> _data, QWidget *parent
     ui->setupUi(this);
     
     /// DOMAIN LABEL SET ///
-    ui->domain_lbl1->setText(QString::fromStdString(data->dtos->at(0).domain));
+    ui->domain_lbl3_2->setText(QString::fromStdString(_data->dtos->at(0).domain));
     
     /// DATE FILTER COMBO BOX ///
     QStringList date_strs = PopulateDateCombos(_data);
