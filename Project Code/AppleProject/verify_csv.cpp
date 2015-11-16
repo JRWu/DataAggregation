@@ -65,6 +65,7 @@ QStandardItemModel* VerifyCSV::PublicationTableModel()
 {
         //Set headers
         size_t i;
+    
         if(dtoType == 1) {
             /*define a model with the number of rows as error lines, and columns as mandatory columns*/
             QStandardItemModel *model = new QStandardItemModel(data->errorRows->size(),data->nMan,NULL);
@@ -84,6 +85,7 @@ QStandardItemModel* VerifyCSV::PublicationTableModel()
                 };
             }
             return model;
+            
         } else if(dtoType == 4) {
             /*define a model with the number of rows as error lines, and columns as mandatory columns*/
             QStandardItemModel *model = new QStandardItemModel(data4->errorRows->size(),data4->nMan,NULL);
@@ -103,6 +105,7 @@ QStandardItemModel* VerifyCSV::PublicationTableModel()
                 };
             }
             return model;
+            
         } else if (dtoType == 5) {
             QStandardItemModel *model = new QStandardItemModel(datat->errorRows->size(),datat->nMan,NULL);
 
@@ -119,13 +122,14 @@ QStandardItemModel* VerifyCSV::PublicationTableModel()
                 };
             }
             return model;
+            
         }else if(dtoType == 6) {
+
             /*define a model with the number of rows as error lines, and columns as mandatory columns*/
             QStandardItemModel *model = new QStandardItemModel(gdata->errorRows->size(),gdata->nMan,NULL);
 
-            for (i = 0; i < gdata->nMan;i++)
-            {
-             model->setHorizontalHeaderItem(i, new QStandardItem(QString::fromStdString(gdata->header->at(i))));
+            for (i = 0; i < gdata->nMan;i++){
+                model->setHorizontalHeaderItem(i, new QStandardItem(QString::fromStdString(gdata->header->at(i))));
             }
 
             /*loop through strings and add each to the table model*/
@@ -138,35 +142,9 @@ QStandardItemModel* VerifyCSV::PublicationTableModel()
                 };
             }
             return model;
-
-
         }
 
   return NULL;
-}
-
-QStandardItemModel* VerifyCSV::GrantTableModel()
-{
-    /*define a model with the number of rows as error lines, and columns as mandatory columns*/
-    QStandardItemModel *model = new QStandardItemModel(data->errorRows->size(),data->nMan,NULL);
-
-    //Set headers
-    size_t i;
-    for (i = 0; i < data->nMan;i++)
-    {
-        model->setHorizontalHeaderItem(i, new QStandardItem(QString::fromStdString(data->header->at(i))));
-    }
-
-    /*loop through strings and add each to the table model*/
-    for(i = 0; i < data->errorRows->size(); i++){
-        vector<string> line = data->errorRows->at(i);
-        for(size_t j = 0; j < data->nMan; j++){
-            QString qstr = QString::fromStdString(line[j]);
-            QStandardItem *newRow = new QStandardItem(qstr);
-            model->setItem(i,j,newRow);
-        };
-    }
-    return model;
 }
 
 void VerifyCSV::enableConfirmChanges()
