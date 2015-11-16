@@ -1,5 +1,4 @@
 # Team Apple
----
 
 >Western University - Computer Science
 
