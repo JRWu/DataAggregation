@@ -11,7 +11,6 @@
 **Current Stage:** Demo 2
 
 ## Team Members:
----
 
 * Vanessa Synesael  
 
@@ -33,12 +32,10 @@ Implemented VO (view object) for the tree list. Displayed tree list from the VO,
 * Jaisen Bynoe
 
 ## Project Description
----
 
 This is a stand-alone app developed in C++ by Team Apple. The purpose of this desktop application is to process faculty data in the form of spreadsheets. The user can then select their parameters whether it be the time frame for the data or the type of publications or research to view. After the data is verified, it can be viewed in formatted charts and graphs.
 
 ## Project Tools
----
 
 For the development of this application we used Qt Creator for our cross-platform IDE. 
 
