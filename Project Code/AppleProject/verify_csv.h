@@ -36,13 +36,12 @@ private:
     QStandardItemModel* GrantTableModel();
 
     // Shared pointers for VO generation
-    shared_ptr<CSVData<PublicationDTO>> data;
-    shared_ptr<CSVData<GrantDTO>> gdata;
-    shared_ptr<CSVData<TeachingDTO>> datat;
-    shared_ptr<CSVData<PresentationDTO>> data4;
+    shared_ptr<CSVData<PublicationDTO>> data_pub;
+    shared_ptr<CSVData<GrantDTO>> data_grant;
+    shared_ptr<CSVData<TeachingDTO>> data_teach;
+    shared_ptr<CSVData<PresentationDTO>> data_pres;
 
     void enableConfirmChanges();
-    bool changesMade;
     int dtoType;
     bool assembled;
 
