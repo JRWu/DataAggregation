@@ -298,7 +298,7 @@ int tree_list_vo::tree_list_vo::populate_for_grants(shared_ptr<CSVData<GrantDTO>
     return 0;   // Exited with success.
 }
 
-// Eric
+// Angus wrote this - it covers the PME, UME, and CME programs
 int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<TeachingDTO> > _data, const char* program, int start, int end)
 {
 
@@ -373,7 +373,7 @@ int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<Teachin
                 string_data_object new_teaching;
                 new_teaching.label = dateRange;                // Set label of the new teaching type
                 new_teaching.num = _data->dtos->at(i).totalHours;                // Set hour amount
-                new_teaching.num2 = _data->dtos->at(i).hoursSession; //Set student amount
+                new_teaching.num2 = atof(_data->dtos->at(i).students.c_str()); //Set student amount
                 //new_teaching.value = _data->dtos->at(i).totalHours; //add teaching value
                 new_teaching.value = -1; //add teaching value
                 //std::cout << "Hours: " + std::to_string(new_teaching.num) << endl;
@@ -386,7 +386,7 @@ int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<Teachin
                 string_data_object new_auth;        // Add 1st author of new teaching type
                 new_auth.label = memberName;
                 new_auth.num = _data->dtos->at(i).totalHours;
-                new_auth.num2 = _data->dtos->at(i).hoursSession;
+                new_auth.num2 = atof(_data->dtos->at(i).students.c_str());
                 new_auth.value = -1;
 
                 int index = find_label_index(dateRange, parent_set);
@@ -396,7 +396,7 @@ int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<Teachin
             else if (teach_value != -1)    // Teaching type exists, look for potential authors
             {
                 parent_set.at(teach_value).num += _data->dtos->at(i).totalHours;      // Add another entry for teachings
-                parent_set.at(teach_value).num2 += _data->dtos->at(i).hoursSession;
+                parent_set.at(teach_value).num2 += atof(_data->dtos->at(i).students.c_str());
                 int auth_value = find_label_index(memberName, child_set.at(teach_value));
 
                 if (auth_value == -1)   // New author is encountered
@@ -404,7 +404,7 @@ int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<Teachin
                     string_data_object new_auth;    // Create new author
                     new_auth.label = memberName;
                     new_auth.num = _data->dtos->at(i).totalHours;
-                    new_auth.num2 = _data->dtos->at(i).hoursSession;
+                    new_auth.num2 = atof(_data->dtos->at(i).students.c_str());
                     new_auth.value = -1;
                     child_set.at(teach_value).push_back(new_auth);
                 }
@@ -412,7 +412,7 @@ int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<Teachin
                 {
                     vector<string_data_object> *tmp = &child_set.at(teach_value);
                     tmp->at(auth_value).num += _data->dtos->at(i).totalHours;
-                    tmp->at(auth_value).num2 += _data->dtos->at(i).hoursSession;
+                    tmp->at(auth_value).num2 += atof(_data->dtos->at(i).students.c_str());
                 }
             }
         }
@@ -420,6 +420,135 @@ int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<Teachin
     // Exit success
     return 0;
 }
+
+// This function populates the "Other" tree for teaching
+// Not entirely sure if it works properly though
+int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<TeachingDTO> > _data, int start, int end)
+{
+
+    // Create the first empty child set of the tree
+    vector<string_data_object> t;
+    child_set.push_back(t);
+
+    int start_index = 0;
+
+    // Start and end date for teaching
+    int start_date = 0;
+    int end_date = 0;
+    std::string str;
+
+    // Iterate to find the first valid range in the data
+
+    while(start_index < _data->dtos->size())
+    {
+        start_date = _data->dtos->at(start_index).startDate;
+        end_date = _data->dtos->at(start_index).endDate;
+        str = _data->dtos->at(start_index).program;
+
+        if ((((start <= start_date) && (end >= start_date)) || ((start <= end_date) && (end >= end_date)))
+                && (str != "Postgraduate Medical Education") && (str != "Undergraduate Medical Education")
+                && (str != "Continuing Medical Education"))
+        {
+            break;          // Found the index of dto where the first legal date range is found
+        }
+
+        start_index += 1;
+    }
+
+    string_data_object first_sd;
+
+    if(start_index == _data->dtos->size()) {
+        first_sd.label = "";          // Add first Faculty
+        first_sd.num = 0;                                               // Default is 0 hours
+        first_sd.num2 = 0;
+        parent_set.push_back(first_sd);
+        return 0;
+    }
+
+    first_sd.label = _data->dtos->at(start_index).faculty;          // Add first Faculty
+    first_sd.num = 0;                                               // Default is 0 hours
+    first_sd.num2 = 0;
+    child_set.at(0).push_back(first_sd);                            // Add first teaching member's name
+
+    string_data_object first_teach;                                 // Add first teaching type
+    first_teach.label = std::to_string(_data->dtos->at(start_index).startDate) + "-" + std::to_string(_data->dtos->at(start_index).endDate);
+    first_teach.num = 0;                                            // 0 teachings first
+    first_teach.num2 = 0;
+    first_teach.value = -1;
+
+    parent_set.push_back(first_teach);                              // 1 Teaching inserted
+
+    // start_index now contains the first DTO we begin at.
+    for (int i = start_index; i < _data->dtos->size(); i ++)
+    {
+        start_date = _data->dtos->at(i).startDate;                  // Get date of starting index
+        end_date = _data->dtos->at(i).endDate;
+        str = _data->dtos->at(i).program;
+
+        if (((start <= start_date) && (end >= start_date) || (start <= end_date) && (end >= end_date))
+                && (str != "Postgraduate Medical Education") && (str != "Undergraduate Medical Education")
+                && (str != "Continuing Medical Education"))   // Should pass b/c starting at 1st valid data index
+        {
+            string memberName = _data->dtos->at(i).faculty;    // Name of the Faculty
+            string dateRange = std::to_string(_data->dtos->at(i).startDate) + "-" + std::to_string(_data->dtos->at(i).endDate);   // Faculty name
+
+            int teach_value = find_label_index(dateRange, parent_set);  //find the date range
+
+            if (teach_value == -1)    // New publication type
+            {
+                num_teach_types += 1;                      // Increment total teaching count
+
+                string_data_object new_teaching;
+                new_teaching.label = dateRange;                // Set label of the new teaching type
+                new_teaching.num = _data->dtos->at(i).totalHours;                // Set hour amount
+                new_teaching.num2 = atof(_data->dtos->at(i).students.c_str()); //Set student amount
+                //new_teaching.value = _data->dtos->at(i).totalHours; //add teaching value
+                new_teaching.value = -1; //add teaching value
+                //std::cout << "Hours: " + std::to_string(new_teaching.num) << endl;
+
+                vector<string_data_object> empty_child;
+                child_set.push_back(empty_child);
+
+                parent_set.push_back(new_teaching);
+
+                string_data_object new_auth;        // Add 1st author of new teaching type
+                new_auth.label = memberName;
+                new_auth.num = _data->dtos->at(i).totalHours;
+                new_auth.num2 = atof(_data->dtos->at(i).students.c_str());
+                new_auth.value = -1;
+
+                int index = find_label_index(dateRange, parent_set);
+                child_set.at(index).push_back(new_auth);    // Add author to specific teaching
+            }
+
+            else if (teach_value != -1)    // Teaching type exists, look for potential authors
+            {
+                parent_set.at(teach_value).num += _data->dtos->at(i).totalHours;      // Add another entry for teachings
+                parent_set.at(teach_value).num2 += atof(_data->dtos->at(i).students.c_str());
+                int auth_value = find_label_index(memberName, child_set.at(teach_value));
+
+                if (auth_value == -1)   // New author is encountered
+                {
+                    string_data_object new_auth;    // Create new author
+                    new_auth.label = memberName;
+                    new_auth.num = _data->dtos->at(i).totalHours;
+                    new_auth.num2 = atof(_data->dtos->at(i).students.c_str());
+                    new_auth.value = -1;
+                    child_set.at(teach_value).push_back(new_auth);
+                }
+                else        // Author is already found, increment their count for publications
+                {
+                    vector<string_data_object> *tmp = &child_set.at(teach_value);
+                    tmp->at(auth_value).num += _data->dtos->at(i).totalHours;
+                    tmp->at(auth_value).num2 += atof(_data->dtos->at(i).students.c_str());
+                }
+            }
+        }
+    }
+    // Exit success
+    return 0;
+}
+
 
 // To implement later once DO _data pointer is known
 // Jerry will implement
