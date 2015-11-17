@@ -470,7 +470,6 @@ void AnalyzeCSV::on_filter_btn_clicked()
     {
         // Index 0 bargraph
         // Index 1 is pie chart
-        cout <<"CURRENT INDEX:"<< ui->graph_combo->currentIndex() << endl;
         populate_publication_tree();
         populate_publication_bargraph();
     }
@@ -1025,7 +1024,6 @@ void AnalyzeCSV::on_filter_btn_2_clicked()
     {
         // Index 0 bargraph
         // Index 1 is pie chart
-        cout <<"CURRENT INDEX:"<< ui->graph_combo->currentIndex() << endl;
         populate_grant_tree();
         //populate_grant_bargraph();
     }
@@ -1044,7 +1042,6 @@ void AnalyzeCSV::on_filter_btn_presentation_clicked()
     {
         // Index 0 bargraph
         // Index 1 is pie chart
-        cout <<"CURRENT INDEX:"<< ui->graph_combo->currentIndex() << endl;
         populate_presentation_tree();
         populate_presentation_bargraph();
     }
