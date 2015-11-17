@@ -16,6 +16,7 @@ class LoadCSV : public QMainWindow
 public:
     explicit LoadCSV(QWidget *parent = 0);
     ~LoadCSV();
+    void addRecentFile(QString file);
 
 private slots:
     void on_verify_btn_clicked();
@@ -29,11 +30,16 @@ private slots:
     void on_presentation_btn_clicked();
 
     void on_teaching_btn_clicked();
+
+    void on_loadRecentFile_btn_clicked();
+
 private:
     Ui::LoadCSV *ui;
     VerifyCSV *verify_csv_page;
     AnalyzeCSV *analyze_csv_page;
     QString filename;
+    QStringListModel *recentFilesModel;
+    QStringList recentFilesList;
     int csvType;
 };
 
