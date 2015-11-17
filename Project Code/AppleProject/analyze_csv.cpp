@@ -1039,6 +1039,35 @@ void AnalyzeCSV::populate_presentation_bargraph()
     }
 }
 
+void AnalyzeCSV::populate_grant_bargraph()
+{
+    QString st_string = ui->start_date1_2->itemText(ui->start_date1_2->currentIndex());
+    QString en_string = ui->end_date1_2->itemText(ui->end_date1_2->currentIndex());
+    
+    string s = st_string.toStdString();
+    string e = en_string.toStdString();
+    
+    if (e <= s)
+    {
+        cout << "Cannot filter. Filter dates error." << endl;
+    }
+    else
+    {
+        string name = gdatanew->dtos->at(0).getName();
+        shared_ptr<BarGraph_VO<GrantDTO>> graphable(new BarGraph_VO<GrantDTO>(gdatanew, name, s, e, 1));
+        scene = new QGraphicsScene(this);  
+        
+        QCustomPlot *customPlot = new QCustomPlot();
+        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+        
+        // Graph handling functions go here
+        Graphvisualizations *graph_handler = new Graphvisualizations();
+        graph_handler->plot_bargraph(customPlot, graphable);
+        
+        scene->addWidget(customPlot);   // Add plot to the window & Essential
+        ui->graph_area->setScene(scene);    // Added for grpahics & Essential
+    }
+}
 
 
 // Jennifer/Jaisen this is called when the filter button on the Grants page is clicked

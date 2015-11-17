@@ -97,6 +97,7 @@ private:
     void populate_presentation_tree();
 
     void populate_teaching_bargraph();
+    void populate_grant_bargraph();
     void populate_publication_bargraph();
     void populate_presentation_bargraph();
     // add other modular functions to graph here
