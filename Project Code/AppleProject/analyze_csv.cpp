@@ -1063,3 +1063,23 @@ void AnalyzeCSV::on_filter_btn_teaching_clicked()
         populate_teaching_bargraph();
     }
 }
+
+void AnalyzeCSV::on_filter_btn_pub_clicked()
+{
+    // DUMMY FUNCTION TO SILENCE ERROR (NEED TO FIX LATER)
+}
+
+void AnalyzeCSV::on_filter_btn_grnt_clicked()
+{
+    // DUMMY FUNCTION TO SILENCE ERROR (NEED TO FIX LATER)
+}
+
+void AnalyzeCSV::on_filter_btn_pres_clicked()
+{
+    // DUMMY FUNCTION TO SILENCE ERROR (NEED TO FIX LATER)
+}
+
+void AnalyzeCSV::on_filter_btn_teach_clicked()
+{
+    // DUMMY FUNCTION TO SILENCE ERROR (NEED TO FIX LATER)
+}
