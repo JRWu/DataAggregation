@@ -19,6 +19,7 @@
 #include <QtWidgets/QListView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -35,21 +36,24 @@ public:
     QPushButton *loadRecentFile_btn;
     QWidget *verticalLayoutWidget_2;
     QVBoxLayout *select_csv_area;
+    QHBoxLayout *horizontalLayout;
+    QLabel *selected_file_lbl;
+    QLabel *file_name_load;
     QHBoxLayout *horizontalLayout_3;
     QPushButton *publication_btn;
     QPushButton *grant_btn;
+    QHBoxLayout *horizontalLayout_4;
+    QSpacerItem *horizontalSpacer;
     QHBoxLayout *horizontalLayout_2;
     QPushButton *teaching_btn;
     QPushButton *presentation_btn;
+    QHBoxLayout *horizontalLayout_5;
+    QSpacerItem *horizontalSpacer_2;
     QWidget *horizontalLayoutWidget;
     QHBoxLayout *navigation_area;
     QPushButton *load_btn;
     QPushButton *verify_btn;
     QPushButton *analyze_btn;
-    QWidget *horizontalLayoutWidget_3;
-    QHBoxLayout *horizontalLayout_4;
-    QLabel *file_name_label_2;
-    QLabel *file_name_load;
 
     void setupUi(QMainWindow *LoadCSV)
     {
@@ -120,7 +124,7 @@ public:
         centralwidget->setMinimumSize(QSize(800, 600));
         verticalLayoutWidget = new QWidget(centralwidget);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(10, 70, 258, 481));
+        verticalLayoutWidget->setGeometry(QRect(10, 70, 258, 521));
         recent_files_area = new QVBoxLayout(verticalLayoutWidget);
         recent_files_area->setObjectName(QStringLiteral("recent_files_area"));
         recent_files_area->setContentsMargins(0, 0, 0, 0);
@@ -142,57 +146,113 @@ public:
 
         loadRecentFile_btn = new QPushButton(verticalLayoutWidget);
         loadRecentFile_btn->setObjectName(QStringLiteral("loadRecentFile_btn"));
+        loadRecentFile_btn->setMinimumSize(QSize(0, 30));
+        loadRecentFile_btn->setMaximumSize(QSize(16777215, 40));
 
         recent_files_area->addWidget(loadRecentFile_btn);
 
         verticalLayoutWidget_2 = new QWidget(centralwidget);
         verticalLayoutWidget_2->setObjectName(QStringLiteral("verticalLayoutWidget_2"));
-        verticalLayoutWidget_2->setGeometry(QRect(270, 70, 521, 511));
+        verticalLayoutWidget_2->setGeometry(QRect(270, 71, 521, 521));
         select_csv_area = new QVBoxLayout(verticalLayoutWidget_2);
         select_csv_area->setObjectName(QStringLiteral("select_csv_area"));
         select_csv_area->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        horizontalLayout->setSizeConstraint(QLayout::SetDefaultConstraint);
+        selected_file_lbl = new QLabel(verticalLayoutWidget_2);
+        selected_file_lbl->setObjectName(QStringLiteral("selected_file_lbl"));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(selected_file_lbl->sizePolicy().hasHeightForWidth());
+        selected_file_lbl->setSizePolicy(sizePolicy);
+        selected_file_lbl->setMinimumSize(QSize(110, 40));
+        selected_file_lbl->setMaximumSize(QSize(110, 40));
+        QFont font1;
+        font1.setFamily(QStringLiteral("Arial Black"));
+        font1.setPointSize(10);
+        font1.setBold(true);
+        font1.setWeight(75);
+        selected_file_lbl->setFont(font1);
+        selected_file_lbl->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        selected_file_lbl->setIndent(10);
+
+        horizontalLayout->addWidget(selected_file_lbl);
+
+        file_name_load = new QLabel(verticalLayoutWidget_2);
+        file_name_load->setObjectName(QStringLiteral("file_name_load"));
+        file_name_load->setMinimumSize(QSize(0, 40));
+        file_name_load->setMaximumSize(QSize(16777215, 40));
+        file_name_load->setScaledContents(false);
+        file_name_load->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        file_name_load->setWordWrap(true);
+
+        horizontalLayout->addWidget(file_name_load);
+
+
+        select_csv_area->addLayout(horizontalLayout);
+
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         publication_btn = new QPushButton(verticalLayoutWidget_2);
         publication_btn->setObjectName(QStringLiteral("publication_btn"));
         publication_btn->setMinimumSize(QSize(200, 200));
-        QFont font1;
-        font1.setFamily(QStringLiteral("Arial Black"));
-        font1.setPointSize(16);
-        font1.setBold(true);
-        font1.setWeight(75);
-        publication_btn->setFont(font1);
+        QFont font2;
+        font2.setFamily(QStringLiteral("Arial Black"));
+        font2.setPointSize(16);
+        font2.setBold(true);
+        font2.setWeight(75);
+        publication_btn->setFont(font2);
 
         horizontalLayout_3->addWidget(publication_btn);
 
         grant_btn = new QPushButton(verticalLayoutWidget_2);
         grant_btn->setObjectName(QStringLiteral("grant_btn"));
         grant_btn->setMinimumSize(QSize(200, 200));
-        grant_btn->setFont(font1);
+        grant_btn->setFont(font2);
 
         horizontalLayout_3->addWidget(grant_btn);
 
 
         select_csv_area->addLayout(horizontalLayout_3);
 
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_4->addItem(horizontalSpacer);
+
+
+        select_csv_area->addLayout(horizontalLayout_4);
+
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         teaching_btn = new QPushButton(verticalLayoutWidget_2);
         teaching_btn->setObjectName(QStringLiteral("teaching_btn"));
         teaching_btn->setMinimumSize(QSize(200, 200));
-        teaching_btn->setFont(font1);
+        teaching_btn->setFont(font2);
 
         horizontalLayout_2->addWidget(teaching_btn);
 
         presentation_btn = new QPushButton(verticalLayoutWidget_2);
         presentation_btn->setObjectName(QStringLiteral("presentation_btn"));
         presentation_btn->setMinimumSize(QSize(200, 200));
-        presentation_btn->setFont(font1);
+        presentation_btn->setFont(font2);
 
         horizontalLayout_2->addWidget(presentation_btn);
 
 
         select_csv_area->addLayout(horizontalLayout_2);
+
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        horizontalSpacer_2 = new QSpacerItem(40, 30, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_2);
+
+
+        select_csv_area->addLayout(horizontalLayout_5);
 
         horizontalLayoutWidget = new QWidget(centralwidget);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
@@ -212,12 +272,12 @@ public:
         brush6.setStyle(Qt::SolidPattern);
         palette1.setBrush(QPalette::Disabled, QPalette::ButtonText, brush6);
         load_btn->setPalette(palette1);
-        QFont font2;
-        font2.setFamily(QStringLiteral("Arial Black"));
-        font2.setPointSize(28);
-        font2.setBold(true);
-        font2.setWeight(75);
-        load_btn->setFont(font2);
+        QFont font3;
+        font3.setFamily(QStringLiteral("Arial Black"));
+        font3.setPointSize(28);
+        font3.setBold(true);
+        font3.setWeight(75);
+        load_btn->setFont(font3);
         load_btn->setFlat(true);
 
         navigation_area->addWidget(load_btn);
@@ -232,7 +292,7 @@ public:
         palette2.setBrush(QPalette::Inactive, QPalette::ButtonText, brush7);
         palette2.setBrush(QPalette::Disabled, QPalette::ButtonText, brush2);
         verify_btn->setPalette(palette2);
-        verify_btn->setFont(font2);
+        verify_btn->setFont(font3);
         verify_btn->setFlat(true);
 
         navigation_area->addWidget(verify_btn);
@@ -247,36 +307,10 @@ public:
         palette3.setBrush(QPalette::Inactive, QPalette::ButtonText, brush8);
         palette3.setBrush(QPalette::Disabled, QPalette::ButtonText, brush6);
         analyze_btn->setPalette(palette3);
-        analyze_btn->setFont(font2);
+        analyze_btn->setFont(font3);
         analyze_btn->setFlat(true);
 
         navigation_area->addWidget(analyze_btn);
-
-        horizontalLayoutWidget_3 = new QWidget(centralwidget);
-        horizontalLayoutWidget_3->setObjectName(QStringLiteral("horizontalLayoutWidget_3"));
-        horizontalLayoutWidget_3->setGeometry(QRect(20, 550, 771, 42));
-        horizontalLayout_4 = new QHBoxLayout(horizontalLayoutWidget_3);
-        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        horizontalLayout_4->setContentsMargins(0, 0, 0, 0);
-        file_name_label_2 = new QLabel(horizontalLayoutWidget_3);
-        file_name_label_2->setObjectName(QStringLiteral("file_name_label_2"));
-        file_name_label_2->setMinimumSize(QSize(90, 40));
-        file_name_label_2->setMaximumSize(QSize(90, 40));
-        QFont font3;
-        font3.setFamily(QStringLiteral("Arial Black"));
-        font3.setPointSize(10);
-        font3.setBold(true);
-        font3.setWeight(75);
-        file_name_label_2->setFont(font3);
-
-        horizontalLayout_4->addWidget(file_name_label_2);
-
-        file_name_load = new QLabel(horizontalLayoutWidget_3);
-        file_name_load->setObjectName(QStringLiteral("file_name_load"));
-        file_name_load->setMinimumSize(QSize(0, 40));
-        file_name_load->setMaximumSize(QSize(16777215, 40));
-
-        horizontalLayout_4->addWidget(file_name_load);
 
         LoadCSV->setCentralWidget(centralwidget);
 
@@ -290,6 +324,8 @@ public:
         LoadCSV->setWindowTitle(QApplication::translate("LoadCSV", "MainWindow", 0));
         recent_files_label->setText(QApplication::translate("LoadCSV", "<html><head/><body><p align=\"center\"><span style=\" font-size:20pt; font-weight:600;\">RECENT FILES</span></p></body></html>", 0));
         loadRecentFile_btn->setText(QApplication::translate("LoadCSV", "Load Recent File", 0));
+        selected_file_lbl->setText(QApplication::translate("LoadCSV", "Selected File:", 0));
+        file_name_load->setText(QApplication::translate("LoadCSV", "No file selected", 0));
         publication_btn->setText(QApplication::translate("LoadCSV", "PUBLICATIONS", 0));
         grant_btn->setText(QApplication::translate("LoadCSV", "GRANTS", 0));
         teaching_btn->setText(QApplication::translate("LoadCSV", "TEACHING", 0));
@@ -297,8 +333,6 @@ public:
         load_btn->setText(QApplication::translate("LoadCSV", "LOAD >", 0));
         verify_btn->setText(QApplication::translate("LoadCSV", "VERIFY >", 0));
         analyze_btn->setText(QApplication::translate("LoadCSV", "ANALYZE >", 0));
-        file_name_label_2->setText(QApplication::translate("LoadCSV", "FILE NAME: ", 0));
-        file_name_load->setText(QApplication::translate("LoadCSV", "No file selected", 0));
     } // retranslateUi
 
 };
