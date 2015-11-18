@@ -131,8 +131,12 @@ template <class DTOType> BarGraph_VO<DTOType>::BarGraph_VO(std::shared_ptr<CSVDa
 
         DTOType dto = data->dtos->at(i);
 
+        string test_name = dto.getName();
+        string test_type = dto.getBarField2(type);
+
         //Check if this dto is for the faculity memeber we are graphing
-        if((dto.getName() == name)&&(dto.getBarField2(type) == dtype)){
+        if((dto.getName().compare( name) == 0)&&(dto.getBarField2(type).compare(dtype) ==0)){
+
 
             //Make sure the date is in the correct range
             string date = dto.getBarField1(type);

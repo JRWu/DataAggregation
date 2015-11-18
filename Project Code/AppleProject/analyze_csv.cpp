@@ -1057,26 +1057,36 @@ void AnalyzeCSV::populate_publication_bargraph()
     string s = st_string.toStdString(); // start date
     string e = en_string.toStdString(); // end date
 
-    if (e <= s)
+    if (e <= s) // Make sure the end date is greater than the start date
     {
         cout << "Cannot filter. Filter dates error." << endl;
     }
     else
     {
         string name = (ui->name_combo_pub->currentText()).toStdString(); // Allows user to choose name of author
+        string type = (ui->type_combo_pub->currentText()).toStdString(); // Allows user to choose type of publication
 
-        shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(datanew, name, s, e, 1));
-        scene = new QGraphicsScene(this);   // Added for graphics window
+        scene = new QGraphicsScene(this);   // Create the scene for plotting
 
         QCustomPlot *customPlot = new QCustomPlot();
         customPlot->setGeometry(0,0,345,375);   // added to resize graph
 
         // Graph handling functions go here
         Graphvisualizations *graph_handler = new Graphvisualizations();
-        graph_handler->plot_bargraph(customPlot, graphable);
 
-        scene->addWidget(customPlot);   // Add plot to the window & Essential
-        ui->graph_area->setScene(scene);    // Added for grpahics & Essential
+        if (type == "ALL")  // Graph ALL publication types by default
+        {
+            shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(datanew, name, s, e, 1));
+            graph_handler->plot_bargraph(customPlot, graphable);
+        }
+        else                    // Create graphable of only specified publication types
+        {
+            shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(datanew, name, type, s, e, 1));
+            graph_handler->plot_bargraph(customPlot, graphable);
+        }
+
+        scene->addWidget(customPlot);   // Add plot to the GUI window
+        ui->graph_area->setScene(scene);    // Added to update the graph area
      }
 }
 

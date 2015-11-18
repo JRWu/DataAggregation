@@ -82,9 +82,17 @@ void Graphvisualizations::plot_bargraph(QCustomPlot* customPlot, std::shared_ptr
     customPlot->xAxis->setAutoTickLabels(false);
     customPlot->xAxis->setAutoTicks(false);
     customPlot->yAxis->setTickStep(1);
-    customPlot->xAxis->setRange(0, (vo->yearTick.at(vo->yearTick.size()-1))+1);
-    customPlot->xAxis->setTickVector(vo->yearTick);
-    customPlot->xAxis->setTickVectorLabels(vo->yearLabel);
+
+    if (vo->yearTick.size() != 0)   // Check to ensure no out of bound year ranges
+    {
+        customPlot->xAxis->setRange(0, (vo->yearTick.at(vo->yearTick.size()-1))+1);
+        customPlot->xAxis->setTickVector(vo->yearTick);
+        customPlot->xAxis->setTickVectorLabels(vo->yearLabel);
+    }
+    else    // Default year range is 0-3000
+    {
+        customPlot ->xAxis -> setRange(0, 3000);    // Set this default year
+    }
     customPlot->xAxis->setTickLabelRotation(90);
     customPlot->xAxis->setTickStep(3);
     customPlot->xAxis->setLabel("Year");
