@@ -4,7 +4,6 @@
 
 std::shared_ptr<CSVData<PublicationDTO>> datanew;
 std::shared_ptr<CSVData<PublicationDTO>> datanew4; //presentation data
-// Create a new pointer the for Teaching CSV data
 std::shared_ptr<CSVData<TeachingDTO>> teaching_data_new;
 std::shared_ptr<CSVData<GrantDTO>> gdatanew;
 
@@ -16,7 +15,6 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> _data, QWidget *par
     // set the pointer to the passed data
     teaching_data_new = _data;
 
-
     std::shared_ptr<CSVData<TeachingDTO>> teaching_data = _data;
     ui->setupUi(this);
 
@@ -24,7 +22,6 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> _data, QWidget *par
     ui->domain_lbl_teach->setText(QString::fromStdString(_data->dtos->at(0).domain));
 
     /// DATE FILTER COMBO BOX ///
-    /// \brief startDate_strs
     QStringList startDate_strs = PopulateDateCombos(_data);
     QStringList endDate_strs = PopulateDateCombos(_data);
 
@@ -33,6 +30,12 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> _data, QWidget *par
     ui->start_date_teach->setCurrentIndex(0);
     ui->end_date_teach->addItems(endDate_strs);
     ui->end_date_teach->setCurrentIndex(endDate_strs.size()-1);
+
+    /// GRAPH FILTER COMBO BOX ///
+    QStringList programs = PopulateGraphComboProgram(_data);
+
+    ui->program_combo_teach->addItems(programs);
+    ui->program_combo_teach->setCurrentIndex(0);
 
     // Populate the teaching tree with the parsed data
     populate_teaching_tree();
@@ -113,11 +116,19 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<GrantDTO>> _data, QWidget *parent
     ui->start_date1_2->setCurrentIndex(0);
     ui->end_date1_2->addItems(date_strs);
     ui->end_date1_2->setCurrentIndex(date_strs.size()-1);
-    
+        
+    /// GRAPH FILTER COMBO BOX ///
+    QStringList names = PopulateGraphComboName(_data);
+    QStringList funding_types = PopulateGraphComboFunding(_data);
+
+    ui->name_combo_grnt->addItems(names);
+    ui->name_combo_grnt->setCurrentIndex(0);
+    ui->type_combo_grnt->addItems(funding_types);
+    ui->type_combo_grnt->setCurrentIndex(0);
+
     // Populate the QTreeWidget item
     populate_grant_tree();
-    
-    
+        
     // PUT THIS IN A FUNCTION vvvvv
     /* getting a Undefined symbols for architecture x86_64; commented out for now
     Grant_BarGraph1_VO* graphable = new Grant_BarGraph1_VO(_data, 1900, 4000);*/
@@ -150,13 +161,22 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PresentationDTO>> _data, QWidget 
     /// DOMAIN LABEL SET ///
     ui->domain_lbl_presentation->setText(QString::fromStdString(_data->dtos->at(0).domain));
 
-    /// DATE FILTER COMBO BOX //
+    /// DATE FILTER COMBO BOX ///
     QStringList date_strs = PopulateDateCombos(_data);
 
     ui->start_date_presentation->addItems(date_strs);
     ui->start_date_presentation->setCurrentIndex(0);
     ui->end_date_presentation->addItems(date_strs);
     ui->end_date_presentation->setCurrentIndex(date_strs.size()-1);
+
+    /// GRAPH FILTER COMBO BOX ///
+    QStringList names = PopulateGraphComboName(_data);
+    QStringList types = PopulateGraphComboType(_data);
+
+    ui->name_combo_pres->addItems(names);
+    ui->name_combo_pres->setCurrentIndex(0);
+    ui->type_combo_pres->addItems(types);
+    ui->type_combo_pres->setCurrentIndex(0);
 
     populate_presentation_tree();
     populate_presentation_bargraph();
@@ -453,78 +473,7 @@ QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<PublicationDT
     return date_strs;
 }
 
-QStringList AnalyzeCSV::PopulateGraphComboName(std::shared_ptr<CSVData<PublicationDTO>> data) {
-    size_t i, j;
-    std::vector<string> names;
 
-    // loop through the names and types from the dto
-    for (i=0; i < data->dtos->size(); i++) {
-        if (names.empty()) {
-            names.push_back(data->dtos->at(i).name);
-        }
-        else {
-
-            // add names only if they aren't already in the list
-            bool add = true;
-            for (j=0; j < names.size(); j++) {
-                if (data->dtos->at(i).name.compare(names.at(j)) == 0) {
-                    add = false;
-                    break;
-                }
-            }
-            if (add) {
-                names.push_back(data->dtos->at(i).name);
-            }
-        }
-    }
-
-    //sort the lists
-    std::sort(names.begin(), names.end());
-
-    //put the dates in a QString vector list
-    QStringList combo_names;
-    for (i=0; i < names.size(); i++) {
-        combo_names << QString::fromStdString(names.at(i));
-    }
-
-    return combo_names;
-}
-
-QStringList AnalyzeCSV::PopulateGraphComboType(std::shared_ptr<CSVData<PublicationDTO>> data) {
-    size_t i, j;
-    std::vector<string> types;
-
-    // loop through the names and types from the dto
-    for (i=0; i < data->dtos->size(); i++) {
-        if (types.empty()) {
-            types.push_back(data->dtos->at(i).type);
-        }
-        else {
-            // add types only if they aren't already in the list
-            bool add = true;
-            for (j=0; j < types.size(); j++) {
-                if (data->dtos->at(i).type.compare(types.at(j)) == 0) {
-                    add = false;
-                    break;
-                }
-            }
-            if (add) {
-                types.push_back(data->dtos->at(i).type);
-            }
-        }
-    }
-
-    //sort the lists
-    std::sort(types.begin(), types.end());
-
-    //put the dates in a QString vector list
-    QStringList combo_types;
-    for (i=0; i < types.size(); i++) {
-        combo_types << QString::fromStdString(types.at(i));
-    }
-
-    return combo_types;
-}
 
 
 Ui::AnalyzeCSV* AnalyzeCSV::get_ui_ptr()
