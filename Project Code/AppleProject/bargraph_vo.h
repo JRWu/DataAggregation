@@ -21,12 +21,11 @@ public:
     BarGraph_VO();
     BarGraph_VO(std::shared_ptr<CSVData<DTOType> > data, string name, string start = "0", string end = "3000", int type = 1);
 };
+//type_combo_pub
+//name_combo_pub
 
 template <class DTOType> BarGraph_VO<DTOType>::BarGraph_VO(std::shared_ptr<CSVData<DTOType>> data,
                                                            string fname, string start, string end, int type){
-
-
-
 
     name = fname;
 

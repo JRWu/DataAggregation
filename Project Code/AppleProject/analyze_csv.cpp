@@ -1063,7 +1063,8 @@ void AnalyzeCSV::populate_publication_bargraph()
     }
     else
     {
-        string name = datanew->dtos->at(0).getName();
+        string name = (ui->name_combo_pub->currentText()).toStdString(); // Allows user to choose name of author
+
         shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(datanew, name, s, e, 1));
         scene = new QGraphicsScene(this);   // Added for graphics window
 
@@ -1102,6 +1103,7 @@ void AnalyzeCSV::populate_presentation_bargraph()
 
            // define name
         string name = pr_data->dtos->at(0).getName();
+
 
         shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(pr_data,name, s, e, 1));
 
