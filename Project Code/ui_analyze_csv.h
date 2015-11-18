@@ -89,7 +89,13 @@ public:
     QLabel *domain_lbl_presentation;
     QTreeWidget *present_tree;
     QVBoxLayout *verticalLayout_7;
-    QComboBox *graph_combo_7;
+    QLabel *graph_lbl_pres;
+    QHBoxLayout *horizontalLayout_4;
+    QLabel *name_lbl_pres;
+    QComboBox *name_combo_pres;
+    QHBoxLayout *horizontalLayout_5;
+    QLabel *type_lbl_pres;
+    QComboBox *type_combo_pres;
     QGraphicsView *graph_area_7;
     QWidget *teach_tab;
     QWidget *horizontalLayoutWidget_5;
@@ -551,10 +557,58 @@ public:
 
         verticalLayout_7 = new QVBoxLayout();
         verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
-        graph_combo_7 = new QComboBox(horizontalLayoutWidget_4);
-        graph_combo_7->setObjectName(QStringLiteral("graph_combo_7"));
+        graph_lbl_pres = new QLabel(horizontalLayoutWidget_4);
+        graph_lbl_pres->setObjectName(QStringLiteral("graph_lbl_pres"));
+        QPalette palette18;
+        palette18.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette18.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette18.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        graph_lbl_pres->setPalette(palette18);
+        graph_lbl_pres->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_7->addWidget(graph_combo_7);
+        verticalLayout_7->addWidget(graph_lbl_pres);
+
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
+        name_lbl_pres = new QLabel(horizontalLayoutWidget_4);
+        name_lbl_pres->setObjectName(QStringLiteral("name_lbl_pres"));
+        name_lbl_pres->setMaximumSize(QSize(100, 40));
+        QPalette palette19;
+        palette19.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette19.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette19.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        name_lbl_pres->setPalette(palette19);
+
+        horizontalLayout_4->addWidget(name_lbl_pres);
+
+        name_combo_pres = new QComboBox(horizontalLayoutWidget_4);
+        name_combo_pres->setObjectName(QStringLiteral("name_combo_pres"));
+
+        horizontalLayout_4->addWidget(name_combo_pres);
+
+
+        verticalLayout_7->addLayout(horizontalLayout_4);
+
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        type_lbl_pres = new QLabel(horizontalLayoutWidget_4);
+        type_lbl_pres->setObjectName(QStringLiteral("type_lbl_pres"));
+        type_lbl_pres->setMaximumSize(QSize(100, 40));
+        QPalette palette20;
+        palette20.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette20.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette20.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        type_lbl_pres->setPalette(palette20);
+
+        horizontalLayout_5->addWidget(type_lbl_pres);
+
+        type_combo_pres = new QComboBox(horizontalLayoutWidget_4);
+        type_combo_pres->setObjectName(QStringLiteral("type_combo_pres"));
+
+        horizontalLayout_5->addWidget(type_combo_pres);
+
+
+        verticalLayout_7->addLayout(horizontalLayout_5);
 
         graph_area_7 = new QGraphicsView(horizontalLayoutWidget_4);
         graph_area_7->setObjectName(QStringLiteral("graph_area_7"));
@@ -568,16 +622,16 @@ public:
         tabWidget->addTab(present_tab, QString());
         teach_tab = new QWidget();
         teach_tab->setObjectName(QStringLiteral("teach_tab"));
-        QPalette palette18;
-        palette18.setBrush(QPalette::Active, QPalette::Base, brush4);
+        QPalette palette21;
+        palette21.setBrush(QPalette::Active, QPalette::Base, brush4);
         QBrush brush7(QColor(213, 178, 0, 255));
         brush7.setStyle(Qt::SolidPattern);
-        palette18.setBrush(QPalette::Active, QPalette::Window, brush7);
-        palette18.setBrush(QPalette::Inactive, QPalette::Base, brush4);
-        palette18.setBrush(QPalette::Inactive, QPalette::Window, brush7);
-        palette18.setBrush(QPalette::Disabled, QPalette::Base, brush7);
-        palette18.setBrush(QPalette::Disabled, QPalette::Window, brush7);
-        teach_tab->setPalette(palette18);
+        palette21.setBrush(QPalette::Active, QPalette::Window, brush7);
+        palette21.setBrush(QPalette::Inactive, QPalette::Base, brush4);
+        palette21.setBrush(QPalette::Inactive, QPalette::Window, brush7);
+        palette21.setBrush(QPalette::Disabled, QPalette::Base, brush7);
+        palette21.setBrush(QPalette::Disabled, QPalette::Window, brush7);
+        teach_tab->setPalette(palette21);
         teach_tab->setAutoFillBackground(true);
         horizontalLayoutWidget_5 = new QWidget(teach_tab);
         horizontalLayoutWidget_5->setObjectName(QStringLiteral("horizontalLayoutWidget_5"));
@@ -656,8 +710,10 @@ public:
 
         retranslateUi(AnalyzeCSV);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(2);
         type_combo_pub->setCurrentIndex(-1);
+        name_combo_grnt->setCurrentIndex(-1);
+        name_combo_pres->setCurrentIndex(-1);
 
 
         QMetaObject::connectSlotsByName(AnalyzeCSV);
@@ -693,18 +749,21 @@ public:
          << QApplication::translate("AnalyzeCSV", "Graph 2", 0)
          << QApplication::translate("AnalyzeCSV", "Graph 3", 0)
         );
-        name_combo_grnt->setCurrentText(QApplication::translate("AnalyzeCSV", "Graph 1", 0));
+        name_combo_grnt->setCurrentText(QString());
         type_lbl_grnt->setText(QApplication::translate("AnalyzeCSV", "Funding Type:", 0));
         tabWidget->setTabText(tabWidget->indexOf(grant_tab), QApplication::translate("AnalyzeCSV", "GRANTS", 0));
         date_filter_lbl_presentation->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
         filter_btn_presentation->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
         domain_lbl_presentation->setText(QString());
-        graph_combo_7->clear();
-        graph_combo_7->insertItems(0, QStringList()
+        graph_lbl_pres->setText(QApplication::translate("AnalyzeCSV", "Graph Analytics", 0));
+        name_lbl_pres->setText(QApplication::translate("AnalyzeCSV", "Name:", 0));
+        name_combo_pres->clear();
+        name_combo_pres->insertItems(0, QStringList()
          << QApplication::translate("AnalyzeCSV", "Graph 1", 0)
          << QApplication::translate("AnalyzeCSV", "Graph 2", 0)
          << QApplication::translate("AnalyzeCSV", "Graph 3", 0)
         );
+        type_lbl_pres->setText(QApplication::translate("AnalyzeCSV", "Type:", 0));
         tabWidget->setTabText(tabWidget->indexOf(present_tab), QApplication::translate("AnalyzeCSV", "PRESENTATIONS", 0));
         date_filter_lbl_teach->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
         filter_btn_teaching->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
