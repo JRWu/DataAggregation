@@ -34,6 +34,7 @@ public:
     int populate_for_publications(shared_ptr<CSVData<PublicationDTO>> _data, int start, int end);
     int populate_for_grants(shared_ptr<CSVData<GrantDTO>> _data, int start, int end, string fType);
     int populate_for_teaching(shared_ptr<CSVData<TeachingDTO>> _data, const char* program, int start, int end);
+    int populate_for_teaching(shared_ptr<CSVData<TeachingDTO> > _data, int start, int end);
     int populate_for_presentations(shared_ptr<CSVData<PresentationDTO>> _data, int start, int end);
 
 private:

@@ -449,8 +449,8 @@
      <rect>
       <x>10</x>
       <y>70</y>
-      <width>251</width>
-      <height>511</height>
+      <width>258</width>
+      <height>481</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="recent_files_area">
@@ -473,6 +473,13 @@
      </item>
      <item>
       <widget class="QListView" name="recent_files_list"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="loadRecentFile_btn">
+       <property name="text">
+        <string>Load Recent File</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -770,6 +777,64 @@
        </property>
        <property name="flat">
         <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="horizontalLayoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>550</y>
+      <width>771</width>
+      <height>42</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="file_name_label_2">
+       <property name="minimumSize">
+        <size>
+         <width>90</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>90</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>FILE NAME: </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="file_name_load">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>No file selected</string>
        </property>
       </widget>
      </item>

@@ -57,10 +57,6 @@ HEADERS  += mainwindow.h \
     teach_bargraph1_vo.h \
     presentationdto.h \
     grant_bargraph1_vo.h \
-    ui_analyze_csv.h \
-    ui_load_csv.h \
-    ui_verify_csv.h \
-    ui_mainwindow.h \
     teachingdto.h \
     pres_bargraph1_vo.h \
     bargraph_vo.h
