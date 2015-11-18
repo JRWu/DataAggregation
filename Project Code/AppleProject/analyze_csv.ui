@@ -230,7 +230,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="pub_tab">
      <property name="palette">
@@ -1690,23 +1690,53 @@
        <item>
         <layout class="QVBoxLayout" name="verticalLayout_8">
          <item>
-          <widget class="QComboBox" name="graph_combo_teach">
-           <item>
-            <property name="text">
-             <string>Graph 1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Graph 2</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Graph 3</string>
-            </property>
-           </item>
+          <widget class="QLabel" name="graph_lbl_teach">
+           <property name="text">
+            <string>Graph Analytics</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
           </widget>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_6">
+           <item>
+            <widget class="QLabel" name="program_lbl_teach">
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>40</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Program:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="graph_combo_teach">
+             <property name="currentIndex">
+              <number>-1</number>
+             </property>
+             <item>
+              <property name="text">
+               <string>Graph 1</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Graph 2</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Graph 3</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+          </layout>
          </item>
          <item>
           <widget class="QGraphicsView" name="graph_area_teach">

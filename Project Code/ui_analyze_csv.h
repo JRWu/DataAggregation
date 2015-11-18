@@ -109,6 +109,9 @@ public:
     QLabel *domain_lbl_teach;
     QTreeWidget *teach_tree;
     QVBoxLayout *verticalLayout_8;
+    QLabel *graph_lbl_teach;
+    QHBoxLayout *horizontalLayout_6;
+    QLabel *program_lbl_teach;
     QComboBox *graph_combo_teach;
     QGraphicsView *graph_area_teach;
 
@@ -691,10 +694,27 @@ public:
 
         verticalLayout_8 = new QVBoxLayout();
         verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
+        graph_lbl_teach = new QLabel(horizontalLayoutWidget_5);
+        graph_lbl_teach->setObjectName(QStringLiteral("graph_lbl_teach"));
+        graph_lbl_teach->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_8->addWidget(graph_lbl_teach);
+
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        program_lbl_teach = new QLabel(horizontalLayoutWidget_5);
+        program_lbl_teach->setObjectName(QStringLiteral("program_lbl_teach"));
+        program_lbl_teach->setMaximumSize(QSize(100, 40));
+
+        horizontalLayout_6->addWidget(program_lbl_teach);
+
         graph_combo_teach = new QComboBox(horizontalLayoutWidget_5);
         graph_combo_teach->setObjectName(QStringLiteral("graph_combo_teach"));
 
-        verticalLayout_8->addWidget(graph_combo_teach);
+        horizontalLayout_6->addWidget(graph_combo_teach);
+
+
+        verticalLayout_8->addLayout(horizontalLayout_6);
 
         graph_area_teach = new QGraphicsView(horizontalLayoutWidget_5);
         graph_area_teach->setObjectName(QStringLiteral("graph_area_teach"));
@@ -710,10 +730,11 @@ public:
 
         retranslateUi(AnalyzeCSV);
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(3);
         type_combo_pub->setCurrentIndex(-1);
         name_combo_grnt->setCurrentIndex(-1);
         name_combo_pres->setCurrentIndex(-1);
+        graph_combo_teach->setCurrentIndex(-1);
 
 
         QMetaObject::connectSlotsByName(AnalyzeCSV);
@@ -768,6 +789,8 @@ public:
         date_filter_lbl_teach->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
         filter_btn_teaching->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
         domain_lbl_teach->setText(QString());
+        graph_lbl_teach->setText(QApplication::translate("AnalyzeCSV", "Graph Analytics", 0));
+        program_lbl_teach->setText(QApplication::translate("AnalyzeCSV", "Program:", 0));
         graph_combo_teach->clear();
         graph_combo_teach->insertItems(0, QStringList()
          << QApplication::translate("AnalyzeCSV", "Graph 1", 0)
