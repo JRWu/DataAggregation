@@ -112,7 +112,7 @@ public:
     QLabel *graph_lbl_teach;
     QHBoxLayout *horizontalLayout_6;
     QLabel *program_lbl_teach;
-    QComboBox *graph_combo_teach;
+    QComboBox *program_combo_teach;
     QGraphicsView *graph_area_teach;
 
     void setupUi(QMainWindow *AnalyzeCSV)
@@ -298,6 +298,7 @@ public:
 
         name_combo_pub = new QComboBox(horizontalLayoutWidget_2);
         name_combo_pub->setObjectName(QStringLiteral("name_combo_pub"));
+        name_combo_pub->setMinimumSize(QSize(250, 0));
 
         horizontalLayout_14->addWidget(name_combo_pub);
 
@@ -319,6 +320,8 @@ public:
 
         type_combo_pub = new QComboBox(horizontalLayoutWidget_2);
         type_combo_pub->setObjectName(QStringLiteral("type_combo_pub"));
+        type_combo_pub->setMinimumSize(QSize(250, 0));
+        type_combo_pub->setMaximumSize(QSize(16777215, 16777215));
 
         horizontalLayout_13->addWidget(type_combo_pub);
 
@@ -708,10 +711,10 @@ public:
 
         horizontalLayout_6->addWidget(program_lbl_teach);
 
-        graph_combo_teach = new QComboBox(horizontalLayoutWidget_5);
-        graph_combo_teach->setObjectName(QStringLiteral("graph_combo_teach"));
+        program_combo_teach = new QComboBox(horizontalLayoutWidget_5);
+        program_combo_teach->setObjectName(QStringLiteral("program_combo_teach"));
 
-        horizontalLayout_6->addWidget(graph_combo_teach);
+        horizontalLayout_6->addWidget(program_combo_teach);
 
 
         verticalLayout_8->addLayout(horizontalLayout_6);
@@ -730,11 +733,10 @@ public:
 
         retranslateUi(AnalyzeCSV);
 
-        tabWidget->setCurrentIndex(3);
-        type_combo_pub->setCurrentIndex(-1);
+        tabWidget->setCurrentIndex(0);
         name_combo_grnt->setCurrentIndex(-1);
         name_combo_pres->setCurrentIndex(-1);
-        graph_combo_teach->setCurrentIndex(-1);
+        program_combo_teach->setCurrentIndex(-1);
 
 
         QMetaObject::connectSlotsByName(AnalyzeCSV);
@@ -753,11 +755,6 @@ public:
         name_lbl_pub->setText(QApplication::translate("AnalyzeCSV", "Name:", 0));
         type_lbl_pub->setText(QApplication::translate("AnalyzeCSV", "Type:", 0));
         type_combo_pub->clear();
-        type_combo_pub->insertItems(0, QStringList()
-         << QApplication::translate("AnalyzeCSV", "Graph 1", 0)
-         << QApplication::translate("AnalyzeCSV", "Graph 2", 0)
-         << QApplication::translate("AnalyzeCSV", "Graph 3", 0)
-        );
         tabWidget->setTabText(tabWidget->indexOf(pub_tab), QApplication::translate("AnalyzeCSV", "PUBLICATIONS", 0));
         date_filter_lbl3_2->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
         filter_btn_2->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
@@ -765,11 +762,6 @@ public:
         graph_lbl_grnt->setText(QApplication::translate("AnalyzeCSV", "Graph Analytics", 0));
         name_lbl_grnt->setText(QApplication::translate("AnalyzeCSV", "Name:", 0));
         name_combo_grnt->clear();
-        name_combo_grnt->insertItems(0, QStringList()
-         << QApplication::translate("AnalyzeCSV", "Graph 1", 0)
-         << QApplication::translate("AnalyzeCSV", "Graph 2", 0)
-         << QApplication::translate("AnalyzeCSV", "Graph 3", 0)
-        );
         name_combo_grnt->setCurrentText(QString());
         type_lbl_grnt->setText(QApplication::translate("AnalyzeCSV", "Funding Type:", 0));
         tabWidget->setTabText(tabWidget->indexOf(grant_tab), QApplication::translate("AnalyzeCSV", "GRANTS", 0));
@@ -779,11 +771,6 @@ public:
         graph_lbl_pres->setText(QApplication::translate("AnalyzeCSV", "Graph Analytics", 0));
         name_lbl_pres->setText(QApplication::translate("AnalyzeCSV", "Name:", 0));
         name_combo_pres->clear();
-        name_combo_pres->insertItems(0, QStringList()
-         << QApplication::translate("AnalyzeCSV", "Graph 1", 0)
-         << QApplication::translate("AnalyzeCSV", "Graph 2", 0)
-         << QApplication::translate("AnalyzeCSV", "Graph 3", 0)
-        );
         type_lbl_pres->setText(QApplication::translate("AnalyzeCSV", "Type:", 0));
         tabWidget->setTabText(tabWidget->indexOf(present_tab), QApplication::translate("AnalyzeCSV", "PRESENTATIONS", 0));
         date_filter_lbl_teach->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
@@ -791,12 +778,7 @@ public:
         domain_lbl_teach->setText(QString());
         graph_lbl_teach->setText(QApplication::translate("AnalyzeCSV", "Graph Analytics", 0));
         program_lbl_teach->setText(QApplication::translate("AnalyzeCSV", "Program:", 0));
-        graph_combo_teach->clear();
-        graph_combo_teach->insertItems(0, QStringList()
-         << QApplication::translate("AnalyzeCSV", "Graph 1", 0)
-         << QApplication::translate("AnalyzeCSV", "Graph 2", 0)
-         << QApplication::translate("AnalyzeCSV", "Graph 3", 0)
-        );
+        program_combo_teach->clear();
         tabWidget->setTabText(tabWidget->indexOf(teach_tab), QApplication::translate("AnalyzeCSV", "TEACHING", 0));
     } // retranslateUi
 

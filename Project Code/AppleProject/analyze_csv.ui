@@ -570,7 +570,14 @@
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="name_combo_pub"/>
+            <widget class="QComboBox" name="name_combo_pub">
+             <property name="minimumSize">
+              <size>
+               <width>250</width>
+               <height>0</height>
+              </size>
+             </property>
+            </widget>
            </item>
           </layout>
          </item>
@@ -628,8 +635,17 @@
            </item>
            <item>
             <widget class="QComboBox" name="type_combo_pub">
-             <property name="currentIndex">
-              <number>-1</number>
+             <property name="minimumSize">
+              <size>
+               <width>250</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
+              </size>
              </property>
              <item>
               <property name="text">
@@ -1715,7 +1731,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="graph_combo_teach">
+            <widget class="QComboBox" name="program_combo_teach">
              <property name="currentIndex">
               <number>-1</number>
              </property>
