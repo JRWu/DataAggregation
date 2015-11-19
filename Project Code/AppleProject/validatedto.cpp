@@ -156,25 +156,31 @@ bool makeAuthors(string *str){
 }
 
 bool makeMoney(string *str){
+    //make copy of the string so the original is preserved if error is found
     string s = *str;
+
+    //If string is empty return false.
     if(s.length() == 0) return false;
+
+    //If string starts with a $ remove it
     if(s[0] == '$') s = s.substr(1,s.length());
 
     vector<string> elm;
     stringstream ss(s);
     string item;
 
-    //Split around ,
+    //Split around "," and then paste the string back together
     while(getline(ss, item, ',')) elm.push_back(item);
     s = "";
-
     for(int i = 0; i < (int)elm.size(); i++){
         trimString(&(elm[i]));
         s = s + elm[i];
     }
 
+    //Period is false if no period has been found
     bool period = false;
 
+    //Check to see if all digits are one and at most one period
     for(int i = 0; i < (int)s.length(); i++){
         if(!isdigit(s[i])){
             if((period)||(s[i] != '.')) return false;
@@ -183,6 +189,7 @@ bool makeMoney(string *str){
     }
 
     *str = s;
+    return true;
 }
 
 bool validateMoney(string *s){
