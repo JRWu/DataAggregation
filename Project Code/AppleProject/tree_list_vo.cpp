@@ -348,7 +348,7 @@ int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<Teachin
         return 0;
     }
 
-    first_sd.label = _data->dtos->at(start_index).name;          // Add first Faculty
+    first_sd.label = _data->dtos->at(start_index).faculty;          // Add first Faculty
     first_sd.num = 0;                                               // Default is 0 hours
     first_sd.num2 = 0;
     child_set.at(0).push_back(first_sd);                            // Add first teaching member's name
@@ -370,7 +370,7 @@ int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<Teachin
 
         if (((start <= start_date) && (end >= start_date) || (start <= end_date) && (end >= end_date)) && str == program)   // Should pass b/c starting at 1st valid data index
         {
-            string memberName = _data->dtos->at(i).name;    // Name of the Faculty
+            string memberName = _data->dtos->at(i).faculty;    // Name of the Faculty
             string dateRange = std::to_string(_data->dtos->at(i).startDate) + "-" + std::to_string(_data->dtos->at(i).endDate);   // Faculty name
 
             int teach_value = find_label_index(dateRange, parent_set);  //find the date range
@@ -474,7 +474,7 @@ int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<Teachin
         return 0;
     }
 
-    first_sd.label = _data->dtos->at(start_index).name;          // Add first Faculty
+    first_sd.label = _data->dtos->at(start_index).faculty;          // Add first Faculty
     first_sd.num = 0;                                               // Default is 0 hours
     first_sd.num2 = 0;
     child_set.at(0).push_back(first_sd);                            // Add first teaching member's name
@@ -498,7 +498,7 @@ int tree_list_vo::tree_list_vo::populate_for_teaching(shared_ptr<CSVData<Teachin
                 && (str != "Postgraduate Medical Education") && (str != "Undergraduate Medical Education")
                 && (str != "Continuing Medical Education"))   // Should pass b/c starting at 1st valid data index
         {
-            string memberName = _data->dtos->at(i).name;    // Name of the Faculty
+            string memberName = _data->dtos->at(i).faculty;    // Name of the Faculty
             string dateRange = std::to_string(_data->dtos->at(i).startDate) + "-" + std::to_string(_data->dtos->at(i).endDate);   // Faculty name
 
             int teach_value = find_label_index(dateRange, parent_set);  //find the date range
