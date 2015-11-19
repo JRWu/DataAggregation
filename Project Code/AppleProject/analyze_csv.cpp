@@ -465,6 +465,7 @@ void AnalyzeCSV::on_filter_btn_clicked()
     }
     else
     {
+        cout << "Filter Button Clicked; reloading analysis data" << endl;
         // Index 0 bargraph
         // Index 1 is pie chart
         populate_publication_tree();
@@ -994,22 +995,29 @@ void AnalyzeCSV::populate_presentation_bargraph()
     }
     else
     {
+        // Get the name and the type of graph being analyzed on the UI page
+        string name = (ui->name_combo_pres->currentText()).toStdString();
+        string type = (ui->type_combo_pres->currentText()).toStdString();
 
-           // define name
-        string name = pr_data->dtos->at(0).getName();
-
-
-        shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(pr_data,name, s, e, 1));
-
-//        Pres_BarGraph1_VO* graphable = new Pres_BarGraph1_VO(pr_data, s, e);
-        scene = new QGraphicsScene(this);
+        scene = new QGraphicsScene(this);   // Create the scene for plotting
 
         QCustomPlot *customPlot = new QCustomPlot();
-        customPlot->setGeometry(0,0,345,375);   // Should make this dynamic
+        customPlot->setGeometry(0,0,345,375);   // added to resize graph
 
+        // Graph the data
         Graphvisualizations *graph_handler = new Graphvisualizations();
-        graph_handler->plot_bargraph(customPlot, graphable);
-        scene->addWidget(customPlot);
+        if (type.compare("ALL") == 0)   // Graph ALL presentation types by default
+        {
+            shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(pr_data,name, s, e, 1));
+            graph_handler->plot_bargraph(customPlot, graphable);
+        }
+        else    // Create graph of only specified presentation type
+        {
+            shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(pr_data,name,type, s, e, 1));
+            graph_handler->plot_bargraph(customPlot, graphable);
+        }
+
+        scene->addWidget(customPlot);   // Add plot to GUI window
         ui->graph_area_7->setScene(scene);  // rename graph_are_7 to graph_area_Presentations
     }
 }
