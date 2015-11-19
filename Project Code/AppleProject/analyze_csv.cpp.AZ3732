@@ -1,6 +1,7 @@
 #include "load_csv.h"
 #include "analyze_csv.h"
 #include "ui_analyze_csv.h"
+#include "grant_bargraph1_vo.h"
 
 std::shared_ptr<CSVData<PublicationDTO>> datanew;
 std::shared_ptr<CSVData<PublicationDTO>> datanew4; //presentation data
@@ -128,7 +129,7 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<GrantDTO>> _data, QWidget *parent
 
     // Populate the QTreeWidget item
     populate_grant_tree();
-        
+    populate_grant_bargraph();
     // PUT THIS IN A FUNCTION vvvvv
     /* getting a Undefined symbols for architecture x86_64; commented out for now
     Grant_BarGraph1_VO* graphable = new Grant_BarGraph1_VO(_data, 1900, 4000);*/
@@ -145,7 +146,7 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<GrantDTO>> _data, QWidget *parent
     graph_handler->plot_grants_vs_trials(customPlot, graphable);*/
     
     scene->addWidget(customPlot);   // Add plot to the window & Essential
-    ui->graph_area->setScene(scene);    // Added for grpahics & Essential
+    ui->graph_area_9->setScene(scene);    // Added for grpahics & Essential
 
 }
 
@@ -1012,23 +1013,23 @@ void AnalyzeCSV::populate_publication_bargraph()
     }
     else
     {
-        // Get the name and the type of graph being analyzed on the UI page
-        string name = (ui->name_combo_pub->currentText()).toStdString();
-        string type = (ui->type_combo_pub->currentText()).toStdString();
+        string name = (ui->name_combo_pub->currentText()).toStdString(); // Allows user to choose name of author
+        string type = (ui->type_combo_pub->currentText()).toStdString(); // Allows user to choose type of publication
 
         scene = new QGraphicsScene(this);   // Create the scene for plotting
 
         QCustomPlot *customPlot = new QCustomPlot();
         customPlot->setGeometry(0,0,345,375);   // added to resize graph
 
-        // Graph the data
+        // Graph handling functions go here
         Graphvisualizations *graph_handler = new Graphvisualizations();
+
         if (type == "ALL")  // Graph ALL publication types by default
         {
             shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(datanew, name, s, e, 1));
             graph_handler->plot_bargraph(customPlot, graphable);
         }
-        else                    // Create graph of only specified publication types
+        else                    // Create graphable of only specified publication types
         {
             shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(datanew, name, type, s, e, 1));
             graph_handler->plot_bargraph(customPlot, graphable);
@@ -1059,29 +1060,22 @@ void AnalyzeCSV::populate_presentation_bargraph()
     }
     else
     {
-        // Get the name and the type of graph being analyzed on the UI page
-        string name = (ui->name_combo_pres->currentText()).toStdString();
-        string type = (ui->type_combo_pres->currentText()).toStdString();
 
-        scene = new QGraphicsScene(this);   // Create the scene for plotting
+           // define name
+        string name = pr_data->dtos->at(0).getName();
+
+
+        shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(pr_data,name, s, e, 1));
+
+//        Pres_BarGraph1_VO* graphable = new Pres_BarGraph1_VO(pr_data, s, e);
+        scene = new QGraphicsScene(this);
 
         QCustomPlot *customPlot = new QCustomPlot();
-        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+        customPlot->setGeometry(0,0,345,375);   // Should make this dynamic
 
-        // Graph the data
         Graphvisualizations *graph_handler = new Graphvisualizations();
-        if (type.compare("ALL") == 0)   // Graph ALL presentation types by default
-        {
-            shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(pr_data,name, s, e, 1));
-            graph_handler->plot_bargraph(customPlot, graphable);
-        }
-        else    // Create graph of only specified presentation type
-        {
-            shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(pr_data,name,type, s, e, 1));
-            graph_handler->plot_bargraph(customPlot, graphable);
-        }
-
-        scene->addWidget(customPlot);   // Add plot to GUI window
+        graph_handler->plot_bargraph(customPlot, graphable);
+        scene->addWidget(customPlot);
         ui->graph_area_7->setScene(scene);  // rename graph_are_7 to graph_area_Presentations
     }
 }
@@ -1101,7 +1095,8 @@ void AnalyzeCSV::populate_grant_bargraph()
     else
     {
         string name = gdatanew->dtos->at(0).getName();
-        shared_ptr<BarGraph_VO<GrantDTO>> graphable(new BarGraph_VO<GrantDTO>(gdatanew, name, s, e, 1));
+        Grant_BarGraph1_VO* graphable = new Grant_BarGraph1_VO(gdatanew, s,e);
+
         scene = new QGraphicsScene(this);  
         
         QCustomPlot *customPlot = new QCustomPlot();
@@ -1109,10 +1104,10 @@ void AnalyzeCSV::populate_grant_bargraph()
         
         // Graph handling functions go here
         Graphvisualizations *graph_handler = new Graphvisualizations();
-        graph_handler->plot_bargraph(customPlot, graphable);
+        graph_handler->plot_grants_vs_trials(customPlot, graphable);
         
         scene->addWidget(customPlot);   // Add plot to the window & Essential
-        ui->graph_area->setScene(scene);    // Added for grpahics & Essential
+        ui->graph_area_9->setScene(scene);    // Added for grpahics & Essential
     }
 }
 
@@ -1135,7 +1130,7 @@ void AnalyzeCSV::on_filter_btn_2_clicked()
         // Index 0 bargraph
         // Index 1 is pie chart
         populate_grant_tree();
-        //populate_grant_bargraph();
+        populate_grant_bargraph();
     }
 }
 

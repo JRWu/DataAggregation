@@ -230,7 +230,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="pub_tab">
      <property name="palette">
@@ -1443,21 +1443,6 @@
              <property name="currentIndex">
               <number>-1</number>
              </property>
-             <item>
-              <property name="text">
-               <string>Graph 1</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Graph 2</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Graph 3</string>
-              </property>
-             </item>
             </widget>
            </item>
           </layout>
@@ -1515,7 +1500,13 @@
             </widget>
            </item>
            <item>
-            <widget class="QComboBox" name="type_combo_pres"/>
+            <widget class="QComboBox" name="type_combo_pres">
+             <item>
+              <property name="text">
+               <string>ALL</string>
+              </property>
+             </item>
+            </widget>
            </item>
           </layout>
          </item>
