@@ -36,7 +36,7 @@ SOURCES += main.cpp\
     teachingdto.cpp \
     pres_bargraph1_vo.cpp \
     bargraph_vo.cpp \
-    graph_combo_box_populator.cpp
+    graph_combo_box_populator.cpp \
     grant_bargraph1_vo.cpp
 
 
