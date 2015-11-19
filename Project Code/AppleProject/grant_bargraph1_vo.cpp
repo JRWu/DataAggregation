@@ -24,6 +24,8 @@ Grant_BarGraph1_VO::Grant_BarGraph1_VO(std::shared_ptr<CSVData<GrantDTO> > data,
                 if(index == grantTypes.end()) grantTypes.push_back(dto.fundingType);
 
                 index = find(years.begin(), years.end(), to_string(dto.endDate));
+
+                if(index == years.end()) years.push_back(to_string(dto.endDate));
                 }
             }
         }
