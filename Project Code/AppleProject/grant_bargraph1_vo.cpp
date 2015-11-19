@@ -11,8 +11,7 @@ Grant_BarGraph1_VO::Grant_BarGraph1_VO(std::shared_ptr<CSVData<GrantDTO> > data,
     cout << start << " " << end << endl;
     name = data->dtos->at(0).memberName;// Gets original name
 
-
-
+    // Loop though the DTOs
     for(int i = 0; i < (int) data->dtos->size(); i++){
         GrantDTO dto = data->dtos->at(i);
 

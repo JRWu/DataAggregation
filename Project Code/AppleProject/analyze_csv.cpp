@@ -85,38 +85,24 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<GrantDTO>> _data, QWidget *parent
     QMainWindow(parent),
     ui(new Ui::AnalyzeCSV)
 {
-    /*
-    Jennifer/Jaisen
-
-    I commented this out because there are some errors in populating the grant tab for Analyze
-    I think its mostly because of the fact that populate_grant_tree doesn't 100% work yet
-    Also,the ui->start_date_publications name seems kinda weird since this is on the Grants tab
-    You may want to verify the names of the actual objects being populated on the analyze_csv.ui form
-    PopulateDateCombos for GraphDTO's needs to be written, I've included the function
-    prototypes and tagged your guys' names there as well
-
-    This is the one you're interested in, in analyze_csv.cpp
-    QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<GrantDTO>> data) {
-
-    */
-
+    // set the pointer to the passed data
     gdatanew = _data;
-    
+
     std::shared_ptr<CSVData<GrantDTO>> data = _data;
     ui->setupUi(this);
-    
+
     /// DOMAIN LABEL SET ///
     ui->domain_lbl3_2->setText(QString::fromStdString(_data->dtos->at(0).domain));
-    
+
     /// DATE FILTER COMBO BOX ///
     QStringList date_strs = PopulateDateCombos(_data);
-    
+
     // set the dates list to the combo boxes
     ui->start_date1_2->addItems(date_strs);     //change to start_date_grants if possible
     ui->start_date1_2->setCurrentIndex(0);
     ui->end_date1_2->addItems(date_strs);
     ui->end_date1_2->setCurrentIndex(date_strs.size()-1);
-        
+
     /// GRAPH FILTER COMBO BOX ///
     QStringList names = PopulateGraphComboName(_data);
     QStringList funding_types = PopulateGraphComboFunding(_data);
@@ -128,24 +114,7 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<GrantDTO>> _data, QWidget *parent
 
     // Populate the QTreeWidget item
     populate_grant_tree();
-        
-    // PUT THIS IN A FUNCTION vvvvv
-    /* getting a Undefined symbols for architecture x86_64; commented out for now
-    Grant_BarGraph1_VO* graphable = new Grant_BarGraph1_VO(_data, 1900, 4000);*/
-
-    
-    scene = new QGraphicsScene(this);   // Added for graphics window
-    
-    QCustomPlot *customPlot = new QCustomPlot();
-    customPlot->setGeometry(0,0,345,375);   // added to resize graph
-    
-    // Graph handling functions go here
-    /*
-    Graphvisualizations *graph_handler = new Graphvisualizations();
-    graph_handler->plot_grants_vs_trials(customPlot, graphable);*/
-    
-    scene->addWidget(customPlot);   // Add plot to the window & Essential
-    ui->graph_area->setScene(scene);    // Added for grpahics & Essential
+    populate_grant_bargraph();
 
 }
 
@@ -222,7 +191,7 @@ void AnalyzeCSV::on_verify_btn_clicked()
 // JX --> implemented 11.15.15
 QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<GrantDTO>> data) {
     std::vector<int> dates;
-    
+
     // loop through the dtos to get a list of dates
     for (int i=0; i < data->dtos->size(); i++) {
         // loop again to see if the current date is already in the list
@@ -232,16 +201,16 @@ QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<GrantDTO>> da
         }else {
             bool add_start = true;
             bool add_end = true;
-            
+
             for (int j=0; j < dates.size(); j++) {
-                
+
                 // if the start date already exists in the list of dates
                 if ((int)data->dtos->at(i).startDate == dates.at(j)) {
                     add_start = false;
                     break;
                 }
             }
-            
+
             for (int k=0; k<dates.size(); k++){
 
                 // if the end date already exists in the list of dates
@@ -249,7 +218,7 @@ QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<GrantDTO>> da
                     add_end = false;
                     break;
                 }
-                
+
             }
             if (add_start) {
                 dates.push_back((int)data->dtos->at(i).startDate);
@@ -259,21 +228,21 @@ QStringList AnalyzeCSV::PopulateDateCombos(std::shared_ptr<CSVData<GrantDTO>> da
             }
         }
     }
-    
+
     //sort the dates
     std::sort(dates.begin(), dates.end());
-    
+
     //put the dates in a QString vector list
     QStringList date_strs;
     for (int i=0; i < dates.size(); i++)
     {
-        
+
         ostringstream stream;
         stream << dates.at(i);
         string datestr = stream.str();
         date_strs << QString::fromStdString(datestr);
     }
-    
+
     return date_strs;
 
 }
@@ -565,38 +534,13 @@ void AnalyzeCSV::populate_publication_tree()
  */
 void AnalyzeCSV::populate_grant_tree()
 {
-    // Jaisen/Jennifer
-    /*
-   This is where you would make 2 tree_list_vo objects.
-   There would be 2 roots added to the tree.
-
-   For example:
-   i.e. for Publications, the 2 lines necessary to generate the tree and data are:
-   tree_list_vo *p_treeNew = new tree_list_vo(_data);
-   p_treeNew->populate_for_publications(_data, (int)s,(int)e);
-
-   You would create 2 tree_list_vo objects; 1 for Grants and 1 for Clinical Funding
-   You should have written the function populate_for_grants in tree_list_vo.cpp
-   such that it can populate either a Grants field or a Clinical Funding field
-
-    Then using these 2 tree_list_vo objects, follow the code in populate_publication_tree()
-    in order to generate the Grants Tree (it should have 2 roots vs the 1 in publications)
-    https://www.youtube.com/watch?v=TpkiVlOS3o4
-
-    ^^ This is a useful resource I used to generate it
-    I didn't delete any of your code, but it might be worthwhile to re-write this function
-    from beginning so you can debug it as you go along.
-    As always, feel free to message me if you have issues with generating the tree_list_vo's
-    and subsequently updating the QTreeWidget! - Jerry
-    */
 
     std::shared_ptr<CSVData<GrantDTO>> _data = gdatanew;
-    QString st_string = ui->start_date1_2->itemText(ui->start_date1_2->currentIndex()); // JX: FIX V NAMES
-    QString en_string = ui->end_date1_2->itemText(ui->end_date1_2->currentIndex()); // FIX V NAMES
-    
+    QString st_string = ui->start_date1_2->itemText(ui->start_date1_2->currentIndex());
+    QString en_string = ui->end_date1_2->itemText(ui->end_date1_2->currentIndex());
     long s = stol(st_string.toStdString()); // start date
     long e = stol(en_string.toStdString()); // end date
-    
+
     // Ensure the retrieved years are in the accepted range
     if (e <= s)
     {
@@ -605,70 +549,82 @@ void AnalyzeCSV::populate_grant_tree()
     else
     {
         Ui::AnalyzeCSV * tmpUI = get_ui_ptr();
-        
+
         // Create 2 new tree lists from the selected interval (1 for grants and 1 for clinical trials)
         tree_list_vo *g_treeNew = new tree_list_vo(_data);                    //grant tree
         tree_list_vo *c_treeNew = new tree_list_vo(_data);                    //clinical tree
-        
+
         // Populate the VOs, still needs the new params
         g_treeNew->populate_for_grants(_data, (int)s,(int)e, "Grants");           //create tree_list_vo object for Grants
         c_treeNew->populate_for_grants(_data, (int)s,(int)e, "Clinical Trials");    //create tree_list_vo object for Clinical Funding
         tmpUI->present_tree_2->clear(); // all present_tree_2's should be changed to grant_tree
-        
-        //////////// GRANTS //////////////
-        tmpUI->present_tree_2->setColumnCount(2);
-        tmpUI->present_tree_2->setColumnWidth(0, 275);
-        tmpUI->present_tree_2->setHeaderLabels(QStringList() << "Funding" << "Total");
-        
-        int gCounter = 0;   //counts the number of grants
-        
+
+        tmpUI->present_tree_2->setColumnCount(3);           //FIELD, TOTAL#, TOTAL$
+        tmpUI->present_tree_2->setColumnWidth(0, 175);
+        tmpUI->present_tree_2->setHeaderLabels(QStringList() << "Funding" << "Total #" << "Total $");
+
+        int grant_num = 0;      //counts the number of grants
+        int grant_value = 0;    // counts the total $
+
         // root 1: grant
         QTreeWidgetItem *grant_root = new QTreeWidgetItem(tmpUI->present_tree_2, QStringList() << "Grants" << QString::fromStdString(std::to_string(_data->dtos->size())));
+        // root 2: clinical trials
+        QTreeWidgetItem *clinical_root = new QTreeWidgetItem(tmpUI->present_tree_2, QStringList() << "Clinical Trials" << QString::fromStdString(std::to_string(_data->dtos->size())));
+
+
+        ///////// GRANT //////////
         for (int i = 0; i < g_treeNew->get_parent_set().size(); i ++)
         {
-            cout << i << endl;
+            //cout << i << endl;
             QTreeWidgetItem * child = new QTreeWidgetItem(grant_root, QStringList() << QString::fromStdString(g_treeNew->get_parent_set().at(i).label)
-                                                          <<QString::fromStdString(std::to_string((int)g_treeNew->get_parent_set().at(i).num)) );
+                                                          <<QString::fromStdString(std::to_string((int)g_treeNew->get_parent_set().at(i).num))
+                                                          <<QString::fromStdString(std::to_string((int)g_treeNew->get_parent_set().at(i).value)));
 
             vector<string_data_object> tmp = g_treeNew->get_child_set().at(i);
-            for (int j = 0; j < tmp.size(); j++) 
+            for (int j = 0; j < tmp.size(); j++)
             {
                 new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
-                                    << QString::fromStdString(std::to_string((int)tmp.at(j).num)) );
-                gCounter += tmp.at(j).num;
+                                    <<QString::fromStdString(std::to_string((int)tmp.at(j).num))
+                                    <<QString::fromStdString(std::to_string((int)tmp.at(j).value)));
+                grant_num += tmp.at(j).num;
+                grant_value += tmp.at(j).value;
             }
         }
         // expand publications grant_root by default
         tmpUI->present_tree_2->expandItem(grant_root);
         /// LIST TREE VIEW ///
-        grant_root->setText(1,QString::fromStdString(std::to_string(gCounter)));    // updates text
-        
+        grant_root->setText(1,QString::fromStdString(std::to_string(grant_num)));    // updates text
+        grant_root->setText(2,QString::fromStdString(std::to_string(grant_value)));
+
+        // Reset counters
+        grant_num = 0;
+        grant_value = 0;
 
         //////////// CLINICAL TRIALS //////////////
-        
-        int cCounter = 0;       //counts the number of clinical trials
-        // root 1: clinical
-        QTreeWidgetItem *clinical_root = new QTreeWidgetItem(tmpUI->present_tree_2, QStringList() << "Clinical Trials" << QString::fromStdString(std::to_string(_data->dtos->size())));
         for (int i = 0; i < c_treeNew->get_parent_set().size(); i ++)
         {
-            cout << i << endl;
+            // cout << i << endl;
             QTreeWidgetItem * child = new QTreeWidgetItem(clinical_root, QStringList() << QString::fromStdString(c_treeNew->get_parent_set().at(i).label)
-                                                          <<QString::fromStdString(std::to_string((int)c_treeNew->get_parent_set().at(i).num)) );
-            
+                                                          <<QString::fromStdString(std::to_string((int)c_treeNew->get_parent_set().at(i).num))
+                                                          <<QString::fromStdString(std::to_string((int)c_treeNew->get_parent_set().at(i).value)));
+
             vector<string_data_object> tmp = c_treeNew->get_child_set().at(i);
             for (int j = 0; j < tmp.size(); j++)
             {
                 new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
-                                    << QString::fromStdString(std::to_string((int)tmp.at(j).num)) );
-                cCounter += tmp.at(j).num;
+                                    <<QString::fromStdString(std::to_string((int)tmp.at(j).num))
+                                    <<QString::fromStdString(std::to_string((int)tmp.at(j).value)));
+                grant_num += tmp.at(j).num;
+                grant_value += tmp.at(j).value;
+
             }
         }
         // expand publications clinical_root by default
         tmpUI->present_tree_2->expandItem(clinical_root);
         /// LIST TREE VIEW ///
-        clinical_root->setText(1,QString::fromStdString(std::to_string(cCounter)));    // updates text
-        
-        
+        clinical_root->setText(1,QString::fromStdString(std::to_string(grant_num)));    // updates text
+        clinical_root->setText(2,QString::fromStdString(std::to_string(grant_value)));
+
         /*
         // Create a new graphics scene
         scene = new QGraphicsScene(this);   // Added for graphics window
@@ -676,7 +632,7 @@ void AnalyzeCSV::populate_grant_tree()
         cout << "exit constructor" << endl;
         cout << g->grantTypes.size() << endl;
         cout << g->values.size() << endl;
-        
+
         QCustomPlot *plot = new QCustomPlot();
         cout << "pass 4" << endl;
         plot->setGeometry(0,0,345,375);   // added to resize graph
@@ -684,9 +640,9 @@ void AnalyzeCSV::populate_grant_tree()
         // Graph handling functions go here
         Graphvisualizations *graph_handlerNew = new Graphvisualizations();
         graph_handlerNew->plot_pub_vs_type(plot, g);
-        
+
         scene->addWidget(plot);   // Add plot to the window & Essential
-        
+
         ui->graph_area->setScene(scene);    // Added for grpahics & Essential
         */
     }
@@ -753,7 +709,7 @@ void AnalyzeCSV::populate_teaching_tree()
         std::string CMEstr = "Continuing Medical Education";
         //std::string Otherstr = "";
 
-        p_PMEtree->populate_for_teaching(_data, PMEstr.c_str(), (int)s,(int)e);        
+        p_PMEtree->populate_for_teaching(_data, PMEstr.c_str(), (int)s,(int)e);
         p_UMEtree->populate_for_teaching(_data, UMEstr.c_str(), (int)s,(int)e);
         p_CMEtree->populate_for_teaching(_data, CMEstr.c_str(), (int)s,(int)e);
         p_Othertree->populate_for_teaching(_data,(int)s,(int)e);
@@ -991,23 +947,23 @@ void AnalyzeCSV::populate_publication_bargraph()
     }
     else
     {
-        // Get the name and the type of graph being analyzed on the UI page
-        string name = (ui->name_combo_pub->currentText()).toStdString();
-        string type = (ui->type_combo_pub->currentText()).toStdString();
+        string name = (ui->name_combo_pub->currentText()).toStdString(); // Allows user to choose name of author
+        string type = (ui->type_combo_pub->currentText()).toStdString(); // Allows user to choose type of publication
 
         scene = new QGraphicsScene(this);   // Create the scene for plotting
 
         QCustomPlot *customPlot = new QCustomPlot();
         customPlot->setGeometry(0,0,345,375);   // added to resize graph
 
-        // Graph the data
+        // Graph handling functions go here
         Graphvisualizations *graph_handler = new Graphvisualizations();
+
         if (type == "ALL")  // Graph ALL publication types by default
         {
             shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(datanew, name, s, e, 1));
             graph_handler->plot_bargraph(customPlot, graphable);
         }
-        else                    // Create graph of only specified publication types
+        else                    // Create graphable of only specified publication types
         {
             shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(datanew, name, type, s, e, 1));
             graph_handler->plot_bargraph(customPlot, graphable);
@@ -1038,29 +994,22 @@ void AnalyzeCSV::populate_presentation_bargraph()
     }
     else
     {
-        // Get the name and the type of graph being analyzed on the UI page
-        string name = (ui->name_combo_pres->currentText()).toStdString();
-        string type = (ui->type_combo_pres->currentText()).toStdString();
 
-        scene = new QGraphicsScene(this);   // Create the scene for plotting
+           // define name
+        string name = pr_data->dtos->at(0).getName();
+
+
+        shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(pr_data,name, s, e, 1));
+
+//        Pres_BarGraph1_VO* graphable = new Pres_BarGraph1_VO(pr_data, s, e);
+        scene = new QGraphicsScene(this);
 
         QCustomPlot *customPlot = new QCustomPlot();
-        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+        customPlot->setGeometry(0,0,345,375);   // Should make this dynamic
 
-        // Graph the data
         Graphvisualizations *graph_handler = new Graphvisualizations();
-        if (type.compare("ALL") == 0)   // Graph ALL presentation types by default
-        {
-            shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(pr_data,name, s, e, 1));
-            graph_handler->plot_bargraph(customPlot, graphable);
-        }
-        else    // Create graph of only specified presentation type
-        {
-            shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(pr_data,name,type, s, e, 1));
-            graph_handler->plot_bargraph(customPlot, graphable);
-        }
-
-        scene->addWidget(customPlot);   // Add plot to GUI window
+        graph_handler->plot_bargraph(customPlot, graphable);
+        scene->addWidget(customPlot);
         ui->graph_area_7->setScene(scene);  // rename graph_are_7 to graph_area_Presentations
     }
 }
@@ -1069,10 +1018,10 @@ void AnalyzeCSV::populate_grant_bargraph()
 {
     QString st_string = ui->start_date1_2->itemText(ui->start_date1_2->currentIndex());
     QString en_string = ui->end_date1_2->itemText(ui->end_date1_2->currentIndex());
-    
+
     string s = st_string.toStdString();
     string e = en_string.toStdString();
-    
+
     if (e <= s)
     {
         cout << "Cannot filter. Filter dates error." << endl;
@@ -1081,31 +1030,30 @@ void AnalyzeCSV::populate_grant_bargraph()
     {
         string name = gdatanew->dtos->at(0).getName();
         shared_ptr<BarGraph_VO<GrantDTO>> graphable(new BarGraph_VO<GrantDTO>(gdatanew, name, s, e, 1));
-        scene = new QGraphicsScene(this);  
-        
+        scene = new QGraphicsScene(this);
+
         QCustomPlot *customPlot = new QCustomPlot();
         customPlot->setGeometry(0,0,345,375);   // added to resize graph
-        
+
         // Graph handling functions go here
         Graphvisualizations *graph_handler = new Graphvisualizations();
         graph_handler->plot_bargraph(customPlot, graphable);
-        
+
         scene->addWidget(customPlot);   // Add plot to the window & Essential
-        ui->graph_area->setScene(scene);    // Added for grpahics & Essential
+        ui->graph_area_9->setScene(scene);    // Added for grpahics & Essential
     }
 }
 
 
-// Jennifer/Jaisen this is called when the filter button on the Grants page is clicked
 // JX --> implemented 11.15.15
 void AnalyzeCSV::on_filter_btn_2_clicked()
 {
     //ui->graph_area;           // update this to display what plot is being updated
     //ui->graph_combo;      // used to get type of plot (0 is bargraph)
-    
+
     // Catch to prevent analysis on a null pointer
     // Only catches error if data is loaded ONCE, therefore the pointers not being cleared at the end of a session
-    if (datanew == NULL)
+    if (gdatanew == NULL)
     {
         // Add code to inform user that they didn't load proper information
     }
@@ -1114,7 +1062,7 @@ void AnalyzeCSV::on_filter_btn_2_clicked()
         // Index 0 bargraph
         // Index 1 is pie chart
         populate_grant_tree();
-        //populate_grant_bargraph();
+        populate_grant_bargraph();
     }
 }
 
