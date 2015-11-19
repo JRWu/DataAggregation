@@ -556,26 +556,6 @@ void AnalyzeCSV::populate_publication_tree()
         tmpUI->pub_tree->expandItem(root);
         /// LIST TREE VIEW ///
         root->setText(1,QString::fromStdString(std::to_string(pubCounter)));    // updates text
-
-        // Create a new graphics scene
-        scene = new QGraphicsScene(this);   // Added for graphics window
-        Pub_BarGraph1_VO* g = new Pub_BarGraph1_VO(_data, s, e);        // BUG IS BREAKING THIS HERE
-        cout << "exit constructor" << endl;
-        cout << g->pubTypes.size() << endl;
-        cout << g->values.size() << endl;
-
-        QCustomPlot *plot = new QCustomPlot();
-        cout << "pass 4" << endl;
-        plot->setGeometry(0,0,345,375);   // added to resize graph
-        cout << "pass 5" << endl;
-        // Graph handling functions go here
-        Graphvisualizations *graph_handlerNew = new Graphvisualizations();
-        graph_handlerNew->plot_pub_vs_type(plot, g);
-
-        scene->addWidget(plot);   // Add plot to the window & Essential
-
-        ui->graph_area->setScene(scene);    // Added for grpahics & Essential
-
     }
 }
 
@@ -914,7 +894,6 @@ void AnalyzeCSV::populate_teaching_tree()
 // Do by jerry
 void AnalyzeCSV::populate_presentation_tree()
 {
-
     std::shared_ptr<CSVData<PresentationDTO>> _data = pr_data;
     QString st_string = ui->start_date_presentation->itemText(ui->start_date_presentation->currentIndex());
     QString en_string = ui->end_date_presentation->itemText(ui->end_date_presentation->currentIndex());

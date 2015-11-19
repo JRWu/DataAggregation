@@ -4,11 +4,9 @@
 #include <qcustomplot.h>
 #include <memory>
 
-#include "pres_bargraph1_vo.h"
 #include "bargraph_vo.h"
 #include "grant_bargraph1_vo.h"
 
-class Pub_BarGraph1_VO; // Forward pointer to silence warning
 class Teach_BarGraph1_VO;   // To add by Eric + Emily
 class Grant_BarGraph1_VO;   // to add by Jaisen/Jennifer
 //class Pres_BarGraph1_VO;        // To add for Jerry
@@ -26,10 +24,8 @@ public:
     // Add support for shared pointer afterwards
     //1)  For faculty member (name), graph publications by type
     // ^ For a certain date range
-    void plot_pub_vs_type(QCustomPlot* plot, Pub_BarGraph1_VO* bargraph_vo);
 
     
-    void plot_pres_vs_type(QCustomPlot* plot, Pres_BarGraph1_VO* bargraph_vo);
 
 
     //2)For faculty member (name), graph funded research(grants/trials)

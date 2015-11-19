@@ -20,10 +20,8 @@
 #include "teachingdto.h"
 #include "tree_list_vo.h"
 #include "graphvisualizations.h"
-#include "pub_bargraph1_vo.h"
 #include "grant_bargraph1_vo.h"
 #include "teach_bargraph1_vo.h"
-#include "pres_bargraph1_vo.h"
 #include "bargraph_vo.h"
 #include "graph_combo_box_populator.h"
 

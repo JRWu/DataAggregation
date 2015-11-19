@@ -29,12 +29,10 @@ SOURCES += main.cpp\
     dtoassembler.cpp \
     tree_list_vo.cpp \
     graphvisualizations.cpp \
-    pub_bargraph1_vo.cpp \
     grantdto.cpp \
     teach_bargraph1_vo.cpp \
     presentationdto.cpp \
     teachingdto.cpp \
-    pres_bargraph1_vo.cpp \
     bargraph_vo.cpp \
     graph_combo_box_populator.cpp \
     grant_bargraph1_vo.cpp
@@ -53,13 +51,11 @@ HEADERS  += mainwindow.h \
     dtoassembler.h \
     tree_list_vo.h \
     graphvisualizations.h \
-    pub_bargraph1_vo.h \
     grantdto.h \
     teach_bargraph1_vo.h \
     presentationdto.h \
     grant_bargraph1_vo.h \
     teachingdto.h \
-    pres_bargraph1_vo.h \
     bargraph_vo.h \
     graph_combo_box_populator.h
 
