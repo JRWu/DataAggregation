@@ -37,6 +37,7 @@ public:
     std::string getBarField1(int btype = 1);
     std::string getBarField2(int btype = 1);
     double getBarValue(int btype = 1);
+
 };
 
 #endif // PRESENTATIONDTO_H

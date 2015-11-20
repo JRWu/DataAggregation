@@ -25,7 +25,8 @@ public:
 //type_combo_pub
 //name_combo_pub
 
-template <class DTOType> BarGraph_VO<DTOType>::BarGraph_VO(std::shared_ptr<CSVData<DTOType>> data,
+template <class DTOType>
+BarGraph_VO<DTOType>::BarGraph_VO(std::shared_ptr<CSVData<DTOType>> data,
                                                            string fname, string start, string end, int type){
 
     name = fname;

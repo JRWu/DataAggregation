@@ -53,6 +53,10 @@ std::string PublicationDTO::getName(){
     return name;
 }
 
+int PublicationDTO::getYear(int btype){
+    return date;
+}
+
 std::string PublicationDTO::getBarField1(int btype){
     return to_string(date);
 }
@@ -63,4 +67,12 @@ std::string PublicationDTO::getBarField2(int btype){
 
 double PublicationDTO::getBarValue(int btype){
     return 1.0;
+}
+
+vector<string> PublicationDTO::getTreePath(int btype){
+    return treePath;
+}
+
+vector<double> PublicationDTO::getTreeValues(int btype){
+    return treeValues;
 }

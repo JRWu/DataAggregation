@@ -37,6 +37,13 @@ void assembleDTO(PublicationDTO *dto, vector<string> f){
     dto->mostSignificantDetails = f[24];
     dto->education = f[25];
     dto->ISBN = f[26];
+
+    dto->treeValues.push_back(1.0);
+    dto->treePath.push_back("Publications");
+    dto->treePath.push_back(dto->type);
+    dto->treePath.push_back(dto->name);
+
+
 }
 
 void assembleDTO(GrantDTO *dto, vector<string> f){
@@ -80,6 +87,32 @@ void assembleDTO(GrantDTO *dto, vector<string> f){
     dto->rnw = f[29];
     dto->edGrant = f[30];
     dto->dupReported = f[31];
+
+    dto->treeValues.push_back(1.0);
+    dto->treeValues.push_back(dto->totalAmount);
+
+    dto->treePath.push_back("Grants/Clinical Trials");
+    dto->treePath.push_back(dto->fundingType);
+    bool peer = (dto->peerReviewed == "TRUE");
+    bool industry = (dto->industryGrant == "TRUE");
+
+    if(peer){
+        if(!industry){
+            dto->treePath.push_back("Peer Reviewed");
+        }
+        else{
+            dto->treePath.push_back("Peer Reviewed and Industry Sponsored");
+        }
+    }
+    else{
+        if(industry){
+            dto->treePath.push_back("Industry Sponsored");
+        }
+        else{
+            dto->treePath.push_back("Other");
+        }
+    }
+    dto->treePath.push_back(dto->memberName);
 }
 
 void assembleDTO(PresentationDTO *dto, vector<string> f){

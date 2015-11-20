@@ -42,3 +42,15 @@ double GrantDTO::getBarValue(int btype){
     if(status == "Funded") return totalAmount;
     return 0.0;
 }
+
+int GrantDTO::getYear(int btype){
+    return endDate;
+}
+
+std::vector<std::string> GrantDTO::getTreePath(int btype){
+    return treePath;
+}
+
+std::vector<double> GrantDTO::getTreeValues(int btype){
+    return treeValues;
+}

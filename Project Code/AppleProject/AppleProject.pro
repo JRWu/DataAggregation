@@ -33,7 +33,6 @@ SOURCES += main.cpp\
     teach_bargraph1_vo.cpp \
     presentationdto.cpp \
     teachingdto.cpp \
-    bargraph_vo.cpp \
     graph_combo_box_populator.cpp \
     grant_bargraph1_vo.cpp
 
@@ -57,7 +56,8 @@ HEADERS  += mainwindow.h \
     grant_bargraph1_vo.h \
     teachingdto.h \
     bargraph_vo.h \
-    graph_combo_box_populator.h
+    graph_combo_box_populator.h \
+    treelist_vo.h
 
 FORMS    += mainwindow.ui \
     load_csv.ui \

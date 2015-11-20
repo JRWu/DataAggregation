@@ -47,6 +47,9 @@ public:
     int impactFactor;
     bool peerReviewed, international, presentation, mostSignificant, education;*/
 
+    std::vector<std::string> treePath;
+    std::vector<double> treeValues;
+
     PublicationDTO();
     ~PublicationDTO();
 
@@ -54,6 +57,9 @@ public:
     std::string getBarField1(int btype = 1);
     std::string getBarField2(int btype = 1);
     double getBarValue(int btype = 1);
+    int getYear(int btype = 1);
+    std::vector<std::string> getTreePath(int btype = 1);
+    std::vector<double> getTreeValues(int btype = 1);
 };
 
 #endif // PUBLICATIONDTO

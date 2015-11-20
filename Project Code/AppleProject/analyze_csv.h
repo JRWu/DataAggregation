@@ -24,6 +24,7 @@
 #include "teach_bargraph1_vo.h"
 #include "bargraph_vo.h"
 #include "graph_combo_box_populator.h"
+#include "treelist_vo.h"
 
 
 class tree_list_vo;     //forward pointer

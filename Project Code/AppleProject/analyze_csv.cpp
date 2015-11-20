@@ -483,49 +483,29 @@ void AnalyzeCSV::populate_publication_tree()
     QString st_string = ui->start_date_publications->itemText(ui->start_date_publications->currentIndex());
     QString en_string = ui->end_date_publications->itemText(ui->end_date_publications->currentIndex());
 
-    long s = stol(st_string.toStdString()); // start date
-    long e = stol(en_string.toStdString()); // end date
+    int s = stoi(st_string.toStdString()); // start date
+    int e = stoi(en_string.toStdString()); // end date
 
     // Ensure the retrieved years are in the accepted range
-    if (e <= s)
+    if (e < s)
     {
         cout << "Filter dates error" << endl;
     }
     else
     {
-        Ui::AnalyzeCSV * tmpUI = get_ui_ptr();
+        TreeList_VO<PublicationDTO> treelistvo(_data, s, e);
 
-        // Create new tree list from the selcted interval
-        tree_list_vo *p_treeNew = new tree_list_vo(_data);
-        // Populates the VO , still needs the new params
-        p_treeNew->populate_for_publications(_data, (int)s,(int)e);
-        tmpUI->pub_tree->clear();
+        //Failed to make vo due to empty data range for that year
+        if(treelistvo.root.children.size() == 0) return;
 
-        /// LIST TREE VIEW ///
-        tmpUI->pub_tree->setColumnCount(2);
-        tmpUI->pub_tree->setColumnWidth(0, 275);
-        tmpUI->pub_tree->setHeaderLabels(QStringList() << "Field" << "Total");
+        ui->pub_tree->clear();
+        treelistvo.makeQTree(ui->pub_tree);
+        ui->pub_tree->setColumnCount(treelistvo.nCol);
+        ui->pub_tree->setColumnWidth(0, 275);
+        ui->pub_tree->setHeaderLabels(QStringList() << "Type" << "Total");
 
-        int pubCounter = 0;
-        QTreeWidgetItem *root = new QTreeWidgetItem(tmpUI->pub_tree, QStringList() << "Publications" << QString::fromStdString(std::to_string(_data->dtos->size())));
-        for (int i = 0; i < p_treeNew->get_parent_set().size(); i ++) // per 12
-        {
-            cout << i << endl;
-            QTreeWidgetItem * child = new QTreeWidgetItem(root, QStringList() << QString::fromStdString(p_treeNew->get_parent_set().at(i).label)
-                                                          <<QString::fromStdString(std::to_string((int)p_treeNew->get_parent_set().at(i).num)) );
 
-            vector<string_data_object> tmp = p_treeNew->get_child_set().at(i);
-            for (int j = 0; j < tmp.size(); j++)  // per 5?
-            {
-                new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
-                                    << QString::fromStdString(std::to_string((int)tmp.at(j).num)) );
-                pubCounter += tmp.at(j).num;
-            }
-        }
-        // expand publications root by default
-        tmpUI->pub_tree->expandItem(root);
-        /// LIST TREE VIEW ///
-        root->setText(1,QString::fromStdString(std::to_string(pubCounter)));    // updates text
+        ui->pub_tree->expandItem(ui->pub_tree->topLevelItem(0));
     }
 }
 
@@ -539,8 +519,8 @@ void AnalyzeCSV::populate_grant_tree()
     std::shared_ptr<CSVData<GrantDTO>> _data = gdatanew;
     QString st_string = ui->start_date1_2->itemText(ui->start_date1_2->currentIndex());
     QString en_string = ui->end_date1_2->itemText(ui->end_date1_2->currentIndex());
-    long s = stol(st_string.toStdString()); // start date
-    long e = stol(en_string.toStdString()); // end date
+    int s = stoi(st_string.toStdString()); // start date
+    int e = stoi(en_string.toStdString()); // end date
 
     // Ensure the retrieved years are in the accepted range
     if (e <= s)
@@ -549,7 +529,21 @@ void AnalyzeCSV::populate_grant_tree()
     }
     else
     {
-        Ui::AnalyzeCSV * tmpUI = get_ui_ptr();
+        TreeList_VO<GrantDTO> treelistvo(_data, s, e);
+
+        //Failed to make vo due to empty data range for that year
+        if(treelistvo.root.children.size() == 0) return;
+
+        ui->present_tree_2->clear();
+        treelistvo.makeQTree(ui->present_tree_2);
+        ui->present_tree_2->setColumnCount(treelistvo.nCol);
+        ui->present_tree_2->setColumnWidth(0, 275);
+        ui->present_tree_2->setHeaderLabels(QStringList() << "Type" << "Total");
+
+
+        ui->pub_tree->expandItem(ui->present_tree_2->topLevelItem(0));
+
+        /*Ui::AnalyzeCSV * tmpUI = get_ui_ptr();
 
         // Create 2 new tree lists from the selected interval (1 for grants and 1 for clinical trials)
         tree_list_vo *g_treeNew = new tree_list_vo(_data);                    //grant tree
