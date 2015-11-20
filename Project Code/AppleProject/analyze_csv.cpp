@@ -496,7 +496,7 @@ void AnalyzeCSV::populate_publication_tree()
         TreeList_VO<PublicationDTO> treelistvo(_data, s, e);
 
         //Failed to make vo due to empty data range for that year
-        if(treelistvo.root.children.size() == 0) return;
+        if(treelistvo.isEmpty()) return;
 
         ui->pub_tree->clear();
         treelistvo.makeQTree(ui->pub_tree);
@@ -532,114 +532,16 @@ void AnalyzeCSV::populate_grant_tree()
         TreeList_VO<GrantDTO> treelistvo(_data, s, e);
 
         //Failed to make vo due to empty data range for that year
-        if(treelistvo.root.children.size() == 0) return;
+        if(treelistvo.isEmpty()) return;
 
         ui->present_tree_2->clear();
         treelistvo.makeQTree(ui->present_tree_2);
         ui->present_tree_2->setColumnCount(treelistvo.nCol);
         ui->present_tree_2->setColumnWidth(0, 275);
-        ui->present_tree_2->setHeaderLabels(QStringList() << "Type" << "Total");
+        ui->present_tree_2->setHeaderLabels(QStringList() << "Type" << "Total#" << "Total$");
 
 
         ui->pub_tree->expandItem(ui->present_tree_2->topLevelItem(0));
-
-        /*Ui::AnalyzeCSV * tmpUI = get_ui_ptr();
-
-        // Create 2 new tree lists from the selected interval (1 for grants and 1 for clinical trials)
-        tree_list_vo *g_treeNew = new tree_list_vo(_data);                    //grant tree
-        tree_list_vo *c_treeNew = new tree_list_vo(_data);                    //clinical tree
-
-        // Populate the VOs, still needs the new params
-        g_treeNew->populate_for_grants(_data, (int)s,(int)e, "Grants");           //create tree_list_vo object for Grants
-        c_treeNew->populate_for_grants(_data, (int)s,(int)e, "Clinical Trials");    //create tree_list_vo object for Clinical Funding
-        tmpUI->present_tree_2->clear(); // all present_tree_2's should be changed to grant_tree
-
-        tmpUI->present_tree_2->setColumnCount(3);           //FIELD, TOTAL#, TOTAL$
-        tmpUI->present_tree_2->setColumnWidth(0, 175);
-        tmpUI->present_tree_2->setHeaderLabels(QStringList() << "Funding" << "Total #" << "Total $");
-
-        int grant_num = 0;      //counts the number of grants
-        int grant_value = 0;    // counts the total $
-
-        // root 1: grant
-        QTreeWidgetItem *grant_root = new QTreeWidgetItem(tmpUI->present_tree_2, QStringList() << "Grants" << QString::fromStdString(std::to_string(_data->dtos->size())));
-        // root 2: clinical trials
-        QTreeWidgetItem *clinical_root = new QTreeWidgetItem(tmpUI->present_tree_2, QStringList() << "Clinical Trials" << QString::fromStdString(std::to_string(_data->dtos->size())));
-
-
-        ///////// GRANT //////////
-        for (int i = 0; i < g_treeNew->get_parent_set().size(); i ++)
-        {
-            //cout << i << endl;
-            QTreeWidgetItem * child = new QTreeWidgetItem(grant_root, QStringList() << QString::fromStdString(g_treeNew->get_parent_set().at(i).label)
-                                                          <<QString::fromStdString(std::to_string((int)g_treeNew->get_parent_set().at(i).num))
-                                                          <<QString::fromStdString(std::to_string((int)g_treeNew->get_parent_set().at(i).value)));
-
-            vector<string_data_object> tmp = g_treeNew->get_child_set().at(i);
-            for (int j = 0; j < tmp.size(); j++)
-            {
-                new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
-                                    <<QString::fromStdString(std::to_string((int)tmp.at(j).num))
-                                    <<QString::fromStdString(std::to_string((int)tmp.at(j).value)));
-                grant_num += tmp.at(j).num;
-                grant_value += tmp.at(j).value;
-            }
-        }
-        // expand publications grant_root by default
-        tmpUI->present_tree_2->expandItem(grant_root);
-        /// LIST TREE VIEW ///
-        grant_root->setText(1,QString::fromStdString(std::to_string(grant_num)));    // updates text
-        grant_root->setText(2,QString::fromStdString(std::to_string(grant_value)));
-
-        // Reset counters
-        grant_num = 0;
-        grant_value = 0;
-
-        //////////// CLINICAL TRIALS //////////////
-        for (int i = 0; i < c_treeNew->get_parent_set().size(); i ++)
-        {
-            // cout << i << endl;
-            QTreeWidgetItem * child = new QTreeWidgetItem(clinical_root, QStringList() << QString::fromStdString(c_treeNew->get_parent_set().at(i).label)
-                                                          <<QString::fromStdString(std::to_string((int)c_treeNew->get_parent_set().at(i).num))
-                                                          <<QString::fromStdString(std::to_string((int)c_treeNew->get_parent_set().at(i).value)));
-
-            vector<string_data_object> tmp = c_treeNew->get_child_set().at(i);
-            for (int j = 0; j < tmp.size(); j++)
-            {
-                new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
-                                    <<QString::fromStdString(std::to_string((int)tmp.at(j).num))
-                                    <<QString::fromStdString(std::to_string((int)tmp.at(j).value)));
-                grant_num += tmp.at(j).num;
-                grant_value += tmp.at(j).value;
-
-            }
-        }
-        // expand publications clinical_root by default
-        tmpUI->present_tree_2->expandItem(clinical_root);
-        /// LIST TREE VIEW ///
-        clinical_root->setText(1,QString::fromStdString(std::to_string(grant_num)));    // updates text
-        clinical_root->setText(2,QString::fromStdString(std::to_string(grant_value)));
-
-        /*
-        // Create a new graphics scene
-        scene = new QGraphicsScene(this);   // Added for graphics window
-        Grant_BarGraph1_VO* g = new Grant_BarGraph1_VO(_data, s, e);        // BUG IS BREAKING THIS HERE
-        cout << "exit constructor" << endl;
-        cout << g->grantTypes.size() << endl;
-        cout << g->values.size() << endl;
-
-        QCustomPlot *plot = new QCustomPlot();
-        cout << "pass 4" << endl;
-        plot->setGeometry(0,0,345,375);   // added to resize graph
-        cout << "pass 5" << endl;
-        // Graph handling functions go here
-        Graphvisualizations *graph_handlerNew = new Graphvisualizations();
-        graph_handlerNew->plot_pub_vs_type(plot, g);
-
-        scene->addWidget(plot);   // Add plot to the window & Essential
-
-        ui->graph_area->setScene(scene);    // Added for grpahics & Essential
-        */
     }
 }
 

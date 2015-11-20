@@ -29,6 +29,7 @@ public:
     TreeList_VO(std::shared_ptr<CSVData<DTOType>> data,
                                int start, int end, int type = 1);
     bool makeQTree(QTreeWidget *tree);
+    bool isEmpty();
 };
 
 //Build the tree list VO
@@ -106,7 +107,7 @@ void TreeList_VO<DTOType>::makeQTreeNode(QType *parent, TreeList_Node node){
     //Add the values to the tree
     value_list << QString::fromStdString(node.label);
     for(size_t i = 0; i < node.values.size(); i++)
-       value_list << QString::fromStdString(std::to_string((int)node.values.at(i)));
+       value_list << QString::fromStdString(std::to_string((unsigned long long)node.values.at(i)));
 
     QTreeWidgetItem *child = new QTreeWidgetItem(parent, value_list);
 
@@ -127,7 +128,10 @@ bool TreeList_VO<DTOType>::makeQTree(QTreeWidget *tree){
     return true;
 }
 
-
+template <class DTOType>
+bool TreeList_VO<DTOType>::isEmpty(){
+    return (root.children.size() == 0);
+}
 
 #endif // TREELIST_VO_H
 
