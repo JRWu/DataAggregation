@@ -93,8 +93,10 @@ void Graphvisualizations::plot_bargraph(QCustomPlot* customPlot, std::shared_ptr
     customPlot->xAxis->setTickStep(3);
     customPlot->xAxis->setLabel("Year");
 
+    int ytick = 1;
+    for(;ytick*10 < (vo->maxY);ytick*=10);
     customPlot->yAxis->setAutoTickStep(false);  // force integer for Y only (be wary of doing this with grants)
-    customPlot->yAxis->setTickStep(1);  // force integer for Y only (be wary of doing this with grants)
+    customPlot->yAxis->setTickStep(ytick);  // force integer for Y only (be wary of doing this with grants)
     customPlot ->yAxis->setRange(0,vo->maxY + 1);
     customPlot->yAxis->setLabel("Publications");
 }
