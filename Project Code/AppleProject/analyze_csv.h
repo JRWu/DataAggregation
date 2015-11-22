@@ -25,6 +25,7 @@
 #include "bargraph_vo.h"
 #include "graph_combo_box_populator.h"
 #include "treelist_vo.h"
+#include "date_filter_combo_populator.h"
 
 
 class tree_list_vo;     //forward pointer
@@ -47,23 +48,17 @@ public:
 //    void GenerateTreeView()
 
 private slots:
+    Ui::AnalyzeCSV* get_ui_ptr();
     void on_load_btn_clicked();
     void on_verify_btn_clicked();
-    Ui::AnalyzeCSV* get_ui_ptr();
-    void on_filter_btn_clicked();
-    void on_filter_btn_2_clicked();
-
-    void on_filter_btn_presentation_clicked();
-
-    void on_filter_btn_teaching_clicked();
-
-    void on_filter_btn_pub_clicked();
-
-    void on_filter_btn_grnt_clicked();
 
     void on_filter_btn_pres_clicked();
 
     void on_filter_btn_teach_clicked();
+
+    void on_filter_btn_pub_clicked();
+
+    void on_filter_btn_grnt_clicked();
 
 private:
     Ui::AnalyzeCSV *ui;
@@ -74,32 +69,19 @@ private:
     tree_list_vo* p_tree;
     tree_list_vo* teach_tree;
 
-    // Shared pointers for VO generation
-    std::shared_ptr<CSVData<PublicationDTO>> data;
-    std::shared_ptr<CSVData<GrantDTO>> gdata;
-    std::shared_ptr<CSVData<TeachingDTO>> tdata;
-    std::shared_ptr<CSVData<PresentationDTO>> pr_data; //data for presentation
+    void populate_publication_tree(std::shared_ptr<CSVData<PublicationDTO>> data);
+    void populate_grant_tree(std::shared_ptr<CSVData<GrantDTO>> data);
+    void populate_teaching_tree(std::shared_ptr<CSVData<TeachingDTO>> data);
+    void populate_presentation_tree(std::shared_ptr<CSVData<PresentationDTO>> data);
 
-    void populate_publication_tree();
-    void populate_grant_tree();
-    void populate_teaching_tree();
-    void populate_presentation_tree();
-
-    void populate_teaching_bargraph();
-    void populate_grant_bargraph();
-    void populate_publication_bargraph();
-    void populate_presentation_bargraph();
+    void populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDTO>> data);
+    void populate_grant_bargraph(std::shared_ptr<CSVData<GrantDTO>> data);
+    void populate_publication_bargraph(std::shared_ptr<CSVData<PublicationDTO>> data);
+    void populate_presentation_bargraph(std::shared_ptr<CSVData<PresentationDTO>> data);
 
     void AddRoot(QString field, QString total);
     QTreeWidgetItem* AddChild(QTreeWidgetItem *parent, QString field, QString total);
     QTreeWidgetItem* AddGrandChild(QTreeWidgetItem *parent, QString field, QString total);
-
-    QStringList PopulateDateCombos(std::shared_ptr<CSVData<PublicationDTO>> data);
-    QStringList PopulateDateCombos(std::shared_ptr<CSVData<TeachingDTO> > data); // Needs to be implemented
-    QStringList PopulateDateCombos(std::shared_ptr<CSVData<GrantDTO>> gdata);          // Needs to be implemented
-    QStringList PopulateDateCombos(std::shared_ptr<CSVData<PresentationDTO>> data);
-    QStringList PopulateStartDateCombos(std::shared_ptr<CSVData<TeachingDTO>> tdata);     // Needs to be implemented
-    QStringList PopulateEndDateCombos(std::shared_ptr<CSVData<TeachingDTO>> tdata);     // Needs to be implemented
 
 };
 

@@ -53,7 +53,7 @@
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="pub_tab">
        <property name="palette">
@@ -132,7 +132,7 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout">
             <item>
-             <widget class="QLabel" name="date_filter_lbl">
+             <widget class="QLabel" name="date_filter_lbl_pub">
               <property name="minimumSize">
                <size>
                 <width>75</width>
@@ -188,10 +188,10 @@
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="start_date_publications"/>
+             <widget class="QComboBox" name="start_date_combo_pub"/>
             </item>
             <item>
-             <widget class="QComboBox" name="end_date_publications">
+             <widget class="QComboBox" name="end_date_combo_pub">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -201,7 +201,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="filter_btn">
+             <widget class="QPushButton" name="filter_btn_pub">
               <property name="minimumSize">
                <size>
                 <width>75</width>
@@ -225,7 +225,7 @@
            </layout>
           </item>
           <item>
-           <widget class="QLabel" name="domain_lbl1">
+           <widget class="QLabel" name="domain_lbl_pub">
             <property name="palette">
              <palette>
               <active>
@@ -272,7 +272,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QTreeWidget" name="pub_tree">
+           <widget class="QTreeWidget" name="tree_list_pub">
             <column>
              <property name="text">
               <string notr="true">1</string>
@@ -471,7 +471,7 @@
            </layout>
           </item>
           <item>
-           <widget class="QGraphicsView" name="graph_area">
+           <widget class="QGraphicsView" name="graph_area_pub">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -558,7 +558,7 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_10">
             <item>
-             <widget class="QLabel" name="date_filter_lbl3_2">
+             <widget class="QLabel" name="date_filter_lbl_grnt">
               <property name="minimumSize">
                <size>
                 <width>75</width>
@@ -614,10 +614,10 @@
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="start_date1_2"/>
+             <widget class="QComboBox" name="start_date_combo_grnt"/>
             </item>
             <item>
-             <widget class="QComboBox" name="end_date1_2">
+             <widget class="QComboBox" name="end_date_combo_grnt">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -627,7 +627,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="filter_btn_2">
+             <widget class="QPushButton" name="filter_btn_grnt">
               <property name="minimumSize">
                <size>
                 <width>75</width>
@@ -651,7 +651,7 @@
            </layout>
           </item>
           <item>
-           <widget class="QLabel" name="domain_lbl3_2">
+           <widget class="QLabel" name="domain_lbl_grnt">
             <property name="palette">
              <palette>
               <active>
@@ -698,7 +698,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QTreeWidget" name="present_tree_2">
+           <widget class="QTreeWidget" name="tree_list_grnt">
             <column>
              <property name="text">
               <string notr="true">1</string>
@@ -894,7 +894,7 @@
            </layout>
           </item>
           <item>
-           <widget class="QGraphicsView" name="graph_area_9">
+           <widget class="QGraphicsView" name="graph_area_grnt">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -981,7 +981,7 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_8">
             <item>
-             <widget class="QLabel" name="date_filter_lbl_presentation">
+             <widget class="QLabel" name="date_filter_lbl_pres">
               <property name="minimumSize">
                <size>
                 <width>75</width>
@@ -1037,10 +1037,10 @@
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="start_date_presentation"/>
+             <widget class="QComboBox" name="start_date_combo_pres"/>
             </item>
             <item>
-             <widget class="QComboBox" name="end_date_presentation">
+             <widget class="QComboBox" name="end_date_combo_pres">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -1050,7 +1050,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="filter_btn_presentation">
+             <widget class="QPushButton" name="filter_btn_pres">
               <property name="minimumSize">
                <size>
                 <width>75</width>
@@ -1074,7 +1074,7 @@
            </layout>
           </item>
           <item>
-           <widget class="QLabel" name="domain_lbl_presentation">
+           <widget class="QLabel" name="domain_lbl_pres">
             <property name="palette">
              <palette>
               <active>
@@ -1121,7 +1121,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QTreeWidget" name="present_tree">
+           <widget class="QTreeWidget" name="tree_list_pres">
             <column>
              <property name="text">
               <string notr="true">1</string>
@@ -1305,7 +1305,7 @@
            </layout>
           </item>
           <item>
-           <widget class="QGraphicsView" name="graph_area_7">
+           <widget class="QGraphicsView" name="graph_area_pres">
             <property name="enabled">
              <bool>true</bool>
             </property>
@@ -1411,10 +1411,10 @@
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="start_date_teach"/>
+             <widget class="QComboBox" name="start_date_combo_teach"/>
             </item>
             <item>
-             <widget class="QComboBox" name="end_date_teach">
+             <widget class="QComboBox" name="end_date_combo_teach">
               <property name="minimumSize">
                <size>
                 <width>0</width>
@@ -1424,7 +1424,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="filter_btn_teaching">
+             <widget class="QPushButton" name="filter_btn_teach">
               <property name="minimumSize">
                <size>
                 <width>75</width>
@@ -1458,7 +1458,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QTreeWidget" name="teach_tree">
+           <widget class="QTreeWidget" name="tree_list_teach">
             <column>
              <property name="text">
               <string notr="true">1</string>

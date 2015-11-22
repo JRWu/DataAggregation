@@ -69,7 +69,7 @@ QStandardItemModel* VerifyCSV::PublicationTableModel()
             // Define a model with the number of rows as error lines, and columns as mandatory columns
             QStandardItemModel *model = new QStandardItemModel(data_pub->errorRows->size(),data_pub->nMan,NULL);
 
-            for (i = 0; i < data_pub->nMan;i++)
+            for (i = 0; i < data_pub->nMan; i++)
             {
              model->setHorizontalHeaderItem(i, new QStandardItem(QString::fromStdString(data_pub->header->at(i))));
             }

@@ -34,7 +34,8 @@ SOURCES += main.cpp\
     teachingdto.cpp \
     graph_combo_box_populator.cpp \
     grant_bargraph1_vo.cpp \
-    load_csv.cpp
+    load_csv.cpp \
+    date_filter_combo_populator.cpp
 
 
 HEADERS  += mainwindow.h \
@@ -57,7 +58,8 @@ HEADERS  += mainwindow.h \
     bargraph_vo.h \
     graph_combo_box_populator.h \
     treelist_vo.h \
-    load_csv.h
+    load_csv.h \
+    date_filter_combo_populator.h
 
 FORMS    += mainwindow.ui \
     verify_csv.ui \
