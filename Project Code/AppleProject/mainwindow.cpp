@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
 }
 
 MainWindow::~MainWindow()
@@ -14,10 +15,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_login_btn_clicked()
+
+void MainWindow::on_open_program_clicked()
 {
-    // open the load page inside the existing window
     load_csv_page = new LoadCSV();
     this->setCentralWidget(load_csv_page);
 }
-

@@ -16,6 +16,17 @@ class LoadCSV : public QMainWindow
 public:
     explicit LoadCSV(QWidget *parent = 0);
     ~LoadCSV();
+
+private:
+    Ui::LoadCSV *ui;
+    VerifyCSV *verify_csv_page;
+    AnalyzeCSV *analyze_csv_page;
+    QString filename;
+    QStringListModel *recentFilesModel;
+    QStringList recentFilesList;
+    int csvType;
+
+protected:
     void addRecentFile(QString file);
 
 private slots:
@@ -32,15 +43,6 @@ private slots:
     void on_teaching_btn_clicked();
 
     void on_loadRecentFile_btn_clicked();
-
-private:
-    Ui::LoadCSV *ui;
-    VerifyCSV *verify_csv_page;
-    AnalyzeCSV *analyze_csv_page;
-    QString filename;
-    QStringListModel *recentFilesModel;
-    QStringList recentFilesList;
-    int csvType;
 };
 
 #endif // LOAD_CSV_H

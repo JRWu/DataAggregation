@@ -18,7 +18,6 @@ CONFIG += static
 
 SOURCES += main.cpp\
     mainwindow.cpp \
-    load_csv.cpp \
     verify_csv.cpp \
     analyze_csv.cpp \
     publicationdto.cpp \
@@ -34,11 +33,11 @@ SOURCES += main.cpp\
     presentationdto.cpp \
     teachingdto.cpp \
     graph_combo_box_populator.cpp \
-    grant_bargraph1_vo.cpp
+    grant_bargraph1_vo.cpp \
+    load_csv.cpp
 
 
 HEADERS  += mainwindow.h \
-    load_csv.h \
     verify_csv.h \
     analyze_csv.h \
     publicationdto.h \
@@ -57,16 +56,18 @@ HEADERS  += mainwindow.h \
     teachingdto.h \
     bargraph_vo.h \
     graph_combo_box_populator.h \
-    treelist_vo.h
+    treelist_vo.h \
+    load_csv.h
 
 FORMS    += mainwindow.ui \
-    load_csv.ui \
     verify_csv.ui \
-    analyze_csv.ui
+    analyze_csv.ui \
+    load_csv.ui
 
 DISTFILES += \
     AppleProject.pro.user \
     publication.csv \
     Grants.csv \
     Presentations.csv \
-    Teaching.csv
+    Teaching.csv \
+    apple.jpg

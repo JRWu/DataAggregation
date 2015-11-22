@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <windows.h>
 #include "load_csv.h"
 
 namespace Ui {
@@ -17,7 +18,7 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_login_btn_clicked();
+    void on_open_program_clicked();
 
 private:
     Ui::MainWindow *ui;
