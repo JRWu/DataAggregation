@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -28,22 +29,20 @@ class Ui_VerifyCSV
 {
 public:
     QWidget *centralwidget;
-    QWidget *horizontalLayoutWidget;
+    QGridLayout *gridLayout;
     QHBoxLayout *navigation_area;
     QPushButton *load_btn;
     QPushButton *verify_btn;
     QPushButton *analyze_btn;
-    QWidget *horizontalLayoutWidget_3;
+    QVBoxLayout *table_area;
+    QLabel *instruction_label;
+    QTableView *error_table;
     QHBoxLayout *horizontalLayout;
     QLabel *file_name_label;
     QLabel *file_name;
     QPushButton *ignoreall_btn;
     QPushButton *ignore_btn;
     QPushButton *confirm_btn;
-    QWidget *verticalLayoutWidget;
-    QVBoxLayout *table_area;
-    QLabel *instruction_label;
-    QTableView *error_table;
 
     void setupUi(QMainWindow *VerifyCSV)
     {
@@ -112,14 +111,12 @@ public:
         centralwidget = new QWidget(VerifyCSV);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         centralwidget->setMinimumSize(QSize(800, 600));
-        horizontalLayoutWidget = new QWidget(centralwidget);
-        horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(10, 10, 781, 52));
-        navigation_area = new QHBoxLayout(horizontalLayoutWidget);
+        gridLayout = new QGridLayout(centralwidget);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        navigation_area = new QHBoxLayout();
         navigation_area->setObjectName(QStringLiteral("navigation_area"));
         navigation_area->setSizeConstraint(QLayout::SetDefaultConstraint);
-        navigation_area->setContentsMargins(0, 0, 0, 0);
-        load_btn = new QPushButton(horizontalLayoutWidget);
+        load_btn = new QPushButton(centralwidget);
         load_btn->setObjectName(QStringLiteral("load_btn"));
         load_btn->setMaximumSize(QSize(16777215, 50));
         QPalette palette1;
@@ -141,7 +138,7 @@ public:
 
         navigation_area->addWidget(load_btn);
 
-        verify_btn = new QPushButton(horizontalLayoutWidget);
+        verify_btn = new QPushButton(centralwidget);
         verify_btn->setObjectName(QStringLiteral("verify_btn"));
         verify_btn->setMaximumSize(QSize(16777215, 50));
         QPalette palette2;
@@ -156,7 +153,7 @@ public:
 
         navigation_area->addWidget(verify_btn);
 
-        analyze_btn = new QPushButton(horizontalLayoutWidget);
+        analyze_btn = new QPushButton(centralwidget);
         analyze_btn->setObjectName(QStringLiteral("analyze_btn"));
         analyze_btn->setMaximumSize(QSize(16777215, 50));
         QPalette palette3;
@@ -171,79 +168,80 @@ public:
 
         navigation_area->addWidget(analyze_btn);
 
-        horizontalLayoutWidget_3 = new QWidget(centralwidget);
-        horizontalLayoutWidget_3->setObjectName(QStringLiteral("horizontalLayoutWidget_3"));
-        horizontalLayoutWidget_3->setGeometry(QRect(10, 540, 781, 51));
-        horizontalLayout = new QHBoxLayout(horizontalLayoutWidget_3);
+
+        gridLayout->addLayout(navigation_area, 0, 0, 1, 1);
+
+        table_area = new QVBoxLayout();
+        table_area->setObjectName(QStringLiteral("table_area"));
+        instruction_label = new QLabel(centralwidget);
+        instruction_label->setObjectName(QStringLiteral("instruction_label"));
+        QFont font1;
+        font1.setFamily(QStringLiteral("Arial Black"));
+        font1.setBold(true);
+        font1.setWeight(75);
+        instruction_label->setFont(font1);
+        instruction_label->setAlignment(Qt::AlignCenter);
+
+        table_area->addWidget(instruction_label);
+
+        error_table = new QTableView(centralwidget);
+        error_table->setObjectName(QStringLiteral("error_table"));
+        error_table->setAlternatingRowColors(false);
+        error_table->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+        table_area->addWidget(error_table);
+
+
+        gridLayout->addLayout(table_area, 1, 0, 1, 1);
+
+        horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        horizontalLayout->setContentsMargins(0, 0, 0, 0);
-        file_name_label = new QLabel(horizontalLayoutWidget_3);
+        file_name_label = new QLabel(centralwidget);
         file_name_label->setObjectName(QStringLiteral("file_name_label"));
         file_name_label->setMinimumSize(QSize(90, 40));
         file_name_label->setMaximumSize(QSize(90, 40));
-        QFont font1;
-        font1.setFamily(QStringLiteral("Arial Black"));
-        font1.setPointSize(10);
-        font1.setBold(true);
-        font1.setWeight(75);
-        file_name_label->setFont(font1);
+        QFont font2;
+        font2.setFamily(QStringLiteral("Arial Black"));
+        font2.setPointSize(10);
+        font2.setBold(true);
+        font2.setWeight(75);
+        file_name_label->setFont(font2);
 
         horizontalLayout->addWidget(file_name_label);
 
-        file_name = new QLabel(horizontalLayoutWidget_3);
+        file_name = new QLabel(centralwidget);
         file_name->setObjectName(QStringLiteral("file_name"));
         file_name->setMinimumSize(QSize(0, 40));
         file_name->setMaximumSize(QSize(16777215, 40));
 
         horizontalLayout->addWidget(file_name);
 
-        ignoreall_btn = new QPushButton(horizontalLayoutWidget_3);
+        ignoreall_btn = new QPushButton(centralwidget);
         ignoreall_btn->setObjectName(QStringLiteral("ignoreall_btn"));
         ignoreall_btn->setMinimumSize(QSize(100, 40));
         ignoreall_btn->setMaximumSize(QSize(100, 40));
-        ignoreall_btn->setFont(font1);
+        ignoreall_btn->setFont(font2);
 
-        horizontalLayout->addWidget(ignoreall_btn, 0, Qt::AlignVCenter);
+        horizontalLayout->addWidget(ignoreall_btn);
 
-        ignore_btn = new QPushButton(horizontalLayoutWidget_3);
+        ignore_btn = new QPushButton(centralwidget);
         ignore_btn->setObjectName(QStringLiteral("ignore_btn"));
         ignore_btn->setMinimumSize(QSize(100, 40));
         ignore_btn->setMaximumSize(QSize(100, 40));
-        ignore_btn->setFont(font1);
+        ignore_btn->setFont(font2);
 
-        horizontalLayout->addWidget(ignore_btn, 0, Qt::AlignVCenter);
+        horizontalLayout->addWidget(ignore_btn);
 
-        confirm_btn = new QPushButton(horizontalLayoutWidget_3);
+        confirm_btn = new QPushButton(centralwidget);
         confirm_btn->setObjectName(QStringLiteral("confirm_btn"));
         confirm_btn->setMinimumSize(QSize(150, 40));
         confirm_btn->setMaximumSize(QSize(150, 40));
-        confirm_btn->setFont(font1);
+        confirm_btn->setFont(font2);
 
-        horizontalLayout->addWidget(confirm_btn, 0, Qt::AlignVCenter);
+        horizontalLayout->addWidget(confirm_btn);
 
-        verticalLayoutWidget = new QWidget(centralwidget);
-        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(10, 70, 781, 461));
-        table_area = new QVBoxLayout(verticalLayoutWidget);
-        table_area->setObjectName(QStringLiteral("table_area"));
-        table_area->setContentsMargins(0, 0, 0, 0);
-        instruction_label = new QLabel(verticalLayoutWidget);
-        instruction_label->setObjectName(QStringLiteral("instruction_label"));
-        QFont font2;
-        font2.setFamily(QStringLiteral("Arial Black"));
-        font2.setBold(true);
-        font2.setWeight(75);
-        instruction_label->setFont(font2);
-        instruction_label->setAlignment(Qt::AlignCenter);
 
-        table_area->addWidget(instruction_label, 0, Qt::AlignHCenter);
-
-        error_table = new QTableView(verticalLayoutWidget);
-        error_table->setObjectName(QStringLiteral("error_table"));
-        error_table->setAlternatingRowColors(false);
-        error_table->setSelectionBehavior(QAbstractItemView::SelectRows);
-
-        table_area->addWidget(error_table);
+        gridLayout->addLayout(horizontalLayout, 2, 0, 1, 1);
 
         VerifyCSV->setCentralWidget(centralwidget);
 
@@ -258,12 +256,12 @@ public:
         load_btn->setText(QApplication::translate("VerifyCSV", "LOAD >", 0));
         verify_btn->setText(QApplication::translate("VerifyCSV", "VERIFY >", 0));
         analyze_btn->setText(QApplication::translate("VerifyCSV", "ANALYZE >", 0));
+        instruction_label->setText(QApplication::translate("VerifyCSV", "<html><head/><body><p><span style=\" font-weight:600;\">CSV file errors must either be corrected or ignored before proceeding to the 'Analyze' page</span></p></body></html>", 0));
         file_name_label->setText(QApplication::translate("VerifyCSV", "FILE NAME: ", 0));
         file_name->setText(QString());
         ignoreall_btn->setText(QApplication::translate("VerifyCSV", "IGNORE ALL", 0));
         ignore_btn->setText(QApplication::translate("VerifyCSV", "IGNORE", 0));
         confirm_btn->setText(QApplication::translate("VerifyCSV", "CONFIRM CHANGES", 0));
-        instruction_label->setText(QApplication::translate("VerifyCSV", "<html><head/><body><p><span style=\" font-weight:600;\">CSV file errors must either be corrected or ignored before proceeding to the 'Analyze' page</span></p></body></html>", 0));
     } // retranslateUi
 
 };
