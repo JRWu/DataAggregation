@@ -35,8 +35,7 @@ public:
     QGridLayout *gridLayout;
     QTabWidget *tabWidget;
     QWidget *pub_tab;
-    QWidget *horizontalLayoutWidget_2;
-    QHBoxLayout *tab_area;
+    QGridLayout *gridLayout_3;
     QVBoxLayout *verticalLayout_2;
     QHBoxLayout *horizontalLayout;
     QLabel *date_filter_lbl;
@@ -55,8 +54,7 @@ public:
     QComboBox *type_combo_pub;
     QGraphicsView *graph_area;
     QWidget *grant_tab;
-    QWidget *horizontalLayoutWidget_6;
-    QHBoxLayout *tab_area_6;
+    QGridLayout *gridLayout_4;
     QVBoxLayout *verticalLayout_11;
     QHBoxLayout *horizontalLayout_10;
     QLabel *date_filter_lbl3_2;
@@ -94,8 +92,7 @@ public:
     QComboBox *type_combo_pres;
     QGraphicsView *graph_area_7;
     QWidget *teach_tab;
-    QWidget *horizontalLayoutWidget_5;
-    QHBoxLayout *tab_area_4;
+    QGridLayout *gridLayout_5;
     QVBoxLayout *verticalLayout_10;
     QHBoxLayout *horizontalLayout_9;
     QLabel *date_filter_lbl_teach;
@@ -153,17 +150,13 @@ public:
         palette.setBrush(QPalette::Disabled, QPalette::Window, brush1);
         pub_tab->setPalette(palette);
         pub_tab->setAutoFillBackground(true);
-        horizontalLayoutWidget_2 = new QWidget(pub_tab);
-        horizontalLayoutWidget_2->setObjectName(QStringLiteral("horizontalLayoutWidget_2"));
-        horizontalLayoutWidget_2->setGeometry(QRect(10, 10, 741, 501));
-        tab_area = new QHBoxLayout(horizontalLayoutWidget_2);
-        tab_area->setObjectName(QStringLiteral("tab_area"));
-        tab_area->setContentsMargins(0, 0, 0, 0);
+        gridLayout_3 = new QGridLayout(pub_tab);
+        gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        date_filter_lbl = new QLabel(horizontalLayoutWidget_2);
+        date_filter_lbl = new QLabel(pub_tab);
         date_filter_lbl->setObjectName(QStringLiteral("date_filter_lbl"));
         date_filter_lbl->setMinimumSize(QSize(75, 0));
         date_filter_lbl->setMaximumSize(QSize(75, 16777215));
@@ -177,18 +170,18 @@ public:
 
         horizontalLayout->addWidget(date_filter_lbl);
 
-        start_date_publications = new QComboBox(horizontalLayoutWidget_2);
+        start_date_publications = new QComboBox(pub_tab);
         start_date_publications->setObjectName(QStringLiteral("start_date_publications"));
 
         horizontalLayout->addWidget(start_date_publications);
 
-        end_date_publications = new QComboBox(horizontalLayoutWidget_2);
+        end_date_publications = new QComboBox(pub_tab);
         end_date_publications->setObjectName(QStringLiteral("end_date_publications"));
         end_date_publications->setMinimumSize(QSize(0, 0));
 
         horizontalLayout->addWidget(end_date_publications);
 
-        filter_btn = new QPushButton(horizontalLayoutWidget_2);
+        filter_btn = new QPushButton(pub_tab);
         filter_btn->setObjectName(QStringLiteral("filter_btn"));
         filter_btn->setMinimumSize(QSize(75, 0));
         filter_btn->setMaximumSize(QSize(75, 16777215));
@@ -199,7 +192,7 @@ public:
 
         verticalLayout_2->addLayout(horizontalLayout);
 
-        domain_lbl1 = new QLabel(horizontalLayoutWidget_2);
+        domain_lbl1 = new QLabel(pub_tab);
         domain_lbl1->setObjectName(QStringLiteral("domain_lbl1"));
         QPalette palette2;
         palette2.setBrush(QPalette::Active, QPalette::WindowText, brush);
@@ -210,7 +203,7 @@ public:
 
         verticalLayout_2->addWidget(domain_lbl1);
 
-        pub_tree = new QTreeWidget(horizontalLayoutWidget_2);
+        pub_tree = new QTreeWidget(pub_tab);
         QTreeWidgetItem *__qtreewidgetitem = new QTreeWidgetItem();
         __qtreewidgetitem->setText(0, QStringLiteral("1"));
         pub_tree->setHeaderItem(__qtreewidgetitem);
@@ -219,11 +212,11 @@ public:
         verticalLayout_2->addWidget(pub_tree);
 
 
-        tab_area->addLayout(verticalLayout_2);
+        gridLayout_3->addLayout(verticalLayout_2, 0, 0, 1, 1);
 
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        graph_lbl_pub = new QLabel(horizontalLayoutWidget_2);
+        graph_lbl_pub = new QLabel(pub_tab);
         graph_lbl_pub->setObjectName(QStringLiteral("graph_lbl_pub"));
         QPalette palette3;
         palette3.setBrush(QPalette::Active, QPalette::WindowText, brush);
@@ -236,7 +229,7 @@ public:
 
         horizontalLayout_14 = new QHBoxLayout();
         horizontalLayout_14->setObjectName(QStringLiteral("horizontalLayout_14"));
-        name_lbl_pub = new QLabel(horizontalLayoutWidget_2);
+        name_lbl_pub = new QLabel(pub_tab);
         name_lbl_pub->setObjectName(QStringLiteral("name_lbl_pub"));
         name_lbl_pub->setMaximumSize(QSize(100, 40));
         QPalette palette4;
@@ -247,7 +240,7 @@ public:
 
         horizontalLayout_14->addWidget(name_lbl_pub);
 
-        name_combo_pub = new QComboBox(horizontalLayoutWidget_2);
+        name_combo_pub = new QComboBox(pub_tab);
         name_combo_pub->setObjectName(QStringLiteral("name_combo_pub"));
         name_combo_pub->setMinimumSize(QSize(250, 0));
 
@@ -258,7 +251,7 @@ public:
 
         horizontalLayout_13 = new QHBoxLayout();
         horizontalLayout_13->setObjectName(QStringLiteral("horizontalLayout_13"));
-        type_lbl_pub = new QLabel(horizontalLayoutWidget_2);
+        type_lbl_pub = new QLabel(pub_tab);
         type_lbl_pub->setObjectName(QStringLiteral("type_lbl_pub"));
         type_lbl_pub->setMaximumSize(QSize(100, 40));
         QPalette palette5;
@@ -269,7 +262,7 @@ public:
 
         horizontalLayout_13->addWidget(type_lbl_pub);
 
-        type_combo_pub = new QComboBox(horizontalLayoutWidget_2);
+        type_combo_pub = new QComboBox(pub_tab);
         type_combo_pub->setObjectName(QStringLiteral("type_combo_pub"));
         type_combo_pub->setMinimumSize(QSize(250, 0));
         type_combo_pub->setMaximumSize(QSize(16777215, 16777215));
@@ -279,14 +272,14 @@ public:
 
         verticalLayout->addLayout(horizontalLayout_13);
 
-        graph_area = new QGraphicsView(horizontalLayoutWidget_2);
+        graph_area = new QGraphicsView(pub_tab);
         graph_area->setObjectName(QStringLiteral("graph_area"));
         graph_area->setEnabled(true);
 
         verticalLayout->addWidget(graph_area);
 
 
-        tab_area->addLayout(verticalLayout);
+        gridLayout_3->addLayout(verticalLayout, 0, 1, 1, 1);
 
         tabWidget->addTab(pub_tab, QString());
         grant_tab = new QWidget();
@@ -302,17 +295,13 @@ public:
         palette6.setBrush(QPalette::Disabled, QPalette::Window, brush3);
         grant_tab->setPalette(palette6);
         grant_tab->setAutoFillBackground(true);
-        horizontalLayoutWidget_6 = new QWidget(grant_tab);
-        horizontalLayoutWidget_6->setObjectName(QStringLiteral("horizontalLayoutWidget_6"));
-        horizontalLayoutWidget_6->setGeometry(QRect(10, 10, 741, 501));
-        tab_area_6 = new QHBoxLayout(horizontalLayoutWidget_6);
-        tab_area_6->setObjectName(QStringLiteral("tab_area_6"));
-        tab_area_6->setContentsMargins(0, 0, 0, 0);
+        gridLayout_4 = new QGridLayout(grant_tab);
+        gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
         verticalLayout_11 = new QVBoxLayout();
         verticalLayout_11->setObjectName(QStringLiteral("verticalLayout_11"));
         horizontalLayout_10 = new QHBoxLayout();
         horizontalLayout_10->setObjectName(QStringLiteral("horizontalLayout_10"));
-        date_filter_lbl3_2 = new QLabel(horizontalLayoutWidget_6);
+        date_filter_lbl3_2 = new QLabel(grant_tab);
         date_filter_lbl3_2->setObjectName(QStringLiteral("date_filter_lbl3_2"));
         date_filter_lbl3_2->setMinimumSize(QSize(75, 0));
         date_filter_lbl3_2->setMaximumSize(QSize(75, 16777215));
@@ -324,18 +313,18 @@ public:
 
         horizontalLayout_10->addWidget(date_filter_lbl3_2);
 
-        start_date1_2 = new QComboBox(horizontalLayoutWidget_6);
+        start_date1_2 = new QComboBox(grant_tab);
         start_date1_2->setObjectName(QStringLiteral("start_date1_2"));
 
         horizontalLayout_10->addWidget(start_date1_2);
 
-        end_date1_2 = new QComboBox(horizontalLayoutWidget_6);
+        end_date1_2 = new QComboBox(grant_tab);
         end_date1_2->setObjectName(QStringLiteral("end_date1_2"));
         end_date1_2->setMinimumSize(QSize(0, 0));
 
         horizontalLayout_10->addWidget(end_date1_2);
 
-        filter_btn_2 = new QPushButton(horizontalLayoutWidget_6);
+        filter_btn_2 = new QPushButton(grant_tab);
         filter_btn_2->setObjectName(QStringLiteral("filter_btn_2"));
         filter_btn_2->setMinimumSize(QSize(75, 0));
         filter_btn_2->setMaximumSize(QSize(75, 16777215));
@@ -346,7 +335,7 @@ public:
 
         verticalLayout_11->addLayout(horizontalLayout_10);
 
-        domain_lbl3_2 = new QLabel(horizontalLayoutWidget_6);
+        domain_lbl3_2 = new QLabel(grant_tab);
         domain_lbl3_2->setObjectName(QStringLiteral("domain_lbl3_2"));
         QPalette palette8;
         palette8.setBrush(QPalette::Active, QPalette::WindowText, brush);
@@ -357,7 +346,7 @@ public:
 
         verticalLayout_11->addWidget(domain_lbl3_2);
 
-        present_tree_2 = new QTreeWidget(horizontalLayoutWidget_6);
+        present_tree_2 = new QTreeWidget(grant_tab);
         QTreeWidgetItem *__qtreewidgetitem1 = new QTreeWidgetItem();
         __qtreewidgetitem1->setText(0, QStringLiteral("1"));
         present_tree_2->setHeaderItem(__qtreewidgetitem1);
@@ -366,11 +355,11 @@ public:
         verticalLayout_11->addWidget(present_tree_2);
 
 
-        tab_area_6->addLayout(verticalLayout_11);
+        gridLayout_4->addLayout(verticalLayout_11, 0, 0, 1, 1);
 
         verticalLayout_12 = new QVBoxLayout();
         verticalLayout_12->setObjectName(QStringLiteral("verticalLayout_12"));
-        graph_lbl_grnt = new QLabel(horizontalLayoutWidget_6);
+        graph_lbl_grnt = new QLabel(grant_tab);
         graph_lbl_grnt->setObjectName(QStringLiteral("graph_lbl_grnt"));
         QPalette palette9;
         palette9.setBrush(QPalette::Active, QPalette::WindowText, brush);
@@ -383,7 +372,7 @@ public:
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        name_lbl_grnt = new QLabel(horizontalLayoutWidget_6);
+        name_lbl_grnt = new QLabel(grant_tab);
         name_lbl_grnt->setObjectName(QStringLiteral("name_lbl_grnt"));
         name_lbl_grnt->setMaximumSize(QSize(100, 40));
         QPalette palette10;
@@ -394,7 +383,7 @@ public:
 
         horizontalLayout_2->addWidget(name_lbl_grnt);
 
-        name_combo_grnt = new QComboBox(horizontalLayoutWidget_6);
+        name_combo_grnt = new QComboBox(grant_tab);
         name_combo_grnt->setObjectName(QStringLiteral("name_combo_grnt"));
 
         horizontalLayout_2->addWidget(name_combo_grnt);
@@ -404,7 +393,7 @@ public:
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        type_lbl_grnt = new QLabel(horizontalLayoutWidget_6);
+        type_lbl_grnt = new QLabel(grant_tab);
         type_lbl_grnt->setObjectName(QStringLiteral("type_lbl_grnt"));
         type_lbl_grnt->setMaximumSize(QSize(100, 40));
         QPalette palette11;
@@ -415,7 +404,7 @@ public:
 
         horizontalLayout_3->addWidget(type_lbl_grnt);
 
-        type_combo_grnt = new QComboBox(horizontalLayoutWidget_6);
+        type_combo_grnt = new QComboBox(grant_tab);
         type_combo_grnt->setObjectName(QStringLiteral("type_combo_grnt"));
 
         horizontalLayout_3->addWidget(type_combo_grnt);
@@ -423,14 +412,14 @@ public:
 
         verticalLayout_12->addLayout(horizontalLayout_3);
 
-        graph_area_9 = new QGraphicsView(horizontalLayoutWidget_6);
+        graph_area_9 = new QGraphicsView(grant_tab);
         graph_area_9->setObjectName(QStringLiteral("graph_area_9"));
         graph_area_9->setEnabled(true);
 
         verticalLayout_12->addWidget(graph_area_9);
 
 
-        tab_area_6->addLayout(verticalLayout_12);
+        gridLayout_4->addLayout(verticalLayout_12, 0, 1, 1, 1);
 
         tabWidget->addTab(grant_tab, QString());
         present_tab = new QWidget();
@@ -586,35 +575,31 @@ public:
         palette18.setBrush(QPalette::Disabled, QPalette::Window, brush5);
         teach_tab->setPalette(palette18);
         teach_tab->setAutoFillBackground(true);
-        horizontalLayoutWidget_5 = new QWidget(teach_tab);
-        horizontalLayoutWidget_5->setObjectName(QStringLiteral("horizontalLayoutWidget_5"));
-        horizontalLayoutWidget_5->setGeometry(QRect(10, 10, 741, 501));
-        tab_area_4 = new QHBoxLayout(horizontalLayoutWidget_5);
-        tab_area_4->setObjectName(QStringLiteral("tab_area_4"));
-        tab_area_4->setContentsMargins(0, 0, 0, 0);
+        gridLayout_5 = new QGridLayout(teach_tab);
+        gridLayout_5->setObjectName(QStringLiteral("gridLayout_5"));
         verticalLayout_10 = new QVBoxLayout();
         verticalLayout_10->setObjectName(QStringLiteral("verticalLayout_10"));
         horizontalLayout_9 = new QHBoxLayout();
         horizontalLayout_9->setObjectName(QStringLiteral("horizontalLayout_9"));
-        date_filter_lbl_teach = new QLabel(horizontalLayoutWidget_5);
+        date_filter_lbl_teach = new QLabel(teach_tab);
         date_filter_lbl_teach->setObjectName(QStringLiteral("date_filter_lbl_teach"));
         date_filter_lbl_teach->setMinimumSize(QSize(75, 0));
         date_filter_lbl_teach->setMaximumSize(QSize(75, 16777215));
 
         horizontalLayout_9->addWidget(date_filter_lbl_teach);
 
-        start_date_teach = new QComboBox(horizontalLayoutWidget_5);
+        start_date_teach = new QComboBox(teach_tab);
         start_date_teach->setObjectName(QStringLiteral("start_date_teach"));
 
         horizontalLayout_9->addWidget(start_date_teach);
 
-        end_date_teach = new QComboBox(horizontalLayoutWidget_5);
+        end_date_teach = new QComboBox(teach_tab);
         end_date_teach->setObjectName(QStringLiteral("end_date_teach"));
         end_date_teach->setMinimumSize(QSize(0, 0));
 
         horizontalLayout_9->addWidget(end_date_teach);
 
-        filter_btn_teaching = new QPushButton(horizontalLayoutWidget_5);
+        filter_btn_teaching = new QPushButton(teach_tab);
         filter_btn_teaching->setObjectName(QStringLiteral("filter_btn_teaching"));
         filter_btn_teaching->setMinimumSize(QSize(75, 0));
         filter_btn_teaching->setMaximumSize(QSize(75, 16777215));
@@ -625,13 +610,13 @@ public:
 
         verticalLayout_10->addLayout(horizontalLayout_9);
 
-        domain_lbl_teach = new QLabel(horizontalLayoutWidget_5);
+        domain_lbl_teach = new QLabel(teach_tab);
         domain_lbl_teach->setObjectName(QStringLiteral("domain_lbl_teach"));
         domain_lbl_teach->setAlignment(Qt::AlignCenter);
 
         verticalLayout_10->addWidget(domain_lbl_teach);
 
-        teach_tree = new QTreeWidget(horizontalLayoutWidget_5);
+        teach_tree = new QTreeWidget(teach_tab);
         QTreeWidgetItem *__qtreewidgetitem3 = new QTreeWidgetItem();
         __qtreewidgetitem3->setText(0, QStringLiteral("1"));
         teach_tree->setHeaderItem(__qtreewidgetitem3);
@@ -640,11 +625,11 @@ public:
         verticalLayout_10->addWidget(teach_tree);
 
 
-        tab_area_4->addLayout(verticalLayout_10);
+        gridLayout_5->addLayout(verticalLayout_10, 0, 0, 1, 1);
 
         verticalLayout_8 = new QVBoxLayout();
         verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
-        graph_lbl_teach = new QLabel(horizontalLayoutWidget_5);
+        graph_lbl_teach = new QLabel(teach_tab);
         graph_lbl_teach->setObjectName(QStringLiteral("graph_lbl_teach"));
         graph_lbl_teach->setAlignment(Qt::AlignCenter);
 
@@ -652,13 +637,13 @@ public:
 
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
-        program_lbl_teach = new QLabel(horizontalLayoutWidget_5);
+        program_lbl_teach = new QLabel(teach_tab);
         program_lbl_teach->setObjectName(QStringLiteral("program_lbl_teach"));
         program_lbl_teach->setMaximumSize(QSize(100, 40));
 
         horizontalLayout_6->addWidget(program_lbl_teach);
 
-        program_combo_teach = new QComboBox(horizontalLayoutWidget_5);
+        program_combo_teach = new QComboBox(teach_tab);
         program_combo_teach->setObjectName(QStringLiteral("program_combo_teach"));
 
         horizontalLayout_6->addWidget(program_combo_teach);
@@ -666,14 +651,14 @@ public:
 
         verticalLayout_8->addLayout(horizontalLayout_6);
 
-        graph_area_teach = new QGraphicsView(horizontalLayoutWidget_5);
+        graph_area_teach = new QGraphicsView(teach_tab);
         graph_area_teach->setObjectName(QStringLiteral("graph_area_teach"));
         graph_area_teach->setEnabled(true);
 
         verticalLayout_8->addWidget(graph_area_teach);
 
 
-        tab_area_4->addLayout(verticalLayout_8);
+        gridLayout_5->addLayout(verticalLayout_8, 0, 1, 1, 1);
 
         tabWidget->addTab(teach_tab, QString());
 
@@ -734,7 +719,7 @@ public:
 
         retranslateUi(AnalyzeCSV);
 
-        tabWidget->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(0);
         name_combo_grnt->setCurrentIndex(-1);
         name_combo_pres->setCurrentIndex(-1);
         program_combo_teach->setCurrentIndex(-1);
