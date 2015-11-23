@@ -72,4 +72,6 @@ DISTFILES += \
     Grants.csv \
     Presentations.csv \
     Teaching.csv \
-    apple.jpg
+
+RESOURCES += \
+    apple_resource.qrc
