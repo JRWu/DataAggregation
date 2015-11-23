@@ -6,8 +6,6 @@
 
 >2015-2016 Academic Year
 
->Chat: https://gitter.im/ericbachmeier5/team-apple
-
 **Current Stage:** Demo 2
 
 ## Team Members:
@@ -15,25 +13,53 @@
 * Vanessa Synesael  
 
 * Vince Sippola
-Implemented DTOs and Assemblers for the DTOs and database of parsed data. Made the VO for the graph with which the UI builds the first type of graph implemented. Added Csv Parser library for use in the program.  
 
 * Jennifer Xin
 
 * Jia (Jerry) Wu  
-Implemented VO (view object) for the tree list. Displayed tree list from the VO, and graph from a separate VO. Wrote tree_list_vo.cpp/h and graphvisualizations.cpp/h.
+
 * Emily Yip  
 
 * Robert Canton  
 
 * Angus Poole  
 
-* Eric Bachmeier (ebachme@uwo.ca) has contributed to the team as of the Demo 1 deadline by being the team liaison by keeping in contact with the customer / teaching assistant to get the latest project specifications. This involved getting any of the team’s questions answered promptly. In the first stages of development he worked on the backend design and workflow of our program. Eric worked on parts of the user interface including the publications list, page organization, and tab view in Qt Creator. He also implemented the method to filter the data by year from the drop down boxes.  
+* Eric Bachmeier 
 
 * Jaisen Bynoe
 
 ## Project Description
 
-This is a stand-alone app developed in C++ by Team Apple. The purpose of this desktop application is to process faculty data in the form of spreadsheets. The user can then select their parameters whether it be the time frame for the data or the type of publications or research to view. After the data is verified, it can be viewed in formatted charts and graphs.
+This is a stand-alone app developed in C++ by Team Apple. The purpose of this desktop application is to process faculty data in the form of spreadsheets. 
+The user can then select their parameters whether it be the time frame for the data or the type of publications or research to view. 
+After the data is verified, it can be viewed in formatted charts and graphs.
+
+## Using the Program
+
+* Simply double-click the executable file provided to run the program.
+* Main window page automatically loads to the Load CSV page.
+* On load csv page, select a csv file type and choose a file, or choose a recently uploaded file from the list on the left.
+* Click on Verify to verify the csv data
+* On Verify page, choose to fix the data or ignore the record completely. When all rows have been fixed or ignored, click Confirm.
+* Area will be blank if all rows have been fixed/ignored. Click Analyze
+* Select tab for csv that was uploaded to view information. Filter all data based on date, 
+then futher filter data with other drop boxes for graphs.
+* Click on Load button to load new data.
+
+## Program Versions
+
+v0.1 - 		Release Date Oct 26, 2015.
+			Version implements the base requirements for the Publication CSV type only. 
+			Stretch goal of data verification also implemented. 
+			Login feature included in UI but does not authenticate user.
+
+v0.2 - 		Release Date Nov 25, 2015.
+			Version implements all the base requirements of the App, including handling Publication, Grant, Presentation and Teaching CSV typs. 
+			Login feature removed; no longer implementing this as stretch goal.
+			The application does not currently persist data between sessions or between screens.
+			Stretch goal of data verification among all CSV types implemented.
+			
+v1.0 - 		Release Date Dec 9, 2015.
 
 ## Project Tools
 
