@@ -8,6 +8,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QPixmap mypix(":/images/images/apple.jpg");
+    ui->logo_lbl->setPixmap(mypix);
+
+    //usleep(600000);
+    //on_open_program_clicked();
 }
 
 MainWindow::~MainWindow()

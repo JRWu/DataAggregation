@@ -2,8 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <windows.h>
+//#include <windows.h>
+#include <QPixmap>
+#include <unistd.h>
 #include "load_csv.h"
+#include <QTimer>
 
 namespace Ui {
 class MainWindow;
