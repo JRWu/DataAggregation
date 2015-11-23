@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <windows.h>
 #include "load_csv.h"
 
 namespace Ui {
