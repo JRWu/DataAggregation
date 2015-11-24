@@ -29,8 +29,11 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> data, QWidget *pare
     ui->end_date_combo_teach->setCurrentIndex(endDate_strs.size()-1);
 
     /// GRAPH FILTER COMBO BOX ///
+    QStringList names = PopulateGraphComboName(teach_data);
     QStringList programs = PopulateGraphComboProgram(teach_data);
 
+    ui->name_combo_teach->addItems(names);
+    ui->name_combo_teach->setCurrentIndex(0);
     ui->program_combo_teach->addItems(programs);
     ui->program_combo_teach->setCurrentIndex(0);
 
@@ -487,7 +490,7 @@ void AnalyzeCSV::populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDTO>
     }
     else
     {
-        string name = (ui->name_combo_pub->currentText()).toStdString();
+        string name = (ui->name_combo_teach->currentText()).toStdString();
         string program = (ui->program_combo_teach->currentText()).toStdString();
 
         scene = new QGraphicsScene(this);   // Added for graphics window
@@ -526,7 +529,7 @@ void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<Publicati
 
     if (e <= s) // Make sure the end date is greater than the start date
     {
-        cout << "Cannot filter. Filter dates error." << endl;
+        fprintf(stderr, "Cannot filter. Filter dates error.");
     }
     else
     {
@@ -536,8 +539,7 @@ void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<Publicati
         scene = new QGraphicsScene(this);   // Create the scene for plotting
 
         QCustomPlot *customPlot = new QCustomPlot();
-//        customPlot->setGeometry(0,0,345,375);   // added to resize graph
-        customPlot->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        customPlot->setGeometry(0,0,345,375);   // added to resize graph
 
         // Graph handling functions go here
         Graphvisualizations *graph_handler = new Graphvisualizations();
@@ -598,7 +600,7 @@ void AnalyzeCSV::populate_presentation_bargraph(std::shared_ptr<CSVData<Presenta
             }
             else    // Create graph of only specified presentation type
             {
-                shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(data, name,type, s, e, 1));
+                shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(data, name, type, s, e, 1));
                 graph_handler->plot_bargraph(customPlot, graphable);
             }
         }
@@ -728,7 +730,7 @@ void AnalyzeCSV::on_name_combo_grnt_activated()
         // Add code to inform user that they didn't load proper information
     }
     else {
-        populate_publication_bargraph(pub_data);
+        populate_grant_bargraph(grant_data);
     }
 }
 
@@ -738,7 +740,7 @@ void AnalyzeCSV::on_type_combo_grnt_activated()
         // Add code to inform user that they didn't load proper information
     }
     else {
-        populate_publication_bargraph(pub_data);
+        populate_grant_bargraph(grant_data);
     }
 }
 
@@ -748,7 +750,7 @@ void AnalyzeCSV::on_name_combo_pres_activated()
         // Add code to inform user that they didn't load proper information
     }
     else {
-        populate_publication_bargraph(pub_data);
+        populate_presentation_bargraph(pres_data);
     }
 }
 
@@ -758,7 +760,7 @@ void AnalyzeCSV::on_type_combo_pres_activated()
         // Add code to inform user that they didn't load proper information
     }
     else {
-        populate_publication_bargraph(pub_data);
+        populate_presentation_bargraph(pres_data);
     }
 }
 
@@ -768,7 +770,7 @@ void AnalyzeCSV::on_name_combo_teach_activated()
         // Add code to inform user that they didn't load proper information
     }
     else {
-        populate_publication_bargraph(pub_data);
+        populate_teaching_bargraph(teach_data);
     }
 }
 
@@ -778,6 +780,6 @@ void AnalyzeCSV::on_program_combo_teach_activated()
         // Add code to inform user that they didn't load proper information
     }
     else {
-        populate_publication_bargraph(pub_data);
+        populate_teaching_bargraph(teach_data);
     }
 }
