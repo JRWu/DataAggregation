@@ -175,14 +175,17 @@ template <class DTOType> BarGraph_VO<DTOType>::BarGraph_VO(std::shared_ptr<CSVDa
             string date = dto.getBarField1(type);
             //Make sure the date is in the correct range
             if((dto.getName() == name)&&(dto.getBarField2(type) == dtype)){
-                QString qdate = QString::fromStdString(date);
 
-                QVector<QString>::iterator index;
-                //Get the index of the year in the year array
-                index = find(yearLabel.begin(), yearLabel.end(), qdate);
-                int j = distance(yearLabel.begin(),index);
-                //increment the value at (i,j)
-                tempV.at(0).at(j) += dto.getBarValue(type);
+                if((start <= date)&&(date <= end)){
+                    QString qdate = QString::fromStdString(date);
+
+                    QVector<QString>::iterator index;
+                    //Get the index of the year in the year array
+                    index = find(yearLabel.begin(), yearLabel.end(), qdate);
+                    int j = distance(yearLabel.begin(),index);
+                    //increment the value at (i,j)
+                    tempV.at(0).at(j) += dto.getBarValue(type);
+                }
             }
         }
     }

@@ -368,7 +368,7 @@ void AnalyzeCSV::populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDTO>
     string s = st_string.toStdString(); // start date
     string e = en_string.toStdString(); // end date
 
-    if (e <= s)
+    if (e < s)
     {
         cout << "Cannot filter. Filter dates error." << endl;
     }
