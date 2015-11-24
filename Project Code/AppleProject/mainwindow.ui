@@ -7,13 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>659</height>
+    <height>620</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>800</width>
     <height>620</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -447,87 +453,132 @@
    <property name="autoFillBackground">
     <bool>true</bool>
    </property>
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>110</y>
-      <width>341</width>
-      <height>361</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QLabel" name="logo_lbl">
-       <property name="minimumSize">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QSplitter" name="splitter_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <widget class="QSplitter" name="splitter">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <widget class="QLabel" name="logo_lbl">
+        <property name="minimumSize">
+         <size>
+          <width>325</width>
+          <height>300</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>325</width>
+          <height>300</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap>images/apple.jpg</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QLabel" name="program_lbl">
+       <property name="maximumSize">
         <size>
-         <width>300</width>
-         <height>300</height>
+         <width>16777215</width>
+         <height>70</height>
         </size>
        </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap>images/apple.jpg</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>true</bool>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="open_program">
        <property name="font">
         <font>
          <family>Arial Black</family>
-         <pointsize>20</pointsize>
+         <pointsize>10</pointsize>
          <weight>75</weight>
          <bold>true</bold>
         </font>
        </property>
        <property name="text">
-        <string>Apple Picker</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;center&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Welcome To&lt;/span&gt;&lt;br&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;ApplePicker&lt;/span&gt;&lt;/center&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::RichText</enum>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="open_program_btn">
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>40</height>
+        </size>
+       </property>
+       <property name="palette">
+        <palette>
+         <active>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>170</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </active>
+         <inactive>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>170</red>
+             <green>0</green>
+             <blue>0</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </inactive>
+         <disabled>
+          <colorrole role="ButtonText">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>127</red>
+             <green>127</green>
+             <blue>127</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </disabled>
+        </palette>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial Black</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>click to continue</string>
        </property>
        <property name="flat">
         <bool>true</bool>
        </property>
       </widget>
-     </item>
-    </layout>
-   </widget>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::RightToLeft</enum>
-   </property>
-   <widget class="QMenu" name="menuHelp">
-    <property name="title">
-     <string>Help</string>
-    </property>
-    <addaction name="actionAbout_ApplePicker"/>
-    <addaction name="actionProgram_Help"/>
-   </widget>
-   <widget class="QMenu" name="menuClose">
-    <property name="title">
-     <string>Close</string>
-    </property>
-   </widget>
-   <addaction name="menuClose"/>
-   <addaction name="menuHelp"/>
-  </widget>
   <action name="actionAbout_ApplePicker">
    <property name="text">
     <string>About ApplePicker</string>

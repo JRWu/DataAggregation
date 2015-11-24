@@ -18,6 +18,7 @@ QStringList PopulateGraphComboType(std::shared_ptr<CSVData<PresentationDTO>> tda
 QStringList PopulateGraphComboName(std::shared_ptr<CSVData<GrantDTO>> tdata);
 QStringList PopulateGraphComboFunding(std::shared_ptr<CSVData<GrantDTO>> tdata);
 // teaching tab
+QStringList PopulateGraphComboName(std::shared_ptr<CSVData<TeachingDTO>> data);
 QStringList PopulateGraphComboProgram(std::shared_ptr<CSVData<TeachingDTO>> tdata);
 
 

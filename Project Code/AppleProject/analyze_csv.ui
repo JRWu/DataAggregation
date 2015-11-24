@@ -874,7 +874,13 @@
              </widget>
             </item>
             <item>
-             <widget class="QComboBox" name="type_combo_grnt"/>
+             <widget class="QComboBox" name="type_combo_grnt">
+              <item>
+               <property name="text">
+                <string>ALL</string>
+               </property>
+              </item>
+             </widget>
             </item>
            </layout>
           </item>
@@ -1468,6 +1474,26 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_6">
             <item>
+             <widget class="QLabel" name="name_lbl_teach">
+              <property name="maximumSize">
+               <size>
+                <width>100</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="text">
+               <string>Name:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QComboBox" name="name_combo_teach"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
              <widget class="QLabel" name="program_lbl_teach">
               <property name="maximumSize">
                <size>
@@ -1483,8 +1509,13 @@
             <item>
              <widget class="QComboBox" name="program_combo_teach">
               <property name="currentIndex">
-               <number>-1</number>
+               <number>0</number>
               </property>
+              <item>
+               <property name="text">
+                <string>ALL</string>
+               </property>
+              </item>
              </widget>
             </item>
            </layout>

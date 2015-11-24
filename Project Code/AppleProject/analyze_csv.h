@@ -60,6 +60,22 @@ private slots:
 
     void on_filter_btn_grnt_clicked();
 
+    void on_name_combo_pub_activated();
+
+    void on_type_combo_pub_activated();
+
+    void on_name_combo_grnt_activated();
+
+    void on_type_combo_grnt_activated();
+
+    void on_name_combo_pres_activated();
+
+    void on_type_combo_pres_activated();
+
+    void on_name_combo_teach_activated();
+
+    void on_program_combo_teach_activated();
+
 private:
     Ui::AnalyzeCSV *ui;
     QGraphicsScene * scene; // Added to display the graph through the graph area

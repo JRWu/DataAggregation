@@ -11,8 +11,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QPixmap mypix(":/images/images/apple.jpg");
     ui->logo_lbl->setPixmap(mypix);
 
-    //usleep(600000);
-    //on_open_program_clicked();
 }
 
 MainWindow::~MainWindow()
@@ -20,8 +18,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
-void MainWindow::on_open_program_clicked()
+void MainWindow::on_open_program_btn_clicked()
 {
     load_csv_page = new LoadCSV();
     this->setCentralWidget(load_csv_page);

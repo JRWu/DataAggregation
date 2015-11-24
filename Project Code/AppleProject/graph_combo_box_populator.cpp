@@ -219,6 +219,43 @@ QStringList PopulateGraphComboFunding(std::shared_ptr<CSVData<GrantDTO>> data) {
     return combo_fundings;
 }
 
+QStringList PopulateGraphComboName(std::shared_ptr<CSVData<TeachingDTO>> data) {
+    size_t i, j;
+    std::vector<string> names;
+
+    // loop through the names and types from the dto
+    for (i=0; i < data->dtos->size(); i++) {
+        if (names.empty()) {
+            names.push_back(data->dtos->at(i).name);
+        }
+        else {
+
+            // add names only if they aren't already in the list
+            bool add = true;
+            for (j=0; j < names.size(); j++) {
+                if (data->dtos->at(i).name.compare(names.at(j)) == 0) {
+                    add = false;
+                    break;
+                }
+            }
+            if (add) {
+                names.push_back(data->dtos->at(i).name);
+            }
+        }
+    }
+
+    //sort the lists
+    std::sort(names.begin(), names.end());
+
+    //put the dates in a QString vector list
+    QStringList combo_names;
+    for (i=0; i < names.size(); i++) {
+        combo_names << QString::fromStdString(names.at(i));
+    }
+
+    return combo_names;
+}
+
 QStringList PopulateGraphComboProgram(std::shared_ptr<CSVData<TeachingDTO>> data) {
     size_t i, j;
     std::vector<string> programs;

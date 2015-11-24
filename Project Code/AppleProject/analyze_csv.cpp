@@ -144,7 +144,6 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PresentationDTO>> data, QWidget *
 
 }
 
-
 AnalyzeCSV::~AnalyzeCSV()
 {
     delete ui;
@@ -185,12 +184,9 @@ Ui::AnalyzeCSV* AnalyzeCSV::get_ui_ptr()
     return ui;
 }
 
-// For publications display the updated tree and updated graph
-// JERRY
+
 void AnalyzeCSV::on_filter_btn_pub_clicked()
 {
-    //ui->graph_area;           // update this to display what plot is being updated
-    //ui->graph_combo;      // used to get type of plot (0 is bargraph)
 
     // Catch to prevent analysis on a null pointer
     // Only catches error if data is loaded ONCE, therefore the pointers not being cleared at the end of a session
@@ -200,9 +196,6 @@ void AnalyzeCSV::on_filter_btn_pub_clicked()
     }
     else
     {
-        cout << "Filter Button Clicked; reloading analysis data" << endl;
-        // Index 0 bargraph
-        // Index 1 is pie chart
         populate_publication_tree(pub_data);
         populate_publication_bargraph(pub_data);
     }
@@ -494,27 +487,35 @@ void AnalyzeCSV::populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDTO>
     }
     else
     {
-        string name = data->dtos->at(0).getName();
-        shared_ptr<BarGraph_VO<TeachingDTO>> graphable(new BarGraph_VO<TeachingDTO>(data, name, s, e, 1));
+        string name = (ui->name_combo_pub->currentText()).toStdString();
+        string program = (ui->program_combo_teach->currentText()).toStdString();
+
         scene = new QGraphicsScene(this);   // Added for graphics window
 
         QCustomPlot *customPlot = new QCustomPlot();
         customPlot->setGeometry(0,0,345,375);   // added to resize graph
 
-        // Graph handling functions go here
         Graphvisualizations *graph_handler = new Graphvisualizations();
-        graph_handler->plot_bargraph(customPlot, graphable);
+
+        try {
+            if (program == "ALL") {
+                shared_ptr<BarGraph_VO<TeachingDTO>> graphable(new BarGraph_VO<TeachingDTO>(data, name, s, e, 1));
+                graph_handler->plot_bargraph(customPlot, graphable);
+            }
+            else {
+                shared_ptr<BarGraph_VO<TeachingDTO>> graphable(new BarGraph_VO<TeachingDTO>(data, name, program, s, e, 1));
+                graph_handler->plot_bargraph(customPlot, graphable);
+            }
+        }
+        catch (const std::out_of_range& oor) {
+            std::fprintf(stderr, "No data to graph");
+        }
 
         scene->addWidget(customPlot);   // Add plot to the window & Essential
         ui->graph_area_teach->setScene(scene);    // Added for grpahics & Essential
     }
 }
 
-/**
- * @brief AnalyzeCSV::populate_publication_bargraph populates the Graph1 tab
- * also known as the Publication bargraph on the Analyze  Page
- * DO NOT MODIFY (Jerry)
- */
 void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<PublicationDTO>> data)
 {
     QString st_string = ui->start_date_combo_pub->itemText(ui->start_date_combo_pub->currentIndex());
@@ -535,20 +536,27 @@ void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<Publicati
         scene = new QGraphicsScene(this);   // Create the scene for plotting
 
         QCustomPlot *customPlot = new QCustomPlot();
-        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+//        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+        customPlot->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
         // Graph handling functions go here
         Graphvisualizations *graph_handler = new Graphvisualizations();
 
-        if (type == "ALL")  // Graph ALL publication types by default
-        {
-            shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(data, name, s, e, 1));
-            graph_handler->plot_bargraph(customPlot, graphable);
+        try {
+            if (type == "ALL")  // Graph ALL publication types by default
+            {
+                shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(data, name, s, e, 1));
+                graph_handler->plot_bargraph(customPlot, graphable);
+            }
+            else                    // Create graphable of only specified publication types
+            {
+                shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(data, name, type, s, e, 1));
+                graph_handler->plot_bargraph(customPlot, graphable);
+            }
         }
-        else                    // Create graphable of only specified publication types
-        {
-            shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(data, name, type, s, e, 1));
-            graph_handler->plot_bargraph(customPlot, graphable);
+        // no data return, catch the exception
+        catch (const std::out_of_range& oor) {
+            fprintf(stderr, "No data to graph");
         }
 
         scene->addWidget(customPlot);   // Add plot to the GUI window
@@ -556,11 +564,6 @@ void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<Publicati
      }
 }
 
-/**
- * @brief AnalyzeCSV::populate_presentation_bargraph populates the Graph1 tab
- * also known as Presentation bargraph on the Analyze Page
- *  DO NOT MODIFY(Jerry)
- */
 void AnalyzeCSV::populate_presentation_bargraph(std::shared_ptr<CSVData<PresentationDTO>> data)
 {
     QString st_string = ui->start_date_combo_pres->itemText(ui->start_date_combo_pres->currentIndex());
@@ -586,15 +589,21 @@ void AnalyzeCSV::populate_presentation_bargraph(std::shared_ptr<CSVData<Presenta
 
         // Graph the data
         Graphvisualizations *graph_handler = new Graphvisualizations();
-        if (type.compare("ALL") == 0)   // Graph ALL presentation types by default
-        {
-            shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(data, name, s, e, 1));
-            graph_handler->plot_bargraph(customPlot, graphable);
+
+        try {
+            if (type.compare("ALL") == 0)   // Graph ALL presentation types by default
+            {
+                shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(data, name, s, e, 1));
+                graph_handler->plot_bargraph(customPlot, graphable);
+            }
+            else    // Create graph of only specified presentation type
+            {
+                shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(data, name,type, s, e, 1));
+                graph_handler->plot_bargraph(customPlot, graphable);
+            }
         }
-        else    // Create graph of only specified presentation type
-        {
-            shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(data, name,type, s, e, 1));
-            graph_handler->plot_bargraph(customPlot, graphable);
+        catch (const std::out_of_range& oor) {
+            fprintf(stderr, "No data to graph");
         }
 
         scene->addWidget(customPlot);   // Add plot to GUI window
@@ -616,16 +625,29 @@ void AnalyzeCSV::populate_grant_bargraph(std::shared_ptr<CSVData<GrantDTO>> data
     }
     else
     {
-        string name = data->dtos->at(0).getName();
-        shared_ptr<BarGraph_VO<GrantDTO>> graphable(new BarGraph_VO<GrantDTO>(data, name, s, e, 1));
+        string name = (ui->name_combo_grnt->currentText()).toStdString();
+        string funding = (ui->type_combo_grnt->currentText()).toStdString();
+
         scene = new QGraphicsScene(this);
 
         QCustomPlot *customPlot = new QCustomPlot();
         customPlot->setGeometry(0,0,345,375);   // added to resize graph
 
-        // Graph handling functions go here
         Graphvisualizations *graph_handler = new Graphvisualizations();
-        graph_handler->plot_bargraph(customPlot, graphable);
+
+        try {
+            if (funding == "ALL") {
+                shared_ptr<BarGraph_VO<GrantDTO>> graphable(new BarGraph_VO<GrantDTO>(data, name, s, e, 1));
+                graph_handler->plot_bargraph(customPlot, graphable);
+            }
+            else {
+                shared_ptr<BarGraph_VO<GrantDTO>> graphable(new BarGraph_VO<GrantDTO>(data, name, funding, s, e, 1));
+                graph_handler->plot_bargraph(customPlot, graphable);
+            }
+        }
+        catch (const std::out_of_range& oor) {
+            fprintf(stderr, "No data to graph");
+        }
 
         scene->addWidget(customPlot);   // Add plot to the window & Essential
         ui->graph_area_grnt->setScene(scene);    // Added for grpahics & Essential
@@ -636,8 +658,6 @@ void AnalyzeCSV::populate_grant_bargraph(std::shared_ptr<CSVData<GrantDTO>> data
 // JX --> implemented 11.15.15
 void AnalyzeCSV::on_filter_btn_grnt_clicked()
 {
-
-
     // Catch to prevent analysis on a null pointer
     // Only catches error if data is loaded ONCE, therefore the pointers not being cleared at the end of a session
     if (grant_data == NULL)
@@ -646,8 +666,6 @@ void AnalyzeCSV::on_filter_btn_grnt_clicked()
     }
     else
     {
-        // Index 0 bargraph
-        // Index 1 is pie chart
         populate_grant_tree(grant_data);
         populate_grant_bargraph(grant_data);
     }
@@ -673,17 +691,93 @@ void AnalyzeCSV::on_filter_btn_pres_clicked()
 
 void AnalyzeCSV::on_filter_btn_teach_clicked()
 {
-
     if (teach_data == NULL)
     {
         // Add code to inform user that they didn't load proper information
     }
     else
     {
-        // Index 0 bargraph
-        // Index 1 is pie chart
-        //cout <<"CURRENT INDEX:"<< ui->graph_combo->currentIndex() << endl;
         populate_teaching_tree(teach_data);
         populate_teaching_bargraph(teach_data);
+    }
+}
+
+void AnalyzeCSV::on_name_combo_pub_activated()
+{
+    if (pub_data == NULL) {
+        // Add code to inform user that they didn't load proper information
+    }
+    else {
+        populate_publication_bargraph(pub_data);
+    }
+}
+
+void AnalyzeCSV::on_type_combo_pub_activated()
+{
+    if (pub_data == NULL) {
+        // Add code to inform user that they didn't load proper information
+    }
+    else {
+        populate_publication_bargraph(pub_data);
+    }
+}
+
+void AnalyzeCSV::on_name_combo_grnt_activated()
+{
+    if (grant_data == NULL) {
+        // Add code to inform user that they didn't load proper information
+    }
+    else {
+        populate_publication_bargraph(pub_data);
+    }
+}
+
+void AnalyzeCSV::on_type_combo_grnt_activated()
+{
+    if (grant_data == NULL) {
+        // Add code to inform user that they didn't load proper information
+    }
+    else {
+        populate_publication_bargraph(pub_data);
+    }
+}
+
+void AnalyzeCSV::on_name_combo_pres_activated()
+{
+    if (pres_data == NULL) {
+        // Add code to inform user that they didn't load proper information
+    }
+    else {
+        populate_publication_bargraph(pub_data);
+    }
+}
+
+void AnalyzeCSV::on_type_combo_pres_activated()
+{
+    if (pres_data == NULL) {
+        // Add code to inform user that they didn't load proper information
+    }
+    else {
+        populate_publication_bargraph(pub_data);
+    }
+}
+
+void AnalyzeCSV::on_name_combo_teach_activated()
+{
+    if (teach_data == NULL) {
+        // Add code to inform user that they didn't load proper information
+    }
+    else {
+        populate_publication_bargraph(pub_data);
+    }
+}
+
+void AnalyzeCSV::on_program_combo_teach_activated()
+{
+    if (teach_data == NULL) {
+        // Add code to inform user that they didn't load proper information
+    }
+    else {
+        populate_publication_bargraph(pub_data);
     }
 }

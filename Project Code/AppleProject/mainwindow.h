@@ -2,9 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <windows.h>
 #include <QPixmap>
-//#include <unistd.h>
 #include "load_csv.h"
 #include <QTimer>
 
@@ -21,7 +19,8 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_open_program_clicked();
+
+    void on_open_program_btn_clicked();
 
 private:
     Ui::MainWindow *ui;
