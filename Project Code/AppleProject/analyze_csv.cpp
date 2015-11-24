@@ -380,7 +380,14 @@ void AnalyzeCSV::populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDTO>
         scene = new QGraphicsScene(this);   // Added for graphics window
 
         QCustomPlot *customPlot = new QCustomPlot();
-        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+        if (ui->graph_area_teach->geometry().width() < 300)
+        {
+            customPlot->setGeometry(0,0, 345,375);  // Set default min window dimensions
+        }
+        else
+        {
+            customPlot->setGeometry(0,0, ui->graph_area_teach->geometry().width(),ui->graph_area_teach->geometry().height());   // added to resize graph
+        }
 
         Graphvisualizations *graph_handler = new Graphvisualizations();
 
@@ -423,7 +430,16 @@ void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<Publicati
         scene = new QGraphicsScene(this);   // Create the scene for plotting
 
         QCustomPlot *customPlot = new QCustomPlot();
-        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+        if (ui->graph_area_pub->geometry().width() < 300)
+        {
+            customPlot->setGeometry(0,0, 345,375);  // Set default min window dimensions
+        }
+        else
+        {
+            customPlot->setGeometry(0,0, ui->graph_area_pub->geometry().width(),ui->graph_area_pub->geometry().height());   // added to resize graph
+        }
+
+
 
         // Graph handling functions go here
         Graphvisualizations *graph_handler = new Graphvisualizations();
@@ -471,7 +487,15 @@ void AnalyzeCSV::populate_presentation_bargraph(std::shared_ptr<CSVData<Presenta
         scene = new QGraphicsScene(this);   // Create the scene for plotting
 
         QCustomPlot *customPlot = new QCustomPlot();
-        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+        if (ui->graph_area_pres->geometry().width() < 300)
+        {
+            customPlot->setGeometry(0,0, 345,375);  // Set default min window dimensions
+        }
+        else
+        {
+            customPlot->setGeometry(0,0, ui->graph_area_pres->geometry().width(),ui->graph_area_pres->geometry().height());   // added to resize graph
+        }
+
 
         // Graph the data
         Graphvisualizations *graph_handler = new Graphvisualizations();
@@ -517,7 +541,14 @@ void AnalyzeCSV::populate_grant_bargraph(std::shared_ptr<CSVData<GrantDTO>> data
         scene = new QGraphicsScene(this);
 
         QCustomPlot *customPlot = new QCustomPlot();
-        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+        if (ui->graph_area_grnt->geometry().width() < 300)
+        {
+            customPlot->setGeometry(0,0, 345,375);  // Set default min window dimensions
+        }
+        else
+        {
+            customPlot->setGeometry(0,0, ui->graph_area_grnt->geometry().width(),ui->graph_area_grnt->geometry().height());   // added to resize graph
+        }
 
         Graphvisualizations *graph_handler = new Graphvisualizations();
 
@@ -665,5 +696,36 @@ void AnalyzeCSV::on_program_combo_teach_activated()
     }
     else {
         populate_teaching_bargraph(teach_data);
+    }
+}
+
+/**
+ * @brief AnalyzeCSV::resizeEvent detects when the window is resized on the AnalyzeCSV page
+ * @param event is the event passed when the window is resized
+ */
+void AnalyzeCSV::resizeEvent(QResizeEvent *event)
+{
+    QMainWindow::resizeEvent(event);
+    {
+
+        // Rudimentary event handling of repopulating the bargraphs
+        // Code within bargraphs handles the new window size
+
+        if (pub_data)
+        {
+            populate_publication_bargraph(pub_data);
+        }
+        if (teach_data)
+        {
+            populate_teaching_bargraph(teach_data);
+        }
+        if (pres_data)
+        {
+            populate_presentation_bargraph(pres_data);
+        }
+        if (grant_data)
+        {
+            populate_grant_bargraph(grant_data);
+        }
     }
 }
