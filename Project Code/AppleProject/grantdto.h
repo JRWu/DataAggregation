@@ -7,27 +7,6 @@
 
 using namespace std;
 
-/* Here if we need it
- 
- enum FundingType{
- GRANTS, CLINICAL_TRIALS
- };
- 
- 
- enum Status{
- APPLIED, FUNDED, DECLINED, REJECTED, NOT_FUNDED
- };
- 
- 
- enum Role{
- COAPPLICANT, COINVESTIGATOR, COLLABORATOR, COPRINCIPAL_INVESTIGATOR, PRINCIPAL_APPLICANT, PRINCIPAL_INVESTIGATOR, PRINCIPAL_SITE_INVESTIGATOR, SITE_INVESTIGATOR
- };
- 
- enum Currency{
- CAD,USD
- 
- */
-
 class GrantDTO{
 public:
 
@@ -58,6 +37,7 @@ public:
     std::string getBarField1(int btype = 1);
     std::string getBarField2(int btype = 1);
     double getBarValue(int btype = 1);
+
     std::vector<std::string> getTreePath(int btype = 1);
     std::vector<double> getTreeValues(int btype = 1);
     int getYear(int btype = 1);

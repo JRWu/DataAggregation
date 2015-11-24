@@ -277,5 +277,7 @@ int validateTeaching(std::vector<string> * fields)
     }
 
     if(!validateDate(&(*fields)[2])) result+=1;
+    if(!validateDate(&(*fields)[3])) result+=1;
+    if((*fields)[2] >(*fields)[3]) result+=1;
     return result;
 }

@@ -173,4 +173,27 @@ void assembleDTO(TeachingDTO *dto, vector<string> f) {
     dto->development = f[18];
     dto->stipend = f[19];
     dto->comment = f[20];
+
+    dto->treeValues.push_back(1.0);
+    dto->treeValues.push_back(dto->totalHours);
+    dto->treeValues.push_back(0.0);
+
+    dto->treePath.push_back("Teaching");
+
+    if(dto->program == "Postgraduate Medical Education"){
+        dto->treePath.push_back("PME");
+    }
+    else if(dto->program == "Continuing Medical Education"){
+        dto->treePath.push_back("CME");
+    }
+    else if(dto->program == "Undergraduate Medical Education"){
+        dto->treePath.push_back("UME");
+    }
+    else{
+        dto->treePath.push_back("Other");
+    }
+
+    dto->treePath.push_back(f[2] + "-" + f[3]);
+    dto->treePath.push_back(dto->name);
+
 }

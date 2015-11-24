@@ -282,147 +282,31 @@ void AnalyzeCSV::populate_teaching_tree(std::shared_ptr<CSVData<TeachingDTO>> da
 {
     QString st_string = ui->start_date_combo_teach->itemText(ui->start_date_combo_teach->currentIndex());
     QString en_string = ui->end_date_combo_teach->itemText(ui->end_date_combo_teach->currentIndex());
-    long s = stol(st_string.toStdString()); // start date
-    long e = stol(en_string.toStdString()); // end date
+    int s = stoi(st_string.toStdString()); // start date
+    int e = stoi(en_string.toStdString()); // end date
 
     // Ensure the retrieved years are in the accepted range
-    if (e <= s)
+    if (e < s)
     {
         cout << "Filter dates error" << endl;
     }
     else
     {
-        Ui::AnalyzeCSV * tmpUI = get_ui_ptr();
+        TreeList_VO<TeachingDTO> treelistvo(data, s, e);
 
-        // Create new tree list from the selcted interval
-        //Sort by Program, then by Date, then by Faculty
-        tree_list_vo *p_PMEtree = new tree_list_vo(data);
-        tree_list_vo *p_UMEtree = new tree_list_vo(data);
-        tree_list_vo *p_CMEtree = new tree_list_vo(data);
-        tree_list_vo *p_Othertree = new tree_list_vo(data);
-        // Populates the VO , still needs the new params
+        //Failed to make vo due to empty data range for that year
+        if(treelistvo.isEmpty()) return;
 
-        //p_PMEtree->populate_for_teaching(_data, std::string str, (int)s,(int)e);
-        std::string PMEstr = "Postgraduate Medical Education";
-        std::string UMEstr = "Undergraduate Medical Education";
-        std::string CMEstr = "Continuing Medical Education";
-        //std::string Otherstr = "";
+        ui->tree_list_teach->clear();
+        treelistvo.makeQTree(ui->tree_list_teach);
+        ui->tree_list_teach->setColumnCount(treelistvo.nCol);
+        ui->tree_list_teach->setColumnWidth(0, 275);
+        ui->tree_list_teach->setHeaderLabels(QStringList() << "Type" << "Hours" << "Students");
 
-        p_PMEtree->populate_for_teaching(data, PMEstr.c_str(), (int)s,(int)e);
-        p_UMEtree->populate_for_teaching(data, UMEstr.c_str(), (int)s,(int)e);
-        p_CMEtree->populate_for_teaching(data, CMEstr.c_str(), (int)s,(int)e);
-        p_Othertree->populate_for_teaching(data,(int)s,(int)e);
-        tmpUI->tree_list_teach->clear();
 
-        /// LIST TREE VIEW ///
-        tmpUI->tree_list_teach->setColumnCount(3);   //Main field, hours, students
-        tmpUI->tree_list_teach->setColumnWidth(0, 175);
-        tmpUI->tree_list_teach->setHeaderLabels(QStringList() << "Type" << "Hours" << "Students");
-
-        int tCounter = 0; //Counter for the number of Hours
-        int sCounter = 0; //Counter for the number of Students
-
-        //change Teaching to PME/UME/etc. - get it from the actual data
-        QTreeWidgetItem *PMEroot = new QTreeWidgetItem(tmpUI->tree_list_teach, QStringList() << "PME" << QString::fromStdString(std::to_string(data->dtos->size())) << "None");
-        QTreeWidgetItem *UMEroot = new QTreeWidgetItem(tmpUI->tree_list_teach, QStringList() << "UME" << QString::fromStdString(std::to_string(data->dtos->size())) << "None");
-        QTreeWidgetItem *CMEroot = new QTreeWidgetItem(tmpUI->tree_list_teach, QStringList() << "CME" << QString::fromStdString(std::to_string(data->dtos->size())) << "None");
-        QTreeWidgetItem *Otherroot = new QTreeWidgetItem(tmpUI->tree_list_teach, QStringList() << "Other" << QString::fromStdString(std::to_string(data->dtos->size())) << "None");
-        for (size_t i = 0; i < p_PMEtree->get_parent_set().size(); i ++)
-        {
-            QTreeWidgetItem * child = new QTreeWidgetItem(PMEroot, QStringList() << QString::fromStdString(p_PMEtree->get_parent_set().at(i).label)
-                                                      <<QString::fromStdString(std::to_string((int)p_PMEtree->get_parent_set().at(i).num))
-                                                      <<QString::fromStdString(std::to_string((int)p_PMEtree->get_parent_set().at(i).num2)));
-
-            vector<string_data_object> tmp = p_PMEtree->get_child_set().at(i);
-            for (size_t j = 0; j < tmp.size(); j++)
-            {
-                new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
-                                << QString::fromStdString(std::to_string((int)tmp.at(j).num))
-                                << QString::fromStdString(std::to_string((int)tmp.at(j).num2)));
-                tCounter += tmp.at(j).num;
-                sCounter += tmp.at(j).num2;
-            }
-        }
-        // expand the initial root of teachings by default
-        tmpUI->tree_list_teach->expandItem(PMEroot);
-        /// LIST TREE VIEW ///
-        PMEroot->setText(1,QString::fromStdString(std::to_string(tCounter)));
-        PMEroot->setText(2,QString::fromStdString(std::to_string(sCounter)));
-        tCounter = 0;
-        sCounter = 0;
-
-        for (size_t i = 0; i < p_UMEtree->get_parent_set().size(); i ++)
-        {
-            QTreeWidgetItem * child = new QTreeWidgetItem(UMEroot, QStringList() << QString::fromStdString(p_UMEtree->get_parent_set().at(i).label)
-                                                      <<QString::fromStdString(std::to_string((int)p_UMEtree->get_parent_set().at(i).num))
-                                                      <<QString::fromStdString(std::to_string((int)p_UMEtree->get_parent_set().at(i).num2)));
-
-            vector<string_data_object> tmp = p_UMEtree->get_child_set().at(i);
-            for (size_t j = 0; j < tmp.size(); j++)
-            {
-                new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
-                                << QString::fromStdString(std::to_string((int)tmp.at(j).num))
-                                << QString::fromStdString(std::to_string((int)tmp.at(j).num2)));
-                tCounter += tmp.at(j).num;
-                sCounter += tmp.at(j).num2;
-            }
-        }
-        // expand the initial root of teachings by default
-        tmpUI->tree_list_teach->expandItem(UMEroot);
-        /// LIST TREE VIEW ///
-        UMEroot->setText(1,QString::fromStdString(std::to_string(tCounter)));
-        UMEroot->setText(2,QString::fromStdString(std::to_string(sCounter)));
-        tCounter = 0;
-        sCounter = 0;
-
-        for (size_t i = 0; i < p_CMEtree->get_parent_set().size(); i ++)
-        {
-            QTreeWidgetItem * child = new QTreeWidgetItem(CMEroot, QStringList() << QString::fromStdString(p_CMEtree->get_parent_set().at(i).label)
-                                                      <<QString::fromStdString(std::to_string((int)p_CMEtree->get_parent_set().at(i).num))
-                                                      <<QString::fromStdString(std::to_string((int)p_CMEtree->get_parent_set().at(i).num2)) );
-
-            vector<string_data_object> tmp = p_CMEtree->get_child_set().at(i);
-            for (size_t j = 0; j < tmp.size(); j++)
-            {
-                new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
-                                << QString::fromStdString(std::to_string((int)tmp.at(j).num))
-                                << QString::fromStdString(std::to_string((int)tmp.at(j).num2)));
-                tCounter += tmp.at(j).num;
-                sCounter += tmp.at(j).num2;
-            }
-        }
-        // expand the initial root of teachings by default
-        tmpUI->tree_list_teach->expandItem(CMEroot);
-        /// LIST TREE VIEW ///
-        CMEroot->setText(1,QString::fromStdString(std::to_string(tCounter)));
-        CMEroot->setText(2,QString::fromStdString(std::to_string(sCounter)));
-        tCounter = 0;
-        sCounter = 0;
-
-        for (size_t i = 0; i < p_Othertree->get_parent_set().size(); i ++)
-        {
-            QTreeWidgetItem * child = new QTreeWidgetItem(Otherroot, QStringList() << QString::fromStdString(p_Othertree->get_parent_set().at(i).label)
-                                                      <<QString::fromStdString(std::to_string((int)p_Othertree->get_parent_set().at(i).num))
-                                                      <<QString::fromStdString(std::to_string((int)p_Othertree->get_parent_set().at(i).num2)) );
-
-            vector<string_data_object> tmp = p_Othertree->get_child_set().at(i);
-            for (size_t j = 0; j < tmp.size(); j++)
-            {
-                new QTreeWidgetItem(child, QStringList() << QString::fromStdString(tmp.at(j).label)
-                                << QString::fromStdString(std::to_string((int)tmp.at(j).num))
-                                << QString::fromStdString(std::to_string((int)tmp.at(j).num2)));
-                tCounter += tmp.at(j).num;
-                sCounter += tmp.at(j).num;
-            }
-        }
-        // expand the initial root of teachings by default
-        tmpUI->tree_list_teach->expandItem(Otherroot);
-        /// LIST TREE VIEW ///
-        Otherroot->setText(1,QString::fromStdString(std::to_string(tCounter)));
-        Otherroot->setText(2,QString::fromStdString(std::to_string(sCounter)));
-        tCounter = 0;
-        sCounter = 0;
+        ui->tree_list_teach->expandItem(ui->tree_list_grnt->topLevelItem(0));
     }
+
 
 }
 

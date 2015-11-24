@@ -39,3 +39,15 @@ std::string TeachingDTO::getBarField2(int btype){
 double TeachingDTO::getBarValue(int btype){
     return 1.0;
 }
+
+int TeachingDTO::getYear(int btype){
+    return endDate;
+}
+
+std::vector<std::string> TeachingDTO::getTreePath(int btype){
+    return treePath;
+}
+
+std::vector<double> TeachingDTO::getTreeValues(int btype){
+    return treeValues;
+}
