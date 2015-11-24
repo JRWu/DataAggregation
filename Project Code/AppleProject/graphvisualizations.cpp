@@ -14,7 +14,6 @@ Graphvisualizations::Graphvisualizations()
 
 void Graphvisualizations::plot_grants_vs_trials(QCustomPlot* customPlot, Grant_BarGraph1_VO* bargraph_vo){
 
-
     QCPBarsGroup *group = new QCPBarsGroup(customPlot);
     QCPBars *bars = new QCPBars(customPlot->xAxis, customPlot->yAxis);
 

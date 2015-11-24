@@ -503,11 +503,11 @@ void AnalyzeCSV::populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDTO>
         try {
             if (program == "ALL") {
                 shared_ptr<BarGraph_VO<TeachingDTO>> graphable(new BarGraph_VO<TeachingDTO>(data, name, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable);
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString(program));
             }
             else {
                 shared_ptr<BarGraph_VO<TeachingDTO>> graphable(new BarGraph_VO<TeachingDTO>(data, name, program, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable);
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString(program));
             }
         }
         catch (const std::out_of_range& oor) {
@@ -548,12 +548,12 @@ void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<Publicati
             if (type == "ALL")  // Graph ALL publication types by default
             {
                 shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(data, name, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable);
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString(type));
             }
             else                    // Create graphable of only specified publication types
             {
                 shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(data, name, type, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable);
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString(type));
             }
         }
         // no data return, catch the exception
@@ -596,12 +596,12 @@ void AnalyzeCSV::populate_presentation_bargraph(std::shared_ptr<CSVData<Presenta
             if (type.compare("ALL") == 0)   // Graph ALL presentation types by default
             {
                 shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(data, name, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable);
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString(type));
             }
             else    // Create graph of only specified presentation type
             {
                 shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(data, name, type, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable);
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString(type));
             }
         }
         catch (const std::out_of_range& oor) {
@@ -640,11 +640,11 @@ void AnalyzeCSV::populate_grant_bargraph(std::shared_ptr<CSVData<GrantDTO>> data
         try {
             if (funding == "ALL") {
                 shared_ptr<BarGraph_VO<GrantDTO>> graphable(new BarGraph_VO<GrantDTO>(data, name, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable);
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString(funding));
             }
             else {
                 shared_ptr<BarGraph_VO<GrantDTO>> graphable(new BarGraph_VO<GrantDTO>(data, name, funding, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable);
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString(funding));
             }
         }
         catch (const std::out_of_range& oor) {

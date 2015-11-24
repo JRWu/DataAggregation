@@ -19,7 +19,7 @@ public:
     Graphvisualizations();
 
     //Bar Graph Creator
-    template <class DTOType> void plot_bargraph(QCustomPlot* customPlot, std::shared_ptr<BarGraph_VO<DTOType>> vo);
+    template <class DTOType> void plot_bargraph(QCustomPlot* customPlot, std::shared_ptr<BarGraph_VO<DTOType>> vo, QString xAxis, QString yAxis);
 
     // Add support for shared pointer afterwards
     //1)  For faculty member (name), graph publications by type
@@ -49,7 +49,7 @@ private:
 
 
 template <class DTOType>
-void Graphvisualizations::plot_bargraph(QCustomPlot* customPlot, std::shared_ptr<BarGraph_VO<DTOType>> vo){
+void Graphvisualizations::plot_bargraph(QCustomPlot* customPlot, std::shared_ptr<BarGraph_VO<DTOType>> vo, QString xAxis, QString yAxis){
 
     QCPBarsGroup *group = new QCPBarsGroup(customPlot);
     group->setSpacing(.025);
@@ -64,7 +64,7 @@ void Graphvisualizations::plot_bargraph(QCustomPlot* customPlot, std::shared_ptr
         bars->setData(vo->yearTick, vo->values.at(i));
         bars->setBrush(QColor(  (i*21)%255  ,(i*11)%255 ,255-(i*21)%255,50));  // 255/12 ~= 21 (21 gives best coverage)
         bars->setPen(QColor( (i*21)%255, (i*2)%255 , 255-(i*21)%255));
-        bars->setWidth(0.2);
+        bars->setWidth(0.5);
         bars->setBarsGroup(group);
     }
 
@@ -91,14 +91,14 @@ void Graphvisualizations::plot_bargraph(QCustomPlot* customPlot, std::shared_ptr
     }
     customPlot->xAxis->setTickLabelRotation(90);
     customPlot->xAxis->setTickStep(3);
-    customPlot->xAxis->setLabel("Year");
+    customPlot->xAxis->setLabel(xAxis);
 
     int ytick = 1;
     for(;ytick*10 < (vo->maxY);ytick*=10);
     customPlot->yAxis->setAutoTickStep(false);  // force integer for Y only (be wary of doing this with grants)
     customPlot->yAxis->setTickStep(ytick);  // force integer for Y only (be wary of doing this with grants)
     customPlot ->yAxis->setRange(0,vo->maxY + 1);
-    customPlot->yAxis->setLabel("Publications");
+    customPlot->yAxis->setLabel(yAxis);
 }
 
 #endif // GRAPHVISUALIZATIONS_H
