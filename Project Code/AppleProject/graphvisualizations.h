@@ -19,7 +19,7 @@ public:
     Graphvisualizations();
 
     //Bar Graph Creator
-    template <class DTOType> void plot_bargraph(QCustomPlot* customPlot, std::shared_ptr<BarGraph_VO<DTOType>> vo, QString xAxis, QString yAxis);
+    template <class DTOType> void plot_bargraph(QCustomPlot* customPlot, std::shared_ptr<BarGraph_VO<DTOType>> vo, QString xAxis, QString yAxis, string subtitle);
 
     // Add support for shared pointer afterwards
     //1)  For faculty member (name), graph publications by type
@@ -49,7 +49,7 @@ private:
 
 
 template <class DTOType>
-void Graphvisualizations::plot_bargraph(QCustomPlot* customPlot, std::shared_ptr<BarGraph_VO<DTOType>> vo, QString xAxis, QString yAxis){
+void Graphvisualizations::plot_bargraph(QCustomPlot* customPlot, std::shared_ptr<BarGraph_VO<DTOType>> vo, QString xAxis, QString yAxis, string subtitle){
 
     QCPBarsGroup *group = new QCPBarsGroup(customPlot);
     group->setSpacing(.025);
@@ -70,7 +70,7 @@ void Graphvisualizations::plot_bargraph(QCustomPlot* customPlot, std::shared_ptr
 
     //Title = faculty name
     customPlot->plotLayout()->insertRow(0);
-    QString str = QString::fromStdString(vo->name);  // Set the name of the author
+    QString str = QString::fromStdString(vo->name + "\n" + subtitle);  // Set the name of the author
 
     customPlot->plotLayout()->addElement(0, 0, new QCPPlotTitle(customPlot, str)); //title of the graph
 
