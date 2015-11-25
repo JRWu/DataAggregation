@@ -42,30 +42,6 @@ void Graphvisualizations::plot_grants_vs_trials(QCustomPlot* customPlot, Grant_B
 
     int maxY = 0;   // Save the maximum value for y range
 
-    /*
-    //TEST  RM LATER vvv
-    // Used to debug the values being saved
-    cout << "TESTING FOR SAVED VALUES\n";
-    for(int i = 0; i < yvalues.size(); i ++)
-    {
-        QVector<double> size = yvalues.at(i);
-        cout <<"QVector<double> size.size: " << std::to_string(size.size()) << endl;
-        for (int j = 0; j < size.size(); j ++)
-        {
-            cout <<"x "<<": "<< std::to_string(size.at(j)) << " ";
-            if(size.at(j) > maxY)
-            {
-                maxY= size.at(j);
-            }
-        }
-        cout << endl;
-    }
-    //TEST  RM LATER ^^^
-    */
-
-    // FOR THOSE IMPLEMENTING OTHER VO's FOR NON-PUBLICAITON DATA
-    // THIS IS THE LOOP THAT YOU WOULD MOST LIKELY HAVE TO MODIFY
-
     // Add each component, with the colour changing based on index
     for (int i = 0; i < bargraph_vo->grantTypes.size(); i ++)
     {
@@ -85,7 +61,7 @@ void Graphvisualizations::plot_grants_vs_trials(QCustomPlot* customPlot, Grant_B
     QString str = x;
 
     customPlot->plotLayout()->addElement(0, 0, new QCPPlotTitle(customPlot, str)); //title of the graph
-    customPlot->xAxis->setRange((xvalues.at(0))-3, (xvalues.at(xvalues.size()-1))+3);   // Set range of graph   +/-3 so bars wont be on edges
+    customPlot->xAxis->setRange((xvalues.at(0))-1, (xvalues.at(xvalues.size()-1))+1);   // Set range of graph   +/-3 so bars wont be on edges
 
     customPlot->yAxis->setAutoTickStep(false);  // force integer for Y only (be wary of doing this with grants)
     customPlot->yAxis->setTickStep(1);  // force integer for Y only (be wary of doing this with grants)

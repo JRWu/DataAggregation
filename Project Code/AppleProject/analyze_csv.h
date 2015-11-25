@@ -99,6 +99,7 @@ private:
     QTreeWidgetItem* AddChild(QTreeWidgetItem *parent, QString field, QString total);
     QTreeWidgetItem* AddGrandChild(QTreeWidgetItem *parent, QString field, QString total);
 
+    void resizeEvent(QResizeEvent* event);
 };
 
 #endif // ANALYZE_CSV_H
