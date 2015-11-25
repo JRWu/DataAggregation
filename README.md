@@ -36,8 +36,8 @@ After the data is verified, it can be viewed in formatted charts and graphs.
 
 ## Getting ApplePicker
 
-* [Windows](../blob/master/Project Code/AppleProject/release/AppleProject-Demo2.exe)
-* [Mac OS X](../blob/master/Project Code/AppleProject/release/ApplePicker-Demo2.app)
+* [Windows](Project Code/AppleProject/release/AppleProject-Demo2.exe)
+* [Mac OS X](Project Code/AppleProject/release/ApplePicker-Demo2.app)
 
 ## Using the Program
 
