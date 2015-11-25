@@ -29,8 +29,8 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> data, QWidget *pare
     ui->end_date_combo_teach->setCurrentIndex(endDate_strs.size()-1);
 
     /// GRAPH FILTER COMBO BOX ///
-    QStringList names = PopulateGraphComboName(teach_data);
-    QStringList programs = PopulateGraphComboProgram(teach_data);
+    QStringList names = populateGraphComboName(teach_data);
+    QStringList programs = populateGraphComboProgram(teach_data);
 
     ui->name_combo_teach->addItems(names);
     ui->name_combo_teach->setCurrentIndex(0);
@@ -63,8 +63,8 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> data, QWidget *p
     ui->end_date_combo_pub->setCurrentIndex(date_strs.size()-1);
 
     /// GRAPH FILTER COMBO BOXES ///
-    QStringList combo_names = PopulateGraphComboName(pub_data);
-    QStringList combo_types = PopulateGraphComboType(pub_data);
+    QStringList combo_names = populateGraphComboName(pub_data);
+    QStringList combo_types = populateGraphComboType(pub_data);
 
     //set combos with data
     ui->name_combo_pub->addItems(combo_names);
@@ -99,8 +99,8 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<GrantDTO>> data, QWidget *parent)
     ui->end_date_combo_grnt->setCurrentIndex(date_strs.size()-1);
 
     /// GRAPH FILTER COMBO BOX ///
-    QStringList names = PopulateGraphComboName(grant_data);
-    QStringList funding_types = PopulateGraphComboFunding(grant_data);
+    QStringList names = populateGraphComboName(grant_data);
+    QStringList funding_types = populateGraphComboFunding(grant_data);
 
     ui->name_combo_grnt->addItems(names);
     ui->name_combo_grnt->setCurrentIndex(0);
@@ -134,8 +134,8 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PresentationDTO>> data, QWidget *
     ui->end_date_combo_pres->setCurrentIndex(date_strs.size()-1);
 
     /// GRAPH FILTER COMBO BOX ///
-    QStringList names = PopulateGraphComboName(pres_data);
-    QStringList types = PopulateGraphComboType(pres_data);
+    QStringList names = populateGraphComboName(pres_data);
+    QStringList types = populateGraphComboType(pres_data);
 
     ui->name_combo_pres->addItems(names);
     ui->name_combo_pres->setCurrentIndex(0);
@@ -161,6 +161,10 @@ void AnalyzeCSV::on_load_btn_clicked()
                                    "Would you like to continue?",
                                    QMessageBox::Yes|QMessageBox::No);
     if (reload == QMessageBox::Yes) {
+        teach_data = 0;
+        pub_data = 0;
+        pres_data = 0;
+        grant_data = 0;
         LoadCSV * load_csv_page = new LoadCSV();
         this->setCentralWidget(load_csv_page);
     }
@@ -252,7 +256,7 @@ void AnalyzeCSV::populate_grant_tree(std::shared_ptr<CSVData<GrantDTO>> data)
     int e = stoi(en_string.toStdString()); // end date
 
     // Ensure the retrieved years are in the accepted range
-    if (e <= s)
+    if (e < s)
     {
         cout << "Filter dates error" << endl;
     }
@@ -319,7 +323,7 @@ void AnalyzeCSV::populate_presentation_tree(std::shared_ptr<CSVData<Presentation
     long s = stol(st_string.toStdString());
     long e = stol(en_string.toStdString());
 
-    if (e <= s)
+    if (e < s)
     {
         cout << "Cannot filter. Filter dates error." << endl;
     }
@@ -380,18 +384,25 @@ void AnalyzeCSV::populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDTO>
         scene = new QGraphicsScene(this);   // Added for graphics window
 
         QCustomPlot *customPlot = new QCustomPlot();
-        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+        if (ui->graph_area_teach->geometry().width() < 300)
+        {
+            customPlot->setGeometry(0,0, 345,375);  // Set default min window dimensions
+        }
+        else
+        {
+            customPlot->setGeometry(0,0, ui->graph_area_teach->geometry().width(),ui->graph_area_teach->geometry().height());   // added to resize graph
+        }
 
         Graphvisualizations *graph_handler = new Graphvisualizations();
 
         try {
             if (program == "ALL") {
                 shared_ptr<BarGraph_VO<TeachingDTO>> graphable(new BarGraph_VO<TeachingDTO>(data, name, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("All Programs"));
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("# of Hours"), "ALL");
             }
             else {
                 shared_ptr<BarGraph_VO<TeachingDTO>> graphable(new BarGraph_VO<TeachingDTO>(data, name, program, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString(program));
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("# of Hours"), program);
             }
         }
         catch (const std::out_of_range& oor) {
@@ -411,7 +422,7 @@ void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<Publicati
     string s = st_string.toStdString(); // start date
     string e = en_string.toStdString(); // end date
 
-    if (e <= s) // Make sure the end date is greater than the start date
+    if (e < s) // Make sure the end date is greater than the start date
     {
         fprintf(stderr, "Cannot filter. Filter dates error.");
     }
@@ -423,7 +434,16 @@ void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<Publicati
         scene = new QGraphicsScene(this);   // Create the scene for plotting
 
         QCustomPlot *customPlot = new QCustomPlot();
-        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+        if (ui->graph_area_pub->geometry().width() < 300)
+        {
+            customPlot->setGeometry(0,0, 345,375);  // Set default min window dimensions
+        }
+        else
+        {
+            customPlot->setGeometry(0,0, ui->graph_area_pub->geometry().width(),ui->graph_area_pub->geometry().height());   // added to resize graph
+        }
+
+
 
         // Graph handling functions go here
         Graphvisualizations *graph_handler = new Graphvisualizations();
@@ -432,12 +452,12 @@ void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<Publicati
             if (type == "ALL")  // Graph ALL publication types by default
             {
                 shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(data, name, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("All Types"));
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("# Publications"), "ALL");
             }
             else                    // Create graphable of only specified publication types
             {
                 shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(data, name, type, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString(type));
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("# Publications"), type);
             }
         }
         // no data return, catch the exception
@@ -458,7 +478,7 @@ void AnalyzeCSV::populate_presentation_bargraph(std::shared_ptr<CSVData<Presenta
     string s = st_string.toStdString();
     string e = en_string.toStdString();
 
-    if (e <= s)
+    if (e < s)
     {
         cout << "Cannot filter. Filter dates error." << endl;
     }
@@ -471,7 +491,15 @@ void AnalyzeCSV::populate_presentation_bargraph(std::shared_ptr<CSVData<Presenta
         scene = new QGraphicsScene(this);   // Create the scene for plotting
 
         QCustomPlot *customPlot = new QCustomPlot();
-        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+        if (ui->graph_area_pres->geometry().width() < 300)
+        {
+            customPlot->setGeometry(0,0, 345,375);  // Set default min window dimensions
+        }
+        else
+        {
+            customPlot->setGeometry(0,0, ui->graph_area_pres->geometry().width(),ui->graph_area_pres->geometry().height());   // added to resize graph
+        }
+
 
         // Graph the data
         Graphvisualizations *graph_handler = new Graphvisualizations();
@@ -480,12 +508,12 @@ void AnalyzeCSV::populate_presentation_bargraph(std::shared_ptr<CSVData<Presenta
             if (type.compare("ALL") == 0)   // Graph ALL presentation types by default
             {
                 shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(data, name, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("All Types"));
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("# of Presentations"), "ALL");
             }
             else    // Create graph of only specified presentation type
             {
                 shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(data, name, type, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString(type));
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("# of Presentations"), type);
             }
         }
         catch (const std::out_of_range& oor) {
@@ -505,7 +533,7 @@ void AnalyzeCSV::populate_grant_bargraph(std::shared_ptr<CSVData<GrantDTO>> data
     string s = st_string.toStdString();
     string e = en_string.toStdString();
 
-    if (e <= s)
+    if (e < s)
     {
         cout << "Cannot filter. Filter dates error." << endl;
     }
@@ -517,18 +545,25 @@ void AnalyzeCSV::populate_grant_bargraph(std::shared_ptr<CSVData<GrantDTO>> data
         scene = new QGraphicsScene(this);
 
         QCustomPlot *customPlot = new QCustomPlot();
-        customPlot->setGeometry(0,0,345,375);   // added to resize graph
+        if (ui->graph_area_grnt->geometry().width() < 300)
+        {
+            customPlot->setGeometry(0,0, 345,375);  // Set default min window dimensions
+        }
+        else
+        {
+            customPlot->setGeometry(0,0, ui->graph_area_grnt->geometry().width(),ui->graph_area_grnt->geometry().height());   // added to resize graph
+        }
 
         Graphvisualizations *graph_handler = new Graphvisualizations();
 
         try {
             if (funding == "ALL") {
                 shared_ptr<BarGraph_VO<GrantDTO>> graphable(new BarGraph_VO<GrantDTO>(data, name, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("All Funding Types"));
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("Total Funding\n(in $)"), "ALL");
             }
             else {
                 shared_ptr<BarGraph_VO<GrantDTO>> graphable(new BarGraph_VO<GrantDTO>(data, name, funding, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString(funding));
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("Total Funding\n(in$)"), funding);
             }
         }
         catch (const std::out_of_range& oor) {
@@ -665,5 +700,36 @@ void AnalyzeCSV::on_program_combo_teach_activated()
     }
     else {
         populate_teaching_bargraph(teach_data);
+    }
+}
+
+/**
+ * @brief AnalyzeCSV::resizeEvent detects when the window is resized on the AnalyzeCSV page
+ * @param event is the event passed when the window is resized
+ */
+void AnalyzeCSV::resizeEvent(QResizeEvent *event)
+{
+    QMainWindow::resizeEvent(event);
+    {
+
+        // Rudimentary event handling of repopulating the bargraphs
+        // Code within bargraphs handles the new window size
+
+        if (pub_data)
+        {
+            populate_publication_bargraph(pub_data);
+        }
+        if (teach_data)
+        {
+            populate_teaching_bargraph(teach_data);
+        }
+        if (pres_data)
+        {
+            populate_presentation_bargraph(pres_data);
+        }
+        if (grant_data)
+        {
+            populate_grant_bargraph(grant_data);
+        }
     }
 }

@@ -113,7 +113,7 @@ BarGraph_VO<DTOType>::BarGraph_VO(std::shared_ptr<CSVData<DTOType>> data,
 
     //Set the ticks for the x axis and find the max value
     for(int i = 0; i < (int) yearLabel.size(); i++){
-        yearTick.push_back(5*(i));
+        yearTick.push_back(2*(i) + 1);
         for(int j = 0; j < (int)field2.size(); j++){
             if(values.at(j).at(i) > maxY)
                 maxY = values.at(j).at(i);

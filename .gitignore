@@ -7,3 +7,4 @@ Project\ Code/build*
 .DS_Store
 .*
 !/.gitignore
+*.db
