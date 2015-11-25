@@ -9,17 +9,28 @@
 // combo box population functions
 
 // publication tab
-QStringList PopulateGraphComboName(std::shared_ptr<CSVData<PublicationDTO>> tdata);
-QStringList PopulateGraphComboType(std::shared_ptr<CSVData<PublicationDTO>> tdata);
+/**
+ * @brief populateGraphComboName - populates the name combo box for the publication tab
+ * @param data - dto loaded from csv
+ * @return list of names
+ */
+QStringList populateGraphComboName(std::shared_ptr<CSVData<PublicationDTO>> tdata);
+/**
+ * @brief populateGraphComboType - populates the type combo box for the publication tab
+ * @param data - dto loaded from the csv
+ * @return - list of types
+ */
+QStringList populateGraphComboType(std::shared_ptr<CSVData<PublicationDTO>> tdata);
+
 // presentation tab
-QStringList PopulateGraphComboName(std::shared_ptr<CSVData<PresentationDTO>> tdata);
-QStringList PopulateGraphComboType(std::shared_ptr<CSVData<PresentationDTO>> tdata);
+QStringList populateGraphComboName(std::shared_ptr<CSVData<PresentationDTO>> tdata);
+QStringList populateGraphComboType(std::shared_ptr<CSVData<PresentationDTO>> tdata);
 // grants tab
-QStringList PopulateGraphComboName(std::shared_ptr<CSVData<GrantDTO>> tdata);
-QStringList PopulateGraphComboFunding(std::shared_ptr<CSVData<GrantDTO>> tdata);
+QStringList populateGraphComboName(std::shared_ptr<CSVData<GrantDTO>> tdata);
+QStringList populateGraphComboFunding(std::shared_ptr<CSVData<GrantDTO>> tdata);
 // teaching tab
-QStringList PopulateGraphComboName(std::shared_ptr<CSVData<TeachingDTO>> data);
-QStringList PopulateGraphComboProgram(std::shared_ptr<CSVData<TeachingDTO>> tdata);
+QStringList populateGraphComboName(std::shared_ptr<CSVData<TeachingDTO>> data);
+QStringList populateGraphComboProgram(std::shared_ptr<CSVData<TeachingDTO>> tdata);
 
 
 #endif // GRAPHCOMBOBOXPOPULATOR_H

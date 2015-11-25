@@ -1,6 +1,6 @@
 #include "graph_combo_box_populator.h"
 
-QStringList PopulateGraphComboName(std::shared_ptr<CSVData<PublicationDTO>> data) {
+QStringList populateGraphComboName(std::shared_ptr<CSVData<PublicationDTO>> data) {
     size_t i, j;
     std::vector<string> names;
 
@@ -37,7 +37,7 @@ QStringList PopulateGraphComboName(std::shared_ptr<CSVData<PublicationDTO>> data
     return combo_names;
 }
 
-QStringList PopulateGraphComboType(std::shared_ptr<CSVData<PublicationDTO>> data) {
+QStringList populateGraphComboType(std::shared_ptr<CSVData<PublicationDTO>> data) {
     size_t i, j;
     std::vector<string> types;
 
@@ -73,7 +73,7 @@ QStringList PopulateGraphComboType(std::shared_ptr<CSVData<PublicationDTO>> data
     return combo_types;
 }
 
-QStringList PopulateGraphComboName(std::shared_ptr<CSVData<PresentationDTO>> data) {
+QStringList populateGraphComboName(std::shared_ptr<CSVData<PresentationDTO>> data) {
     size_t i, j;
     std::vector<string> names;
 
@@ -110,7 +110,7 @@ QStringList PopulateGraphComboName(std::shared_ptr<CSVData<PresentationDTO>> dat
     return combo_names;
 }
 
-QStringList PopulateGraphComboType(std::shared_ptr<CSVData<PresentationDTO>> data) {
+QStringList populateGraphComboType(std::shared_ptr<CSVData<PresentationDTO>> data) {
     size_t i, j;
     std::vector<string> types;
 
@@ -146,7 +146,7 @@ QStringList PopulateGraphComboType(std::shared_ptr<CSVData<PresentationDTO>> dat
     return combo_types;
 }
 
-QStringList PopulateGraphComboName(std::shared_ptr<CSVData<GrantDTO>> data) {
+QStringList populateGraphComboName(std::shared_ptr<CSVData<GrantDTO>> data) {
     size_t i, j;
     std::vector<string> names;
 
