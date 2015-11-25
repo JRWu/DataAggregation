@@ -161,6 +161,10 @@ void AnalyzeCSV::on_load_btn_clicked()
                                    "Would you like to continue?",
                                    QMessageBox::Yes|QMessageBox::No);
     if (reload == QMessageBox::Yes) {
+        teach_data = 0;
+        pub_data = 0;
+        pres_data = 0;
+        grant_data = 0;
         LoadCSV * load_csv_page = new LoadCSV();
         this->setCentralWidget(load_csv_page);
     }
@@ -252,7 +256,7 @@ void AnalyzeCSV::populate_grant_tree(std::shared_ptr<CSVData<GrantDTO>> data)
     int e = stoi(en_string.toStdString()); // end date
 
     // Ensure the retrieved years are in the accepted range
-    if (e <= s)
+    if (e < s)
     {
         cout << "Filter dates error" << endl;
     }
@@ -319,7 +323,7 @@ void AnalyzeCSV::populate_presentation_tree(std::shared_ptr<CSVData<Presentation
     long s = stol(st_string.toStdString());
     long e = stol(en_string.toStdString());
 
-    if (e <= s)
+    if (e < s)
     {
         cout << "Cannot filter. Filter dates error." << endl;
     }
@@ -418,7 +422,7 @@ void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<Publicati
     string s = st_string.toStdString(); // start date
     string e = en_string.toStdString(); // end date
 
-    if (e <= s) // Make sure the end date is greater than the start date
+    if (e < s) // Make sure the end date is greater than the start date
     {
         fprintf(stderr, "Cannot filter. Filter dates error.");
     }
@@ -474,7 +478,7 @@ void AnalyzeCSV::populate_presentation_bargraph(std::shared_ptr<CSVData<Presenta
     string s = st_string.toStdString();
     string e = en_string.toStdString();
 
-    if (e <= s)
+    if (e < s)
     {
         cout << "Cannot filter. Filter dates error." << endl;
     }
@@ -529,7 +533,7 @@ void AnalyzeCSV::populate_grant_bargraph(std::shared_ptr<CSVData<GrantDTO>> data
     string s = st_string.toStdString();
     string e = en_string.toStdString();
 
-    if (e <= s)
+    if (e < s)
     {
         cout << "Cannot filter. Filter dates error." << endl;
     }

@@ -131,25 +131,25 @@ template <class DTOType> BarGraph_VO<DTOType>::BarGraph_VO(std::shared_ptr<CSVDa
     for(int i = 0; i < n; i++){
 
         DTOType dto = data->dtos->at(i);
-        if(dto.getBarValue(type) > 0){
-            string test_name = dto.getName();
-            string test_type = dto.getBarField2(type);
 
-            //Check if this dto is for the faculity memeber we are graphing
-            if((dto.getName().compare( name) == 0)&&(dto.getBarField2(type).compare(dtype) ==0)){
+        string test_name = dto.getName();
+        string test_type = dto.getBarField2(type);
 
-                //Make sure the date is in the correct range
-                string date = dto.getBarField1(type);
+        //Check if this dto is for the faculity memeber we are graphing
+        if((dto.getName().compare( name) == 0)&&(dto.getBarField2(type).compare(dtype) ==0)){
 
-                if((start <= date)&&(date <= end)){
-                    QString qdate = QString::fromStdString(date);
 
-                    QVector<QString>::iterator index;
-                        //Check to see if the current year is already in the list of all the years the fauculty member has been active
-                    index = find(yearLabel.begin(), yearLabel.end(), qdate);
-                    //If not add it to the list.
-                    if(index == yearLabel.end()) yearLabel.push_back(qdate);
-                }
+            //Make sure the date is in the correct range
+            string date = dto.getBarField1(type);
+
+            if((start <= date)&&(date <= end)){
+                QString qdate = QString::fromStdString(date);
+
+                QVector<QString>::iterator index;
+                //Check to see if the current year is already in the list of all the years the fauculty member has been active
+                index = find(yearLabel.begin(), yearLabel.end(), qdate);
+                //If not add it to the list.
+                if(index == yearLabel.end()) yearLabel.push_back(qdate);
             }
         }
     }

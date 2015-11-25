@@ -64,7 +64,7 @@ void Graphvisualizations::plot_bargraph(QCustomPlot* customPlot, std::shared_ptr
         bars->setData(vo->yearTick, vo->values.at(i));
         bars->setBrush(QColor(  (i*21)%255  ,(i*11)%255 ,255-(i*21)%255,50));  // 255/12 ~= 21 (21 gives best coverage)
         bars->setPen(QColor( (i*21)%255, (i*2)%255 , 255-(i*21)%255));
-        bars->setWidth(0.5);
+        bars->setWidth(.6);
         bars->setBarsGroup(group);
     }
 
@@ -77,7 +77,6 @@ void Graphvisualizations::plot_bargraph(QCustomPlot* customPlot, std::shared_ptr
     customPlot->xAxis->setAutoTicks(false);
     customPlot->xAxis->setAutoTickLabels(false);
     customPlot->xAxis->setAutoTicks(false);
-    customPlot->yAxis->setTickStep(1);
 
     if (vo->yearTick.size() != 0)   // Check to ensure no out of bound year ranges
     {
@@ -95,9 +94,9 @@ void Graphvisualizations::plot_bargraph(QCustomPlot* customPlot, std::shared_ptr
 
     int ytick = 1;
     for(;ytick*10 < (vo->maxY);ytick*=10);
-    customPlot->yAxis->setAutoTickStep(false);  // force integer for Y only (be wary of doing this with grants)
-    customPlot->yAxis->setTickStep(ytick);  // force integer for Y only (be wary of doing this with grants)
-    customPlot ->yAxis->setRange(0,vo->maxY + 1);
+    customPlot->yAxis->setAutoTickStep(false);
+    customPlot->yAxis->setTickStep(ytick);
+    customPlot ->yAxis->setRange(0,vo->maxY + ytick/2);
     customPlot->yAxis->setLabel(yAxis);
 }
 
