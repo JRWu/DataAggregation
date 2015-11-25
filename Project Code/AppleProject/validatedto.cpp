@@ -271,7 +271,7 @@ int validateTeaching(std::vector<string> * fields)
 {
     int result = 0;
 
-    for(int i = 9; i > 0; i--) {
+    for(int i = 9; i >= 0; i--) {
         if(!validateString((*fields)[i])) result+=1;
         result <<= 1;
     }
