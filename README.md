@@ -34,6 +34,11 @@ This is a stand-alone app developed in C++ by Team Apple. The purpose of this de
 The user can then select their parameters whether it be the time frame for the data or the type of publications or research to view. 
 After the data is verified, it can be viewed in formatted charts and graphs.
 
+## Getting ApplePicker
+
+* [Windows](../blob/master/Project Code/AppleProject/release/AppleProject-Demo2.exe)
+* [Mac OS X](../blob/master/Project Code/AppleProject/release/ApplePicker-Demo2.app)
+
 ## Using the Program
 
 * Simply double-click the executable file provided to run the program.
