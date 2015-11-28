@@ -17,7 +17,6 @@ CONFIG += static
 #CONFIG += release
 
 SOURCES += main.cpp\
-    mainwindow.cpp \
     verify_csv.cpp \
     analyze_csv.cpp \
     publicationdto.cpp \
@@ -34,12 +33,14 @@ SOURCES += main.cpp\
     teachingdto.cpp \
     graph_combo_box_populator.cpp \
     grant_bargraph1_vo.cpp \
-    load_csv.cpp \
-    date_filter_combo_populator.cpp
+    date_filter_combo_populator.cpp \
+    View/load_csv.cpp \
+    View/view.cpp \
+    View/mainwindow.cpp \
+    View/mainwindowcontroller.cpp \
+    Utility/stringfunctions.cpp \
 
-
-HEADERS  += mainwindow.h \
-    verify_csv.h \
+HEADERS  += verify_csv.h \
     analyze_csv.h \
     publicationdto.h \
     fast-cpp-csv-parser-master/csv.h \
@@ -58,13 +59,16 @@ HEADERS  += mainwindow.h \
     bargraph_vo.h \
     graph_combo_box_populator.h \
     treelist_vo.h \
-    load_csv.h \
-    date_filter_combo_populator.h
+    date_filter_combo_populator.h \
+    View/view.h \
+    View/load_csv.h \
+    View/mainwindow.h \
+    Utility/stringfunctions.h \
 
-FORMS    += mainwindow.ui \
+FORMS    += View/mainwindow.ui \
     verify_csv.ui \
     analyze_csv.ui \
-    load_csv.ui
+    View/load_csv.ui
 
 DISTFILES += \
     AppleProject.pro.user \

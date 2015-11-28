@@ -1,29 +1,8 @@
 #include "validatedto.h"
+#include "Utility/stringfunctions.h"
 #include <iostream>
 using namespace std;
 
-
-//http://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring
-void trimLeft(string *s){
-    size_t startpos = s->find_first_not_of(" \t\n");
-    if( string::npos != startpos )
-    {
-        *s = s->substr( startpos );
-    }
-}
-
-void trimRight(string *s){
-    size_t endpos = s->find_last_not_of(" \t\n");
-    if( string::npos != endpos )
-    {
-        *s = s->substr( 0, endpos+1 );
-    }
-}
-
-void trimString(string *s){
-    trimRight(s);
-    trimLeft(s);
-}
 
 bool validateString(string s){
     if(s.length() == 0) return false;
@@ -34,8 +13,6 @@ bool validateString(string s){
         return(found != 0);
     }
 }
-
-//end borrowed functions
 
 bool isLeapYear(int y){
     if((y%4) == 0){
