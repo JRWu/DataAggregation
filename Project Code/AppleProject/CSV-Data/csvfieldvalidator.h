@@ -110,7 +110,10 @@ private:
     static CSVFieldValidator* _instance;
 };
 
+//Checks if given year is a leapyear
 bool isLeapYear(int y);
+
+//Used by vaidate name list to validate each name in the list
 bool validateAuthorName(std::string *s);
 
 #endif // CSVFEILDVALIDATOR

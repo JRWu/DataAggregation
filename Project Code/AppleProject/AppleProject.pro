@@ -69,6 +69,7 @@ HEADERS  += verify_csv.h \
     CSV-Parser/csvparser.h \
     CSV-Data/csvfieldvalidator.h \
     CSV-Data/csvfieldvalidatorfactory.h \
+    CSV-Data/csvfield.h \
 
 FORMS    += View/mainwindow.ui \
     verify_csv.ui \
