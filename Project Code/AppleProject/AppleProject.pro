@@ -42,6 +42,8 @@ SOURCES += main.cpp\
     CSV-Data/csvfieldvalidator.cpp \
     CSV-Data/csvfieldvalidatorfactory.cpp \
     CSV-Data/csvlinevalidator.cpp \
+    DTO/csvdto.cpp \
+    CSV-Data/csvlinevalidatorfactory.cpp \
 
 HEADERS  += verify_csv.h \
     analyze_csv.h \
@@ -72,6 +74,8 @@ HEADERS  += verify_csv.h \
     CSV-Data/csvfieldvalidatorfactory.h \
     CSV-Data/csvfield.h \
     CSV-Data/csvlinevalidator.h \
+    DTO/csvdto.h \
+    CSV-Data/csvlinevalidatorfactory.h \
 
 FORMS    += View/mainwindow.ui \
     verify_csv.ui \
