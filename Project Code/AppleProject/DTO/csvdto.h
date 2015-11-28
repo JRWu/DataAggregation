@@ -9,9 +9,9 @@
 #include "CSV-Data/csvfieldvalidatorfactory.h"
 #include "CSV-Data/csvlinevalidatorfactory.h"
 #include "CSV-Data/csvlinevalidator.h"
-//#include "DTO/bargraphadapter.h"
-//#include "DTO/treelistadapter.h"
-//#include "DTO/filteradapter.h"
+#include "DTO/bargraphadapter.h"
+#include "DTO/treelistadapter.h"
+#include "DTO/filteradapter.h"
 
 #define NPUBHEADER 27
 #define NPUBMANDATORY 9
@@ -42,10 +42,10 @@ class CSVDTO
     std::vector<std::vector<CSVField>> errorLines;
 
     //Adapters
-    /*std::vector<FilterAdapter> filterDTOs;
+    std::vector<FilterAdapter> filterDTOs;
     std::vector<BarGraphAdapter> barGraphDTOs;
-    std::vector<TreeListAdapter> treeListDTOs;*
-    */
+    std::vector<TreeListAdapter> treeListDTOs;
+
 
     //Line validation strategy
     CSVLineValidator *lineValidator = 0;
@@ -58,14 +58,13 @@ class CSVDTO
 public:
     //Creates a new data set of the chosen type from the given file
     CSVDTO(std::string *fname, CSVType ty);
-    /*
+
     //Returns the list of filterDTOS for use in filtering
     std::vector<FilterAdapter> *getFilterDTOs();
     //Returns the list of bargraphDTOs for use in constructing bargraphs
     std::vector<BarGraphAdapter> *getBarGraphDTOs();
     //Returns the list of tree list dtos for use in making the tree list
     std::vector<TreeListAdapter> *getTreeListDTOs();
-    */
 };
 
 #endif // CSVDTO_H

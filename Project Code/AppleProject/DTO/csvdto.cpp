@@ -46,7 +46,7 @@ CSVDTO::CSVDTO(std::string *fname, CSVType ty)
         else errorLines.push_back(line);
     }
 }
-/*
+
 std::vector<FilterAdapter> *CSVDTO::getFilterDTOs(){
     if(filterDTOs.size() < validLines.size()){
         for(size_t i = 0; i < validLines.size(); i++){
@@ -79,7 +79,6 @@ std::vector<TreeListAdapter> *CSVDTO::getTreeListDTOs(){
 
     return &treeListDTOs;
 }
-*/
 
 /*Sets up the properties of the csvdto and the csv reader based on
  *the given csv type. The number of mandatory fields, the name of
