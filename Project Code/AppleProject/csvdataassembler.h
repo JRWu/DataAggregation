@@ -1,7 +1,7 @@
 #ifndef CSVDATAASSEMBLER_H
 #define CSVDATAASSEMBLER_H
 
-#include "fast-cpp-csv-parser-master/csv.h"
+#include "CSV-Parser/csv.h"
 #include "csvdata.h"
 #include "publicationdto.h"
 #include "grantdto.h"

@@ -43,7 +43,6 @@ SOURCES += main.cpp\
 HEADERS  += verify_csv.h \
     analyze_csv.h \
     publicationdto.h \
-    fast-cpp-csv-parser-master/csv.h \
     csvdata.h \
     csvdataassembler.h \
     qcustomplot.h \
@@ -64,6 +63,8 @@ HEADERS  += verify_csv.h \
     View/load_csv.h \
     View/mainwindow.h \
     Utility/stringfunctions.h \
+    CSV-Parser/csv.h \
+    CSV-Parser/csvparser.h \
 
 FORMS    += View/mainwindow.ui \
     verify_csv.ui \
