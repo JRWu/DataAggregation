@@ -39,6 +39,8 @@ SOURCES += main.cpp\
     View/mainwindow.cpp \
     View/mainwindowcontroller.cpp \
     Utility/stringfunctions.cpp \
+    CSV-Data/csvfieldvalidator.cpp \
+    CSV-Data/csvfieldvalidatorfactory.cpp \
 
 HEADERS  += verify_csv.h \
     analyze_csv.h \
@@ -65,6 +67,8 @@ HEADERS  += verify_csv.h \
     Utility/stringfunctions.h \
     CSV-Parser/csv.h \
     CSV-Parser/csvparser.h \
+    CSV-Data/csvfieldvalidator.h \
+    CSV-Data/csvfieldvalidatorfactory.h \
 
 FORMS    += View/mainwindow.ui \
     verify_csv.ui \
