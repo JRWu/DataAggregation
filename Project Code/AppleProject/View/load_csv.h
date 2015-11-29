@@ -2,8 +2,16 @@
 #define LOAD_CSV_H
 
 #include <QMainWindow>
+
+
+#include "DTO/csvdto.h"
 #include "verify_csv.h"
 #include "analyze_csv.h"
+#include "View/view.h"
+
+#define NBUT 4
+
+enum CSVType: unsigned int;
 
 namespace Ui {
 class LoadCSV;
@@ -15,9 +23,13 @@ class LoadCSV : public QMainWindow
 
 public:
     explicit LoadCSV(QWidget *parent = 0);
+    bool eventFilter(QObject *obj, QEvent *event);
     ~LoadCSV();
 
 private:
+    std::string defaultButtonTxt[4] =
+                {"PUBLICATIONS", "GRANTS", "TEACHING", "PRESENTATION"};
+
     Ui::LoadCSV *ui;
     VerifyCSV *verify_csv_page;
     AnalyzeCSV *analyze_csv_page;
@@ -25,6 +37,10 @@ private:
     QStringListModel *recentFilesModel;
     QStringList recentFilesList;
     int csvType;
+
+    QPushButton *getCSVButton(std::size_t i);
+    void setMouseOverBtnTxt(std::size_t i);
+    void resetBtnTxt(std::size_t i);
 
 protected:
     void addRecentFile(QString file);

@@ -15,6 +15,9 @@ ui(new Ui::LoadCSV)
     ui->recent_files_list->setSelectionRectVisible(false);
     ui->recent_files_list->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
+    for(std::size_t t = 0; t < NBUT; t++){
+        this->getCSVButton(t)->installEventFilter(this);
+    }
 }
 
 LoadCSV::~LoadCSV()
@@ -133,4 +136,44 @@ void LoadCSV::on_loadRecentFile_btn_clicked()
     filename = splitList[1];
     ui->file_name_load->setText(filename);
 
+}
+
+
+//Hover over button (or other things) listener.
+bool LoadCSV::eventFilter(QObject *obj, QEvent *event)
+{
+    // This function repeatedly call for those QObjects
+    // which have installed eventFilter (Step 2)
+
+    for(std::size_t t = 0; t < NBUT; t++){
+        if(obj == (QObject*)(this->getCSVButton(t)))
+        {
+            if (event->type() == QEvent::Enter)
+            {
+                setMouseOverBtnTxt(t);
+            }
+            else if(event->type() == QEvent::Leave){
+                resetBtnTxt(t);
+            }
+        }
+    }
+    // pass the event on to the parent class
+    return QWidget::eventFilter(obj, event);
+}
+
+QPushButton *LoadCSV::getCSVButton(std::size_t i){
+    CSVType t = (CSVType)i;
+    if(t == PUBLICATION) return ui->publication_btn;
+    else if(t == GRANTS) return ui->grant_btn;
+    else if(t == PRESENTATION) return ui->presentation_btn;
+    else return ui->teaching_btn;
+}
+
+void LoadCSV::setMouseOverBtnTxt(size_t i){
+    this->getCSVButton(i)->setText("I'm over you");
+}
+
+void LoadCSV::resetBtnTxt(std::size_t i){
+    QString txt = QString::fromStdString(defaultButtonTxt[i]);
+    this->getCSVButton(i)->setText(txt);
 }

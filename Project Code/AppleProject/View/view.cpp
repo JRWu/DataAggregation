@@ -18,6 +18,10 @@ MainWindow *View::getMainWindow(){
 }
 
 LoadCSV *View::getLoadWindow(){
+    loadWindow = new LoadCSV();
+}
+
+LoadCSV *View::getNewLoadWindow(){
     free(loadWindow);
     loadWindow = new LoadCSV();
     return loadWindow;

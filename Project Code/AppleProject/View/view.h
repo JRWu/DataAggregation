@@ -14,6 +14,7 @@ public:
 
     MainWindow *getMainWindow();
     LoadCSV *getLoadWindow();
+    LoadCSV *getNewLoadWindow();
 
 protected:
     View();
