@@ -47,6 +47,8 @@ SOURCES += main.cpp\
     DTO/bargraphadapter.cpp \
     DTO/filteradapter.cpp \
     DTO/treelistadapter.cpp \
+    DTO/data.cpp \
+    Filters/dtofilter.cpp \
 
 HEADERS  += verify_csv.h \
     analyze_csv.h \
@@ -82,6 +84,8 @@ HEADERS  += verify_csv.h \
     DTO/bargraphadapter.h \
     DTO/filteradapter.h \
     DTO/treelistadapter.h \
+    DTO/data.h \
+    Filters/dtofilter.h \
 
 FORMS    += View/mainwindow.ui \
     verify_csv.ui \
@@ -97,3 +101,4 @@ DISTFILES += \
 
 RESOURCES += \
     apple_resource.qrc
+

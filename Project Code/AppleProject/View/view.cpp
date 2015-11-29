@@ -18,5 +18,7 @@ MainWindow *View::getMainWindow(){
 }
 
 LoadCSV *View::getLoadWindow(){
+    free(loadWindow);
+    loadWindow = new LoadCSV();
     return loadWindow;
 }
