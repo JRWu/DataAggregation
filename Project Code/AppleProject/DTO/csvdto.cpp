@@ -194,3 +194,10 @@ void CSVDTO::setReadProperties(std::vector<CSVField> *f, CSVType t){
         }
     }
 }
+
+
+string CSVDTO::getFile(){
+    string s = this->fileName;
+    size_t i = s.find_last_of("/");
+    return s.substr( i + 1,s.length());
+}

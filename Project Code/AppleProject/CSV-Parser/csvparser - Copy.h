@@ -14,19 +14,39 @@
 //Modified CSV.H
 namespace error{
     struct base : std::exception{
+        virtual void format_error_message()const = 0;
+
         const char*what()const throw(){
-            return 0;
+            format_error_message();
+            return error_message_buffer;
         }
+
+        mutable char error_message_buffer[256];
     };
 
     struct escaped_string_not_closed :
-            base{};
+            base{
+            void format_error_message()const{
+                std::snprintf(error_message_buffer, sizeof(error_message_buffer),
+                        "Escaped string was not closed.");
+            }
+    };
+
     struct csv_format_error :
-            base{};
+            base{
+            void format_error_message()const{
+                std::snprintf(error_message_buffer, sizeof(error_message_buffer),
+                        "Error reading CSV.");
+            }
+    };
+
     struct missing_header_error :
-            base{};
-    struct duplicate_header_error :
-            base{};
+            base{
+            void format_error_message()const{
+                std::snprintf(error_message_buffer, sizeof(error_message_buffer),
+                        "CSV mising mandatory header.");
+            }
+    };
 }
 
 class CSVParser
@@ -122,8 +142,8 @@ class CSVParser
     }
 
 public:
-    CSVParser(std::string fname, std::vector<std::string> *header, std::size_t man){
-        lineReader = std::shared_ptr<io::LineReader>(new io::LineReader(fname));
+    CSVParser(std::string *fname, std::vector<std::string> *header, std::size_t man){
+        lineReader = std::shared_ptr<io::LineReader>(new io::LineReader(*fname));
 
         nHeader = header->size();
         nMan = man;
@@ -131,14 +151,7 @@ public:
         std::vector<std::string> csvHeader = parseLine(lineReader->next_line());
         nCol = csvHeader.size();
 
-        //check for duplicate headers
-        for(std::size_t i = 0; i < csvHeader.size(); i++){
-            std::vector<std::string>::iterator s,e;
-            s = csvHeader.begin();
-            e = csvHeader.end();
-            if(find(s+i+1, e, csvHeader.at(i)) != e)
-                throw error::duplicate_header_error();
-        }
+        //TODO Check for duplicate headers, throw error::dupliate headers
 
         //Initailize all the order values
         for(std::size_t i = 0; i < nCol; i++){
@@ -146,12 +159,7 @@ public:
             s = header->begin();
             e = header->end();
             j = std::find(s, e, csvHeader.at(i));
-            if(j == e){
-                order.push_back(-1);
-            }
-            else{
-                order.push_back(j - s);
-            }
+            order.push_back((j == e)?-1:(j - s));
         }
 
         //Check that each mandatory header is mapped somewhere.
@@ -161,9 +169,7 @@ public:
             e = order.end();
             j = std::find(s, e, i);
             //A mandatory header has no index in the order (ie is missing)
-            if(j == e){
-                throw error::missing_header_error();
-            }
+            if(j == e) throw error::missing_header_error();
         }
 
         nextLine = lineReader->next_line();
@@ -171,36 +177,33 @@ public:
 
     void readLine(std::vector<CSVField> *fields){
         std::vector<std::string> csvLine;
-        std::string oldLine = "";
-        char *charLine;
 
         while(csvLine.size() < nCol){
             if(!this->hasNext()) throw error::csv_format_error();
-            std::string newLine = oldLine + this->getNext();
-            oldLine = newLine + "\n";
 
-            try{
-                charLine = (char*)malloc(newLine.length() + 1);
-                std::strcpy(charLine, newLine.c_str());
-                std::vector<std::string> line = parseLine(charLine);
+            std::vector<std::string> line = parseLine(this->getNext());
+            //Check if line is empty
+            if(line.size() == 0) break;
 
-                //Check if line is empty
-                if(line.size() == 0){
-                    free(charLine)    ;
-                    break;
-                }
-                csvLine = std::vector<std::string>(line.begin(), line.end());
+            //Append the lines togther to catch escapes new lines
+            if(csvLine.size() > 0){
+                std::vector<std::string>::iterator last = csvLine.end() - 1;
+                std::string newLast = csvLine.at(last - csvLine.begin());
+
+                //Can only get here if an escapsed new line was found
+                newLast += "/n" + line.at(0);
+                csvLine.erase(last);
+                csvLine.push_back(newLast);
             }
-            //If new line is not escaped we need to paste them together
-            catch(error::escaped_string_not_closed){}
-
-            free(charLine);
+            else{
+                csvLine.push_back(line.at(0));
+            }
+            csvLine.insert(csvLine.end(),line.begin() + 1, line.end());
         }
 
         //If the loop was exited not reading the expected number of columns
-        if(csvLine.size() != nCol){
-            throw error::csv_format_error();
-        }
+        if(csvLine.size() != nCol)
+                        throw error::csv_format_error();
 
         for(std::size_t i = 0; i < nMan; i++){
             std::vector<int>::iterator j,s,e;

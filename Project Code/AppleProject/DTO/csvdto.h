@@ -65,6 +65,9 @@ public:
     std::vector<BarGraphAdapter> *getBarGraphDTOs();
     //Returns the list of tree list dtos for use in making the tree list
     std::vector<TreeListAdapter> *getTreeListDTOs();
+
+    //Returns the file name for this DTO
+    std::string getFile();
 };
 
 #endif // CSVDTO_H
