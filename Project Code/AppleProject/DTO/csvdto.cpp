@@ -17,7 +17,7 @@ CSVDTO::CSVDTO(std::string *fname, CSVType ty)
 
     //Makes a new csv parser parsing file fname, using the given header
     //and number of mandatory fields
-    CSVParser parser = CSVParser(fname, &header, nMan);
+    CSVParser parser = CSVParser(fileName, &header, nMan);
 
     //Keeps track of the line of the csv we are on
     int nLines = 2;
