@@ -48,7 +48,11 @@ public:
             value = s.substr(1,s.length());
             trimLeft(&value);
         }
-        else value = s;
+        else{
+            asterisk = false;
+            value = s;
+        }
+
     }
 
     //Returns the value of the field (ie with no asterisk)

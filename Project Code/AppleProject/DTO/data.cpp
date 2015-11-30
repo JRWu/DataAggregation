@@ -14,11 +14,11 @@ Data* Data::Instance()
     return _instance;
 }
 
-std::shared_ptr<CSVDTO> Data::getDTO(CSVType t){
-    return Instance()->csv.at(t);
+std::shared_ptr<CSVDTO> Data::getDTO(size_t i){
+    return Instance()->csv.at(i);
 }
 
-bool Data::loadDTO(string *fname, CSVType t){
+bool Data::loadDTO(string fname, CSVType t){
     std::shared_ptr<CSVDTO> newcsv(new CSVDTO(fname, t));
     csv.at(t).swap(newcsv);
     return true;

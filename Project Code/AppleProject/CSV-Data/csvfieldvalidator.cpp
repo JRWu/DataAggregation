@@ -89,11 +89,9 @@ bool NameListValidator::validate(string *s){
         //Make sure no comma deliniated entry is whitespace
         trimString(&elm[i]);
         if(elm[i].length() == 0) return false;
-        //If any comma sepearated entry is invalid return false
-        if(!validateAuthorName(&(elm[i]))) return false;
     }
 
-    //Otherwise recnstruct the list in our expected format
+    //Otherwise reconstruct the list in our expected format
     *s = "";
     for(size_t i = 0; i < elm.size(); i++){
         if(i!=0) *s = *s + ",";

@@ -5,7 +5,8 @@ View* View::_instance = 0;
 View::View()
 {
     mainWindow = new MainWindow();
-    loadWindow = new LoadCSV();
+    loadWindow = 0;
+    verifyWindow = 0;
 }
 
 View* View::Instance(){
@@ -17,12 +18,14 @@ MainWindow *View::getMainWindow(){
     return mainWindow;
 }
 
-LoadCSV *View::getLoadWindow(){
-    loadWindow = new LoadCSV();
-}
-
 LoadCSV *View::getNewLoadWindow(){
     free(loadWindow);
     loadWindow = new LoadCSV();
     return loadWindow;
+}
+
+VerifyCSV *View::getNewVerifyWindow(size_t i){
+    free(verifyWindow);
+    verifyWindow = new VerifyCSV(i);
+    return verifyWindow;
 }

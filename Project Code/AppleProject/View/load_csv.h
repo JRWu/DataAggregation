@@ -2,16 +2,24 @@
 #define LOAD_CSV_H
 
 #include <QMainWindow>
+#include <QString>
+#include <QStringListModel>
+#include <QPushButton>
+#include <QFileDialog>
 
+#include <vector>
+#include <string>
+#include <memory>
 
 #include "DTO/csvdto.h"
-#include "verify_csv.h"
-#include "analyze_csv.h"
+#include "DTO/data.h"
 #include "View/view.h"
+#include "View/verify_csv.h"
 
 #define NBUT 4
 
 enum CSVType: unsigned int;
+class QStringListModel;
 
 namespace Ui {
 class LoadCSV;
@@ -27,23 +35,30 @@ public:
     ~LoadCSV();
 
 private:
-    std::string defaultButtonTxt[4] =
-                {"PUBLICATIONS", "GRANTS", "TEACHING", "PRESENTATION"};
+    std::vector<QString> defaultBtntxt;
 
     Ui::LoadCSV *ui;
-    VerifyCSV *verify_csv_page;
-    AnalyzeCSV *analyze_csv_page;
-    QString filename;
+
     QStringListModel *recentFilesModel;
     QStringList recentFilesList;
     int csvType;
 
+    //Returns the buttons to load csvs
     QPushButton *getCSVButton(std::size_t i);
+    //changes the text of a button if a corresponding dto is loaded
     void setMouseOverBtnTxt(std::size_t i);
+    //Resets the button text to default
     void resetBtnTxt(std::size_t i);
-
-protected:
+    //Set the default string for the buttons
+    void setDefaultBtnTxt();
+    //Used to get a filename from the user
+    std::string getFile() ;
+    //Tries to load a new csv of the given type
+    void loadCSV(CSVType t);
+    //Modify this later once we save csvs to HDD
     void addRecentFile(QString file);
+protected:
+
 
 private slots:
     void on_verify_btn_clicked();

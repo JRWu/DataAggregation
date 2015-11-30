@@ -17,7 +17,6 @@ CONFIG += static
 #CONFIG += release
 
 SOURCES += main.cpp\
-    verify_csv.cpp \
     analyze_csv.cpp \
     publicationdto.cpp \
     csvdata.cpp \
@@ -49,9 +48,9 @@ SOURCES += main.cpp\
     DTO/treelistadapter.cpp \
     DTO/data.cpp \
     Filters/dtofilter.cpp \
+    View/verify_csv.cpp \
 
-HEADERS  += verify_csv.h \
-    analyze_csv.h \
+HEADERS  += analyze_csv.h \
     publicationdto.h \
     csvdata.h \
     csvdataassembler.h \
@@ -86,11 +85,14 @@ HEADERS  += verify_csv.h \
     DTO/treelistadapter.h \
     DTO/data.h \
     Filters/dtofilter.h \
+    View/ui_load_csv.h \
+    View/ui_mainwindow.h \
+    View/verify_csv.h \
 
 FORMS    += View/mainwindow.ui \
-    verify_csv.ui \
     analyze_csv.ui \
-    View/load_csv.ui
+    View/load_csv.ui \
+    View/verify_csv.ui
 
 DISTFILES += \
     AppleProject.pro.user \

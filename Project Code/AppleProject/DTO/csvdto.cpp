@@ -2,15 +2,26 @@
 
 using namespace std;
 
-CSVDTO::CSVDTO(std::string *fname, CSVType ty)
+CSVDTO::CSVDTO(){
+    vector<CSVField> l;
+    l.push_back(CSVField(getCSVValidator(STRINGVALIDATOR)));
+    shared_ptr<vector<CSVField>> dum(new vector<CSVField>(l));
+    validLines.push_back(dum);
+    errorLines.push_back(dum);
+}
+
+CSVDTO::CSVDTO(std::string fname, CSVType ty)
 {
+    validLines = vector<shared_ptr<vector<CSVField>>>();
+    errorLines = vector<shared_ptr<vector<CSVField>>>();
+
     t = ty;
 
     //Reading line vector with validators set by the type
     std::vector<CSVField> f;
 
     //SAve the file name for use in saving the validated csv
-    fileName = (*fname);
+    fileName = fname;
 
     //Set the properties of the parser based on the type of csv
     setReadProperties(&f, t);
@@ -42,15 +53,16 @@ CSVDTO::CSVDTO(std::string *fname, CSVType ty)
         if(valid) valid &= lineValidator->validate(&line);
 
         //Add dto to correct list based on validity
-        if(valid) validLines.push_back(line);
-        else errorLines.push_back(line);
+        shared_ptr<vector<CSVField>> lineptr(new vector<CSVField>(line));
+        if(valid) validLines.push_back(lineptr);
+        else errorLines.push_back(lineptr);
     }
 }
 
 std::vector<FilterAdapter> *CSVDTO::getFilterDTOs(){
     if(filterDTOs.size() < validLines.size()){
         for(size_t i = 0; i < validLines.size(); i++){
-            vector<CSVField> *line = &(validLines.at(i));
+            vector<CSVField> *line = validLines.at(i).get();
             filterDTOs.push_back(FilterAdapter(line, t));
         }
     }
@@ -61,7 +73,7 @@ std::vector<FilterAdapter> *CSVDTO::getFilterDTOs(){
 std::vector<BarGraphAdapter> *CSVDTO::getBarGraphDTOs(){
     if(barGraphDTOs.size() < validLines.size()){
         for(size_t i = 0; i < validLines.size(); i++){
-            vector<CSVField> *line = &(validLines.at(i));
+            vector<CSVField> *line = validLines.at(i).get();
             barGraphDTOs.push_back(BarGraphAdapter(line, t));
         }
     }
@@ -72,7 +84,7 @@ std::vector<BarGraphAdapter> *CSVDTO::getBarGraphDTOs(){
 std::vector<TreeListAdapter> *CSVDTO::getTreeListDTOs(){
     if(treeListDTOs.size() < validLines.size()){
         for(size_t i = 0; i < validLines.size(); i++){
-            vector<CSVField> *line = &(validLines.at(i));
+            vector<CSVField> *line = validLines.at(i).get();
             treeListDTOs.push_back(TreeListAdapter(line, t));
         }
     }
@@ -193,4 +205,40 @@ void CSVDTO::setReadProperties(std::vector<CSVField> *f, CSVType t){
             f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR)));
         }
     }
+}
+
+string CSVDTO::getFile(){
+    string s = this->fileName;
+    size_t i = s.find_last_of("/");
+    return s.substr( i + 1,s.length());
+}
+
+std::vector<std::shared_ptr<std::vector<CSVField>>> *CSVDTO::getErrorLines(){
+    return &(this->errorLines);
+}
+
+size_t CSVDTO::getNMan(){
+    return this->nMan;
+}
+
+std::vector<std::string> CSVDTO::getHeader(){
+    return this->header;
+}
+
+bool CSVDTO::validateErrors(){
+    bool result = false;
+    for(int i = (errorLines.size() - 1); i >= 0; i--){
+        bool valid = true;
+        shared_ptr<vector<CSVField>> line = errorLines.at(i);
+        for(size_t j = 0; (j < nMan)&&valid; j++){
+            valid &= line->at(j+1).validate();
+        }
+        if(valid){
+            result = true;
+            validLines.push_back(line);
+            errorLines.erase(errorLines.begin() + i);
+        }
+    }
+
+    return result;
 }
