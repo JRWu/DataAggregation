@@ -54,9 +54,9 @@ private:
     //Used to get a filename from the user
     std::string getFile() ;
     //Tries to load a new csv of the given type
-    void loadCSV(CSVType t);
+    void loadCSV(size_t t);
     //Modify this later once we save csvs to HDD
-    void addRecentFile(QString file);
+    void addRecentFile(QString);
 protected:
 
 

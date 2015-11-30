@@ -27,7 +27,7 @@ LoadCSV::~LoadCSV()
     delete ui;
 }
 
-void LoadCSV::addRecentFile(QString file)
+void LoadCSV::addRecentFile(QString)
 {
     /*recentFilesList.insert(0,file);
     recentFilesModel->setStringList(recentFilesList);
@@ -146,7 +146,7 @@ void LoadCSV::setDefaultBtnTxt(){
     }
 }
 
-void LoadCSV::loadCSV(CSVType t){
+void LoadCSV::loadCSV(size_t t){
     Data *data = Data::Instance();
     try{
         string file = this->getFile();

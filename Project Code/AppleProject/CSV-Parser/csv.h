@@ -496,7 +496,7 @@ namespace io{
         template<char ... trim_char_list>
         struct trim_chars{
         private:
-                constexpr static bool is_trim_char(char c){
+                constexpr static bool is_trim_char(char){
                         return false;
                 }
        
@@ -1010,7 +1010,7 @@ namespace io{
                 }
 
         private:
-                void parse_helper(std::size_t r){}
+                void parse_helper(std::size_t){}
 
                 template<class T, class ...ColType>
                 void parse_helper(std::size_t r, T&t, ColType&...cols){                        

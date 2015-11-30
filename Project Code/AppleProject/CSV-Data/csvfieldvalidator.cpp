@@ -2,7 +2,7 @@
 #include "CSV-Data/csvfieldvalidator.h"
 using namespace std;
 
-bool CSVFieldValidator::validate(string *s){
+bool CSVFieldValidator::validate(string *){
     return true;
 }
 

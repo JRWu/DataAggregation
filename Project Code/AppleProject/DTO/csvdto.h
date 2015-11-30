@@ -78,6 +78,7 @@ public:
     std::size_t getNMan();
     //Returns the header for this csv
     std::vector<std::string> getHeader();
+    //Attempts to load a new csv of the given type
 };
 
 #endif // CSVDTO_H

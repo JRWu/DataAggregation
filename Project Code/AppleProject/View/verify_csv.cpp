@@ -58,11 +58,6 @@ QStandardItemModel* VerifyCSV::ErrorTableModel()
     return model;
 }
 
-void VerifyCSV::enableConfirmChanges()
-{
-    ui->confirm_btn->setDisabled(false);
-}
-
 /*SLOTS*/
 
 void VerifyCSV::on_load_btn_clicked()
@@ -120,11 +115,6 @@ void VerifyCSV::on_ignore_btn_clicked()
     }
 }
 
-void VerifyCSV::onDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight)
-{
-    enableConfirmChanges();
-}
-
 void VerifyCSV::on_confirm_btn_clicked()
 {
     for(size_t i = 0; i < errors->size(); i++){
@@ -140,9 +130,6 @@ void VerifyCSV::on_confirm_btn_clicked()
     if(Data::Instance()->getDTO(csvType)->validateErrors()){
         ui->error_table->setModel(ErrorTableModel());
     }
-
-    // Connect the table model to a signal/slot to listen for changes to the table data
-    connect(ui->error_table->model(), SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(onDataChanged(const QModelIndex&, const QModelIndex&)));
 }
 
 void VerifyCSV::ignoreAll(){

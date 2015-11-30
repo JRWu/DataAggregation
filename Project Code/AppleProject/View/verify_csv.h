@@ -33,8 +33,6 @@ private slots:
     void on_analyze_btn_clicked();
     void on_ignoreall_btn_clicked();
     void on_ignore_btn_clicked();
-    void onDataChanged(const QModelIndex& topLeft, const QModelIndex& bottomRight);
-
     void on_confirm_btn_clicked();
 
 private:
@@ -44,9 +42,7 @@ private:
 
     //Loads the csv error lines into the ui.
     QStandardItemModel* ErrorTableModel();
-
-    void enableConfirmChanges();
-
+    //Ignores all error lines and saves the csv
     void ignoreAll();
 };
 

@@ -17,12 +17,14 @@ class Data
 {
 public:
     static Data *Instance();
-    std::shared_ptr<CSVDTO> getDTO(std::size_t i);
+
+    std::shared_ptr<CSVDTO> getDTO(std::size_t t);
 
     //Attempts to load a new csv of type t from the given file
     //Will throw errors that need to be caught and displayed to the user
     //File not found, missing columns, csv format error, TODO duplicate columns
-    bool loadDTO(std::string fname, CSVType t);
+    bool loadDTO(std::string fname, std::size_t t);
+
 protected:
     Data();
 private:

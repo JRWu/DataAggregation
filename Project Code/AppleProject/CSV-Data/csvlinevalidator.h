@@ -24,7 +24,7 @@ class PublicationLineValidator: public CSVLineValidator
 {
 public:
     static CSVLineValidator* Instance();
-    bool validate(std::vector<CSVField> *line);
+    bool validate(std::vector<CSVField> *);
 protected:
     PublicationLineValidator(){}
 private:
@@ -48,7 +48,7 @@ class PresentationLineValidator: public CSVLineValidator
 {
 public:
     static CSVLineValidator* Instance();
-    bool validate(std::vector<CSVField> *line);
+    bool validate(std::vector<CSVField> *);
 protected:
     PresentationLineValidator(){}
 private:

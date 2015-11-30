@@ -2,7 +2,7 @@
 
 using namespace std;
 
-bool CSVLineValidator::validate(std::vector<CSVField> *line){
+bool CSVLineValidator::validate(std::vector<CSVField> *){
     return true;
 }
 
@@ -13,7 +13,7 @@ CSVLineValidator* PublicationLineValidator::Instance(){
     return _instance;
 }
 
-bool PublicationLineValidator::validate(vector<CSVField> *line){
+bool PublicationLineValidator::validate(vector<CSVField> *){
     return true;
 }
 
@@ -39,7 +39,7 @@ CSVLineValidator* PresentationLineValidator::Instance(){
     return _instance;
 }
 
-bool PresentationLineValidator::validate(vector<CSVField> *line){
+bool PresentationLineValidator::validate(vector<CSVField> *){
     return true;
 }
 

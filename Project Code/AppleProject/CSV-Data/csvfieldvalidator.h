@@ -41,7 +41,7 @@ enum ValidatorType{
 class CSVFieldValidator
 {
 public:
-    virtual bool validate(std::string *s);
+    virtual bool validate(std::string *);
 };
 
 /* String validator
