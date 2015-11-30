@@ -149,8 +149,8 @@ void LoadCSV::setDefaultBtnTxt(){
 void LoadCSV::loadCSV(size_t t){
     Data *data = Data::Instance();
     try{
-        data->loadDTO(this->getFile(), t);
-    }
+        string file = (this->getFile());
+        data->loadDTO(file, t);    }
     catch(error::missing_header_error){
         ui->lblError->setText("  Error: File is missing mandatory headers");
     }
