@@ -3,15 +3,11 @@
 
 #include <vector>
 #include <string>
-#include <memory>
 
-#include "CSV-Data/csvfield.h"
 #include "CSV-Parser/csvparser.h"
-#include "CSV-Data/csvfieldvalidatorfactory.h"
-#include "CSV-Data/csvlinevalidatorfactory.h"
-#include "CSV-Data/csvlinevalidator.h"
+
 #include "DTO/bargraphadapter.h"
-#include "DTO/treelistadapter.h"
+//#include "DTO/treelistadapter.h"
 #include "DTO/filteradapter.h"
 
 #define NPUBHEADER 27
@@ -23,66 +19,74 @@
 #define NTEAHEADER 21
 #define NTEAMANDATORY 10
 
+enum FilterType: unsigned int;
+enum CSVType: unsigned int;
 
-enum CSVType: unsigned int{
-    PUBLICATION, GRANTS, PRESENTATION, TEACHING
-};
-
-//forward declaration
-class FilterAdapter;
+class CSVLineValidator;
+class CSVField;
 class BarGraphAdapter;
-class TreeListAdapter;
+class FilterAdapter;
 
 class CSVDTO
 {
     //Header for this csv
     std::vector<std::string> header;
     //Validated lines in the CSV File
-    std::vector<std::shared_ptr<std::vector<CSVField>>> validLines;
+    std::vector<std::vector<CSVField>> validLines;
     //Error lines in the CSV File
-    std::vector<std::shared_ptr<std::vector<CSVField>>> errorLines;
+    std::vector<std::vector<CSVField>> errorLines;
 
     //Adapters
     std::vector<FilterAdapter> filterDTOs;
     std::vector<BarGraphAdapter> barGraphDTOs;
-    std::vector<TreeListAdapter> treeListDTOs;
+    //std::vector<TreeListAdapter> treeListDTOs;
 
     //Line validation strategy
     CSVLineValidator *lineValidator = 0;
-    CSVType t; //Type of csv
+    CSVType type; //Type of csv
     std::size_t nMan; //Number of mandatory headers
     std::string fileName; //file name
 
-    void setReadProperties(std::vector<CSVField> *f, CSVType t);
+    //Sets the properties for reading the csv
+    void setReadProperties(std::vector<CSVField> *f);
+
+    bool validateLine(std::vector<CSVField> *line);
 
 public:
     //Creates a new data set of the chosen type from the given file
-    CSVDTO();
-    CSVDTO(std::string fname, CSVType ty);
+    CSVDTO(std::string *fname, CSVType t);
 
     //Returns the list of filterDTOS for use in filtering
     std::vector<FilterAdapter> *getFilterDTOs();
     //Returns the list of bargraphDTOs for use in constructing bargraphs
     std::vector<BarGraphAdapter> *getBarGraphDTOs();
     //Returns the list of tree list dtos for use in making the tree list
-    std::vector<TreeListAdapter> *getTreeListDTOs();
+    //std::vector<TreeListAdapter> *getTreeListDTOs();
 
     //Returns the file name for this DTO
-    std::string getFile();
+    std::string *getFile();
+
     //Returns list of error lines
-    std::vector<std::shared_ptr<std::vector<CSVField>>> *getErrorLines();
-    //Tries to validate the error lines and add them to the valid lines
+    std::vector<std::vector<CSVField>> *getErrorLines();
+    //Tries to validate the error lines
     //Returns true if change was made
-    bool validateErrors();
+    bool validateErrors(std::vector<std::vector<std::string>> *newErr);
+    //Ignores all errors
+    void clearErrors();
+    //Ignores one error
+    void removeError(int i);
+
     //Returns of mandatory lines
-    std::size_t getNMan();
+    size_t getNMan();
     //Returns the header for this csv
-    std::vector<std::string> getHeader();
+    std::vector<std::string> *getHeader();
     //Returns the domain of the CSV
-    std::string getDomain();
+    std::string *getDomain();
 
     //True if the dto has any valid lines
     bool hasValid();
+    //Returns true if the dto has error lines
+    bool hasErrors();
 };
 
 #endif // CSVDTO_H

@@ -11,8 +11,8 @@ FilterValue *getFilterValue(FilterValueType t){
     return 0;
 }
 
-string FilterValue::getValue(FilterAdapter*){
-    return "";
+string *FilterValue::getValue(FilterAdapter*){
+    return 0;
 }
 
 FilterValue* NameValue::_instance = 0;
@@ -21,7 +21,7 @@ FilterValue* NameValue::Instance(){
     if(_instance == 0) _instance = new NameValue();
     return _instance;
 }
-string NameValue::getValue(FilterAdapter *f){
+string *NameValue::getValue(FilterAdapter *f){
     return f->getName();
 }
 
@@ -31,7 +31,7 @@ FilterValue* YearValue::Instance(){
     if(_instance == 0) _instance = new YearValue();
     return _instance;
 }
-string YearValue::getValue(FilterAdapter *f){
+string *YearValue::getValue(FilterAdapter *f){
     return f->getYear();
 }
 
@@ -41,6 +41,6 @@ FilterValue* TypeValue::Instance(){
     if(_instance == 0) _instance = new TypeValue();
     return _instance;
 }
-string TypeValue::getValue(FilterAdapter *f){
+string *TypeValue::getValue(FilterAdapter *f){
     return f->getType();
 }

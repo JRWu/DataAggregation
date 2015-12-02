@@ -9,23 +9,22 @@
  */
 
 #include <vector>
-#include "CSV-Data/csvfield.h"
-#include "DTO/csvdto.h"          //CSVType
+#include <string>
 
+class CSVField;
 enum CSVType: unsigned int;
 
 class BarGraphAdapter
 {
-    CSVType t;
     std::vector<CSVField> *line;
     std::size_t year, type;
     double value;
 public:
     BarGraphAdapter(std::vector<CSVField> *csvline, CSVType csvtype);
 
-    std::string getYear();
-    std::string getType();
-    double getValue();
+    std::string *getYear();
+    std::string *getType();
+    double *getValue();
 };
 
 #endif // BARGRAPHADAPTER_H

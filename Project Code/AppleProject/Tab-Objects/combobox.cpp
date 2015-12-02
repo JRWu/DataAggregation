@@ -1,13 +1,20 @@
 #include "combobox.h"
 
+#include "DTO/data.h"
+#include "DTO/csvdto.h"
+#include "CSV-Data/csvlinevalidator.h" //CSVType
+
 using namespace std;
 
-ComboBox::ComboBox(QComboBox *cmb, size_t t, FilterValueType ft, TabSubject *s):
-    TabObserver(s), TabSubject()
+ComboBox::ComboBox(QComboBox *cmb, CSVType t, FilterValueType ft, TabSubject *s):
+    TabObserver(s)
 {
-    csvtype = t;
+    dto = Data::Instance()->getDTO(t);
     valueGetter = getFilterValue(ft); //Add parameter later
-    this->cmb = cmb;
+    cmbBox = cmb;
+
+    connect(cmb, SIGNAL(currentIndexChanged(int)),
+            this, SLOT(indexChanged()));
 }
 
 void ComboBox::update(){
@@ -20,7 +27,7 @@ void ComboBox::update(){
         //If filterValues is empty then this should be empty
         if(filterValues.size() == 0){
             this->state = vector<string>();
-            cmb->clear();
+            cmbBox->clear();
             return;
         }
     }
@@ -33,7 +40,7 @@ void ComboBox::update(){
     //If no values are found state, clear combobox
     if(values.size() == 0){
         this->state = vector<string>();
-        cmb->clear();
+        cmbBox->clear();
         return;
     }
 
@@ -44,18 +51,17 @@ void ComboBox::update(){
 void ComboBox::getValues(vector<string> *fv, vector<string> *v){
     DTOFilter filter(fv);
     //Add parameter for type
-    vector<FilterAdapter> *dtos =
-            Data::Instance()->getDTO(csvtype)->getFilterDTOs();
+    vector<FilterAdapter> *dtos = dto->getFilterDTOs();
 
     for(size_t i = 0; i < dtos->size(); i++){
-        FilterAdapter dto = dtos->at(i);
+        FilterAdapter *dto = &(dtos->at(i));
         //Make sure the dto is inside our filter
-        if(filter.filter(&dto)){
+        if(filter.filter(dto)){
             //Add the value if it is not already in the list
-            string value = this->valueGetter->getValue(&dto);
+            string *value = this->valueGetter->getValue(dto);
             vector<string>::iterator i;
-            i = std::find(v->begin(), v->end(), value);
-            if(i == v->end()) v->push_back(value);
+            i = std::find(v->begin(), v->end(), *value);
+            if(i == v->end()) v->push_back(*value);
         }
     }
 
@@ -65,7 +71,7 @@ void ComboBox::getValues(vector<string> *fv, vector<string> *v){
 }
 
 void ComboBox::populateComboBox(vector<string> *v){
-    string selection =  cmb->currentText().toStdString();
+    string selection =  cmbBox->currentText().toStdString();
 
     //set the new by the previous selectio if possible
     vector<string>::iterator i = std::find(v->begin(), v->end(), selection);
@@ -78,14 +84,23 @@ void ComboBox::populateComboBox(vector<string> *v){
     }
 
     //Add the new values and update the index
-    cmb->clear();
-    cmb->insertItems(0, values);
-    cmb->setCurrentIndex(newIndex);
+    cmbBox->clear();
+    cmbBox->insertItems(0, values);
+    cmbBox->setCurrentIndex(newIndex);
 }
 
 vector<string> ComboBox::getState(){
     vector<string> result;
-    result.insert(result.begin(), state.begin(), state.end());
-    result.push_back(cmb->currentText().toStdString());
+    if(this->subject){
+        vector<string> obsState = subject->getState();
+        if(obsState.size() == 0) return result;
+        result.insert(result.begin(), obsState.begin(), obsState.end());
+    }
+
+    result.push_back(cmbBox->currentText().toStdString());
     return result;
+}
+
+void ComboBox::indexChanged(){
+    this->notify();
 }

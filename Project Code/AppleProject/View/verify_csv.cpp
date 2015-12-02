@@ -1,25 +1,31 @@
 #include "View/verify_csv.h"
 #include "View/ui_verify_csv.h"
 
+
+#include <QStandardItemModel>
+#include <QMessageBox>
+
+#include "CSV-Data/csvtype.h"
+#include "CSV-Data/csvfield.h"
+#include "DTO/data.h"
+#include "View/load_csv.h"
+#include "View/analyze_csv.h"
+
 using namespace std;
 
-VerifyCSV::VerifyCSV(size_t csvType, QWidget *parent) :
+VerifyCSV::VerifyCSV(CSVType t, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::VerifyCSV)
 {
     ui->setupUi(this);
-
-    this->csvType = csvType;
-    errors = Data::Instance()->getDTO(this->csvType)->getErrorLines();
+    csvType = t;
+    data = Data::Instance();
 
     // Set the table model (currently only the publication model possible)
-    ui->error_table->setModel(ErrorTableModel());
-
-    // Connect the table model to a signal/slot to listen for changes to the table data
-    connect(ui->error_table->model(), SIGNAL(dataChanged(const QModelIndex&, const QModelIndex&)), this, SLOT(onDataChanged(const QModelIndex&, const QModelIndex&)));
+    ui->error_table->setModel(ErrorTableModel());  
 
     //Display the file name
-    QString fn = QString::fromStdString(Data::Instance()->getDTO(csvType)->getFile());
+    QString fn = QString::fromStdString(data->getShortFileName(csvType));
     ui->file_name->setText(fn);
 
     ui->analyze_btn->setEnabled(true);
@@ -32,25 +38,25 @@ VerifyCSV::~VerifyCSV()
 
 QStandardItemModel* VerifyCSV::ErrorTableModel()
 {
-    shared_ptr<CSVDTO> csv = Data::Instance()->getDTO(this->csvType);
-    vector<string> header = csv->getHeader();
-    col = csv->getNMan();
+    vector<string> *header = data->getHeaders(csvType);
+    col = data->getNMan(csvType);
+    vector<vector<CSVField>> *errors = data->getErrorLines(csvType);
+    row = errors->size();
 
     // Define a model with the number of rows as error lines,
     //and columns as mandatory columns
-    QStandardItemModel *model =
-            new QStandardItemModel(errors->size(),col,NULL);
+    QStandardItemModel *model = new QStandardItemModel(row,col,NULL);
 
-    for(size_t i = 0; i < col; i++){
+    for(size_t i = 0; i < col; ++i){
         model->setHorizontalHeaderItem(i,
-                    new QStandardItem(QString::fromStdString(header.at(i))));
+                    new QStandardItem(QString::fromStdString(header->at(i))));
     }
 
     // Loop through strings and add each to the table model
-    for(size_t i = 0; i < errors->size(); i++){
-        shared_ptr<vector<CSVField>> line = errors->at(i);
+    for(size_t i = 0; i < row; ++i){
+        vector<CSVField> line = errors->at(i);
         for(size_t j = 0; j < col; j++){
-            QString qstr = QString::fromStdString(line->at(j+1).getField());
+            QString qstr = QString::fromStdString(*line.at(j+1).getField());
             QStandardItem *newfield = new QStandardItem(qstr);
             model->setItem(i,j,newfield);
         };
@@ -64,7 +70,7 @@ void VerifyCSV::on_load_btn_clicked()
 {
     // Show alert, "All unvalidated lines will be ignored. This will not change"
     //Your original file."
-    if(errors->size() != 0){
+    if(data->hasErrors(csvType)){
         QMessageBox::StandardButton reload;
         reload = QMessageBox::question(this, "Load New Data",
                                        "All unvalidated data will be ignored.\n"
@@ -75,11 +81,11 @@ void VerifyCSV::on_load_btn_clicked()
             return;
         }
     }
+
     ignoreAll();
     string err = "";
-    if(!Data::Instance()->getDTO(csvType)->hasValid()){
+    if(data->isEmpty(csvType)){
         err = "  Error: CSV has no valiad data. File Removed.";
-        Data::Instance()->resetDTO(csvType);
     }
 
     this->setCentralWidget(new LoadCSV(0, err)); //If empty display error
@@ -88,7 +94,7 @@ void VerifyCSV::on_load_btn_clicked()
 
 void VerifyCSV::on_analyze_btn_clicked()
 {    
-    if(errors->size() != 0){
+    if(data->hasErrors(csvType)){
         QMessageBox::StandardButton leave;
         //warn user that unvalidated data will be deleted
         leave = QMessageBox::question(this, "Analyze Data",
@@ -97,30 +103,13 @@ void VerifyCSV::on_analyze_btn_clicked()
                                        QMessageBox::Yes|QMessageBox::No);
         if(leave == QMessageBox::No) return;
     }
-    ignoreAll();
-    if(Data::Instance()->getDTO(csvType)->hasValid()){
-        //TODO add save CSV
-        this->setCentralWidget(new AnalyzeCSV());
-    }
-    else{
-        string err("  Error: CSV has no valiad data. File Removed.");
-        Data::Instance()->resetDTO(csvType);
-        this->setCentralWidget(new LoadCSV(0, err));
-    }
+
+    moveForwards();
 }
 
 void VerifyCSV::on_ignoreall_btn_clicked()
 {    
-    ignoreAll();
-    if(Data::Instance()->getDTO(csvType)->hasValid()){
-        //TODO add save CSV
-        this->setCentralWidget(new AnalyzeCSV());
-    }
-    else{
-        string err("  Error: CSV has no valiad data. File Removed.");
-        Data::Instance()->resetDTO(csvType);
-        this->setCentralWidget(new LoadCSV(0, err));
-    }
+    moveForwards();
 }
 
 void VerifyCSV::on_ignore_btn_clicked()
@@ -129,35 +118,53 @@ void VerifyCSV::on_ignore_btn_clicked()
 
     // For each row the user has selected, remove the rows from bottom up
     // Removing bottom up prevents any shifting of indexes
-    for(int i = selection.count() - 1; i >= 0; i--)
+    for(int i = selection.count() - 1; i >= 0; --i)
     {
         QModelIndex index = selection.at(i);
         ui->error_table->model()->removeRow(index.row());
-        errors->erase(errors->begin() + index.row());
+        data->removeErrorLine(i, csvType);
+        --row;
     }
+
+    if(row == 0) moveForwards();
 }
 
 void VerifyCSV::on_confirm_btn_clicked()
 {
-    for(size_t i = 0; i < errors->size(); i++){
-        for(size_t j = 0; j < col; j++){
-            shared_ptr<vector<CSVField>> line = errors->at(i);
+    vector<vector<string>> newErrors;
+    for(size_t i = 0; i < row; ++i){
+        vector<string> line;
+        for(size_t j = 0; j < col; ++j){
             QModelIndex k = ui->error_table->model()->index(i, j);
             string str = ui->error_table->model()->data(k).toString().toStdString();
-            line->at(j+1).setField(str);
+            line.push_back(str);
         };
+        newErrors.push_back(line);
     }
 
     //Try and validate the new lines. If a line is changed update the model;
-    if(Data::Instance()->getDTO(csvType)->validateErrors()){
+    if(data->validateNewErrors(&newErrors, csvType)){
         ui->error_table->setModel(ErrorTableModel());
     }
+
+    if(row == 0) moveForwards();
 }
 
 void VerifyCSV::ignoreAll(){
     ui->error_table->setModel(NULL);
-    errors->clear();
-    errors->shrink_to_fit();
-
+    data->ignoreAllErrors(csvType);
     ui->verify_btn->setDisabled(true);
+}
+
+void VerifyCSV::moveForwards(){
+    ignoreAll();
+    if(data->isEmpty(csvType)){
+        string err("  Error: CSV has no valiad data. File Removed.");
+        this->setCentralWidget(new LoadCSV(0, err));
+    }
+    else{
+        std::cout << "Goto analyze" << endl;
+        //TODO add save CSV
+        this->setCentralWidget(new AnalyzeCSV());
+    }
 }

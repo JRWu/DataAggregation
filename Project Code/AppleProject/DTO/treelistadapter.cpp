@@ -1,5 +1,7 @@
 #include "treelistadapter.h"
 
+#include "CSV-Data/csvlinevalidator.h" //CSVType
+
 using namespace std;
 
 TreeListAdapter::TreeListAdapter(vector<CSVField> *csvline, CSVType t)

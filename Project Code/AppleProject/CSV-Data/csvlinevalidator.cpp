@@ -1,8 +1,18 @@
 #include "csvlinevalidator.h"
 
+#include "CSV-Data/csvfield.h"
+#include "CSV-Data/csvtype.h"
+
 using namespace std;
 
-bool CSVLineValidator::validate(std::vector<CSVField> *){
+CSVLineValidator* CSVLineValidator::_instance = 0;
+
+CSVLineValidator* CSVLineValidator::Instance(){
+    if(_instance == 0) _instance = new CSVLineValidator();
+    return _instance;
+}
+
+bool CSVLineValidator::validate(vector<CSVField> *){
     return true;
 }
 
@@ -26,8 +36,8 @@ CSVLineValidator* GrantLineValidator::Instance(){
 }
 
 bool GrantLineValidator::validate(vector<CSVField> *line){
-    int startY = stoi(line->at(1).getValue());
-    int endY = stoi(line->at(2).getValue());
+    int startY = stoi(*line->at(1).getValue());
+    int endY = stoi(*line->at(2).getValue());
     return (startY <= endY);
 }
 
@@ -51,12 +61,22 @@ CSVLineValidator* TeachingLineValidator::Instance(){
 }
 
 bool TeachingLineValidator::validate(vector<CSVField> *line){
-    int startY = stoi(line->at(1).getValue());
-    int endY = stoi(line->at(2).getValue());
+    int startY = stoi(*line->at(1).getValue());
+    int endY = stoi(*line->at(2).getValue());
 
-    double hpers = stod(line->at(8).getValue());
-    double ns = stod(line->at(9).getValue());
-    double totalh = stod(line->at(10).getValue());
+    double hpers = stod(*line->at(8).getValue());
+    double ns = stod(*line->at(9).getValue());
+    double totalh = stod(*line->at(10).getValue());
 
     return ((startY <= endY)&&(totalh == (hpers*ns)));
+}
+
+CSVLineValidator *getCSVLineValidator(CSVType t){
+    switch(t){
+        case PUBLICATION: return PublicationLineValidator::Instance();
+        case GRANTS: return GrantLineValidator::Instance();
+        case PRESENTATION: return PresentationLineValidator::Instance();
+        case TEACHING: return TeachingLineValidator::Instance();
+    }
+    return CSVLineValidator::Instance();
 }

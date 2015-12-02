@@ -2,29 +2,26 @@
 #define VERIFY_CSV_H
 
 #include <QMainWindow>
-#include <QStandardItemModel>
-#include <QMessageBox>
 
 #include <vector>
 #include <string>
 #include <memory>
 
-#include "View/load_csv.h"
-#include "DTO/data.h"
-#include "CSV-Data/csvfield.h"
-#include "DTO/csvdto.h"
+enum CSVType: unsigned int;
 
 namespace Ui {
 class VerifyCSV;
 }
-class LoadCSV;
+
+class Data;
+class QStandardItemModel;
 
 class VerifyCSV : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit VerifyCSV(std::size_t i, QWidget *parent = 0);
+    explicit VerifyCSV(CSVType t, QWidget *parent = 0);
     ~VerifyCSV();
 
 private slots:
@@ -36,13 +33,15 @@ private slots:
 
 private:
     Ui::VerifyCSV *ui;
-    std::size_t csvType, col;
-    std::vector<std::shared_ptr<std::vector<CSVField>>> *errors;
+    std::size_t col, row;
+    CSVType csvType;
+    Data *data;
 
     //Loads the csv error lines into the ui.
     QStandardItemModel* ErrorTableModel();
     //Ignores all error lines and saves the csv
     void ignoreAll();
+    void moveForwards();
 };
 
 #endif // VERIFY_CSV_H

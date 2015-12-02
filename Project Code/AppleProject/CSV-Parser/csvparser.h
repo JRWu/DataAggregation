@@ -208,7 +208,7 @@ public:
             e = order.end();
             j = std::find(s, e, i);
 
-            fields->at(i).setField(csvLine[j - s]);
+            fields->at(i).setField(&csvLine[j - s]);
         }
     }
 

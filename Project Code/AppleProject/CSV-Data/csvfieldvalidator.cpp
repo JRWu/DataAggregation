@@ -1,5 +1,11 @@
 #include "CSV-Data/csvfieldvalidator.h"
-#include "CSV-Data/csvfieldvalidator.h"
+
+#include <vector>
+#include <sstream>
+#include <algorithm>
+
+#include "Utility/stringfunctions.h"
+
 using namespace std;
 
 bool CSVFieldValidator::validate(string *){
@@ -45,7 +51,7 @@ bool DateValidator::validate(string *s){
         }
         ielm.push_back(atoi(elm[i].c_str()));
     }
-
+    //TODO fix this
     //Sort the array
     sort(ielm.begin(), ielm.end());
 
@@ -162,4 +168,14 @@ bool isLeapYear(int y){
     return false;
 }
 
-//End Validate function
+CSVFieldValidator *getCSVValidator(ValidatorType t)
+{
+    switch(t){
+        case STRINGVALIDATOR: return StringValidator::Instance();
+        case DATEVALIDATOR: return DateValidator::Instance();
+        case NAMELISTVALIDATOR: return NameListValidator::Instance();
+        case MONEYVALIDATOR: return MoneyValidator::Instance();
+    }
+
+    return new CSVFieldValidator();
+}

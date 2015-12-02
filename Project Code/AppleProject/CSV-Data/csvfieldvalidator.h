@@ -1,17 +1,6 @@
 #ifndef CSVFEILDVALIDATOR
 #define CSVFEILDVALIDATOR
 
-#include <vector>
-#include <string>
-#include <sstream>
-#include <algorithm>
-
-#include "Utility/stringfunctions.h"
-
-enum ValidatorType: unsigned int{
-  STRINGVALIDATOR, DATEVALIDATOR, NAMELISTVALIDATOR, MONEYVALIDATOR
-};
-
 /**
   Inteface for the functions that will be validate the data we pull from each csv.
 
@@ -37,6 +26,12 @@ enum ValidatorType: unsigned int{
   if the field is 11/30/1985 it should return true and s should be updated to 1985 (the only
   relevant part of the data we need in a format we will expect.
   */
+#include <string>
+
+enum ValidatorType: unsigned int{
+  STRINGVALIDATOR, DATEVALIDATOR, NAMELISTVALIDATOR, MONEYVALIDATOR
+};
+
 //Interface for validators
 class CSVFieldValidator
 {
@@ -114,7 +109,12 @@ private:
 bool isLeapYear(int y);
 
 //Used by vaidate name list to validate each name in the list
-bool validateAuthorName(std::string *s);
+//bool validateAuthorName(std::string *s);
+
+/* Takes in the type of validator you want and returns
+ * the singleton class of that validation type.
+ *
+ */
+CSVFieldValidator *getCSVValidator(ValidatorType t);
 
 #endif // CSVFEILDVALIDATOR
-

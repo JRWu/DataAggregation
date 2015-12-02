@@ -11,13 +11,13 @@ enum FilterValueType: unsigned int{
 class FilterValue
 {
 public:
-    virtual std::string getValue(FilterAdapter*);
+    virtual std::string *getValue(FilterAdapter*);
 };
 
 class NameValue: public FilterValue{
 public:
     static FilterValue *Instance();
-    std::string getValue(FilterAdapter *f);
+    std::string *getValue(FilterAdapter *f);
 protected:
     NameValue(){}
 private:
@@ -27,7 +27,7 @@ private:
 class YearValue: public FilterValue{
 public:
     static FilterValue *Instance();
-    std::string getValue(FilterAdapter *f);
+    std::string *getValue(FilterAdapter *f);
 protected:
     YearValue(){}
 private:
@@ -37,7 +37,7 @@ private:
 class TypeValue: public FilterValue{
 public:
     static FilterValue *Instance();
-    std::string getValue(FilterAdapter *f);
+    std::string *getValue(FilterAdapter *f);
 protected:
     TypeValue(){}
 private:

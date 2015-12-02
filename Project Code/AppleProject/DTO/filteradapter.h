@@ -10,10 +10,10 @@
  */
 
 #include <vector>
-#include "CSV-Data/csvfield.h"
-#include "DTO/csvdto.h" //CSVType
+#include <string>
 
 enum CSVType: unsigned int;
+class CSVField;
 
 class FilterAdapter
 {
@@ -22,9 +22,9 @@ class FilterAdapter
 public:
     FilterAdapter(std::vector<CSVField> *csvline, CSVType t);
 
-    std::string getName();
-    std::string getYear();
-    std::string getType();
+    std::string *getName();
+    std::string *getYear();
+    std::string *getType();
 };
 
 #endif // FILTERADAPTER_H

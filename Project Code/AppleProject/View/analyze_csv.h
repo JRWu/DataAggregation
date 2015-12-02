@@ -14,7 +14,7 @@
 
 #include "View/load_csv.h"
 
-#include "DTO/data.h"
+
 #include "DTO/csvdto.h"
 
 #include "Tab-Objects/combobox.h"
@@ -27,7 +27,7 @@
 #define NCSV 4
 
 enum FilterValueType: unsigned int;
-
+class Data;
 
 namespace Ui {
 class AnalyzeCSV;
@@ -73,19 +73,18 @@ private slots:
     void on_program_combo_teach_activated();
 
 private:
+    Data *data;
+    ComboBox *sy, *ey, *n, *ty;
     Ui::AnalyzeCSV *ui;
     QGraphicsScene * scene; // Added to display the graph through the graph area
     QCustomPlot *customPlot;
-
-    // tree_list_vo pointers for respective csv generation
-    //tree_list_vo* p_tree;
-    //tree_list_vo* teach_tree;
 
     void AddRoot(QString field, QString total);
     QTreeWidgetItem* AddChild(QTreeWidgetItem *parent, QString field, QString total);
     QTreeWidgetItem* AddGrandChild(QTreeWidgetItem *parent, QString field, QString total);
 
     void resizeEvent(QResizeEvent*);
+
 };
 
 #endif // ANALYZE_CSV_H

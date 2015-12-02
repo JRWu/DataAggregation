@@ -1,5 +1,15 @@
-#include "load_csv.h"
+#include "View/load_csv.h"
 #include "View/ui_load_csv.h"
+
+#include <QPushButton>
+#include <QString>
+#include <QStringListModel>
+#include <QFileDialog>
+
+#include "CSV-Data/csvtype.h"
+#include "DTO/data.h"
+#include "View/verify_csv.h"
+#include "View/analyze_csv.h"
 
 using namespace std;
 
@@ -11,13 +21,15 @@ ui(new Ui::LoadCSV)
     ui->verify_btn->setDisabled(true);
     ui->analyze_btn->setDisabled(true);
 
-    recentFilesModel = new QStringListModel(this);
-    ui->recent_files_list->setSelectionRectVisible(false);
-    ui->recent_files_list->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //recentFilesModel = new QStringListModel(this);
+    //ui->recent_files_list->setSelectionRectVisible(false);
+    //ui->recent_files_list->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    data = Data::Instance();
 
     //Set up the mouse over listener
-    for(std::size_t t = 0; t < NBUT; t++){
-        this->getCSVButton(t)->installEventFilter(this);
+    for(size_t t = 0; t < NBUT; t++){
+        this->getCSVButton((CSVType)t)->installEventFilter(this);
     }
     setDefaultBtnTxt();
     ui->lblError->setText(QString::fromStdString(err));
@@ -28,54 +40,12 @@ LoadCSV::~LoadCSV()
     delete ui;
 }
 
-void LoadCSV::addRecentFile(QString)
+/*void LoadCSV::addRecentFile(QString)
 {
-    /*recentFilesList.insert(0,file);
+    recentFilesList.insert(0,file);
     recentFilesModel->setStringList(recentFilesList);
-    ui->recent_files_list->setModel(recentFilesModel);*/
-}
-
-
-void LoadCSV::on_verify_btn_clicked()
-{
-    // add if statement for whether a file has been loaded or not
-    //open the verify page within the existing window
-    /*verify_csv_page = new VerifyCSV(filename, csvType);
-    this->setCentralWidget(verify_csv_page);*/
-    
-}
-
-void LoadCSV::on_analyze_btn_clicked()
-{
-    // if no file has been loaded or verified yet, then don't allow
-    //open the analyze page within the existing window
-    
-    /*Analyzecsv requires a data pointer now, user can't click from here
-     analyze_csv_page = new AnalyzeCSV();
-     this->setCentralWidget(analyze_csv_page);
-     */
-}
-
-void LoadCSV::on_publication_btn_clicked()
-{
-    this->loadCSV(PUBLICATION);
-}
-
-void LoadCSV::on_presentation_btn_clicked()
-{
-    this->loadCSV(PRESENTATION);
-}
-
-void LoadCSV::on_grant_btn_clicked()
-{
-    this->loadCSV(GRANTS);
-}
-
-void LoadCSV::on_teaching_btn_clicked()
-{
-    this->loadCSV(TEACHING);
-}
-
+    ui->recent_files_list->setModel(recentFilesModel);
+}*/
 
 void LoadCSV::on_loadRecentFile_btn_clicked()
 {
@@ -103,7 +73,8 @@ bool LoadCSV::eventFilter(QObject *obj, QEvent *event)
     // This function repeatedly call for those QObjects
     // which have installed eventFilter (Step 2)
 
-    for(std::size_t t = 0; t < NBUT; t++){
+    for(std::size_t i = 0; i < NBUT; i++){
+        CSVType t = (CSVType)i;
         if(obj == (QObject*)(this->getCSVButton(t)))
         {
             if (event->type() == QEvent::Enter)
@@ -113,64 +84,66 @@ bool LoadCSV::eventFilter(QObject *obj, QEvent *event)
             else if(event->type() == QEvent::Leave){
                 resetBtnTxt(t);
             }
+            else if(event->type() == QEvent::MouseButtonPress){
+                this->loadCSV(t);
+            }
         }
     }
     // pass the event on to the parent class
     return QWidget::eventFilter(obj, event);
 }
 
-QPushButton *LoadCSV::getCSVButton(std::size_t i){
-    if(i == 0) return ui->publication_btn;
-    else if(i == 1) return ui->grant_btn;
-    else if(i == 2) return ui->presentation_btn;
-    else return ui->teaching_btn;
+QPushButton *LoadCSV::getCSVButton(CSVType t){
+    switch(t){
+        case(PUBLICATION): return ui->publication_btn;
+        case(GRANTS): return ui->grant_btn;
+        case(PRESENTATION): return ui->presentation_btn;
+        case(TEACHING): return ui->teaching_btn;
+    }
+    return 0;
 }
 
-void LoadCSV::setMouseOverBtnTxt(size_t i){
-    std::shared_ptr<CSVDTO> dto = Data::Instance()->getDTO(i);
-    if(dto) this->getCSVButton(i)->setText("Warning: This will\noverwrite data");
+void LoadCSV::setMouseOverBtnTxt(CSVType t){
+    if(!data->isEmpty(t)) this->getCSVButton(t)->setText("Warning: This will\n""overwrite data");
 }
 
-void LoadCSV::resetBtnTxt(std::size_t i){
-    this->getCSVButton(i)->setText(defaultBtntxt.at(i));
+void LoadCSV::resetBtnTxt(CSVType t){
+    this->getCSVButton(t)->setText(defaultBtntxt.at(t));
 }
 
 void LoadCSV::setDefaultBtnTxt(){
     defaultBtntxt.clear();
     std::string def[] = {"PUBLICATIONS", "GRANTS", "PRESENTATIONS", "TEACHING"};
     for(std::size_t i = 0; i < NBUT; i++){
-        std::shared_ptr<CSVDTO> dto = Data::Instance()->getDTO(i);
         std::string s = def[i];
         defaultBtntxt.push_back(QString::fromStdString(s));
-        QString tooltip = QString::fromStdString(dto?dto->getFile():"");
-        this->getCSVButton(i)->setToolTip(tooltip);
+
+        CSVType t = (CSVType)i;
+        QString tooltip = QString::fromStdString((data->isEmpty(t))?"":data->getShortFileName(t));
+        this->getCSVButton(t)->setToolTip(tooltip);
     }
 }
 
-void LoadCSV::loadCSV(size_t t){
-    Data *data = Data::Instance();
+void LoadCSV::loadCSV(CSVType t){
     try{
         string file = this->getFile();
-        data->loadDTO(file, t);
+        data->loadDTO(&file, t);
 
-        //If no error lines attempt to go to analyze
-        if(data->getDTO(t)->getErrorLines()->size() == 0){
+        //If there are errors move to the analyze page
+        if(data->hasErrors(t)){
+            ui->verify_btn->setEnabled(true);
+            this->setCentralWidget(new VerifyCSV(t));
+        }
+        else{
             //If there are valid lines go to analyze
-            if(data->getDTO(t)->hasValid()){
+            if(data->isEmpty(t)){
+                ui->lblError->setText("  Error: CSV has no valiad data. File Removed.");
+            }
+            else{
                 //TODO Save CSV
                 ui->analyze_btn->setEnabled(true);
                 this->setCentralWidget(new AnalyzeCSV());
             }
-            //Otherwise there is no data in the dto remove file, post error
-            else{
-                data->resetDTO(t);
-                ui->lblError->setText("  Error: CSV has no valiad data. File Removed.");
-            }
-        }
-        else{
-            ui->verify_btn->setEnabled(true);
-
-            this->setCentralWidget(new VerifyCSV(t));
         }
     }
     catch(error::missing_header_error){

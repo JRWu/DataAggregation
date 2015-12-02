@@ -11,12 +11,18 @@
 #include <vector>
 #include <string>
 
-#include "CSV-Data/csvfield.h"
+enum CSVType: unsigned int;
+class CSVField;
 
 class CSVLineValidator
 {
 public:
+    static CSVLineValidator* Instance();
     virtual bool validate(std::vector<CSVField> *line);
+protected:
+    CSVLineValidator(){}
+private:
+    static CSVLineValidator* _instance;
 };
 
 //Validate a publication csv line (nothing to check currently)
@@ -68,5 +74,6 @@ private:
     static CSVLineValidator* _instance;
 };
 
+CSVLineValidator *getCSVLineValidator(CSVType t);
 
 #endif // CSVLINEVALIDATOR_H

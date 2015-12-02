@@ -1,30 +1,24 @@
 #include "csvdto.h"
 
+#include "CSV-Data/csvtype.h"
+#include "CSV-Data/csvlinevalidator.h"
+#include "CSV-Data/csvfieldvalidator.h" //FilterTypr
+#include "CSV-Data/csvfield.h"
+
 using namespace std;
 
-CSVDTO::CSVDTO(){
-    vector<CSVField> l;
-    l.push_back(CSVField(getCSVValidator(STRINGVALIDATOR)));
-    shared_ptr<vector<CSVField>> dum(new vector<CSVField>(l));
-    validLines.push_back(dum);
-    errorLines.push_back(dum);
-}
-
-CSVDTO::CSVDTO(std::string fname, CSVType ty)
+CSVDTO::CSVDTO(string *fname, CSVType t)
 {
-    validLines = vector<shared_ptr<vector<CSVField>>>();
-    errorLines = vector<shared_ptr<vector<CSVField>>>();
+    type = t;
 
-    t = ty;
+    //Holds the validation properties for the csv
+    vector<CSVField> f;
 
-    //Reading line vector with validators set by the type
-    std::vector<CSVField> f;
-
-    //SAve the file name for use in saving the validated csv
-    fileName = fname;
+    //Save the file name for use in saving the validated csv
+    fileName = *fname;
 
     //Set the properties of the parser based on the type of csv
-    setReadProperties(&f, t);
+    setReadProperties(&f);
 
     //Makes a new csv parser parsing file fname, using the given header
     //and number of mandatory fields
@@ -40,66 +34,61 @@ CSVDTO::CSVDTO(std::string fname, CSVType ty)
 
         vector<CSVField> line;
         //Add the line of the CSV to the dto
-        line.push_back(CSVField(getCSVValidator(STRINGVALIDATOR), "Line " + to_string(++nLines)));
+        line.push_back(CSVField(getCSVValidator(STRINGVALIDATOR)));
+        string lineN = "Line " + to_string(++nLines);
+        line.at(0).setField(&lineN);
 
-        //Validate the fields individually while adding the read data to the dto
-        bool valid = true;
-        for(size_t j = 0; (j < f.size()); j++ ){
-            if(j < nMan) valid &= f.at(j).validate();
+        //Save the read line for validation and storage
+        for(size_t j = 0; (j < f.size()); j++ ){            
             line.push_back(f.at(j));
         }
 
-        //Validate the line as a whole (ie start year <= end year) etc
-        if(valid) valid &= lineValidator->validate(&line);
-
         //Add dto to correct list based on validity
-        shared_ptr<vector<CSVField>> lineptr(new vector<CSVField>(line));
-        if(valid) validLines.push_back(lineptr);
-        else errorLines.push_back(lineptr);
+        if(validateLine(&line)) validLines.push_back(line);
+        else errorLines.push_back(line);
     }
 }
 
-std::vector<FilterAdapter> *CSVDTO::getFilterDTOs(){
+vector<FilterAdapter> *CSVDTO::getFilterDTOs(){
     if(filterDTOs.size() < validLines.size()){
-        for(size_t i = 0; i < validLines.size(); i++){
-            vector<CSVField> *line = validLines.at(i).get();
-            filterDTOs.push_back(FilterAdapter(line, t));
+        for(size_t i = 0; i < validLines.size(); ++i){
+            filterDTOs.push_back(FilterAdapter(&validLines[i], type));
         }
     }
 
     return &filterDTOs;
 }
 
-std::vector<BarGraphAdapter> *CSVDTO::getBarGraphDTOs(){
+vector<BarGraphAdapter> *CSVDTO::getBarGraphDTOs(){
     if(barGraphDTOs.size() < validLines.size()){
-        for(size_t i = 0; i < validLines.size(); i++){
-            vector<CSVField> *line = validLines.at(i).get();
-            barGraphDTOs.push_back(BarGraphAdapter(line, t));
+        for(size_t i = 0; i < validLines.size(); ++i){
+            barGraphDTOs.push_back(BarGraphAdapter(&validLines[i], type));
         }
     }
 
     return &barGraphDTOs;
 }
 
-std::vector<TreeListAdapter> *CSVDTO::getTreeListDTOs(){
+/*vector<TreeListAdapter> *CSVDTO::getTreeListDTOs(){
     if(treeListDTOs.size() < validLines.size()){
-        for(size_t i = 0; i < validLines.size(); i++){
-            vector<CSVField> *line = validLines.at(i).get();
-            treeListDTOs.push_back(TreeListAdapter(line, t));
+        for(vector<vector<CSVField>>::iterator it = validLines.begin();
+            it != validLines.end(); ++it){
+            treeListDTOs.push_back(TreeListAdapter(it, type));
         }
     }
 
     return &treeListDTOs;
-}
+}*/
 
 /*Sets up the properties of the csvdto and the csv reader based on
  *the given csv type. The number of mandatory fields, the name of
  * the fields, and the validation strategy for each field need to be
  * set.
  */
-void CSVDTO::setReadProperties(std::vector<CSVField> *f, CSVType t){
-    lineValidator = getCSVLineValidator(t);
-    if(t == PUBLICATION){
+void CSVDTO::setReadProperties(std::vector<CSVField> *f){
+    lineValidator = getCSVLineValidator(type);
+    switch(type){
+    case PUBLICATION:{
         nMan = NPUBMANDATORY;
         string head[] = {"Status Date","Member Name","Primary Domain",
             "Publication Status","Type","Role",
@@ -124,8 +113,10 @@ void CSVDTO::setReadProperties(std::vector<CSVField> *f, CSVType t){
         for(size_t i = f->size(); i < NPUBHEADER; i++){
             f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR)));
         }
+
+        break;
     }
-    else if(t == GRANTS){
+    case GRANTS:{
         nMan = NGRAMANDATORY;
 
         string head[] = {"Start Date","End Date","Member Name","Primary Domain",
@@ -152,8 +143,10 @@ void CSVDTO::setReadProperties(std::vector<CSVField> *f, CSVType t){
         for(size_t i = f->size(); i < NGRAHEADER; i++){
             f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR)));
         }
+
+        break;
     }
-    else if(t == PRESENTATION){
+    case PRESENTATION:{
         nMan = NPREMANDATORY;
 
         string head[] = {"Date","Member Name","Primary Domain","Type","Role", "Title",
@@ -174,8 +167,10 @@ void CSVDTO::setReadProperties(std::vector<CSVField> *f, CSVType t){
         for(size_t i = f->size(); i < NPREHEADER; i++){
             f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR)));
         }
+
+        break;
     }
-    else{
+    case TEACHING:{
         nMan = NTEAMANDATORY;
 
         string head[] = {"Start Date","End Date","Member Name","Primary Domain","Program",
@@ -204,39 +199,43 @@ void CSVDTO::setReadProperties(std::vector<CSVField> *f, CSVType t){
         for(size_t i = f->size(); i < NGRAHEADER; i++){
             f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR)));
         }
+
+        break;
+    }
     }
 }
 
-
-string CSVDTO::getFile(){
-    string s = this->fileName;
-    size_t i = s.find_last_of("/");
-    return s.substr( i + 1,s.length());
+string *CSVDTO::getFile(){
+    return &fileName;
 }
 
-std::vector<std::shared_ptr<std::vector<CSVField>>> *CSVDTO::getErrorLines(){
-    return &(this->errorLines);
+vector<vector<CSVField>> *CSVDTO::getErrorLines(){
+    return &(errorLines);
 }
 
 size_t CSVDTO::getNMan(){
-    return this->nMan;
+    return nMan;
 }
 
-std::vector<std::string> CSVDTO::getHeader(){
-    return this->header;
+vector<string> *CSVDTO::getHeader(){
+    return &header;
 }
 
-bool CSVDTO::validateErrors(){
+bool CSVDTO::validateErrors(vector<vector<string>> *newErr){
     bool result = false;
-    for(int i = (errorLines.size() - 1); i >= 0; i--){
-        bool valid = true;
-        shared_ptr<vector<CSVField>> line = errorLines.at(i);
-        for(size_t j = 0; (j < nMan)&&valid; j++){
-            valid &= line->at(j+1).validate();
+    for(int i = (newErr->size() - 1); i >= 0 ; --i){
+        vector<CSVField> *line = &errorLines.at(i);
+        vector<string> *newLine = &(newErr->at(i));
+
+        for(size_t j = 0; j < newLine->size(); ++j){
+            CSVField *field = &(line->at(j + 1));
+            string *newField = &(newLine->at(j));
+            field->setField(newField);
         }
-        if(valid){
+
+        if(validateLine(line)){
             result = true;
-            validLines.push_back(line);
+            validLines.push_back(*line);
             errorLines.erase(errorLines.begin() + i);
         }
     }
@@ -244,18 +243,39 @@ bool CSVDTO::validateErrors(){
     return result;
 }
 
-string CSVDTO::getDomain(){
-    shared_ptr<vector<CSVField>> line = validLines.at(0);
-    switch(t){
-        case PUBLICATION: return line->at(3).getField();
-        case GRANTS: return line->at(4).getField();
-        case PRESENTATION: return line->at(3).getField();
-        case TEACHING: return line->at(4).getField();
+string *CSVDTO::getDomain(){
+    vector<CSVField> line = validLines.at(0);
+    switch(type){
+        case PUBLICATION: return line.at(3).getField();
+        case GRANTS: return line.at(4).getField();
+        case PRESENTATION: return line.at(3).getField();
+        case TEACHING: return line.at(4).getField();
     }
-
-    return "";
+    return 0;
 }
 
 bool CSVDTO::hasValid(){
-    return (this->validLines.size() > 0);
+    return (validLines.size() > 0);
+}
+
+bool CSVDTO::hasErrors(){
+    return (errorLines.size() > 0);
+}
+
+void CSVDTO::clearErrors(){
+    errorLines.clear();
+    errorLines.shrink_to_fit();
+}
+
+void CSVDTO::removeError(int i){
+    errorLines.erase(errorLines.begin() + i);
+}
+
+bool CSVDTO::validateLine(vector<CSVField> *line){
+    bool result = true;
+    for(size_t i = 0; (i < nMan)&&result; i++){
+        result &= line->at(i + 1).validate();
+    }
+
+    return result&&(lineValidator->validate(line));
 }

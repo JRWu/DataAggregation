@@ -1,6 +1,8 @@
 #include "View/analyze_csv.h"
 #include "View/ui_analyze_csv.h"
 
+#include "DTO/data.h"
+
 AnalyzeCSV::AnalyzeCSV(QWidget *parent):
     QMainWindow(parent),
     ui(new Ui::AnalyzeCSV)
@@ -9,21 +11,25 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent):
 
     ui->verify_btn->setDisabled(true);
 
-    size_t t = Data::Instance()->getLastType();
+    CSVType t = Data::Instance()->getLastType();
 
-    ComboBox sy(ui->start_date_combo_pub, t, FILTERYEAR);
-    ComboBox ey(ui->end_date_combo_pub, t, FILTERYEAR);
-    ComboBox n(ui->name_combo_pub, t, FILTERNAME);
-    ComboBox ty(ui->type_combo_pub, t, FILTERTYPE);
+    sy = new ComboBox(ui->start_date_combo_pub, t, FILTERYEAR);
+    ey = new ComboBox(ui->end_date_combo_pub, t, FILTERYEAR, sy);
+    n = new ComboBox(ui->name_combo_pub, t, FILTERNAME, ey);
+    ty = new ComboBox(ui->type_combo_pub, t, FILTERTYPE, n);
 
-    sy.update();
-    ey.update();
-    n.update();
-    ty.update();
+    sy->update();
+    ui->end_date_combo_pub->setCurrentIndex(ui->end_date_combo_pub->count() - 1);
+
+    //Updates the ey if sy is changed
+    //connect(ui->start_date_combo_pub, SIGNAL(currentIndexChanged(int)),
+           // this, SLOT(comboBoxChangeManager(0,1);));
 }
 
 AnalyzeCSV::~AnalyzeCSV()
 {
+    delete sy;
+    delete ey;
     delete ui;
 }
 

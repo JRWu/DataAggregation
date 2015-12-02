@@ -2,6 +2,8 @@
 #define COMBOBOX_H
 
 #include <QComboBox>
+#include <QObject>
+
 #include <vector>
 #include <string>
 #include <algorithm>
@@ -11,17 +13,21 @@
 #include "Tab-Objects/dtofilter.h"
 #include "Tab-Objects/filtervalue.h"
 #include "DTO/filteradapter.h"
-#include "DTO/data.h"
 
 enum FilterValueType: unsigned int;
+enum CSVType;
+class CSVDTO;
 
-class ComboBox: public TabObserver, public TabSubject
+class ComboBox: public QObject, public TabObserver, public TabSubject
 {
-    QComboBox *cmb;
+    Q_OBJECT
+
+    QComboBox *cmbBox;
     FilterValue *valueGetter;
-    std::size_t csvtype;
+    CSVDTO *dto;
 public:
-    ComboBox(QComboBox *cmb, std::size_t t, FilterValueType ft, TabSubject *s = 0);
+    ComboBox(){}
+    ComboBox(QComboBox *cmb, CSVType t, FilterValueType ft, TabSubject *s = 0);
     void update();
     std::vector<std::string> getState();
 private:
@@ -29,6 +35,8 @@ private:
     void getValues(std::vector<std::string> *fv, std::vector<std::string> *v);
     //Populates the new combo box with the list of values (tries to preseve selection)
     void populateComboBox(std::vector<std::string> *v);
+public slots:
+    void indexChanged();
 };
 
 #endif // YEARCOMBOBOX_H
