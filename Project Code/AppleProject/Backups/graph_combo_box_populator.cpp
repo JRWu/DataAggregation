@@ -1,5 +1,5 @@
 #include "graph_combo_box_populator.h"
-
+/*
 QStringList populateGraphComboName(std::shared_ptr<CSVData<PublicationDTO>> data) {
     size_t i, j;
     std::vector<string> names;
@@ -291,3 +291,4 @@ QStringList populateGraphComboProgram(std::shared_ptr<CSVData<TeachingDTO>> data
 
     return combo_programs;
 }
+*/

@@ -24,3 +24,7 @@ bool Data::loadDTO(string fname, size_t t){
     csv.at(t).swap(newcsv);
     return true;
 }
+
+void Data::resetDTO(size_t t){
+    csv.at(t).reset();
+}

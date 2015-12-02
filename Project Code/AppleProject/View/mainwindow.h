@@ -8,9 +8,7 @@
 #include <QMainWindow>
 #include <QPixmap>
 
-#include "View/view.h"
-
-class View;
+#include "View/load_csv.h"
 
 namespace Ui {
 class MainWindow;

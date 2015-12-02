@@ -9,7 +9,7 @@
 #include <string>
 #include <memory>
 
-#include "DTO/csvdto.h" //CSVType
+#include "DTO/csvdto.h"     //CSVType
 
 enum CSVType: unsigned int;
 
@@ -24,6 +24,9 @@ public:
     //Will throw errors that need to be caught and displayed to the user
     //File not found, missing columns, csv format error, TODO duplicate columns
     bool loadDTO(std::string fname, std::size_t t);
+    //Checks if a dto has valid lines and deletes it
+    //if it doesn't
+    void resetDTO(std::size_t t);
 
 protected:
     Data();

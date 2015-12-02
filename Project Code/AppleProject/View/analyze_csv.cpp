@@ -1,14 +1,24 @@
-#include "View/load_csv.h"
-#include "analyze_csv.h"
-#include "ui_analyze_csv.h"
+#include "View/analyze_csv.h"
+#include "View/ui_analyze_csv.h"
 
-static std::shared_ptr<CSVData<TeachingDTO>> teach_data;
-static std::shared_ptr<CSVData<PublicationDTO>> pub_data;
-static std::shared_ptr<CSVData<PresentationDTO>> pres_data;
-static std::shared_ptr<CSVData<GrantDTO>> grant_data;
+AnalyzeCSV::AnalyzeCSV(QWidget *parent):
+    QMainWindow(parent),
+    ui(new Ui::AnalyzeCSV)
+{
+    ui->setupUi(this);
+
+    ui->verify_btn->setDisabled(true);
+
+
+}
+
+AnalyzeCSV::~AnalyzeCSV()
+{
+    delete ui;
+}
 
 /* Populating the Teaching tab */
-AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> data, QWidget *parent) :
+/*AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> data, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::AnalyzeCSV)
 {
@@ -43,7 +53,7 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> data, QWidget *pare
 }
 
 /* Populating the Publications tab */
-AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> data, QWidget *parent) :
+/*AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> data, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::AnalyzeCSV)
 {
@@ -146,15 +156,10 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PresentationDTO>> data, QWidget *
     populate_presentation_bargraph(pres_data);
 
 }
-
-AnalyzeCSV::~AnalyzeCSV()
-{
-    delete ui;
-}
-
+*/
 void AnalyzeCSV::on_load_btn_clicked()
 {
-    // show alert, "are you sure you are done viewing?"
+    /* show alert, "are you sure you are done viewing?"
     QMessageBox::StandardButton reload;
     reload = QMessageBox::question(this, "Load New Data",
                                    "Importing new data will lose the current data.\n"
@@ -168,12 +173,12 @@ void AnalyzeCSV::on_load_btn_clicked()
         LoadCSV * load_csv_page = new LoadCSV();
         this->setCentralWidget(load_csv_page);
     }
-    //else do nothing
+    */
 }
 
 void AnalyzeCSV::on_verify_btn_clicked()
 {
-    // show alert, "Information has already been verified. Would you like to import new information?"
+    /* show alert, "Information has already been verified. Would you like to import new information?"
     QMessageBox::StandardButton reload;
     reload = QMessageBox::question(this, "Already Verified",
                                    "Information has already been verified.\n"
@@ -183,19 +188,13 @@ void AnalyzeCSV::on_verify_btn_clicked()
         LoadCSV * load_csv_page = new LoadCSV();
         this->setCentralWidget(load_csv_page);
     }
-    //else do nothing
+    */
 }
-
-Ui::AnalyzeCSV* AnalyzeCSV::get_ui_ptr()
-{
-    return ui;
-}
-
 
 void AnalyzeCSV::on_filter_btn_pub_clicked()
 {
 
-    // Catch to prevent analysis on a null pointer
+    /* Catch to prevent analysis on a null pointer
     // Only catches error if data is loaded ONCE, therefore the pointers not being cleared at the end of a session
     if (pub_data == NULL)
     {
@@ -205,14 +204,10 @@ void AnalyzeCSV::on_filter_btn_pub_clicked()
     {
         populate_publication_tree(pub_data);
         populate_publication_bargraph(pub_data);
-    }
+    }*/
 }
 
-/**
- * @brief AnalyzeCSV::populate_publication_tree fills the tree_list_vo with publication info
- * @param p_tree holds the publication info to be written to the QTreeWidget
- */
-void AnalyzeCSV::populate_publication_tree(std::shared_ptr<CSVData<PublicationDTO>> data)
+/*void AnalyzeCSV::populate_publication_tree(std::shared_ptr<CSVData<PublicationDTO>> data)
 {
     QString st_string = ui->start_date_combo_pub->itemText(ui->start_date_combo_pub->currentIndex());
     QString en_string = ui->end_date_combo_pub->itemText(ui->end_date_combo_pub->currentIndex());
@@ -241,16 +236,12 @@ void AnalyzeCSV::populate_publication_tree(std::shared_ptr<CSVData<PublicationDT
 
         ui->tree_list_pub->expandItem(ui->tree_list_pub->topLevelItem(0));
     }
-}
+}*/
 
-/**
- * @brief AnalyzeCSV::populate_grant_tree fills the tree_list_vo with grant info
- * @param p_tree holds the grant info to be written to QTreeWidget
- */
-void AnalyzeCSV::populate_grant_tree(std::shared_ptr<CSVData<GrantDTO>> data)
+/*void AnalyzeCSV::populate_grant_tree(std::shared_ptr<CSVData<GrantDTO>> data)
 {
 
-    QString st_string = ui->start_date_combo_grnt->itemText(ui->start_date_combo_grnt->currentIndex());
+    /*QString st_string = ui->start_date_combo_grnt->itemText(ui->start_date_combo_grnt->currentIndex());
     QString en_string = ui->end_date_combo_grnt->itemText(ui->end_date_combo_grnt->currentIndex());
     int s = stoi(st_string.toStdString()); // start date
     int e = stoi(en_string.toStdString()); // end date
@@ -278,13 +269,10 @@ void AnalyzeCSV::populate_grant_tree(std::shared_ptr<CSVData<GrantDTO>> data)
     }
 }
 
-/**
- * @brief AnalyzeCSV::populate_teaching_tree fills the tree_list_vo with teaching info
- * @param p_tree holds the teaching info to be written to QTreeWidget
- */
-void AnalyzeCSV::populate_teaching_tree(std::shared_ptr<CSVData<TeachingDTO>> data)
+
+/*void AnalyzeCSV::populate_teaching_tree(std::shared_ptr<CSVData<TeachingDTO>> data)
 {
-    QString st_string = ui->start_date_combo_teach->itemText(ui->start_date_combo_teach->currentIndex());
+    /*QString st_string = ui->start_date_combo_teach->itemText(ui->start_date_combo_teach->currentIndex());
     QString en_string = ui->end_date_combo_teach->itemText(ui->end_date_combo_teach->currentIndex());
     int s = stoi(st_string.toStdString()); // start date
     int e = stoi(en_string.toStdString()); // end date
@@ -315,9 +303,9 @@ void AnalyzeCSV::populate_teaching_tree(std::shared_ptr<CSVData<TeachingDTO>> da
 }
 
 // Do by jerry
-void AnalyzeCSV::populate_presentation_tree(std::shared_ptr<CSVData<PresentationDTO>> data)
+/*void AnalyzeCSV::populate_presentation_tree(std::shared_ptr<CSVData<PresentationDTO>> data)
 {
-    QString st_string = ui->start_date_combo_pres->itemText(ui->start_date_combo_pres->currentIndex());
+    /*QString st_string = ui->start_date_combo_pres->itemText(ui->start_date_combo_pres->currentIndex());
     QString en_string = ui->end_date_combo_pres->itemText(ui->end_date_combo_pres->currentIndex());
 
     long s = stol(st_string.toStdString());
@@ -365,8 +353,8 @@ void AnalyzeCSV::populate_presentation_tree(std::shared_ptr<CSVData<Presentation
 
 }
 
-void AnalyzeCSV::populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDTO>> data){
-    QString st_string = ui->start_date_combo_teach->itemText(ui->start_date_combo_teach->currentIndex());
+void /*AnalyzeCSV::populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDTO>> data){
+    /*QString st_string = ui->start_date_combo_teach->itemText(ui->start_date_combo_teach->currentIndex());
     QString en_string = ui->end_date_combo_teach->itemText(ui->end_date_combo_teach->currentIndex());
 
     string s = st_string.toStdString(); // start date
@@ -414,9 +402,9 @@ void AnalyzeCSV::populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDTO>
     }
 }
 
-void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<PublicationDTO>> data)
+/*void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<PublicationDTO>> data)
 {
-    QString st_string = ui->start_date_combo_pub->itemText(ui->start_date_combo_pub->currentIndex());
+    /*QString st_string = ui->start_date_combo_pub->itemText(ui->start_date_combo_pub->currentIndex());
     QString en_string = ui->end_date_combo_pub->itemText(ui->end_date_combo_pub->currentIndex());
 
     string s = st_string.toStdString(); // start date
@@ -472,7 +460,7 @@ void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<Publicati
 
 void AnalyzeCSV::populate_presentation_bargraph(std::shared_ptr<CSVData<PresentationDTO>> data)
 {
-    QString st_string = ui->start_date_combo_pres->itemText(ui->start_date_combo_pres->currentIndex());
+    /*QString st_string = ui->start_date_combo_pres->itemText(ui->start_date_combo_pres->currentIndex());
     QString en_string = ui->end_date_combo_pres->itemText(ui->end_date_combo_pres->currentIndex());
 
     string s = st_string.toStdString();
@@ -527,7 +515,7 @@ void AnalyzeCSV::populate_presentation_bargraph(std::shared_ptr<CSVData<Presenta
 
 void AnalyzeCSV::populate_grant_bargraph(std::shared_ptr<CSVData<GrantDTO>> data)
 {
-    QString st_string = ui->start_date_combo_grnt->itemText(ui->start_date_combo_grnt->currentIndex());
+   /*QString st_string = ui->start_date_combo_grnt->itemText(ui->start_date_combo_grnt->currentIndex());
     QString en_string = ui->end_date_combo_grnt->itemText(ui->end_date_combo_grnt->currentIndex());
 
     string s = st_string.toStdString();
@@ -573,13 +561,13 @@ void AnalyzeCSV::populate_grant_bargraph(std::shared_ptr<CSVData<GrantDTO>> data
         scene->addWidget(customPlot);   // Add plot to the window & Essential
         ui->graph_area_grnt->setScene(scene);    // Added for grpahics & Essential
     }
-}
+}*/
 
 
 // JX --> implemented 11.15.15
 void AnalyzeCSV::on_filter_btn_grnt_clicked()
 {
-    // Catch to prevent analysis on a null pointer
+    /* Catch to prevent analysis on a null pointer
     // Only catches error if data is loaded ONCE, therefore the pointers not being cleared at the end of a session
     if (grant_data == NULL)
     {
@@ -589,13 +577,13 @@ void AnalyzeCSV::on_filter_btn_grnt_clicked()
     {
         populate_grant_tree(grant_data);
         populate_grant_bargraph(grant_data);
-    }
+    }*/
 }
 
 // Jerry This populates the preseentation tree in the tree view
 void AnalyzeCSV::on_filter_btn_pres_clicked()
 {
-    // Catch to prevent analysis on a null pointer
+    /* Catch to prevent analysis on a null pointer
     // Only catches error if data is loaded ONCE, therefore the pointers not being cleared at the end of a session
     if (pres_data == NULL)
     {
@@ -607,12 +595,12 @@ void AnalyzeCSV::on_filter_btn_pres_clicked()
         // Index 1 is pie chart
         populate_presentation_tree(pres_data);
         populate_presentation_bargraph(pres_data);
-    }
+    }*/
 }
 
 void AnalyzeCSV::on_filter_btn_teach_clicked()
 {
-    if (teach_data == NULL)
+    /*if (teach_data == NULL)
     {
         // Add code to inform user that they didn't load proper information
     }
@@ -620,87 +608,87 @@ void AnalyzeCSV::on_filter_btn_teach_clicked()
     {
         populate_teaching_tree(teach_data);
         populate_teaching_bargraph(teach_data);
-    }
+    }*/
 }
 
 void AnalyzeCSV::on_name_combo_pub_activated()
 {
-    if (pub_data == NULL) {
+    /*if (pub_data == NULL) {
         // Add code to inform user that they didn't load proper information
     }
     else {
         populate_publication_bargraph(pub_data);
-    }
+    }*/
 }
 
 void AnalyzeCSV::on_type_combo_pub_activated()
 {
-    if (pub_data == NULL) {
+    /*if (pub_data == NULL) {
         // Add code to inform user that they didn't load proper information
     }
     else {
         populate_publication_bargraph(pub_data);
-    }
+    }*/
 }
 
 void AnalyzeCSV::on_name_combo_grnt_activated()
 {
-    if (grant_data == NULL) {
+    /*if (grant_data == NULL) {
         // Add code to inform user that they didn't load proper information
     }
     else {
         populate_grant_bargraph(grant_data);
-    }
+    }*/
 }
 
 void AnalyzeCSV::on_type_combo_grnt_activated()
 {
-    if (grant_data == NULL) {
+    /*if (grant_data == NULL) {
         // Add code to inform user that they didn't load proper information
     }
     else {
         populate_grant_bargraph(grant_data);
-    }
+    }*/
 }
 
 void AnalyzeCSV::on_name_combo_pres_activated()
 {
-    if (pres_data == NULL) {
+    /*if (pres_data == NULL) {
         // Add code to inform user that they didn't load proper information
     }
     else {
         populate_presentation_bargraph(pres_data);
-    }
+    }*/
 }
 
 void AnalyzeCSV::on_type_combo_pres_activated()
 {
-    if (pres_data == NULL) {
+    /*if (pres_data == NULL) {
         // Add code to inform user that they didn't load proper information
     }
     else {
         populate_presentation_bargraph(pres_data);
-    }
+    }*/
 }
 
 void AnalyzeCSV::on_name_combo_teach_activated()
 {
-    if (teach_data == NULL) {
+    /*if (teach_data == NULL) {
         // Add code to inform user that they didn't load proper information
     }
     else {
         populate_teaching_bargraph(teach_data);
-    }
+    }*/
 }
 
 void AnalyzeCSV::on_program_combo_teach_activated()
 {
-    if (teach_data == NULL) {
+    /*if (teach_data == NULL) {
         // Add code to inform user that they didn't load proper information
     }
     else {
         populate_teaching_bargraph(teach_data);
-    }
+    }*/
 }
 
 /**
@@ -709,7 +697,7 @@ void AnalyzeCSV::on_program_combo_teach_activated()
  */
 void AnalyzeCSV::resizeEvent(QResizeEvent *event)
 {
-    QMainWindow::resizeEvent(event);
+/*    QMainWindow::resizeEvent(event);
     {
 
         // Rudimentary event handling of repopulating the bargraphs
@@ -731,5 +719,6 @@ void AnalyzeCSV::resizeEvent(QResizeEvent *event)
         {
             populate_grant_bargraph(grant_data);
         }
-    }
+    }*/
 }
+

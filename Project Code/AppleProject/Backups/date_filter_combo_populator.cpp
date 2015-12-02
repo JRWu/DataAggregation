@@ -1,5 +1,5 @@
 #include "date_filter_combo_populator.h"
-
+/*
 // JX --> implemented 11.15.15
 QStringList PopulateDateCombos(std::shared_ptr<CSVData<GrantDTO>> data) {
     std::vector<int> dates;
@@ -164,4 +164,4 @@ QStringList PopulateDateCombos(std::shared_ptr<CSVData<PublicationDTO>> data) {
 
     return date_strs;
 }
-
+*/

@@ -1,4 +1,5 @@
 #include "graphvisualizations.h"
+/*
 Graphvisualizations::Graphvisualizations()
 {
     // default constructor
@@ -12,7 +13,7 @@ Graphvisualizations::Graphvisualizations()
  */
 
 
-void Graphvisualizations::plot_grants_vs_trials(QCustomPlot* customPlot, Grant_BarGraph1_VO* bargraph_vo){
+/*void Graphvisualizations::plot_grants_vs_trials(QCustomPlot* customPlot, Grant_BarGraph1_VO* bargraph_vo){
 
     QCPBarsGroup *group = new QCPBarsGroup(customPlot);
     QCPBars *bars = new QCPBars(customPlot->xAxis, customPlot->yAxis);
@@ -140,4 +141,4 @@ void Graphvisualizations::plot_teaching_vs_course(QCustomPlot* customPlot, Teach
     customPlot->xAxis->setLabel("Program / Course");
     customPlot->yAxis->setLabel("Number of Hours");
     */
-}
+//}

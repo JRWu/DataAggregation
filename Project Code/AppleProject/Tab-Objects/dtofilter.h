@@ -18,11 +18,10 @@ class FilterAdapter;
 
 class DTOFilter
 {
-    std::string name, syear, eyear, type;
+    std::vector<std::string> *values;
 public:
-    DTOFilter(std::string n, std::string sy, std::string ey, std::string t);
+    DTOFilter(std::vector<std::string> *v = 0);
     bool filter(FilterAdapter *b);
-    bool isValid();
 };
 
 #endif // DTOFILTER_H

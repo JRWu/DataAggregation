@@ -8,7 +8,7 @@
 
 #include "Utility/stringfunctions.h"
 
-enum ValidatorType{
+enum ValidatorType: unsigned int{
   STRINGVALIDATOR, DATEVALIDATOR, NAMELISTVALIDATOR, MONEYVALIDATOR
 };
 

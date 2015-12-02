@@ -1,9 +1,9 @@
 #ifndef TREE_H
 #define TREE_H
-
+/*
 #include <iostream>
 #include <vector>
-#include "analyze_csv.h"
+#include "View/analyze_csv.h"
 #include <QTreeWidget>
 
 using namespace std;
@@ -50,6 +50,6 @@ private:
     int find_label_index(string label, vector<string_data_object> set);
 
 };
-
+*/
 
 #endif // TREE_H

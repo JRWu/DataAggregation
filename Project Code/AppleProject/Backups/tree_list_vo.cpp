@@ -1,9 +1,9 @@
 #include "tree_list_vo.h"
-
+/*
 /**
  * @brief tree_list_vo::tree_list_vo default constructor for tree_list_vo
  */
-tree_list_vo::tree_list_vo()
+/*tree_list_vo::tree_list_vo()
 {
     // default constructor
     num_pub_types = 0;
@@ -13,7 +13,7 @@ tree_list_vo::tree_list_vo()
  * @brief tree_list_vo::tree_list_vo overloaded constructor for tree_list_vo
  * @param _data is PUBLICATION data
  */
-tree_list_vo::tree_list_vo(shared_ptr<CSVData<PublicationDTO> > _data)
+/*tree_list_vo::tree_list_vo(shared_ptr<CSVData<PublicationDTO> > _data)
 {
     _data = _data;
     num_pub_types = 0;  // default 0 publication types
@@ -23,7 +23,7 @@ tree_list_vo::tree_list_vo(shared_ptr<CSVData<PublicationDTO> > _data)
  * @brief tree_list_vo::tree_list_vo overloaded constructor for tree_list_vo
  * @param _data is GRANT data
  */
-tree_list_vo::tree_list_vo(shared_ptr<CSVData<GrantDTO> > _data)
+/*tree_list_vo::tree_list_vo(shared_ptr<CSVData<GrantDTO> > _data)
 {
     _data = _data;
     num_funding_types = 0;  // default 0 funding types
@@ -33,7 +33,7 @@ tree_list_vo::tree_list_vo(shared_ptr<CSVData<GrantDTO> > _data)
  * @brief tree_list_vo::tree_list_vo overloaded constructor for tree_list_vo
  * @param _data is TEACHING data
  */
-tree_list_vo::tree_list_vo(shared_ptr<CSVData<TeachingDTO> > _data)
+/*tree_list_vo::tree_list_vo(shared_ptr<CSVData<TeachingDTO> > _data)
 {
     _data = _data;
     num_teach_types = 0;  // default 0 teaching types
@@ -43,7 +43,7 @@ tree_list_vo::tree_list_vo(shared_ptr<CSVData<TeachingDTO> > _data)
  * @brief tree_list_vo::tree_list_vo overloaded constructor for tree_list_vo
  * @param _data is PRESENTATION data
  */
-tree_list_vo::tree_list_vo(shared_ptr<CSVData<PresentationDTO> > _data)
+/*tree_list_vo::tree_list_vo(shared_ptr<CSVData<PresentationDTO> > _data)
 {
     _data = _data;
     num_pub_types = 0;  // default 0 presentation types
@@ -56,7 +56,7 @@ tree_list_vo::tree_list_vo(shared_ptr<CSVData<PresentationDTO> > _data)
  * @brief tree_list_vo::get_parent_set returns the parent set of the tree list vo object
  * @return parent_set of the tree_list_vo object
  */
-vector<string_data_object> tree_list_vo::get_parent_set()
+/*vector<string_data_object> tree_list_vo::get_parent_set()
 {
     return parent_set;
 }
@@ -65,7 +65,7 @@ vector<string_data_object> tree_list_vo::get_parent_set()
  * @brief tree_list_vo::get_child_set returns the child set of the tree list vo object
  * @return child_set of the tree_list_vo object
  */
-vector<vector<string_data_object> > tree_list_vo::get_child_set()
+/*vector<vector<string_data_object> > tree_list_vo::get_child_set()
 {
     return child_set;
 }
@@ -80,7 +80,7 @@ vector<vector<string_data_object> > tree_list_vo::get_child_set()
  * @return 0 if it's executed successfully
  * COMPLETED BY JERRY DO NOT MODIFY
  */
-int tree_list_vo::populate_for_publications(shared_ptr<CSVData<PublicationDTO> > _data, int start, int end)
+/*int tree_list_vo::populate_for_publications(shared_ptr<CSVData<PublicationDTO> > _data, int start, int end)
 {
     // Create the first empty child set
     vector<string_data_object> t;
@@ -176,7 +176,7 @@ int tree_list_vo::populate_for_publications(shared_ptr<CSVData<PublicationDTO> >
  * @param fType is the type of funding that the tree will populate
  * @return 0 if it's executed successfully
  */
-int tree_list_vo::tree_list_vo::populate_for_grants(shared_ptr<CSVData<GrantDTO> > _data, int start, int end, const char* fType)
+/*int tree_list_vo::tree_list_vo::populate_for_grants(shared_ptr<CSVData<GrantDTO> > _data, int start, int end, const char* fType)
 {
     // Create the first empty child set
     vector<string_data_object> t;
@@ -684,7 +684,7 @@ int tree_list_vo::tree_list_vo::populate_for_presentations(shared_ptr<CSVData<Pr
  * @param set is the vector that stores string:data objects
  * @return the index at which label is stored if found, -1 otherwise
  */
-int tree_list_vo::find_label_index(string label, vector<string_data_object> set)
+/*int tree_list_vo::find_label_index(string label, vector<string_data_object> set)
 {
     for (int i = 0; i < set.size(); i ++)
     {
@@ -694,4 +694,4 @@ int tree_list_vo::find_label_index(string label, vector<string_data_object> set)
         }
     }
     return -1;
-}
+}*/

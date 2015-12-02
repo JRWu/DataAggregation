@@ -9,7 +9,6 @@
 #include <string>
 #include <memory>
 
-#include "View/view.h"
 #include "View/load_csv.h"
 #include "DTO/data.h"
 #include "CSV-Data/csvfield.h"

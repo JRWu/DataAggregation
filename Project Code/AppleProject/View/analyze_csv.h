@@ -6,27 +6,23 @@
 #include <QtCore>
 #include <QtGui>
 #include <QStringList>
+
 #include <memory>
 #include <vector>
 #include <algorithm>
 #include <string>
 
+#include "DTO/data.h"
+#include "DTO/csvdto.h"
+
 #include <iostream> // rm later
 #include <stdio.h>  // rem later
 
-#include "csvdata.h"
-#include "grantdto.h"
-#include "publicationdto.h"
-#include "teachingdto.h"
-#include "tree_list_vo.h"
-#include "graphvisualizations.h"
-#include "grant_bargraph1_vo.h"
-#include "teach_bargraph1_vo.h"
-#include "bargraph_vo.h"
-#include "graph_combo_box_populator.h"
-#include "treelist_vo.h"
-#include "date_filter_combo_populator.h"
-
+#define PUB 0
+#define GRANT 1
+#define PRES 2
+#define TEACH 3
+#define NCSV 4
 
 class tree_list_vo;     //forward pointer
 
@@ -39,16 +35,12 @@ class AnalyzeCSV : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> data, QWidget *parent = 0);
-    explicit AnalyzeCSV(std::shared_ptr<CSVData<GrantDTO>> data, QWidget *parent = 0);
-    explicit AnalyzeCSV(std::shared_ptr<CSVData<PresentationDTO>> data, QWidget *parent = 0);
-    explicit AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> data, QWidget *parent = 0);
+    explicit AnalyzeCSV(QWidget *parent = 0);
     ~AnalyzeCSV();
 
 //    void GenerateTreeView()
 
 private slots:
-    Ui::AnalyzeCSV* get_ui_ptr();
     void on_load_btn_clicked();
     void on_verify_btn_clicked();
 
@@ -85,7 +77,7 @@ private:
     tree_list_vo* p_tree;
     tree_list_vo* teach_tree;
 
-    void populate_publication_tree(std::shared_ptr<CSVData<PublicationDTO>> data);
+    /*void populate_publication_tree(std::shared_ptr<CSVData<PublicationDTO>> data);
     void populate_grant_tree(std::shared_ptr<CSVData<GrantDTO>> data);
     void populate_teaching_tree(std::shared_ptr<CSVData<TeachingDTO>> data);
     void populate_presentation_tree(std::shared_ptr<CSVData<PresentationDTO>> data);
@@ -93,7 +85,7 @@ private:
     void populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDTO>> data);
     void populate_grant_bargraph(std::shared_ptr<CSVData<GrantDTO>> data);
     void populate_publication_bargraph(std::shared_ptr<CSVData<PublicationDTO>> data);
-    void populate_presentation_bargraph(std::shared_ptr<CSVData<PresentationDTO>> data);
+    void populate_presentation_bargraph(std::shared_ptr<CSVData<PresentationDTO>> data);*/
 
     void AddRoot(QString field, QString total);
     QTreeWidgetItem* AddChild(QTreeWidgetItem *parent, QString field, QString total);

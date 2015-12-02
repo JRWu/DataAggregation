@@ -1,11 +1,10 @@
 #ifndef GRAPHVISUALIZATIONS_H
 #define GRAPHVISUALIZATIONS_H
-
+/*
 #include <qcustomplot.h>
 #include <memory>
 
 #include "bargraph_vo.h"
-#include "grant_bargraph1_vo.h"
 
 class Teach_BarGraph1_VO;   // To add by Eric + Emily
 class Grant_BarGraph1_VO;   // to add by Jaisen/Jennifer
@@ -99,6 +98,6 @@ void Graphvisualizations::plot_bargraph(QCustomPlot* customPlot, std::shared_ptr
     customPlot ->yAxis->setRange(0,vo->maxY + ytick/2);
     customPlot->yAxis->setLabel(yAxis);
 }
-
+*/
 #endif // GRAPHVISUALIZATIONS_H
 

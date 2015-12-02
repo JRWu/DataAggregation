@@ -3,7 +3,7 @@
 
 using namespace std;
 
-LoadCSV::LoadCSV(QWidget *parent) :
+LoadCSV::LoadCSV(QWidget *parent, string err) :
 QMainWindow(parent),
 ui(new Ui::LoadCSV)
 {
@@ -20,6 +20,7 @@ ui(new Ui::LoadCSV)
         this->getCSVButton(t)->installEventFilter(this);
     }
     setDefaultBtnTxt();
+    ui->lblError->setText(QString::fromStdString(err));
 }
 
 LoadCSV::~LoadCSV()
@@ -152,10 +153,19 @@ void LoadCSV::loadCSV(size_t t){
         string file = this->getFile();
         data->loadDTO(file, t);
 
-        if(Data::Instance()->getDTO(t)->getErrorLines()->size() == 0){
-            ui->analyze_btn->setEnabled(true);
-            //TODO Save CSV
-            //Goto analyze page once finished
+        //If no error lines attempt to go to analyze
+        if(data->getDTO(t)->getErrorLines()->size() == 0){
+            //If there are valid lines go to analyze
+            if(data->getDTO(t)->hasValid()){
+                //TODO Save CSV
+                ui->analyze_btn->setEnabled(true);
+                this->setCentralWidget(new AnalyzeCSV());
+            }
+            //Otherwise there is no data in the dto remove file, post error
+            else{
+                data->resetDTO(t);
+                ui->lblError->setText("  Error: CSV has no valiad data. File Removed.");
+            }
         }
         else{
             ui->verify_btn->setEnabled(true);

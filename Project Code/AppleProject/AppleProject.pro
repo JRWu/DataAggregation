@@ -17,24 +17,8 @@ CONFIG += static
 #CONFIG += release
 
 SOURCES += main.cpp\
-    analyze_csv.cpp \
-    publicationdto.cpp \
-    csvdata.cpp \
-    csvdataassembler.cpp \
     qcustomplot.cpp \
-    validatedto.cpp \
-    dtoassembler.cpp \
-    tree_list_vo.cpp \
-    graphvisualizations.cpp \
-    grantdto.cpp \
-    teach_bargraph1_vo.cpp \
-    presentationdto.cpp \
-    teachingdto.cpp \
-    graph_combo_box_populator.cpp \
-    grant_bargraph1_vo.cpp \
-    date_filter_combo_populator.cpp \
     View/load_csv.cpp \
-    View/view.cpp \
     View/mainwindow.cpp \
     View/mainwindowcontroller.cpp \
     Utility/stringfunctions.cpp \
@@ -47,28 +31,15 @@ SOURCES += main.cpp\
     DTO/filteradapter.cpp \
     DTO/treelistadapter.cpp \
     DTO/data.cpp \
-    Filters/dtofilter.cpp \
+    Tab-Objects/dtofilter.cpp \
     View/verify_csv.cpp \
+    View/analyze_csv.cpp \
+    Tab-Objects/filtervalue.cpp \
+    Tab-Objects/combobox.cpp \
+    Tab-Objects/tabsubject.cpp \
+    Tab-Objects/tabobserver.cpp
 
-HEADERS  += analyze_csv.h \
-    publicationdto.h \
-    csvdata.h \
-    csvdataassembler.h \
-    qcustomplot.h \
-    validatedto.h \
-    dtoassembler.h \
-    tree_list_vo.h \
-    graphvisualizations.h \
-    grantdto.h \
-    teach_bargraph1_vo.h \
-    presentationdto.h \
-    grant_bargraph1_vo.h \
-    teachingdto.h \
-    bargraph_vo.h \
-    graph_combo_box_populator.h \
-    treelist_vo.h \
-    date_filter_combo_populator.h \
-    View/view.h \
+HEADERS  += qcustomplot.h \
     View/load_csv.h \
     View/mainwindow.h \
     Utility/stringfunctions.h \
@@ -84,15 +55,22 @@ HEADERS  += analyze_csv.h \
     DTO/filteradapter.h \
     DTO/treelistadapter.h \
     DTO/data.h \
-    Filters/dtofilter.h \
+    Tab-Objects/dtofilter.h \
     View/ui_load_csv.h \
+    View/ui_analyze_csv.h \
     View/ui_mainwindow.h \
     View/verify_csv.h \
+    View/analyze_csv.h \
+    View/ui_verify_csv.h \
+    Tab-Objects/filtervalue.h \
+    Tab-Objects/tabobserver.h \
+    Tab-Objects/tabsubject.h \
+    Tab-Objects/combobox.h
 
 FORMS    += View/mainwindow.ui \
-    analyze_csv.ui \
     View/load_csv.ui \
-    View/verify_csv.ui
+    View/verify_csv.ui \
+    View/analyze_csv.ui \
 
 DISTFILES += \
     AppleProject.pro.user \

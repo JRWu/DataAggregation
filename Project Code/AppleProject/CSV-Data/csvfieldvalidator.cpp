@@ -149,6 +149,17 @@ bool MoneyValidator::validate(string *s){
     return true;
 }
 
-
+bool isLeapYear(int y){
+    if((y%4) == 0){
+       if((y%100) == 0){
+           if((y%400) == 0){
+               return true;
+           }
+           return false;
+       }
+       return true;
+    }
+    return false;
+}
 
 //End Validate function

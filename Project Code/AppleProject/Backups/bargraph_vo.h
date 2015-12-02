@@ -1,13 +1,11 @@
 #ifndef BARGRAPH_H
 #define BARGRAPH_H
-
+/*
 #include <qcustomplot.h>
 
 #include <string>
 #include <memory>
 #include <vector>
-
-#include "csvdata.h"
 
 template <class DTOType> class BarGraph_VO
 {
@@ -214,5 +212,5 @@ template <class DTOType> BarGraph_VO<DTOType>::BarGraph_VO(std::shared_ptr<CSVDa
 }
 
 template <class DTOType> BarGraph_VO<DTOType>::BarGraph_VO(){}
-
+*/
 #endif // BARGRAPH_H

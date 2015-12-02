@@ -76,7 +76,13 @@ void VerifyCSV::on_load_btn_clicked()
         }
     }
     ignoreAll();
-    this->setCentralWidget(new LoadCSV());
+    string err = "";
+    if(!Data::Instance()->getDTO(csvType)->hasValid()){
+        err = "  Error: CSV has no valiad data. File Removed.";
+        Data::Instance()->resetDTO(csvType);
+    }
+
+    this->setCentralWidget(new LoadCSV(0, err)); //If empty display error
 }
 
 
@@ -92,13 +98,29 @@ void VerifyCSV::on_analyze_btn_clicked()
         if(leave == QMessageBox::No) return;
     }
     ignoreAll();
-    //Go to analyze page
+    if(Data::Instance()->getDTO(csvType)->hasValid()){
+        //TODO add save CSV
+        this->setCentralWidget(new AnalyzeCSV());
+    }
+    else{
+        string err("  Error: CSV has no valiad data. File Removed.");
+        Data::Instance()->resetDTO(csvType);
+        this->setCentralWidget(new LoadCSV(0, err));
+    }
 }
 
 void VerifyCSV::on_ignoreall_btn_clicked()
 {    
     ignoreAll();
-    //Go to analyze page
+    if(Data::Instance()->getDTO(csvType)->hasValid()){
+        //TODO add save CSV
+        this->setCentralWidget(new AnalyzeCSV());
+    }
+    else{
+        string err("  Error: CSV has no valiad data. File Removed.");
+        Data::Instance()->resetDTO(csvType);
+        this->setCentralWidget(new LoadCSV(0, err));
+    }
 }
 
 void VerifyCSV::on_ignore_btn_clicked()
@@ -138,5 +160,4 @@ void VerifyCSV::ignoreAll(){
     errors->shrink_to_fit();
 
     ui->verify_btn->setDisabled(true);
-    //Save CSV
 }

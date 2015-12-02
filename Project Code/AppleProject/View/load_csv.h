@@ -13,8 +13,8 @@
 
 #include "DTO/csvdto.h"
 #include "DTO/data.h"
-#include "View/view.h"
 #include "View/verify_csv.h"
+#include "View/analyze_csv.h"
 
 #define NBUT 4
 
@@ -30,7 +30,7 @@ class LoadCSV : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit LoadCSV(QWidget *parent = 0);
+    explicit LoadCSV(QWidget *parent = 0, std::string err = "");
     bool eventFilter(QObject *obj, QEvent *event);
     ~LoadCSV();
 

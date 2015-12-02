@@ -1,13 +1,12 @@
 #ifndef TREELIST_VO_H
 #define TREELIST_VO_H
-
+/*
 #include <QTreeWidgetItem>
 
 #include <string>
 #include <vector>
 #include <memory>
 
-#include "csvdata.h"
 
 struct TreeList_Node
 {
@@ -132,6 +131,6 @@ template <class DTOType>
 bool TreeList_VO<DTOType>::isEmpty(){
     return (root.children.size() == 0);
 }
-
+*/
 #endif // TREELIST_VO_H
 

@@ -243,3 +243,19 @@ bool CSVDTO::validateErrors(){
 
     return result;
 }
+
+string CSVDTO::getDomain(){
+    shared_ptr<vector<CSVField>> line = validLines.at(0);
+    switch(t){
+        case PUBLICATION: return line->at(3).getField();
+        case GRANTS: return line->at(4).getField();
+        case PRESENTATION: return line->at(3).getField();
+        case TEACHING: return line->at(4).getField();
+    }
+
+    return "";
+}
+
+bool CSVDTO::hasValid(){
+    return (this->validLines.size() > 0);
+}

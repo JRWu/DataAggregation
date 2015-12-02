@@ -78,7 +78,11 @@ public:
     std::size_t getNMan();
     //Returns the header for this csv
     std::vector<std::string> getHeader();
-    //Attempts to load a new csv of the given type
+    //Returns the domain of the CSV
+    std::string getDomain();
+
+    //True if the dto has any valid lines
+    bool hasValid();
 };
 
 #endif // CSVDTO_H
