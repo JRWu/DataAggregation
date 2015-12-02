@@ -2,11 +2,11 @@
 
 using namespace std;
 
-ComboBox::ComboBox(QComboBox *cmb, size_t t, TabSubject *s):
+ComboBox::ComboBox(QComboBox *cmb, size_t t, FilterValueType ft, TabSubject *s):
     TabObserver(s), TabSubject()
 {
     csvtype = t;
-    valueGetter = getFilterValue(FILTERYEAR); //Add parameter later
+    valueGetter = getFilterValue(ft); //Add parameter later
     this->cmb = cmb;
 }
 

@@ -3,6 +3,6 @@
 TabObserver::TabObserver(TabSubject *s)
 {
     subject = s;
-    this->subject->attach(this);
+    if(this->subject) this->subject->attach(this);
 }
 

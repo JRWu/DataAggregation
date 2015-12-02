@@ -9,7 +9,17 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent):
 
     ui->verify_btn->setDisabled(true);
 
+    size_t t = Data::Instance()->getLastType();
 
+    ComboBox sy(ui->start_date_combo_pub, t, FILTERYEAR);
+    ComboBox ey(ui->end_date_combo_pub, t, FILTERYEAR);
+    ComboBox n(ui->name_combo_pub, t, FILTERNAME);
+    ComboBox ty(ui->type_combo_pub, t, FILTERTYPE);
+
+    sy.update();
+    ey.update();
+    n.update();
+    ty.update();
 }
 
 AnalyzeCSV::~AnalyzeCSV()
@@ -52,8 +62,7 @@ AnalyzeCSV::~AnalyzeCSV()
     populate_teaching_bargraph(teach_data);
 }
 
-/* Populating the Publications tab */
-/*AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> data, QWidget *parent) :
+AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> data, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::AnalyzeCSV)
 {
@@ -159,21 +168,7 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PresentationDTO>> data, QWidget *
 */
 void AnalyzeCSV::on_load_btn_clicked()
 {
-    /* show alert, "are you sure you are done viewing?"
-    QMessageBox::StandardButton reload;
-    reload = QMessageBox::question(this, "Load New Data",
-                                   "Importing new data will lose the current data.\n"
-                                   "Would you like to continue?",
-                                   QMessageBox::Yes|QMessageBox::No);
-    if (reload == QMessageBox::Yes) {
-        teach_data = 0;
-        pub_data = 0;
-        pres_data = 0;
-        grant_data = 0;
-        LoadCSV * load_csv_page = new LoadCSV();
-        this->setCentralWidget(load_csv_page);
-    }
-    */
+    this->setCentralWidget(new LoadCSV);
 }
 
 void AnalyzeCSV::on_verify_btn_clicked()
@@ -241,7 +236,7 @@ void AnalyzeCSV::on_filter_btn_pub_clicked()
 /*void AnalyzeCSV::populate_grant_tree(std::shared_ptr<CSVData<GrantDTO>> data)
 {
 
-    /*QString st_string = ui->start_date_combo_grnt->itemText(ui->start_date_combo_grnt->currentIndex());
+    QString st_string = ui->start_date_combo_grnt->itemText(ui->start_date_combo_grnt->currentIndex());
     QString en_string = ui->end_date_combo_grnt->itemText(ui->end_date_combo_grnt->currentIndex());
     int s = stoi(st_string.toStdString()); // start date
     int e = stoi(en_string.toStdString()); // end date
@@ -270,9 +265,9 @@ void AnalyzeCSV::on_filter_btn_pub_clicked()
 }
 
 
-/*void AnalyzeCSV::populate_teaching_tree(std::shared_ptr<CSVData<TeachingDTO>> data)
+void AnalyzeCSV::populate_teaching_tree(std::shared_ptr<CSVData<TeachingDTO>> data)
 {
-    /*QString st_string = ui->start_date_combo_teach->itemText(ui->start_date_combo_teach->currentIndex());
+    QString st_string = ui->start_date_combo_teach->itemText(ui->start_date_combo_teach->currentIndex());
     QString en_string = ui->end_date_combo_teach->itemText(ui->end_date_combo_teach->currentIndex());
     int s = stoi(st_string.toStdString()); // start date
     int e = stoi(en_string.toStdString()); // end date
@@ -303,9 +298,9 @@ void AnalyzeCSV::on_filter_btn_pub_clicked()
 }
 
 // Do by jerry
-/*void AnalyzeCSV::populate_presentation_tree(std::shared_ptr<CSVData<PresentationDTO>> data)
+void AnalyzeCSV::populate_presentation_tree(std::shared_ptr<CSVData<PresentationDTO>> data)
 {
-    /*QString st_string = ui->start_date_combo_pres->itemText(ui->start_date_combo_pres->currentIndex());
+    QString st_string = ui->start_date_combo_pres->itemText(ui->start_date_combo_pres->currentIndex());
     QString en_string = ui->end_date_combo_pres->itemText(ui->end_date_combo_pres->currentIndex());
 
     long s = stol(st_string.toStdString());
@@ -353,8 +348,8 @@ void AnalyzeCSV::on_filter_btn_pub_clicked()
 
 }
 
-void /*AnalyzeCSV::populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDTO>> data){
-    /*QString st_string = ui->start_date_combo_teach->itemText(ui->start_date_combo_teach->currentIndex());
+AnalyzeCSV::populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDTO>> data){
+    QString st_string = ui->start_date_combo_teach->itemText(ui->start_date_combo_teach->currentIndex());
     QString en_string = ui->end_date_combo_teach->itemText(ui->end_date_combo_teach->currentIndex());
 
     string s = st_string.toStdString(); // start date
@@ -402,9 +397,9 @@ void /*AnalyzeCSV::populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDT
     }
 }
 
-/*void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<PublicationDTO>> data)
+void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<PublicationDTO>> data)
 {
-    /*QString st_string = ui->start_date_combo_pub->itemText(ui->start_date_combo_pub->currentIndex());
+    QString st_string = ui->start_date_combo_pub->itemText(ui->start_date_combo_pub->currentIndex());
     QString en_string = ui->end_date_combo_pub->itemText(ui->end_date_combo_pub->currentIndex());
 
     string s = st_string.toStdString(); // start date
@@ -460,7 +455,7 @@ void /*AnalyzeCSV::populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDT
 
 void AnalyzeCSV::populate_presentation_bargraph(std::shared_ptr<CSVData<PresentationDTO>> data)
 {
-    /*QString st_string = ui->start_date_combo_pres->itemText(ui->start_date_combo_pres->currentIndex());
+    QString st_string = ui->start_date_combo_pres->itemText(ui->start_date_combo_pres->currentIndex());
     QString en_string = ui->end_date_combo_pres->itemText(ui->end_date_combo_pres->currentIndex());
 
     string s = st_string.toStdString();
@@ -515,7 +510,7 @@ void AnalyzeCSV::populate_presentation_bargraph(std::shared_ptr<CSVData<Presenta
 
 void AnalyzeCSV::populate_grant_bargraph(std::shared_ptr<CSVData<GrantDTO>> data)
 {
-   /*QString st_string = ui->start_date_combo_grnt->itemText(ui->start_date_combo_grnt->currentIndex());
+   QString st_string = ui->start_date_combo_grnt->itemText(ui->start_date_combo_grnt->currentIndex());
     QString en_string = ui->end_date_combo_grnt->itemText(ui->end_date_combo_grnt->currentIndex());
 
     string s = st_string.toStdString();
@@ -695,7 +690,7 @@ void AnalyzeCSV::on_program_combo_teach_activated()
  * @brief AnalyzeCSV::resizeEvent detects when the window is resized on the AnalyzeCSV page
  * @param event is the event passed when the window is resized
  */
-void AnalyzeCSV::resizeEvent(QResizeEvent *event)
+void AnalyzeCSV::resizeEvent(QResizeEvent *)
 {
 /*    QMainWindow::resizeEvent(event);
     {

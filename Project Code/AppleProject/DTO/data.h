@@ -27,11 +27,13 @@ public:
     //Checks if a dto has valid lines and deletes it
     //if it doesn't
     void resetDTO(std::size_t t);
-
+    //Returns the most recently loaded type of csv
+    std::size_t getLastType();
 protected:
     Data();
 private:
     static Data* _instance;
+    std::size_t lastType;
     std::vector<std::shared_ptr<CSVDTO>> csv;
 };
 

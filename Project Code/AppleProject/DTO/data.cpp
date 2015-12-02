@@ -22,9 +22,15 @@ bool Data::loadDTO(string fname, size_t t){
     CSVType type = (CSVType)t;
     std::shared_ptr<CSVDTO> newcsv(new CSVDTO(fname, type));
     csv.at(t).swap(newcsv);
+    lastType = t;
+
     return true;
 }
 
 void Data::resetDTO(size_t t){
     csv.at(t).reset();
+}
+
+size_t Data::getLastType(){
+    return lastType;
 }

@@ -21,7 +21,7 @@ class ComboBox: public TabObserver, public TabSubject
     FilterValue *valueGetter;
     std::size_t csvtype;
 public:
-    ComboBox(QComboBox *cmb, std::size_t t, TabSubject *s = 0);
+    ComboBox(QComboBox *cmb, std::size_t t, FilterValueType ft, TabSubject *s = 0);
     void update();
     std::vector<std::string> getState();
 private:

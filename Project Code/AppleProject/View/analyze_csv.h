@@ -12,11 +12,13 @@
 #include <algorithm>
 #include <string>
 
+#include "View/load_csv.h"
+
 #include "DTO/data.h"
 #include "DTO/csvdto.h"
 
-#include <iostream> // rm later
-#include <stdio.h>  // rem later
+#include "Tab-Objects/combobox.h"
+#include "Tab-Objects/filtervalue.h"
 
 #define PUB 0
 #define GRANT 1
@@ -24,7 +26,8 @@
 #define TEACH 3
 #define NCSV 4
 
-class tree_list_vo;     //forward pointer
+enum FilterValueType: unsigned int;
+
 
 namespace Ui {
 class AnalyzeCSV;
@@ -42,6 +45,7 @@ public:
 
 private slots:
     void on_load_btn_clicked();
+
     void on_verify_btn_clicked();
 
     void on_filter_btn_pres_clicked();
@@ -74,24 +78,14 @@ private:
     QCustomPlot *customPlot;
 
     // tree_list_vo pointers for respective csv generation
-    tree_list_vo* p_tree;
-    tree_list_vo* teach_tree;
-
-    /*void populate_publication_tree(std::shared_ptr<CSVData<PublicationDTO>> data);
-    void populate_grant_tree(std::shared_ptr<CSVData<GrantDTO>> data);
-    void populate_teaching_tree(std::shared_ptr<CSVData<TeachingDTO>> data);
-    void populate_presentation_tree(std::shared_ptr<CSVData<PresentationDTO>> data);
-
-    void populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDTO>> data);
-    void populate_grant_bargraph(std::shared_ptr<CSVData<GrantDTO>> data);
-    void populate_publication_bargraph(std::shared_ptr<CSVData<PublicationDTO>> data);
-    void populate_presentation_bargraph(std::shared_ptr<CSVData<PresentationDTO>> data);*/
+    //tree_list_vo* p_tree;
+    //tree_list_vo* teach_tree;
 
     void AddRoot(QString field, QString total);
     QTreeWidgetItem* AddChild(QTreeWidgetItem *parent, QString field, QString total);
     QTreeWidgetItem* AddGrandChild(QTreeWidgetItem *parent, QString field, QString total);
 
-    void resizeEvent(QResizeEvent* event);
+    void resizeEvent(QResizeEvent*);
 };
 
 #endif // ANALYZE_CSV_H
