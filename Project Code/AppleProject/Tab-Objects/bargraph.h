@@ -19,6 +19,9 @@ class BarGraph:public QObject, public TabObserver
 {
     Q_OBJECT
 
+    QVector<QString> years, types;
+    QVector<QVector<double>> values;
+
     QGraphicsView *view;
     QCustomPlot *plot = 0;
     CSVDTO *dto;

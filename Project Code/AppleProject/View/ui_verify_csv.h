@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'verify_csv.ui'
 **
-** Created by: Qt User Interface Compiler version 5.5.0
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -48,7 +48,7 @@ public:
     {
         if (VerifyCSV->objectName().isEmpty())
             VerifyCSV->setObjectName(QStringLiteral("VerifyCSV"));
-        VerifyCSV->resize(800, 600);
+        VerifyCSV->resize(1000, 640);
         VerifyCSV->setMinimumSize(QSize(800, 600));
         QPalette palette;
         QBrush brush(QColor(0, 0, 0, 255));

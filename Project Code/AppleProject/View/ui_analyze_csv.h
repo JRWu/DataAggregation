@@ -119,7 +119,7 @@ public:
     {
         if (AnalyzeCSV->objectName().isEmpty())
             AnalyzeCSV->setObjectName(QStringLiteral("AnalyzeCSV"));
-        AnalyzeCSV->resize(1076, 685);
+        AnalyzeCSV->resize(1000, 640);
         AnalyzeCSV->setMinimumSize(QSize(800, 600));
         centralwidget = new QWidget(AnalyzeCSV);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
@@ -737,7 +737,6 @@ public:
         AnalyzeCSV->setCentralWidget(centralwidget);
 
         retranslateUi(AnalyzeCSV);
-        QObject::connect(start_date_combo_pub, SIGNAL(currentIndexChanged(int)), AnalyzeCSV, SLOT(start_year_publication_changed()));
 
         tabWidget->setCurrentIndex(0);
         name_combo_grnt->setCurrentIndex(-1);

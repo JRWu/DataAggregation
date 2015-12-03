@@ -24,8 +24,9 @@ BarGraph::BarGraph(QGraphicsView *v, CSVDTO *dto, AnalyzeCSV *p, TabSubject *s):
 }
 
 void BarGraph::update(){
-    QVector<QString> years, types;
-    QVector<QVector<double>> values;
+    years.clear();
+    types.clear();
+    values.clear();
 
     loadValues(&years, &types, &values);
     makeGraph(&years, &types, &values);
@@ -161,14 +162,14 @@ void BarGraph::makeGraph(QVector<QString> *years, QVector<QString> *types, QVect
     plot->yAxis->setTickStep(yTick);
     plot->yAxis->setLabel(QString::fromStdString(getYLabel())); //Fix this later
 
-    resize();
+    plot->setGeometry(0,0, view->geometry().width() - 20, view->geometry().height() - 20);
     QGraphicsScene *scene = new QGraphicsScene();
     scene->addWidget(plot);
     view->setScene(scene);
 }
 
 void BarGraph::resize(){
-    plot->setGeometry(0,0, view->geometry().width() - 20, view->geometry().height() - 20);
+    makeGraph(&years, &types, &values);
 }
 
 void BarGraph::onResize(){

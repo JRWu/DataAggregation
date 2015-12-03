@@ -42,7 +42,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1008, 679);
+        MainWindow->resize(1000, 640);
         MainWindow->setMinimumSize(QSize(800, 620));
         MainWindow->setMaximumSize(QSize(16777215, 16777215));
         MainWindow->setLayoutDirection(Qt::LeftToRight);

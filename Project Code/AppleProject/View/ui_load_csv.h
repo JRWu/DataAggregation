@@ -55,7 +55,7 @@ public:
     {
         if (LoadCSV->objectName().isEmpty())
             LoadCSV->setObjectName(QStringLiteral("LoadCSV"));
-        LoadCSV->resize(918, 671);
+        LoadCSV->resize(1000, 640);
         LoadCSV->setMinimumSize(QSize(870, 625));
         QPalette palette;
         QBrush brush(QColor(0, 0, 0, 255));
