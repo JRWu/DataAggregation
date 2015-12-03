@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     Tab-Objects/combobox.cpp \
     Tab-Objects/tabsubject.cpp \
     Tab-Objects/tabobserver.cpp \
-    CSV-Data/csvfield.cpp
+    CSV-Data/csvfield.cpp \
+#    Tab-Objects/bargraph.cpp
 
 HEADERS  += qcustomplot.h \
     View/load_csv.h \
@@ -58,7 +59,8 @@ HEADERS  += qcustomplot.h \
     Tab-Objects/tabobserver.h \
     Tab-Objects/tabsubject.h \
     Tab-Objects/combobox.h \
-    CSV-Data/csvtype.h
+    CSV-Data/csvtype.h \
+#    Tab-Objects/bargraph.h
 
 FORMS    += View/mainwindow.ui \
     View/load_csv.ui \

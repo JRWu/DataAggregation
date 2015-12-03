@@ -25,11 +25,11 @@ bool Data::loadDTO(string *fname, CSVType t){
     return true;
 }
 
-CSVDTO *Data::getDTO(CSVType t){
+CSVDTO *Data::getDTO(size_t t){
     return csv.at(t).get();
 }
 
-bool Data::isEmpty(CSVType t){
+bool Data::isEmpty(size_t t){
     //If the pointer is null return true;
     if(!csv.at(t)) return true;
     //If the CSV has valid data return true;
@@ -41,7 +41,7 @@ bool Data::isEmpty(CSVType t){
     return true;
 }
 
-bool Data::hasErrors(CSVType t){
+bool Data::hasErrors(size_t t){
     //If pointer is null return false;
     if(!csv.at(t)) return false;
     //If there are no error lines

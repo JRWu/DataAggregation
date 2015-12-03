@@ -24,10 +24,10 @@ public:
     bool loadDTO(std::string *fname, CSVType t);
     //Checks if a dto is empty. If it is returns true
     //and clears it
-    CSVDTO *getDTO(CSVType t);
-    bool isEmpty(CSVType t);
+    CSVDTO *getDTO(std::size_t t);
+    bool isEmpty(std::size_t t);
     //Return true if the csv of type t has error lines
-    bool hasErrors(CSVType t);
+    bool hasErrors(std::size_t t);
     //Returns the most recently loaded type of csv
     CSVType getLastType();
     //Returns the short file name

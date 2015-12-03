@@ -15,7 +15,6 @@
 #include "DTO/filteradapter.h"
 
 enum FilterValueType: unsigned int;
-enum CSVType;
 class CSVDTO;
 
 class ComboBox: public QObject, public TabObserver, public TabSubject
@@ -27,7 +26,7 @@ class ComboBox: public QObject, public TabObserver, public TabSubject
     CSVDTO *dto;
 public:
     ComboBox(){}
-    ComboBox(QComboBox *cmb, CSVType t, FilterValueType ft, TabSubject *s = 0);
+    ComboBox(QComboBox *cmb, CSVDTO *dto, FilterValueType ft, TabSubject *s = 0);
     void update();
     std::vector<std::string> getState();
 private:

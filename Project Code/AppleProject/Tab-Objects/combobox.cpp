@@ -2,14 +2,13 @@
 
 #include "DTO/data.h"
 #include "DTO/csvdto.h"
-#include "CSV-Data/csvlinevalidator.h" //CSVType
 
 using namespace std;
 
-ComboBox::ComboBox(QComboBox *cmb, CSVType t, FilterValueType ft, TabSubject *s):
+ComboBox::ComboBox(QComboBox *cmb, CSVDTO *dto, FilterValueType ft, TabSubject *s):
     TabObserver(s)
 {
-    dto = Data::Instance()->getDTO(t);
+    this->dto = dto;
     valueGetter = getFilterValue(ft); //Add parameter later
     cmbBox = cmb;
 

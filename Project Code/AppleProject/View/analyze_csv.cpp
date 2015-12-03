@@ -2,35 +2,100 @@
 #include "View/ui_analyze_csv.h"
 
 #include "DTO/data.h"
+#include "View/load_csv.h"
+#include "Tab-Objects/combobox.h"
 
 AnalyzeCSV::AnalyzeCSV(QWidget *parent):
     QMainWindow(parent),
     ui(new Ui::AnalyzeCSV)
 {
     ui->setupUi(this);
-
     ui->verify_btn->setDisabled(true);
 
-    CSVType t = Data::Instance()->getLastType();
+    data = Data::Instance();
 
-    sy = new ComboBox(ui->start_date_combo_pub, t, FILTERYEAR);
-    ey = new ComboBox(ui->end_date_combo_pub, t, FILTERYEAR, sy);
-    n = new ComboBox(ui->name_combo_pub, t, FILTERNAME, ey);
-    ty = new ComboBox(ui->type_combo_pub, t, FILTERTYPE, n);
+    for(size_t i = 0; i < NTAB; ++i){
+        if(data->isEmpty(i)){
+            ui->tabWidget->setTabEnabled(i, false);
+        }
+        else{
+            ui->tabWidget->setTabEnabled(i, true);
 
-    sy->update();
-    ui->end_date_combo_pub->setCurrentIndex(ui->end_date_combo_pub->count() - 1);
+            CSVDTO *dto = data->getDTO(i);
+            //Enable tab
+            QComboBox *startY = getCmbStartYear(i);
+            QComboBox *endY = getCmbEndYear(i);
+            QComboBox *name = getCmbName(i);
+            QComboBox *type = getCmbType(i);
 
-    //Updates the ey if sy is changed
-    //connect(ui->start_date_combo_pub, SIGNAL(currentIndexChanged(int)),
-           // this, SLOT(comboBoxChangeManager(0,1);));
+            ComboBox *sy = new ComboBox(startY, dto, FILTERYEAR);
+            ComboBox *ey = new ComboBox(endY, dto, FILTERYEAR, sy);
+            sy->update();
+            ComboBox *n = new ComboBox(name, dto, FILTERNAME, ey);
+            ComboBox *ty = new ComboBox(type, dto, FILTERTYPE, n);
+            endY->setCurrentIndex(endY->count() - 1);
+
+            cmbBoxes.push_back(sy);
+            cmbBoxes.push_back(ey);
+            cmbBoxes.push_back(n);
+            cmbBoxes.push_back(ty);
+        }
+    }
+
+    ui->tabWidget->setCurrentIndex(data->getLastType());
 }
 
 AnalyzeCSV::~AnalyzeCSV()
 {
-    delete sy;
-    delete ey;
+    for(size_t i = 0; i < cmbBoxes.size(); ++i){
+        delete cmbBoxes.at(i);
+    }
     delete ui;
+}
+
+void AnalyzeCSV::on_load_btn_clicked()
+{
+    this->setCentralWidget(new LoadCSV);
+}
+
+QComboBox *AnalyzeCSV::getCmbStartYear(size_t i){
+    switch(i){
+    case(0): return ui->start_date_combo_pub;
+    case(1): return ui->start_date_combo_grnt;
+    case(2): return ui->start_date_combo_pres;
+    case(3): return ui->start_date_combo_teach;
+    }
+    return 0;
+}
+
+QComboBox *AnalyzeCSV::getCmbEndYear(size_t i){
+    switch(i){
+    case(0): return ui->end_date_combo_pub;
+    case(1): return ui->end_date_combo_grnt;
+    case(2): return ui->end_date_combo_pres;
+    case(3): return ui->end_date_combo_teach;
+    }
+    return 0;
+}
+
+QComboBox *AnalyzeCSV::getCmbName(size_t i){
+    switch(i){
+    case(0): return ui->name_combo_pub;
+    case(1): return ui->name_combo_grnt;
+    case(2): return ui->name_combo_pres;
+    case(3): return ui->name_combo_teach;
+    }
+    return 0;
+}
+
+QComboBox *AnalyzeCSV::getCmbType(size_t i){
+    switch(i){
+    case(0): return ui->type_combo_pub;
+    case(1): return ui->type_combo_grnt;
+    case(2): return ui->type_combo_pres;
+    case(3): return ui->program_combo_teach;
+    }
+    return 0;
 }
 
 /* Populating the Teaching tab */
@@ -172,41 +237,6 @@ AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PresentationDTO>> data, QWidget *
 
 }
 */
-void AnalyzeCSV::on_load_btn_clicked()
-{
-    this->setCentralWidget(new LoadCSV);
-}
-
-void AnalyzeCSV::on_verify_btn_clicked()
-{
-    /* show alert, "Information has already been verified. Would you like to import new information?"
-    QMessageBox::StandardButton reload;
-    reload = QMessageBox::question(this, "Already Verified",
-                                   "Information has already been verified.\n"
-                                   "Would you like to import new information?",
-                                   QMessageBox::Yes|QMessageBox::No);
-    if (reload == QMessageBox::Yes) {
-        LoadCSV * load_csv_page = new LoadCSV();
-        this->setCentralWidget(load_csv_page);
-    }
-    */
-}
-
-void AnalyzeCSV::on_filter_btn_pub_clicked()
-{
-
-    /* Catch to prevent analysis on a null pointer
-    // Only catches error if data is loaded ONCE, therefore the pointers not being cleared at the end of a session
-    if (pub_data == NULL)
-    {
-        // Add code to inform user that they didn't load proper information
-    }
-    else
-    {
-        populate_publication_tree(pub_data);
-        populate_publication_bargraph(pub_data);
-    }*/
-}
 
 /*void AnalyzeCSV::populate_publication_tree(std::shared_ptr<CSVData<PublicationDTO>> data)
 {
@@ -563,134 +593,6 @@ void AnalyzeCSV::populate_grant_bargraph(std::shared_ptr<CSVData<GrantDTO>> data
         ui->graph_area_grnt->setScene(scene);    // Added for grpahics & Essential
     }
 }*/
-
-
-// JX --> implemented 11.15.15
-void AnalyzeCSV::on_filter_btn_grnt_clicked()
-{
-    /* Catch to prevent analysis on a null pointer
-    // Only catches error if data is loaded ONCE, therefore the pointers not being cleared at the end of a session
-    if (grant_data == NULL)
-    {
-        // Add code to inform user that they didn't load proper information
-    }
-    else
-    {
-        populate_grant_tree(grant_data);
-        populate_grant_bargraph(grant_data);
-    }*/
-}
-
-// Jerry This populates the preseentation tree in the tree view
-void AnalyzeCSV::on_filter_btn_pres_clicked()
-{
-    /* Catch to prevent analysis on a null pointer
-    // Only catches error if data is loaded ONCE, therefore the pointers not being cleared at the end of a session
-    if (pres_data == NULL)
-    {
-        // Add code to inform user that they didn't load proper information
-    }
-    else
-    {
-        // Index 0 bargraph
-        // Index 1 is pie chart
-        populate_presentation_tree(pres_data);
-        populate_presentation_bargraph(pres_data);
-    }*/
-}
-
-void AnalyzeCSV::on_filter_btn_teach_clicked()
-{
-    /*if (teach_data == NULL)
-    {
-        // Add code to inform user that they didn't load proper information
-    }
-    else
-    {
-        populate_teaching_tree(teach_data);
-        populate_teaching_bargraph(teach_data);
-    }*/
-}
-
-void AnalyzeCSV::on_name_combo_pub_activated()
-{
-    /*if (pub_data == NULL) {
-        // Add code to inform user that they didn't load proper information
-    }
-    else {
-        populate_publication_bargraph(pub_data);
-    }*/
-}
-
-void AnalyzeCSV::on_type_combo_pub_activated()
-{
-    /*if (pub_data == NULL) {
-        // Add code to inform user that they didn't load proper information
-    }
-    else {
-        populate_publication_bargraph(pub_data);
-    }*/
-}
-
-void AnalyzeCSV::on_name_combo_grnt_activated()
-{
-    /*if (grant_data == NULL) {
-        // Add code to inform user that they didn't load proper information
-    }
-    else {
-        populate_grant_bargraph(grant_data);
-    }*/
-}
-
-void AnalyzeCSV::on_type_combo_grnt_activated()
-{
-    /*if (grant_data == NULL) {
-        // Add code to inform user that they didn't load proper information
-    }
-    else {
-        populate_grant_bargraph(grant_data);
-    }*/
-}
-
-void AnalyzeCSV::on_name_combo_pres_activated()
-{
-    /*if (pres_data == NULL) {
-        // Add code to inform user that they didn't load proper information
-    }
-    else {
-        populate_presentation_bargraph(pres_data);
-    }*/
-}
-
-void AnalyzeCSV::on_type_combo_pres_activated()
-{
-    /*if (pres_data == NULL) {
-        // Add code to inform user that they didn't load proper information
-    }
-    else {
-        populate_presentation_bargraph(pres_data);
-    }*/
-}
-
-void AnalyzeCSV::on_name_combo_teach_activated()
-{
-    /*if (teach_data == NULL) {
-        // Add code to inform user that they didn't load proper information
-    }
-    else {
-        populate_teaching_bargraph(teach_data);
-    }*/
-}
-
-void AnalyzeCSV::on_program_combo_teach_activated()
-{
-    /*if (teach_data == NULL) {
-        // Add code to inform user that they didn't load proper information
-    }
-    else {
-        populate_teaching_bargraph(teach_data);
-    }*/
-}
 
 /**
  * @brief AnalyzeCSV::resizeEvent detects when the window is resized on the AnalyzeCSV page
