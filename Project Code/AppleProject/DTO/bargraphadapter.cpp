@@ -33,7 +33,7 @@ BarGraphAdapter::BarGraphAdapter(vector<CSVField> *csvline, CSVType csvtype)
         case TEACHING:
             year = 2;
             type = 4;
-            value = 1.0;
+            value = stod(*line->at(10).getValue());
             break;
     }
 }
