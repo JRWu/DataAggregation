@@ -2,8 +2,11 @@
 #include "View/ui_analyze_csv.h"
 
 #include "DTO/data.h"
+#include "DTO/csvdto.h"
 #include "View/load_csv.h"
 #include "Tab-Objects/combobox.h"
+#include "Tab-Objects/bargraph.h"
+#include "Tab-Objects/qcustomplot.h"
 
 AnalyzeCSV::AnalyzeCSV(QWidget *parent):
     QMainWindow(parent),
@@ -22,23 +25,31 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent):
             ui->tabWidget->setTabEnabled(i, true);
 
             CSVDTO *dto = data->getDTO(i);
-            //Enable tab
+
+            getLblDomain(i)->setText(QString::fromStdString(*dto->getDomain()));
+
             QComboBox *startY = getCmbStartYear(i);
             QComboBox *endY = getCmbEndYear(i);
             QComboBox *name = getCmbName(i);
             QComboBox *type = getCmbType(i);
+            QGraphicsView *bar = getBarGraph(i);
 
             ComboBox *sy = new ComboBox(startY, dto, FILTERYEAR);
             ComboBox *ey = new ComboBox(endY, dto, FILTERYEAR, sy);
             sy->update();
             ComboBox *n = new ComboBox(name, dto, FILTERNAME, ey);
             ComboBox *ty = new ComboBox(type, dto, FILTERTYPE, n);
-            endY->setCurrentIndex(endY->count() - 1);
 
             cmbBoxes.push_back(sy);
             cmbBoxes.push_back(ey);
             cmbBoxes.push_back(n);
             cmbBoxes.push_back(ty);
+
+            BarGraph *b = new BarGraph(bar, dto, this, ty);
+            barGraphs.push_back(b);
+
+            endY->setCurrentIndex(endY->count() - 1);
+            ey->notify();
         }
     }
 
@@ -48,7 +59,10 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent):
 AnalyzeCSV::~AnalyzeCSV()
 {
     for(size_t i = 0; i < cmbBoxes.size(); ++i){
-        delete cmbBoxes.at(i);
+        delete cmbBoxes[i];
+    }
+    for(size_t i = 0; i < barGraphs.size(); ++i){
+        delete barGraphs[i];
     }
     delete ui;
 }
@@ -98,160 +112,65 @@ QComboBox *AnalyzeCSV::getCmbType(size_t i){
     return 0;
 }
 
-/* Populating the Teaching tab */
-/*AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<TeachingDTO>> data, QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::AnalyzeCSV)
-{
-    teach_data = data;
-    ui->setupUi(this);
-
-    /// DOMAIN LABEL SET for Teaching ///
-    ui->domain_lbl_teach->setText(QString::fromStdString(teach_data->dtos->at(0).domain));
-
-    /// DATE FILTER COMBO BOX ///
-    QStringList startDate_strs = PopulateDateCombos(teach_data);
-    QStringList endDate_strs = PopulateDateCombos(teach_data);
-
-    // set the dates list to the combo boxes
-    ui->start_date_combo_teach->addItems(startDate_strs);
-    ui->start_date_combo_teach->setCurrentIndex(0);
-    ui->end_date_combo_teach->addItems(endDate_strs);
-    ui->end_date_combo_teach->setCurrentIndex(endDate_strs.size()-1);
-
-    /// GRAPH FILTER COMBO BOX ///
-    QStringList names = populateGraphComboName(teach_data);
-    QStringList programs = populateGraphComboProgram(teach_data);
-
-    ui->name_combo_teach->addItems(names);
-    ui->name_combo_teach->setCurrentIndex(0);
-    ui->program_combo_teach->addItems(programs);
-    ui->program_combo_teach->setCurrentIndex(0);
-
-    // Populate the teaching tree with the parsed data
-    populate_teaching_tree(teach_data);
-    populate_teaching_bargraph(teach_data);
+QLabel *AnalyzeCSV::getLblDomain(size_t i){
+    switch(i){
+    case(0): return ui->domain_lbl_pub;
+    case(1): return ui->domain_lbl_grnt;
+    case(2): return ui->domain_lbl_pres;
+    case(3): return ui->domain_lbl_teach;
+    }
+    return 0;
 }
 
-AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PublicationDTO>> data, QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::AnalyzeCSV)
-{
-    pub_data = data;
-    ui->setupUi(this);
-
-    /// DOMAIN LABEL SET ///
-    ui->domain_lbl_pub->setText(QString::fromStdString(pub_data->dtos->at(0).domain));
-
-    /// DATE FILTER COMBO BOX ///
-    QStringList date_strs = PopulateDateCombos(pub_data);
-
-    // set the dates list to the combo boxes
-    ui->start_date_combo_pub->addItems(date_strs);
-    ui->start_date_combo_pub->setCurrentIndex(0);
-    ui->end_date_combo_pub->addItems(date_strs);
-    ui->end_date_combo_pub->setCurrentIndex(date_strs.size()-1);
-
-    /// GRAPH FILTER COMBO BOXES ///
-    QStringList combo_names = populateGraphComboName(pub_data);
-    QStringList combo_types = populateGraphComboType(pub_data);
-
-    //set combos with data
-    ui->name_combo_pub->addItems(combo_names);
-    ui->name_combo_pub->setCurrentIndex(0);
-    ui->type_combo_pub->addItems(combo_types);
-    ui->type_combo_pub->setCurrentIndex(0);
-
-    // Populate the Tree Drop down list and the Graph View
-    populate_publication_tree(pub_data);
-    populate_publication_bargraph(pub_data);
-
+QGraphicsView *AnalyzeCSV::getBarGraph(size_t i){
+    switch(i){
+    case(0): return ui->graph_area_pub;
+    case(1): return ui->graph_area_grnt;
+    case(2): return ui->graph_area_pres;
+    case(3): return ui->graph_area_teach;
+    }
+    return 0;
 }
 
-// Populate Grant tab
-AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<GrantDTO>> data, QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::AnalyzeCSV)
-{
-    grant_data = data;
-    ui->setupUi(this);
+/*AnalyzeCSV::populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDTO>> data){
 
-    /// DOMAIN LABEL SET ///
-    ui->domain_lbl_grnt->setText(QString::fromStdString(grant_data->dtos->at(0).domain));
+        scene = new QGraphicsScene(this);   // Added for graphics window
 
-    /// DATE FILTER COMBO BOX ///
-    QStringList date_strs = PopulateDateCombos(grant_data);
+        QCustomPlot *customPlot = new QCustomPlot();
+        if (ui->graph_area_teach->geometry().width() < 300)
+        {
+            customPlot->setGeometry(0,0, 345,375);  // Set default min window dimensions
+        }
+        else
+        {
+            customPlot->setGeometry(0,0, ui->graph_area_teach->geometry().width(),ui->graph_area_teach->geometry().height());   // added to resize graph
+        }
 
-    // set the dates list to the combo boxes
-    ui->start_date_combo_grnt->addItems(date_strs);     //change to start_date_grants if possible
-    ui->start_date_combo_grnt->setCurrentIndex(0);
-    ui->end_date_combo_grnt->addItems(date_strs);
-    ui->end_date_combo_grnt->setCurrentIndex(date_strs.size()-1);
+        Graphvisualizations *graph_handler = new Graphvisualizations();
 
-    /// GRAPH FILTER COMBO BOX ///
-    QStringList names = populateGraphComboName(grant_data);
-    QStringList funding_types = populateGraphComboFunding(grant_data);
+        try {
+            if (program == "ALL") {
+                shared_ptr<BarGraph_VO<TeachingDTO>> graphable(new BarGraph_VO<TeachingDTO>(data, name, s, e, 1));
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("# of Hours"), "ALL");
+            }
+            else {
+                shared_ptr<BarGraph_VO<TeachingDTO>> graphable(new BarGraph_VO<TeachingDTO>(data, name, program, s, e, 1));
+                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("# of Hours"), program);
+            }
+        }
+        catch (const std::out_of_range& oor) {
+            std::fprintf(stderr, "No data to graph");
+        }
 
-    ui->name_combo_grnt->addItems(names);
-    ui->name_combo_grnt->setCurrentIndex(0);
-    ui->type_combo_grnt->addItems(funding_types);
-    ui->type_combo_grnt->setCurrentIndex(0);
-
-    // Populate the QTreeWidget item
-    populate_grant_tree(grant_data);
-    populate_grant_bargraph(grant_data);
-
+        scene->addWidget(customPlot);   // Add plot to the window & Essential
+        ui->graph_area_teach->setScene(scene);    // Added for grpahics & Essential
+    }
 }
-
-//Constructor for Presentation - ideally merge this with the above one
-// Jerry will do this one
-AnalyzeCSV::AnalyzeCSV(std::shared_ptr<CSVData<PresentationDTO>> data, QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::AnalyzeCSV)
-{
-    pres_data = data;
-    ui->setupUi(this);
-
-    /// DOMAIN LABEL SET ///
-    ui->domain_lbl_pres->setText(QString::fromStdString(pres_data->dtos->at(0).domain));
-
-    /// DATE FILTER COMBO BOX ///
-    QStringList date_strs = PopulateDateCombos(pres_data);
-
-    ui->start_date_combo_pres->addItems(date_strs);
-    ui->start_date_combo_pres->setCurrentIndex(0);
-    ui->end_date_combo_pres->addItems(date_strs);
-    ui->end_date_combo_pres->setCurrentIndex(date_strs.size()-1);
-
-    /// GRAPH FILTER COMBO BOX ///
-    QStringList names = populateGraphComboName(pres_data);
-    QStringList types = populateGraphComboType(pres_data);
-
-    ui->name_combo_pres->addItems(names);
-    ui->name_combo_pres->setCurrentIndex(0);
-    ui->type_combo_pres->addItems(types);
-    ui->type_combo_pres->setCurrentIndex(0);
-
-    populate_presentation_tree(pres_data);
-    populate_presentation_bargraph(pres_data);
-
-}
-*/
+ * */
 
 /*void AnalyzeCSV::populate_publication_tree(std::shared_ptr<CSVData<PublicationDTO>> data)
 {
-    QString st_string = ui->start_date_combo_pub->itemText(ui->start_date_combo_pub->currentIndex());
-    QString en_string = ui->end_date_combo_pub->itemText(ui->end_date_combo_pub->currentIndex());
 
-    int s = stoi(st_string.toStdString()); // start date
-    int e = stoi(en_string.toStdString()); // end date
-
-    // Ensure the retrieved years are in the accepted range
-    if (e < s)
-    {
-        cout << "Filter dates error" << endl;
-    }
-    else
     {
         TreeList_VO<PublicationDTO> treelistvo(data, s, e);
 
@@ -384,54 +303,7 @@ void AnalyzeCSV::populate_presentation_tree(std::shared_ptr<CSVData<Presentation
 
 }
 
-AnalyzeCSV::populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDTO>> data){
-    QString st_string = ui->start_date_combo_teach->itemText(ui->start_date_combo_teach->currentIndex());
-    QString en_string = ui->end_date_combo_teach->itemText(ui->end_date_combo_teach->currentIndex());
 
-    string s = st_string.toStdString(); // start date
-    string e = en_string.toStdString(); // end date
-
-    if (e < s)
-    {
-        cout << "Cannot filter. Filter dates error." << endl;
-    }
-    else
-    {
-        string name = (ui->name_combo_teach->currentText()).toStdString();
-        string program = (ui->program_combo_teach->currentText()).toStdString();
-
-        scene = new QGraphicsScene(this);   // Added for graphics window
-
-        QCustomPlot *customPlot = new QCustomPlot();
-        if (ui->graph_area_teach->geometry().width() < 300)
-        {
-            customPlot->setGeometry(0,0, 345,375);  // Set default min window dimensions
-        }
-        else
-        {
-            customPlot->setGeometry(0,0, ui->graph_area_teach->geometry().width(),ui->graph_area_teach->geometry().height());   // added to resize graph
-        }
-
-        Graphvisualizations *graph_handler = new Graphvisualizations();
-
-        try {
-            if (program == "ALL") {
-                shared_ptr<BarGraph_VO<TeachingDTO>> graphable(new BarGraph_VO<TeachingDTO>(data, name, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("# of Hours"), "ALL");
-            }
-            else {
-                shared_ptr<BarGraph_VO<TeachingDTO>> graphable(new BarGraph_VO<TeachingDTO>(data, name, program, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("# of Hours"), program);
-            }
-        }
-        catch (const std::out_of_range& oor) {
-            std::fprintf(stderr, "No data to graph");
-        }
-
-        scene->addWidget(customPlot);   // Add plot to the window & Essential
-        ui->graph_area_teach->setScene(scene);    // Added for grpahics & Essential
-    }
-}
 
 void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<PublicationDTO>> data)
 {
@@ -593,35 +465,4 @@ void AnalyzeCSV::populate_grant_bargraph(std::shared_ptr<CSVData<GrantDTO>> data
         ui->graph_area_grnt->setScene(scene);    // Added for grpahics & Essential
     }
 }*/
-
-/**
- * @brief AnalyzeCSV::resizeEvent detects when the window is resized on the AnalyzeCSV page
- * @param event is the event passed when the window is resized
- */
-void AnalyzeCSV::resizeEvent(QResizeEvent *)
-{
-/*    QMainWindow::resizeEvent(event);
-    {
-
-        // Rudimentary event handling of repopulating the bargraphs
-        // Code within bargraphs handles the new window size
-
-        if (pub_data)
-        {
-            populate_publication_bargraph(pub_data);
-        }
-        if (teach_data)
-        {
-            populate_teaching_bargraph(teach_data);
-        }
-        if (pres_data)
-        {
-            populate_presentation_bargraph(pres_data);
-        }
-        if (grant_data)
-        {
-            populate_grant_bargraph(grant_data);
-        }
-    }*/
-}
 

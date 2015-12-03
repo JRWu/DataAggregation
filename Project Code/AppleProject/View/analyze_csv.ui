@@ -1709,24 +1709,7 @@
   </widget>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>start_date_combo_pub</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>AnalyzeCSV</receiver>
-   <slot>start_year_publication_changed()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>185</x>
-     <y>107</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>200</x>
-     <y>-18</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
  <slots>
   <slot>start_year_publication_changed()</slot>
  </slots>

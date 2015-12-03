@@ -87,6 +87,9 @@ public:
     bool hasValid();
     //Returns true if the dto has error lines
     bool hasErrors();
+
+    //returns the type of the csv
+    std::size_t getType();
 };
 
 #endif // CSVDTO_H

@@ -12,7 +12,7 @@ ComboBox::ComboBox(QComboBox *cmb, CSVDTO *dto, FilterValueType ft, TabSubject *
     valueGetter = getFilterValue(ft); //Add parameter later
     cmbBox = cmb;
 
-    connect(cmb, SIGNAL(currentIndexChanged(int)),
+    connect(cmb, SIGNAL(activated(int)),
             this, SLOT(indexChanged()));
 }
 
@@ -45,6 +45,7 @@ void ComboBox::update(){
 
     //Otherwise make the new combo box (preserve selection if possible)
     populateComboBox(&values);
+    this->notify();
 }
 
 void ComboBox::getValues(vector<string> *fv, vector<string> *v){
@@ -66,7 +67,6 @@ void ComboBox::getValues(vector<string> *fv, vector<string> *v){
 
     //Sort the values;
     std::sort(v->begin(), v->end());
-    this->notify();
 }
 
 void ComboBox::populateComboBox(vector<string> *v){

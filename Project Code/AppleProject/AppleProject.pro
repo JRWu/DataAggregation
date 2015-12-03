@@ -17,7 +17,6 @@ CONFIG += static
 #CONFIG += release
 
 SOURCES += main.cpp\
-    qcustomplot.cpp \
     View/load_csv.cpp \
     View/mainwindow.cpp \
     Utility/stringfunctions.cpp \
@@ -36,10 +35,10 @@ SOURCES += main.cpp\
     Tab-Objects/tabsubject.cpp \
     Tab-Objects/tabobserver.cpp \
     CSV-Data/csvfield.cpp \
-#    Tab-Objects/bargraph.cpp
+    Tab-Objects/bargraph.cpp \
+    Tab-Objects/qcustomplot.cpp \
 
-HEADERS  += qcustomplot.h \
-    View/load_csv.h \
+HEADERS  += View/load_csv.h \
     View/mainwindow.h \
     Utility/stringfunctions.h \
     CSV-Parser/csv.h \
@@ -60,7 +59,8 @@ HEADERS  += qcustomplot.h \
     Tab-Objects/tabsubject.h \
     Tab-Objects/combobox.h \
     CSV-Data/csvtype.h \
-#    Tab-Objects/bargraph.h
+    Tab-Objects/bargraph.h \
+    Tab-Objects/qcustomplot.h \
 
 FORMS    += View/mainwindow.ui \
     View/load_csv.ui \

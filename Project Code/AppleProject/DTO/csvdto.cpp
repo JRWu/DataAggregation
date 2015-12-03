@@ -244,12 +244,28 @@ bool CSVDTO::validateErrors(vector<vector<string>> *newErr){
 }
 
 string *CSVDTO::getDomain(){
-    vector<CSVField> line = validLines.at(0);
+    vector<CSVField> *line = &validLines.at(0);
     switch(type){
-        case PUBLICATION: return line.at(3).getField();
-        case GRANTS: return line.at(4).getField();
-        case PRESENTATION: return line.at(3).getField();
-        case TEACHING: return line.at(4).getField();
+        case PUBLICATION:
+            {
+                CSVField *field = &line->at(3);
+                return field->getField();
+            }
+        case GRANTS:
+            {
+                CSVField *field = &line->at(4);
+                return field->getField();
+            }
+        case PRESENTATION:
+            {
+                CSVField *field = &line->at(3);
+                return field->getField();
+            }
+        case TEACHING:
+            {
+                CSVField *field = &line->at(4);
+                return field->getField();
+            }
     }
     return 0;
 }
@@ -278,4 +294,8 @@ bool CSVDTO::validateLine(vector<CSVField> *line){
     }
 
     return result&&(lineValidator->validate(line));
+}
+
+size_t CSVDTO::getType(){
+    return type;
 }
