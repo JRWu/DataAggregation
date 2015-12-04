@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'analyze_csv.ui'
 **
-** Created by: Qt User Interface Compiler version 5.5.1
+** Created by: Qt User Interface Compiler version 5.4.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -41,7 +41,6 @@ public:
     QLabel *date_filter_lbl_pub;
     QComboBox *start_date_combo_pub;
     QComboBox *end_date_combo_pub;
-    QPushButton *filter_btn_pub;
     QLabel *domain_lbl_pub;
     QTreeWidget *tree_list_pub;
     QVBoxLayout *verticalLayout;
@@ -60,7 +59,6 @@ public:
     QLabel *date_filter_lbl_grnt;
     QComboBox *start_date_combo_grnt;
     QComboBox *end_date_combo_grnt;
-    QPushButton *filter_btn_grnt;
     QLabel *domain_lbl_grnt;
     QTreeWidget *tree_list_grnt;
     QVBoxLayout *verticalLayout_12;
@@ -79,7 +77,6 @@ public:
     QLabel *date_filter_lbl_pres;
     QComboBox *start_date_combo_pres;
     QComboBox *end_date_combo_pres;
-    QPushButton *filter_btn_pres;
     QLabel *domain_lbl_pres;
     QTreeWidget *tree_list_pres;
     QVBoxLayout *verticalLayout_7;
@@ -98,7 +95,6 @@ public:
     QLabel *date_filter_lbl_teach;
     QComboBox *start_date_combo_teach;
     QComboBox *end_date_combo_teach;
-    QPushButton *filter_btn_teach;
     QLabel *domain_lbl_teach;
     QTreeWidget *tree_list_teach;
     QVBoxLayout *verticalLayout_8;
@@ -183,14 +179,6 @@ public:
         end_date_combo_pub->setMinimumSize(QSize(0, 0));
 
         horizontalLayout->addWidget(end_date_combo_pub);
-
-        filter_btn_pub = new QPushButton(pub_tab);
-        filter_btn_pub->setObjectName(QStringLiteral("filter_btn_pub"));
-        filter_btn_pub->setMinimumSize(QSize(75, 0));
-        filter_btn_pub->setMaximumSize(QSize(75, 16777215));
-        filter_btn_pub->setFlat(false);
-
-        horizontalLayout->addWidget(filter_btn_pub);
 
 
         verticalLayout_2->addLayout(horizontalLayout);
@@ -327,14 +315,6 @@ public:
 
         horizontalLayout_10->addWidget(end_date_combo_grnt);
 
-        filter_btn_grnt = new QPushButton(grant_tab);
-        filter_btn_grnt->setObjectName(QStringLiteral("filter_btn_grnt"));
-        filter_btn_grnt->setMinimumSize(QSize(75, 0));
-        filter_btn_grnt->setMaximumSize(QSize(75, 16777215));
-        filter_btn_grnt->setFlat(false);
-
-        horizontalLayout_10->addWidget(filter_btn_grnt);
-
 
         verticalLayout_11->addLayout(horizontalLayout_10);
 
@@ -467,14 +447,6 @@ public:
 
         horizontalLayout_8->addWidget(end_date_combo_pres);
 
-        filter_btn_pres = new QPushButton(present_tab);
-        filter_btn_pres->setObjectName(QStringLiteral("filter_btn_pres"));
-        filter_btn_pres->setMinimumSize(QSize(75, 0));
-        filter_btn_pres->setMaximumSize(QSize(75, 16777215));
-        filter_btn_pres->setFlat(false);
-
-        horizontalLayout_8->addWidget(filter_btn_pres);
-
 
         verticalLayout_9->addLayout(horizontalLayout_8);
 
@@ -601,14 +573,6 @@ public:
         end_date_combo_teach->setMinimumSize(QSize(0, 0));
 
         horizontalLayout_9->addWidget(end_date_combo_teach);
-
-        filter_btn_teach = new QPushButton(teach_tab);
-        filter_btn_teach->setObjectName(QStringLiteral("filter_btn_teach"));
-        filter_btn_teach->setMinimumSize(QSize(75, 0));
-        filter_btn_teach->setMaximumSize(QSize(75, 16777215));
-        filter_btn_teach->setFlat(false);
-
-        horizontalLayout_9->addWidget(filter_btn_teach);
 
 
         verticalLayout_10->addLayout(horizontalLayout_9);
@@ -738,7 +702,7 @@ public:
 
         retranslateUi(AnalyzeCSV);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
         name_combo_grnt->setCurrentIndex(-1);
         name_combo_pres->setCurrentIndex(-1);
         program_combo_teach->setCurrentIndex(0);
@@ -751,7 +715,6 @@ public:
     {
         AnalyzeCSV->setWindowTitle(QApplication::translate("AnalyzeCSV", "MainWindow", 0));
         date_filter_lbl_pub->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
-        filter_btn_pub->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
         domain_lbl_pub->setText(QString());
         graph_lbl_pub->setText(QApplication::translate("AnalyzeCSV", "Graph Analytics", 0));
         name_lbl_pub->setText(QApplication::translate("AnalyzeCSV", "Name:", 0));
@@ -762,7 +725,6 @@ public:
         );
         tabWidget->setTabText(tabWidget->indexOf(pub_tab), QApplication::translate("AnalyzeCSV", "PUBLICATIONS", 0));
         date_filter_lbl_grnt->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
-        filter_btn_grnt->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
         domain_lbl_grnt->setText(QString());
         graph_lbl_grnt->setText(QApplication::translate("AnalyzeCSV", "Graph Analytics", 0));
         name_lbl_grnt->setText(QApplication::translate("AnalyzeCSV", "Name:", 0));
@@ -774,7 +736,6 @@ public:
         );
         tabWidget->setTabText(tabWidget->indexOf(grant_tab), QApplication::translate("AnalyzeCSV", "GRANTS", 0));
         date_filter_lbl_pres->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
-        filter_btn_pres->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
         domain_lbl_pres->setText(QString());
         graph_lbl_pres->setText(QApplication::translate("AnalyzeCSV", "Graph Analytics", 0));
         name_lbl_pres->setText(QApplication::translate("AnalyzeCSV", "Name:", 0));
@@ -785,7 +746,6 @@ public:
         );
         tabWidget->setTabText(tabWidget->indexOf(present_tab), QApplication::translate("AnalyzeCSV", "PRESENTATIONS", 0));
         date_filter_lbl_teach->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
-        filter_btn_teach->setText(QApplication::translate("AnalyzeCSV", "Filter", 0));
         domain_lbl_teach->setText(QString());
         graph_lbl_teach->setText(QApplication::translate("AnalyzeCSV", "Graph Analytics", 0));
         name_lbl_teach->setText(QApplication::translate("AnalyzeCSV", "Name:", 0));
