@@ -53,7 +53,7 @@
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="pub_tab">
        <property name="palette">
@@ -197,28 +197,6 @@
                 <width>0</width>
                 <height>0</height>
                </size>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="filter_btn_pub">
-              <property name="minimumSize">
-               <size>
-                <width>75</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>75</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Filter</string>
-              </property>
-              <property name="flat">
-               <bool>false</bool>
               </property>
              </widget>
             </item>
@@ -626,28 +604,6 @@
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QPushButton" name="filter_btn_grnt">
-              <property name="minimumSize">
-               <size>
-                <width>75</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>75</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Filter</string>
-              </property>
-              <property name="flat">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
            </layout>
           </item>
           <item>
@@ -1040,28 +996,6 @@
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QPushButton" name="filter_btn_pres">
-              <property name="minimumSize">
-               <size>
-                <width>75</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>75</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Filter</string>
-              </property>
-              <property name="flat">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
            </layout>
           </item>
           <item>
@@ -1411,28 +1345,6 @@
                 <width>0</width>
                 <height>0</height>
                </size>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="filter_btn_teach">
-              <property name="minimumSize">
-               <size>
-                <width>75</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>75</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Filter</string>
-              </property>
-              <property name="flat">
-               <bool>false</bool>
               </property>
              </widget>
             </item>
