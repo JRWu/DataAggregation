@@ -163,8 +163,10 @@ void VerifyCSV::moveForwards(){
         this->setCentralWidget(new LoadCSV(0, err));
     }
     else{
-        std::cout << "Goto analyze" << endl;
         //TODO add save CSV
-        this->setCentralWidget(new AnalyzeCSV());
+        AnalyzeCSV *acsv = new AnalyzeCSV();
+        this->setCentralWidget(acsv);
+        acsv->show();
+        acsv->doneloading();
     }
 }

@@ -53,7 +53,7 @@
        <enum>QTabWidget::Triangular</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="pub_tab">
        <property name="palette">
@@ -251,6 +251,9 @@
           </item>
           <item>
            <widget class="QTreeWidget" name="tree_list_pub">
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
             <column>
              <property name="text">
               <string notr="true">1</string>
@@ -655,6 +658,9 @@
           </item>
           <item>
            <widget class="QTreeWidget" name="tree_list_grnt">
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
             <column>
              <property name="text">
               <string notr="true">1</string>
@@ -1047,6 +1053,9 @@
           </item>
           <item>
            <widget class="QTreeWidget" name="tree_list_pres">
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
             <column>
              <property name="text">
               <string notr="true">1</string>
@@ -1362,6 +1371,9 @@
           </item>
           <item>
            <widget class="QTreeWidget" name="tree_list_teach">
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
             <column>
              <property name="text">
               <string notr="true">1</string>

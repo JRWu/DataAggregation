@@ -142,7 +142,10 @@ void LoadCSV::loadCSV(CSVType t){
             else{
                 //TODO Save CSV
                 ui->analyze_btn->setEnabled(true);
-                this->setCentralWidget(new AnalyzeCSV());
+                AnalyzeCSV *acsv = new AnalyzeCSV();
+                this->setCentralWidget(acsv);
+                acsv->show();
+                acsv->doneloading();
             }
         }
     }

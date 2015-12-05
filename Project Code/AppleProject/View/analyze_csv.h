@@ -31,6 +31,7 @@ class AnalyzeCSV : public QMainWindow
 
 public:
     explicit AnalyzeCSV(QWidget *parent = 0);
+    void doneloading();
     ~AnalyzeCSV();
 
 signals:
@@ -39,7 +40,6 @@ signals:
 
 private slots:
     void on_load_btn_clicked();
-
 
 
 private:

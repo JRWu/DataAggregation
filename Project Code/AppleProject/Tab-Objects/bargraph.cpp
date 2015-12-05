@@ -21,6 +21,8 @@ BarGraph::BarGraph(QGraphicsView *v, CSVDTO *dto, AnalyzeCSV *p, TabSubject *s):
 
     connect(p, SIGNAL(resizeEvent(QResizeEvent*)),
             this, SLOT(onResize()));
+    connect(p, SIGNAL(allLoaded()),
+            this, SLOT(onResize()));
 }
 
 void BarGraph::update(){
@@ -142,6 +144,7 @@ void BarGraph::makeGraph(QVector<QString> *years, QVector<QString> *types, QVect
     double yTick;
     for(yTick = 1.0; yTick*10 < maxY; yTick *= 10);
     for(;(maxY/yTick + 1) < 4; yTick /= 2);
+    if(yTick < 1) yTick = 1;
 
     //Set up the axis tick labels
     QVector<double> valueTick;

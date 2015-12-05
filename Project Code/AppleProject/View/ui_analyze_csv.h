@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'analyze_csv.ui'
 **
-** Created by: Qt User Interface Compiler version 5.4.2
+** Created by: Qt User Interface Compiler version 5.5.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -199,6 +199,7 @@ public:
         __qtreewidgetitem->setText(0, QStringLiteral("1"));
         tree_list_pub->setHeaderItem(__qtreewidgetitem);
         tree_list_pub->setObjectName(QStringLiteral("tree_list_pub"));
+        tree_list_pub->setSortingEnabled(true);
 
         verticalLayout_2->addWidget(tree_list_pub);
 
@@ -334,6 +335,7 @@ public:
         __qtreewidgetitem1->setText(0, QStringLiteral("1"));
         tree_list_grnt->setHeaderItem(__qtreewidgetitem1);
         tree_list_grnt->setObjectName(QStringLiteral("tree_list_grnt"));
+        tree_list_grnt->setSortingEnabled(true);
 
         verticalLayout_11->addWidget(tree_list_grnt);
 
@@ -466,6 +468,7 @@ public:
         __qtreewidgetitem2->setText(0, QStringLiteral("1"));
         tree_list_pres->setHeaderItem(__qtreewidgetitem2);
         tree_list_pres->setObjectName(QStringLiteral("tree_list_pres"));
+        tree_list_pres->setSortingEnabled(true);
 
         verticalLayout_9->addWidget(tree_list_pres);
 
@@ -588,6 +591,7 @@ public:
         __qtreewidgetitem3->setText(0, QStringLiteral("1"));
         tree_list_teach->setHeaderItem(__qtreewidgetitem3);
         tree_list_teach->setObjectName(QStringLiteral("tree_list_teach"));
+        tree_list_teach->setSortingEnabled(true);
 
         verticalLayout_10->addWidget(tree_list_teach);
 
@@ -702,7 +706,7 @@ public:
 
         retranslateUi(AnalyzeCSV);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(3);
         name_combo_grnt->setCurrentIndex(-1);
         name_combo_pres->setCurrentIndex(-1);
         program_combo_teach->setCurrentIndex(0);

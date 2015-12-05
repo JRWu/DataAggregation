@@ -56,6 +56,10 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent):
     ui->tabWidget->setCurrentIndex(data->getLastType());
 }
 
+void AnalyzeCSV::doneloading(){
+    emit resizeEvent(0);
+}
+
 AnalyzeCSV::~AnalyzeCSV()
 {
     for(size_t i = 0; i < cmbBoxes.size(); ++i){
