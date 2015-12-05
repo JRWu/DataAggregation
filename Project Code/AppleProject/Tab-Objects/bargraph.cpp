@@ -21,8 +21,6 @@ BarGraph::BarGraph(QGraphicsView *v, CSVDTO *dto, AnalyzeCSV *p, TabSubject *s):
 
     connect(p, SIGNAL(resizeEvent(QResizeEvent*)),
             this, SLOT(onResize()));
-    connect(p, SIGNAL(allLoaded()),
-            this, SLOT(onResize()));
 }
 
 void BarGraph::update(){

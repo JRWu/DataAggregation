@@ -20,12 +20,20 @@ ui(new Ui::LoadCSV)
     ui->setupUi(this);
     ui->verify_btn->setDisabled(true);
     ui->analyze_btn->setDisabled(true);
+    data = Data::Instance();
+
+    for(size_t i = 0; i < 4; ++i){
+        if(!data->isEmpty(i)){
+            ui->analyze_btn->setEnabled(true);
+            break;
+        }
+    }
 
     //recentFilesModel = new QStringListModel(this);
     //ui->recent_files_list->setSelectionRectVisible(false);
     //ui->recent_files_list->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
-    data = Data::Instance();
+
 
     //Set up the mouse over listener
     for(size_t t = 0; t < NBUT; t++){
@@ -171,4 +179,13 @@ string LoadCSV::getFile(){
                                             "CSV Files (*.csv)"     // File extension to filter for
                                             );
     return f.toStdString();
+}
+
+void LoadCSV::on_analyze_btn_clicked()
+{
+    ui->analyze_btn->setEnabled(true);
+    AnalyzeCSV *acsv = new AnalyzeCSV();
+    this->setCentralWidget(acsv);
+    acsv->show();
+    acsv->doneloading();
 }

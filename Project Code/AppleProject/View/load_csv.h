@@ -61,6 +61,7 @@ protected:
 
 private slots:
     void on_loadRecentFile_btn_clicked();
+    void on_analyze_btn_clicked();
 };
 
 #endif // LOAD_CSV_H
