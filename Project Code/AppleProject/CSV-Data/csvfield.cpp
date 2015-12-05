@@ -9,6 +9,11 @@ CSVField::CSVField(CSVFieldValidator *v){
     validator = v;
 }
 
+CSVField::CSVField(CSVFieldValidator *v, std::string s){
+    validator = v;
+    setField(&s);
+}
+
 bool CSVField::validate(){
     return validator->validate( (&value) );
 }

@@ -69,16 +69,15 @@ vector<BarGraphAdapter> *CSVDTO::getBarGraphDTOs(){
     return &barGraphDTOs;
 }
 
-/*vector<TreeListAdapter> *CSVDTO::getTreeListDTOs(){
+vector<TreeListAdapter> *CSVDTO::getTreeListDTOs(){
     if(treeListDTOs.size() < validLines.size()){
-        for(vector<vector<CSVField>>::iterator it = validLines.begin();
-            it != validLines.end(); ++it){
-            treeListDTOs.push_back(TreeListAdapter(it, type));
+        for(size_t i = 0; i < validLines.size(); ++i){
+            treeListDTOs.push_back(TreeListAdapter(&validLines[i], type));
         }
     }
 
     return &treeListDTOs;
-}*/
+}
 
 /*Sets up the properties of the csvdto and the csv reader based on
  *the given csv type. The number of mandatory fields, the name of
@@ -104,14 +103,14 @@ void CSVDTO::setReadProperties(std::vector<CSVField> *f){
 
         header = std::vector<std::string>(head, head + NPUBHEADER);
 
-        f->push_back(CSVField(getCSVValidator(DATEVALIDATOR)));
+        f->push_back(CSVField(getCSVValidator(DATEVALIDATOR), ""));
         for(size_t i = 0; i < 7; i++){
-            f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR)));
+            f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR), ""));
         }
-        f->push_back(CSVField(getCSVValidator(NAMELISTVALIDATOR)));
+        f->push_back(CSVField(getCSVValidator(NAMELISTVALIDATOR), ""));
 
         for(size_t i = f->size(); i < NPUBHEADER; i++){
-            f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR)));
+            f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR), ""));
         }
 
         break;
@@ -132,16 +131,16 @@ void CSVDTO::setReadProperties(std::vector<CSVField> *f){
 
         header = std::vector<std::string>(head, head + NGRAHEADER);
 
-        f->push_back(CSVField(getCSVValidator(DATEVALIDATOR)));
-        f->push_back(CSVField(getCSVValidator(DATEVALIDATOR)));
+        f->push_back(CSVField(getCSVValidator(DATEVALIDATOR), ""));
+        f->push_back(CSVField(getCSVValidator(DATEVALIDATOR), ""));
         for(size_t i = 0; i < 9; i++){
-            f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR)));
+            f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR), ""));
         }
-        f->push_back(CSVField(getCSVValidator(MONEYVALIDATOR)));
-        f->push_back(CSVField(getCSVValidator(NAMELISTVALIDATOR)));
+        f->push_back(CSVField(getCSVValidator(MONEYVALIDATOR), ""));
+        f->push_back(CSVField(getCSVValidator(NAMELISTVALIDATOR), ""));
 
         for(size_t i = f->size(); i < NGRAHEADER; i++){
-            f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR)));
+            f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR), ""));
         }
 
         break;
@@ -159,13 +158,13 @@ void CSVDTO::setReadProperties(std::vector<CSVField> *f){
 
         header = std::vector<std::string>(head, head + NPREHEADER);
 
-        f->push_back(CSVField(getCSVValidator(DATEVALIDATOR)));
+        f->push_back(CSVField(getCSVValidator(DATEVALIDATOR), ""));
         for(size_t i = 0; i < 5; i++){
-            f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR)));
+            f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR), ""));
         }
 
         for(size_t i = f->size(); i < NPREHEADER; i++){
-            f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR)));
+            f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR), ""));
         }
 
         break;
@@ -185,19 +184,19 @@ void CSVDTO::setReadProperties(std::vector<CSVField> *f){
                       "Initial Lecture","Faculty Development","Stipend Received","Comment"
                  };
 
-        header = std::vector<std::string>(head, head + NTEAMANDATORY);
+        header = std::vector<std::string>(head, head + NTEAHEADER);
 
-        f->push_back(CSVField(getCSVValidator(DATEVALIDATOR)));
-        f->push_back(CSVField(getCSVValidator(DATEVALIDATOR)));
+        f->push_back(CSVField(getCSVValidator(DATEVALIDATOR), ""));
+        f->push_back(CSVField(getCSVValidator(DATEVALIDATOR), ""));
         for(size_t i = 0; i < 5; i++){
             f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR)));
         }
-        f->push_back(CSVField(getCSVValidator(MONEYVALIDATOR)));
-        f->push_back(CSVField(getCSVValidator(MONEYVALIDATOR)));
-        f->push_back(CSVField(getCSVValidator(MONEYVALIDATOR)));
+        f->push_back(CSVField(getCSVValidator(MONEYVALIDATOR), ""));
+        f->push_back(CSVField(getCSVValidator(MONEYVALIDATOR), ""));
+        f->push_back(CSVField(getCSVValidator(MONEYVALIDATOR), ""));
 
-        for(size_t i = f->size(); i < NGRAHEADER; i++){
-            f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR)));
+        for(size_t i = f->size(); i < NTEAHEADER; i++){
+            f->push_back(CSVField(getCSVValidator(STRINGVALIDATOR), ""));
         }
 
         break;

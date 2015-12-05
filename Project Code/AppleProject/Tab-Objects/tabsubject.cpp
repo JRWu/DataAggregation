@@ -16,3 +16,5 @@ void TabSubject::notify(){
 vector<string> TabSubject::getState(){
     return state;
 }
+
+TabSubject::~TabSubject(){}

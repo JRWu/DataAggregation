@@ -28,3 +28,15 @@ void trimString(std::string *s){
 }
 
 //End Borrowed functions
+
+std::string formatNumber(double d){
+    std::string s = std::to_string((unsigned long long)d);
+    std::string result = "";
+    int n = s.length();
+    for(int i = n-1; i >= 1; --i){
+        result = s[i] + result;
+        if((i < (n - 1))&&(((i-n)%3)==0)) result = "," + result;
+    }
+    result = s[0] + result;
+    return result;
+}

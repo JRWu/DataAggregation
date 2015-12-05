@@ -16,5 +16,7 @@ void trimRight(std::string *s);
 void trimString(std::string *s);
 
 //End Borrowed functions
+
+std::string formatNumber(double d);
 #endif // STRINGFUNCTIONS
 

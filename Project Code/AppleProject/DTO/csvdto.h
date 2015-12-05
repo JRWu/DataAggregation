@@ -5,9 +5,8 @@
 #include <string>
 
 #include "CSV-Parser/csvparser.h"
-
 #include "DTO/bargraphadapter.h"
-//#include "DTO/treelistadapter.h"
+#include "DTO/treelistadapter.h"
 #include "DTO/filteradapter.h"
 
 #define NPUBHEADER 27
@@ -16,7 +15,7 @@
 #define NGRAMANDATORY 13
 #define NPREHEADER 20
 #define NPREMANDATORY 6
-#define NTEAHEADER 21
+#define NTEAHEADER 22
 #define NTEAMANDATORY 10
 
 enum FilterType: unsigned int;
@@ -26,6 +25,7 @@ class CSVLineValidator;
 class CSVField;
 class BarGraphAdapter;
 class FilterAdapter;
+class TreeListAdapter;
 
 class CSVDTO
 {
@@ -39,7 +39,7 @@ class CSVDTO
     //Adapters
     std::vector<FilterAdapter> filterDTOs;
     std::vector<BarGraphAdapter> barGraphDTOs;
-    //std::vector<TreeListAdapter> treeListDTOs;
+    std::vector<TreeListAdapter> treeListDTOs;
 
     //Line validation strategy
     CSVLineValidator *lineValidator = 0;
@@ -61,7 +61,7 @@ public:
     //Returns the list of bargraphDTOs for use in constructing bargraphs
     std::vector<BarGraphAdapter> *getBarGraphDTOs();
     //Returns the list of tree list dtos for use in making the tree list
-    //std::vector<TreeListAdapter> *getTreeListDTOs();
+    std::vector<TreeListAdapter> *getTreeListDTOs();
 
     //Returns the file name for this DTO
     std::string *getFile();

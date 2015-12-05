@@ -14,8 +14,8 @@ protected:
     std::vector<class TabObserver *> observers;
     std::vector<std::string> state;
 public:
+    virtual ~TabSubject();
     void attach(TabObserver *o);
-
     void notify();
 
     virtual std::vector<std::string> getState();

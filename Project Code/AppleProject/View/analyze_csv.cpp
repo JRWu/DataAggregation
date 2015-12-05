@@ -7,6 +7,7 @@
 #include "Tab-Objects/combobox.h"
 #include "Tab-Objects/bargraph.h"
 #include "Tab-Objects/qcustomplot.h"
+#include "Tab-Objects/treelist.h"
 
 AnalyzeCSV::AnalyzeCSV(QWidget *parent):
     QMainWindow(parent),
@@ -33,6 +34,7 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent):
             QComboBox *name = getCmbName(i);
             QComboBox *type = getCmbType(i);
             QGraphicsView *bar = getBarGraph(i);
+            QTreeWidget *tree = getTreeList(i);
 
             ComboBox *sy = new ComboBox(startY, dto, FILTERYEAR);
             ComboBox *ey = new ComboBox(endY, dto, FILTERYEAR, sy);
@@ -47,6 +49,10 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent):
 
             BarGraph *b = new BarGraph(bar, dto, this, ty);
             barGraphs.push_back(b);
+
+            TreeList *t = new TreeList(tree, dto, ey);
+            sy->attach(t);
+            treeLists.push_back(t);
 
             endY->setCurrentIndex(endY->count() - 1);
             ey->notify();
@@ -68,12 +74,26 @@ AnalyzeCSV::~AnalyzeCSV()
     for(size_t i = 0; i < barGraphs.size(); ++i){
         delete barGraphs[i];
     }
+    for(size_t i = 0; i < treeLists.size(); ++i){
+        delete treeLists[i];
+    }
+
     delete ui;
 }
 
 void AnalyzeCSV::on_load_btn_clicked()
 {
     this->setCentralWidget(new LoadCSV);
+}
+
+QTreeWidget *AnalyzeCSV::getTreeList(size_t i){
+    switch(i){
+    case(0): return ui->tree_list_pub;
+    case(1): return ui->tree_list_grnt;
+    case(2): return ui->tree_list_pres;
+    case(3): return ui->tree_list_teach;
+    }
+    return 0;
 }
 
 QComboBox *AnalyzeCSV::getCmbStartYear(size_t i){
@@ -136,41 +156,7 @@ QGraphicsView *AnalyzeCSV::getBarGraph(size_t i){
     return 0;
 }
 
-/*AnalyzeCSV::populate_teaching_bargraph(std::shared_ptr<CSVData<TeachingDTO>> data){
 
-        scene = new QGraphicsScene(this);   // Added for graphics window
-
-        QCustomPlot *customPlot = new QCustomPlot();
-        if (ui->graph_area_teach->geometry().width() < 300)
-        {
-            customPlot->setGeometry(0,0, 345,375);  // Set default min window dimensions
-        }
-        else
-        {
-            customPlot->setGeometry(0,0, ui->graph_area_teach->geometry().width(),ui->graph_area_teach->geometry().height());   // added to resize graph
-        }
-
-        Graphvisualizations *graph_handler = new Graphvisualizations();
-
-        try {
-            if (program == "ALL") {
-                shared_ptr<BarGraph_VO<TeachingDTO>> graphable(new BarGraph_VO<TeachingDTO>(data, name, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("# of Hours"), "ALL");
-            }
-            else {
-                shared_ptr<BarGraph_VO<TeachingDTO>> graphable(new BarGraph_VO<TeachingDTO>(data, name, program, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("# of Hours"), program);
-            }
-        }
-        catch (const std::out_of_range& oor) {
-            std::fprintf(stderr, "No data to graph");
-        }
-
-        scene->addWidget(customPlot);   // Add plot to the window & Essential
-        ui->graph_area_teach->setScene(scene);    // Added for grpahics & Essential
-    }
-}
- * */
 
 /*void AnalyzeCSV::populate_publication_tree(std::shared_ptr<CSVData<PublicationDTO>> data)
 {
@@ -305,168 +291,4 @@ void AnalyzeCSV::populate_presentation_tree(std::shared_ptr<CSVData<Presentation
         root->setText(1, QString::fromStdString(std::to_string(presCounter)));
     }
 
-}
-
-
-
-void AnalyzeCSV::populate_publication_bargraph(std::shared_ptr<CSVData<PublicationDTO>> data)
-{
-    QString st_string = ui->start_date_combo_pub->itemText(ui->start_date_combo_pub->currentIndex());
-    QString en_string = ui->end_date_combo_pub->itemText(ui->end_date_combo_pub->currentIndex());
-
-    string s = st_string.toStdString(); // start date
-    string e = en_string.toStdString(); // end date
-
-    if (e < s) // Make sure the end date is greater than the start date
-    {
-        fprintf(stderr, "Cannot filter. Filter dates error.");
-    }
-    else
-    {
-        string name = (ui->name_combo_pub->currentText()).toStdString(); // Allows user to choose name of author
-        string type = (ui->type_combo_pub->currentText()).toStdString(); // Allows user to choose type of publication
-
-        scene = new QGraphicsScene(this);   // Create the scene for plotting
-
-        QCustomPlot *customPlot = new QCustomPlot();
-        if (ui->graph_area_pub->geometry().width() < 300)
-        {
-            customPlot->setGeometry(0,0, 345,375);  // Set default min window dimensions
-        }
-        else
-        {
-            customPlot->setGeometry(0,0, ui->graph_area_pub->geometry().width(),ui->graph_area_pub->geometry().height());   // added to resize graph
-        }
-
-
-
-        // Graph handling functions go here
-        Graphvisualizations *graph_handler = new Graphvisualizations();
-
-        try {
-            if (type == "ALL")  // Graph ALL publication types by default
-            {
-                shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(data, name, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("# Publications"), "ALL");
-            }
-            else                    // Create graphable of only specified publication types
-            {
-                shared_ptr<BarGraph_VO<PublicationDTO>> graphable(new BarGraph_VO<PublicationDTO>(data, name, type, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("# Publications"), type);
-            }
-        }
-        // no data return, catch the exception
-        catch (const std::out_of_range& oor) {
-            fprintf(stderr, "No data to graph");
-        }
-
-        scene->addWidget(customPlot);   // Add plot to the GUI window
-        ui->graph_area_pub->setScene(scene);    // Added to update the graph area
-     }
-}
-
-void AnalyzeCSV::populate_presentation_bargraph(std::shared_ptr<CSVData<PresentationDTO>> data)
-{
-    QString st_string = ui->start_date_combo_pres->itemText(ui->start_date_combo_pres->currentIndex());
-    QString en_string = ui->end_date_combo_pres->itemText(ui->end_date_combo_pres->currentIndex());
-
-    string s = st_string.toStdString();
-    string e = en_string.toStdString();
-
-    if (e < s)
-    {
-        cout << "Cannot filter. Filter dates error." << endl;
-    }
-    else
-    {
-        // Get the name and the type of graph being analyzed on the UI page
-        string name = (ui->name_combo_pres->currentText()).toStdString();
-        string type = (ui->type_combo_pres->currentText()).toStdString();
-
-        scene = new QGraphicsScene(this);   // Create the scene for plotting
-
-        QCustomPlot *customPlot = new QCustomPlot();
-        if (ui->graph_area_pres->geometry().width() < 300)
-        {
-            customPlot->setGeometry(0,0, 345,375);  // Set default min window dimensions
-        }
-        else
-        {
-            customPlot->setGeometry(0,0, ui->graph_area_pres->geometry().width(),ui->graph_area_pres->geometry().height());   // added to resize graph
-        }
-
-
-        // Graph the data
-        Graphvisualizations *graph_handler = new Graphvisualizations();
-
-        try {
-            if (type.compare("ALL") == 0)   // Graph ALL presentation types by default
-            {
-                shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(data, name, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("# of Presentations"), "ALL");
-            }
-            else    // Create graph of only specified presentation type
-            {
-                shared_ptr<BarGraph_VO<PresentationDTO>>graphable (new BarGraph_VO<PresentationDTO>(data, name, type, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("# of Presentations"), type);
-            }
-        }
-        catch (const std::out_of_range& oor) {
-            fprintf(stderr, "No data to graph");
-        }
-
-        scene->addWidget(customPlot);   // Add plot to GUI window
-        ui->graph_area_pres->setScene(scene);  // rename graph_are_7 to graph_area_Presentations
-    }
-}
-
-void AnalyzeCSV::populate_grant_bargraph(std::shared_ptr<CSVData<GrantDTO>> data)
-{
-   QString st_string = ui->start_date_combo_grnt->itemText(ui->start_date_combo_grnt->currentIndex());
-    QString en_string = ui->end_date_combo_grnt->itemText(ui->end_date_combo_grnt->currentIndex());
-
-    string s = st_string.toStdString();
-    string e = en_string.toStdString();
-
-    if (e < s)
-    {
-        cout << "Cannot filter. Filter dates error." << endl;
-    }
-    else
-    {
-        string name = (ui->name_combo_grnt->currentText()).toStdString();
-        string funding = (ui->type_combo_grnt->currentText()).toStdString();
-
-        scene = new QGraphicsScene(this);
-
-        QCustomPlot *customPlot = new QCustomPlot();
-        if (ui->graph_area_grnt->geometry().width() < 300)
-        {
-            customPlot->setGeometry(0,0, 345,375);  // Set default min window dimensions
-        }
-        else
-        {
-            customPlot->setGeometry(0,0, ui->graph_area_grnt->geometry().width(),ui->graph_area_grnt->geometry().height());   // added to resize graph
-        }
-
-        Graphvisualizations *graph_handler = new Graphvisualizations();
-
-        try {
-            if (funding == "ALL") {
-                shared_ptr<BarGraph_VO<GrantDTO>> graphable(new BarGraph_VO<GrantDTO>(data, name, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("Total Funding\n(in $)"), "ALL");
-            }
-            else {
-                shared_ptr<BarGraph_VO<GrantDTO>> graphable(new BarGraph_VO<GrantDTO>(data, name, funding, s, e, 1));
-                graph_handler->plot_bargraph(customPlot, graphable, QString::fromStdString("Year"), QString::fromStdString("Total Funding\n(in$)"), funding);
-            }
-        }
-        catch (const std::out_of_range& oor) {
-            fprintf(stderr, "No data to graph");
-        }
-
-        scene->addWidget(customPlot);   // Add plot to the window & Essential
-        ui->graph_area_grnt->setScene(scene);    // Added for grpahics & Essential
-    }
 }*/
-

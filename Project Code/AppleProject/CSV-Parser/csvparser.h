@@ -202,13 +202,13 @@ public:
             throw error::csv_format_error();
         }
 
-        for(std::size_t i = 0; i < nMan; i++){
+        for(std::size_t i = 0; i < nHeader; i++){
             std::vector<int>::iterator j,s,e;
             s = order.begin();
             e = order.end();
             j = std::find(s, e, i);
 
-            fields->at(i).setField(&csvLine[j - s]);
+            if(j!=e) fields->at(i).setField(&csvLine[j - s]);
         }
     }
 

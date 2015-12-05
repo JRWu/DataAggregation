@@ -25,7 +25,7 @@ SOURCES += main.cpp\
     DTO/csvdto.cpp \
     DTO/bargraphadapter.cpp \
     DTO/filteradapter.cpp \
-#    DTO/treelistadapter.cpp \
+    DTO/treelistadapter.cpp \
     DTO/data.cpp \
     Tab-Objects/dtofilter.cpp \
     View/verify_csv.cpp \
@@ -37,6 +37,7 @@ SOURCES += main.cpp\
     CSV-Data/csvfield.cpp \
     Tab-Objects/bargraph.cpp \
     Tab-Objects/qcustomplot.cpp \
+    Tab-Objects/treelist.cpp
 
 HEADERS  += View/load_csv.h \
     View/mainwindow.h \
@@ -49,7 +50,7 @@ HEADERS  += View/load_csv.h \
     DTO/csvdto.h \
     DTO/bargraphadapter.h \
     DTO/filteradapter.h \
-#    DTO/treelistadapter.h \
+    DTO/treelistadapter.h \
     DTO/data.h \
     Tab-Objects/dtofilter.h \
     View/verify_csv.h \
@@ -61,6 +62,7 @@ HEADERS  += View/load_csv.h \
     CSV-Data/csvtype.h \
     Tab-Objects/bargraph.h \
     Tab-Objects/qcustomplot.h \
+    Tab-Objects/treelist.h
 
 FORMS    += View/mainwindow.ui \
     View/load_csv.ui \

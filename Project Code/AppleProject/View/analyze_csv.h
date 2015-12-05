@@ -20,6 +20,8 @@ class QCustomPlot;
 class QComboBox;
 class QLabel;
 class QGraphicsView;
+class QTreeWidget;
+class TreeList;
 
 namespace Ui {
 class AnalyzeCSV;
@@ -46,11 +48,14 @@ private:
     Data *data;
     std::vector<ComboBox *> cmbBoxes;
     std::vector<BarGraph *> barGraphs;
+    std::vector<TreeList *> treeLists;
+
     Ui::AnalyzeCSV *ui;
     QGraphicsScene * scene; // Added to display the graph through the graph area
     QCustomPlot *customPlot;
 
     //Getter methods for constructor
+    QTreeWidget *getTreeList(size_t i);
     QComboBox *getCmbStartYear(std::size_t i);
     QComboBox *getCmbEndYear(std::size_t i);
     QComboBox *getCmbName(std::size_t i);

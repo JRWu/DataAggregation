@@ -14,7 +14,7 @@ protected:
     TabSubject *subject;
 public:
     TabObserver(TabSubject *s = 0);
-
+    virtual ~TabObserver();
     virtual void update() = 0;
 };
 
