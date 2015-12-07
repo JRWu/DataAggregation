@@ -1,7 +1,7 @@
 #ifndef TREELISTADAPTER_H
 #define TREELISTADAPTER_H
 
-/* An adpated that transforms a csv line into a form that we can
+/* An adaptor that transforms a csv line into a form that we can
  * easily create the tree list from. This contains a tree path
  * which represents the path we would take from the node of the
  * tree to a child. (each line represents it's own child).
