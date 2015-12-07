@@ -26,6 +26,10 @@ private slots:
 
     void on_open_program_btn_clicked();
 
+signals:
+
+    void gotoLoad(std::string);
+
 private:
     Ui::MainWindow *ui;
 };

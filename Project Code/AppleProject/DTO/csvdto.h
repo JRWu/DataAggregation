@@ -90,6 +90,9 @@ public:
 
     //returns the type of the csv
     std::size_t getType();
+
+    //Saves the validated lines of the csv
+    void save(std::string *fname);
 };
 
 #endif // CSVDTO_H

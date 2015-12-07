@@ -7,8 +7,6 @@
 
 #include <vector>
 
-
-
 #define NTAB 4
 
 enum FilterValueType: unsigned int;
@@ -35,18 +33,18 @@ public:
     explicit AnalyzeCSV(QWidget *parent = 0);
     void doneloading();
     ~AnalyzeCSV();
-
+    void loadTab(std::size_t i);
 signals:
     //Capture a resize event
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
-
+    void gotoLoad();
 private slots:
     void on_load_btn_clicked();
 
 
 private:
     Data *data;
-    std::vector<ComboBox *> cmbBoxes;
+    std::vector<std::vector<ComboBox *>> cmbBoxes;
     std::vector<BarGraph *> barGraphs;
     std::vector<TreeList *> treeLists;
 

@@ -13,20 +13,12 @@
 
 using namespace std;
 
-VerifyCSV::VerifyCSV(CSVType t, QWidget *parent) :
+VerifyCSV::VerifyCSV(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::VerifyCSV)
 {
     ui->setupUi(this);
-    csvType = t;
-    data = Data::Instance();
-
-    // Set the table model (currently only the publication model possible)
-    ui->error_table->setModel(ErrorTableModel());  
-
-    //Display the file name
-    QString fn = QString::fromStdString(data->getShortFileName(csvType));
-    ui->file_name->setText(fn);
+    data = Data::Instance();      
 
     ui->analyze_btn->setEnabled(true);
 }
@@ -34,6 +26,17 @@ VerifyCSV::VerifyCSV(CSVType t, QWidget *parent) :
 VerifyCSV::~VerifyCSV()
 {
     delete ui;
+}
+
+void VerifyCSV::updateTable(CSVType t){
+    ui->verify_btn->setEnabled(true);
+    csvType = t;
+    // Set the table model (currently only the publication model possible)
+    ui->error_table->setModel(ErrorTableModel());
+
+    //Display the file name
+    QString fn = QString::fromStdString(data->getShortFileName(csvType));
+    ui->file_name->setText(fn);
 }
 
 QStandardItemModel* VerifyCSV::ErrorTableModel()
@@ -83,12 +86,12 @@ void VerifyCSV::on_load_btn_clicked()
     }
 
     ignoreAll();
-    string err = "";
+    ErrorType err = NONE;
     if(data->isEmpty(csvType)){
-        err = "  Error: CSV has no valiad data. File Removed.";
+        err = NODATA;
     }
-
-    this->setCentralWidget(new LoadCSV(0, err)); //If empty display error
+    ui->verify_btn->setDisabled(true);
+    emit gotoLoad(err, csvType);
 }
 
 
@@ -159,14 +162,9 @@ void VerifyCSV::ignoreAll(){
 void VerifyCSV::moveForwards(){
     ignoreAll();
     if(data->isEmpty(csvType)){
-        string err("  Error: CSV has no valiad data. File Removed.");
-        this->setCentralWidget(new LoadCSV(0, err));
+        emit gotoLoad(NODATA, csvType);
     }
     else{
-        //TODO add save CSV
-        AnalyzeCSV *acsv = new AnalyzeCSV();
-        this->setCentralWidget(acsv);
-        acsv->show();
-        acsv->doneloading();
+        emit gotoAnalyze(csvType);
     }
 }

@@ -8,6 +8,7 @@
 #include <memory>
 
 enum CSVType: unsigned int;
+enum ErrorType: unsigned int;
 
 namespace Ui {
 class VerifyCSV;
@@ -21,7 +22,9 @@ class VerifyCSV : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit VerifyCSV(CSVType t, QWidget *parent = 0);
+    explicit VerifyCSV(QWidget *parent = 0);
+    void updateTable(CSVType t);
+
     ~VerifyCSV();
 
 private slots:
@@ -30,6 +33,10 @@ private slots:
     void on_ignoreall_btn_clicked();
     void on_ignore_btn_clicked();
     void on_confirm_btn_clicked();
+
+signals:
+    void gotoLoad(ErrorType err, CSVType t);
+    void gotoAnalyze(CSVType csvType);
 
 private:
     Ui::VerifyCSV *ui;

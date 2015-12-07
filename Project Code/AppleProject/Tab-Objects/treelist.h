@@ -40,9 +40,11 @@ class TreeList:public QObject, public TabObserver
     QTreeWidgetItem *getHeader(std::vector<std::string> *fv);
     std::string makeRootHeader(std::vector<std::string> *fv);
     void alignColumn(QTreeWidgetItem *tw);
+
 public:
-    TreeList(QTreeWidget *t, CSVDTO *d, TabSubject *s);
+    TreeList(QTreeWidget *t, TabSubject *s);
     void update();
+    void setDTO(CSVDTO *dto);
 public slots:
     void onResize();
 };

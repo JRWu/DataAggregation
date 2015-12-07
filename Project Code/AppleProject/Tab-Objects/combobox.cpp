@@ -5,15 +5,18 @@
 
 using namespace std;
 
-ComboBox::ComboBox(QComboBox *cmb, CSVDTO *dto, FilterValueType ft, TabSubject *s):
+ComboBox::ComboBox(QComboBox *cmb, FilterValueType ft, TabSubject *s):
     TabObserver(s)
 {
-    this->dto = dto;
     valueGetter = getFilterValue(ft); //Add parameter later
     cmbBox = cmb;
 
     connect(cmb, SIGNAL(activated(int)),
             this, SLOT(indexChanged()));
+}
+
+void ComboBox::setDTO(CSVDTO *dto){
+    this->dto = dto;
 }
 
 void ComboBox::update(){
@@ -102,4 +105,8 @@ vector<string> ComboBox::getState(){
 
 void ComboBox::indexChanged(){
     this->notify();
+}
+
+void ComboBox::setLast(){
+    cmbBox->setCurrentIndex(cmbBox->count() - 1);
 }

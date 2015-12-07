@@ -18,6 +18,10 @@ enum CSVType: unsigned int;
 class QPushButton;
 class Data;
 
+enum ErrorType: unsigned int{
+    NODATA, MISSINGHEADER, CANTREADFILE, CSVFORMAT, DUPLICATEHEADER, NONE
+};
+
 namespace Ui {
 class LoadCSV;
 }
@@ -27,18 +31,20 @@ class LoadCSV : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit LoadCSV(QWidget *parent = 0, std::string err = "");
+    explicit LoadCSV(QWidget *parent = 0);
     bool eventFilter(QObject *obj, QEvent *event);
     ~LoadCSV();
 
+    //sets or clears the error message
+    void setError(ErrorType t);
+    //Set the default string for the buttons
+    void setDefaultBtnTxt();
 private:
     std::vector<QString> defaultBtntxt;
 
     Ui::LoadCSV *ui;
 
-    //QStringListModel *recentFilesModel;
-    //QStringList recentFilesList;
-    int csvType;
+    std::size_t csvType;
 
     Data *data;
 
@@ -47,20 +53,19 @@ private:
     //changes the text of a button if a corresponding dto is loaded
     void setMouseOverBtnTxt(CSVType t);
     //Resets the button text to default
-    void resetBtnTxt(CSVType t);
-    //Set the default string for the buttons
-    void setDefaultBtnTxt();
+    void resetBtnTxt(CSVType t);    
     //Used to get a filename from the user
     std::string getFile() ;
     //Tries to load a new csv of the given type
     void loadCSV(CSVType t);
-    //Modify this later once we save csvs to HDD
-    //void addRecentFile(QString);
+
 protected:
 
-
+signals:
+    gotoVerify(CSVType t);
+    gotoAnalyze(CSVType t);
+    gotoAnalyze();
 private slots:
-    void on_loadRecentFile_btn_clicked();
     void on_analyze_btn_clicked();
 };
 

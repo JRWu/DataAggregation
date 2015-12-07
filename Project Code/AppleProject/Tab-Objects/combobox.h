@@ -26,9 +26,11 @@ class ComboBox: public QObject, public TabObserver, public TabSubject
     CSVDTO *dto;
 public:
     ComboBox(){}
-    ComboBox(QComboBox *cmb, CSVDTO *dto, FilterValueType ft, TabSubject *s = 0);
+    ComboBox(QComboBox *cmb, FilterValueType ft, TabSubject *s = 0);
     void update();
     std::vector<std::string> getState();
+    void setDTO(CSVDTO *dto);
+    void setLast();
 private:
     //Returns the list of filtered values from the csv based on the filter values
     void getValues(std::vector<std::string> *fv, std::vector<std::string> *v);

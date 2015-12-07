@@ -10,11 +10,10 @@
 
 using namespace std;
 
-TreeList::TreeList(QTreeWidget *t, CSVDTO *d, TabSubject *s):
+TreeList::TreeList(QTreeWidget *t, TabSubject *s):
     TabObserver(s)
 {
     tree = t;
-    dto = d;
 
     connect(tree, SIGNAL(collapsed(QModelIndex)),
             this, SLOT(onResize()));
@@ -22,10 +21,11 @@ TreeList::TreeList(QTreeWidget *t, CSVDTO *d, TabSubject *s):
             this, SLOT(onResize()));
 }
 
-void TreeList::update(){
-    root.children.clear();
-    root.values.clear();
+void TreeList::setDTO(CSVDTO *dto){
+    this->dto = dto;
+}
 
+void TreeList::update(){    
     vector<string> filterValues = subject->getState();
     DTOFilter filter(&filterValues);
     vector<FilterAdapter> *fdtos = dto->getFilterDTOs();
@@ -49,6 +49,9 @@ void TreeList::update(){
     }
 
     makeTreeList();
+
+    root.children.clear();
+    root.values.clear();
 }
 
 void TreeList::makeTreeList(){

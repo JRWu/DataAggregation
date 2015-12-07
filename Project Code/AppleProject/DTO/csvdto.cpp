@@ -298,3 +298,7 @@ bool CSVDTO::validateLine(vector<CSVField> *line){
 size_t CSVDTO::getType(){
     return type;
 }
+
+void save(std::string *fname){
+
+}

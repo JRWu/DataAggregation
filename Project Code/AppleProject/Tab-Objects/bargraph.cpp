@@ -13,23 +13,29 @@
 
 using namespace std;
 
-BarGraph::BarGraph(QGraphicsView *v, CSVDTO *dto, AnalyzeCSV *p, TabSubject *s):
+BarGraph::BarGraph(QGraphicsView *v, AnalyzeCSV *p, TabSubject *s):
     TabObserver(s)
 {
-    this->dto = dto;
+    dto = 0;
+    plot = 0;
     view = v;
 
     connect(p, SIGNAL(resizeEvent(QResizeEvent*)),
             this, SLOT(onResize()));
 }
 
-void BarGraph::update(){
+void BarGraph::setDTO(CSVDTO *dto){
+    this->dto = dto;
+}
+
+void BarGraph::update(){    
+    loadValues(&years, &types, &values);
+    if(years.size() == 0) return;
+    makeGraph(&years, &types, &values);
+
     years.clear();
     types.clear();
     values.clear();
-
-    loadValues(&years, &types, &values);
-    makeGraph(&years, &types, &values);
 }
 
 void BarGraph::loadValues(QVector<QString> *years, QVector<QString> *types, QVector<QVector<double> > *values ){
@@ -89,7 +95,7 @@ void BarGraph::loadValues(QVector<QString> *years, QVector<QString> *types, QVec
 
 void BarGraph::makeGraph(QVector<QString> *years, QVector<QString> *types, QVector<QVector<double> > *values ){
     vector<string> state = subject->getState();
-
+    delete plot;
     plot = new QCustomPlot();
 
     //Add the title
@@ -170,11 +176,11 @@ void BarGraph::makeGraph(QVector<QString> *years, QVector<QString> *types, QVect
 }
 
 void BarGraph::resize(){
-    makeGraph(&years, &types, &values);
+    this->update();
 }
 
 void BarGraph::onResize(){
-    this->resize();
+    if(dto != 0) this->resize();
 }
 
 string BarGraph::getYLabel(){

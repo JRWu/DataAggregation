@@ -19,5 +19,5 @@ MainWindow::~MainWindow()
 //When the open button is clicked more into the load window
 void MainWindow::on_open_program_btn_clicked()
 {
-    this->setCentralWidget(new LoadCSV());
+    emit gotoLoad("");
 }

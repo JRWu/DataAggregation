@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'load_csv.ui'
 **
-** Created by: Qt User Interface Compiler version 5.5.1
+** Created by: Qt User Interface Compiler version 5.5.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -17,7 +17,6 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QListView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSplitter>
@@ -34,10 +33,6 @@ public:
     QPushButton *load_btn;
     QPushButton *verify_btn;
     QPushButton *analyze_btn;
-    QSplitter *splitter_2;
-    QLabel *recent_files_label;
-    QListView *recent_files_list;
-    QPushButton *loadRecentFile_btn;
     QSplitter *splitter_3;
     QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout_3;
@@ -175,39 +170,6 @@ public:
 
         gridLayout->addWidget(splitter, 0, 0, 1, 2);
 
-        splitter_2 = new QSplitter(centralwidget);
-        splitter_2->setObjectName(QStringLiteral("splitter_2"));
-        splitter_2->setOrientation(Qt::Vertical);
-        recent_files_label = new QLabel(splitter_2);
-        recent_files_label->setObjectName(QStringLiteral("recent_files_label"));
-        recent_files_label->setMinimumSize(QSize(0, 40));
-        recent_files_label->setMaximumSize(QSize(16777215, 40));
-        QFont font1;
-        font1.setFamily(QStringLiteral("Arial Black"));
-        font1.setPointSize(16);
-        font1.setBold(true);
-        font1.setWeight(75);
-        recent_files_label->setFont(font1);
-        recent_files_label->setAlignment(Qt::AlignCenter);
-        splitter_2->addWidget(recent_files_label);
-        recent_files_list = new QListView(splitter_2);
-        recent_files_list->setObjectName(QStringLiteral("recent_files_list"));
-        recent_files_list->setMaximumSize(QSize(400, 16777215));
-        splitter_2->addWidget(recent_files_list);
-        loadRecentFile_btn = new QPushButton(splitter_2);
-        loadRecentFile_btn->setObjectName(QStringLiteral("loadRecentFile_btn"));
-        loadRecentFile_btn->setMinimumSize(QSize(0, 30));
-        loadRecentFile_btn->setMaximumSize(QSize(16777215, 40));
-        QFont font2;
-        font2.setFamily(QStringLiteral("Arial Black"));
-        font2.setPointSize(12);
-        font2.setBold(true);
-        font2.setWeight(75);
-        loadRecentFile_btn->setFont(font2);
-        splitter_2->addWidget(loadRecentFile_btn);
-
-        gridLayout->addWidget(splitter_2, 1, 0, 1, 1);
-
         splitter_3 = new QSplitter(centralwidget);
         splitter_3->setObjectName(QStringLiteral("splitter_3"));
         splitter_3->setOrientation(Qt::Vertical);
@@ -220,20 +182,13 @@ public:
         lblError->setObjectName(QStringLiteral("lblError"));
         lblError->setMinimumSize(QSize(0, 20));
         lblError->setMaximumSize(QSize(16777215, 40));
-        QPalette palette4;
-        QBrush brush9(QColor(255, 0, 0, 255));
-        brush9.setStyle(Qt::SolidPattern);
-        palette4.setBrush(QPalette::Active, QPalette::WindowText, brush9);
-        palette4.setBrush(QPalette::Inactive, QPalette::WindowText, brush9);
-        palette4.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        lblError->setPalette(palette4);
-        QFont font3;
-        font3.setPointSize(16);
-        font3.setBold(true);
-        font3.setWeight(75);
-        lblError->setFont(font3);
+        QFont font1;
+        font1.setPointSize(16);
+        font1.setBold(true);
+        font1.setWeight(75);
+        lblError->setFont(font1);
         lblError->setScaledContents(false);
-        lblError->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
+        lblError->setAlignment(Qt::AlignCenter);
         lblError->setWordWrap(true);
 
         horizontalLayout_3->addWidget(lblError);
@@ -252,7 +207,12 @@ public:
         sizePolicy.setHeightForWidth(publication_btn->sizePolicy().hasHeightForWidth());
         publication_btn->setSizePolicy(sizePolicy);
         publication_btn->setMinimumSize(QSize(200, 200));
-        publication_btn->setFont(font1);
+        QFont font2;
+        font2.setFamily(QStringLiteral("Arial Black"));
+        font2.setPointSize(16);
+        font2.setBold(true);
+        font2.setWeight(75);
+        publication_btn->setFont(font2);
 
         horizontalLayout->addWidget(publication_btn);
 
@@ -261,7 +221,7 @@ public:
         sizePolicy.setHeightForWidth(grant_btn->sizePolicy().hasHeightForWidth());
         grant_btn->setSizePolicy(sizePolicy);
         grant_btn->setMinimumSize(QSize(200, 200));
-        grant_btn->setFont(font1);
+        grant_btn->setFont(font2);
 
         horizontalLayout->addWidget(grant_btn);
 
@@ -276,7 +236,7 @@ public:
         sizePolicy.setHeightForWidth(teaching_btn->sizePolicy().hasHeightForWidth());
         teaching_btn->setSizePolicy(sizePolicy);
         teaching_btn->setMinimumSize(QSize(200, 200));
-        teaching_btn->setFont(font1);
+        teaching_btn->setFont(font2);
 
         horizontalLayout_2->addWidget(teaching_btn);
 
@@ -285,13 +245,13 @@ public:
         sizePolicy.setHeightForWidth(presentation_btn->sizePolicy().hasHeightForWidth());
         presentation_btn->setSizePolicy(sizePolicy);
         presentation_btn->setMinimumSize(QSize(200, 200));
-        presentation_btn->setFont(font1);
+        presentation_btn->setFont(font2);
 
         horizontalLayout_2->addWidget(presentation_btn);
 
         splitter_3->addWidget(layoutWidget2);
 
-        gridLayout->addWidget(splitter_3, 1, 1, 1, 1);
+        gridLayout->addWidget(splitter_3, 1, 0, 1, 2);
 
         LoadCSV->setCentralWidget(centralwidget);
 
@@ -306,8 +266,6 @@ public:
         load_btn->setText(QApplication::translate("LoadCSV", "LOAD >", 0));
         verify_btn->setText(QApplication::translate("LoadCSV", "VERIFY >", 0));
         analyze_btn->setText(QApplication::translate("LoadCSV", "ANALYZE >", 0));
-        recent_files_label->setText(QApplication::translate("LoadCSV", "RECENT FILES", 0));
-        loadRecentFile_btn->setText(QApplication::translate("LoadCSV", "Load Recent File", 0));
         lblError->setText(QString());
         publication_btn->setText(QApplication::translate("LoadCSV", "PUBLICATIONS", 0));
         grant_btn->setText(QApplication::translate("LoadCSV", "GRANTS", 0));

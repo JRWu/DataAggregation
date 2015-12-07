@@ -14,7 +14,7 @@ TEMPLATE = app
 
 CONFIG += c++11
 CONFIG += static
-#CONFIG += release
+CONFIG += release
 
 SOURCES += main.cpp\
     View/load_csv.cpp \
@@ -37,7 +37,9 @@ SOURCES += main.cpp\
     CSV-Data/csvfield.cpp \
     Tab-Objects/bargraph.cpp \
     Tab-Objects/qcustomplot.cpp \
-    Tab-Objects/treelist.cpp
+    Tab-Objects/treelist.cpp \
+    View/analyzetab.cpp \
+    View/view.cpp
 
 HEADERS  += View/load_csv.h \
     View/mainwindow.h \
@@ -62,12 +64,15 @@ HEADERS  += View/load_csv.h \
     CSV-Data/csvtype.h \
     Tab-Objects/bargraph.h \
     Tab-Objects/qcustomplot.h \
-    Tab-Objects/treelist.h
+    Tab-Objects/treelist.h \
+    View/analyzetab.h \
+    View/view.h
 
 FORMS    += View/mainwindow.ui \
     View/load_csv.ui \
     View/verify_csv.ui \
     View/analyze_csv.ui \
+    View/analyzetab.ui
 
 DISTFILES += \
     AppleProject.pro.user \

@@ -31,9 +31,10 @@ class BarGraph:public QObject, public TabObserver
     std::string getYLabel();
     std::string getYTickLabel(double v);
 public:
-    BarGraph(QGraphicsView *v, CSVDTO *dto, AnalyzeCSV *p, TabSubject *s);
+    BarGraph(QGraphicsView *v, AnalyzeCSV *p, TabSubject *s);
     void resize();
     void update();
+    void setDTO(CSVDTO *dto);
 public slots:
     void onResize();
 };

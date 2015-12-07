@@ -13,7 +13,7 @@
 
 using namespace std;
 
-LoadCSV::LoadCSV(QWidget *parent, string err) :
+LoadCSV::LoadCSV(QWidget *parent) :
 QMainWindow(parent),
 ui(new Ui::LoadCSV)
 {
@@ -22,58 +22,17 @@ ui(new Ui::LoadCSV)
     ui->analyze_btn->setDisabled(true);
     data = Data::Instance();
 
-    for(size_t i = 0; i < 4; ++i){
-        if(!data->isEmpty(i)){
-            ui->analyze_btn->setEnabled(true);
-            break;
-        }
-    }
-
-    //recentFilesModel = new QStringListModel(this);
-    //ui->recent_files_list->setSelectionRectVisible(false);
-    //ui->recent_files_list->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
-
-
     //Set up the mouse over listener
     for(size_t t = 0; t < NBUT; t++){
         this->getCSVButton((CSVType)t)->installEventFilter(this);
     }
-    setDefaultBtnTxt();
-    ui->lblError->setText(QString::fromStdString(err));
+
 }
 
 LoadCSV::~LoadCSV()
 {
     delete ui;
 }
-
-/*void LoadCSV::addRecentFile(QString)
-{
-    recentFilesList.insert(0,file);
-    recentFilesModel->setStringList(recentFilesList);
-    ui->recent_files_list->setModel(recentFilesModel);
-}*/
-
-void LoadCSV::on_loadRecentFile_btn_clicked()
-{
-    /*QString selectedString = recentFilesList[ui->recent_files_list->currentIndex().row()];
-    QStringList splitList = selectedString.split(": ");
-
-    if (!QString::compare(splitList[0],"Publications"))
-        csvType = 1;
-    else if (!QString::compare(splitList[0],"Presentations"))
-        csvType = 4;
-    else if (!QString::compare(splitList[0],"Teaching"))
-        csvType = 5;
-    else if (!QString::compare(splitList[0],"Grants"))
-        csvType = 6;
-    else
-        csvType = 0;
-
-    filename = splitList[1];*/
-}
-
 
 //Hover over button (or other things) listener.
 bool LoadCSV::eventFilter(QObject *obj, QEvent *event)
@@ -139,35 +98,31 @@ void LoadCSV::loadCSV(CSVType t){
 
         //If there are errors move to the analyze page
         if(data->hasErrors(t)){
-            ui->verify_btn->setEnabled(true);
-            this->setCentralWidget(new VerifyCSV(t));
+            ui->analyze_btn->setEnabled(true);
+            emit gotoVerify(t);
         }
         else{
             //If there are valid lines go to analyze
             if(data->isEmpty(t)){
-                ui->lblError->setText("  Error: CSV has no valiad data. File Removed.");
+                setError(NODATA);
             }
-            else{
-                //TODO Save CSV
+            else{               
                 ui->analyze_btn->setEnabled(true);
-                AnalyzeCSV *acsv = new AnalyzeCSV();
-                this->setCentralWidget(acsv);
-                acsv->show();
-                acsv->doneloading();
+                emit gotoAnalyze(t);
             }
         }
     }
     catch(error::missing_header_error){
-        ui->lblError->setText("  Error: File is missing mandatory headers");
+        setError(MISSINGHEADER);
     }
     catch(io::error::can_not_open_file){
-        ui->lblError->setText("  Error: Cannot read from file");
+        setError(CANTREADFILE);
     }
     catch(error::csv_format_error){
-        ui->lblError->setText("  Error: CSV formatting is not as expcectd");
+        setError(CSVFORMAT);
     }
     catch(error::duplicate_header_error){
-        ui->lblError->setText("  Error: CSV has duplicate header");
+        setError(DUPLICATEHEADER);
     }
 }
 
@@ -183,9 +138,29 @@ string LoadCSV::getFile(){
 
 void LoadCSV::on_analyze_btn_clicked()
 {
-    ui->analyze_btn->setEnabled(true);
-    AnalyzeCSV *acsv = new AnalyzeCSV();
-    this->setCentralWidget(acsv);
-    acsv->show();
-    acsv->doneloading();
+    emit gotoAnalyze();
+}
+
+void LoadCSV::setError(ErrorType t){
+    QLabel *err = ui->lblError;
+    switch(t){
+        case NODATA:
+            err->setText("  Error: CSV has no valiad data. File Removed.");
+            break;
+        case MISSINGHEADER:
+            err->setText("  Error: File is missing mandatory headers.");
+            break;
+        case CANTREADFILE:
+            err->setText("  Error: Cannot read from file.");
+            break;
+        case CSVFORMAT:
+            err->setText("  Error: CSV formatting is not as expcectd.");
+            break;
+        case DUPLICATEHEADER:
+            err->setText("  Error: CSV has duplicate header");
+            break;
+        case NONE:
+            err->setText("");
+            break;
+    }
 }
