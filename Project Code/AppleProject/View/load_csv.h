@@ -62,9 +62,9 @@ private:
 protected:
 
 signals:
-    gotoVerify(CSVType t);
-    gotoAnalyze(CSVType t);
-    gotoAnalyze();
+    void gotoVerify(CSVType t);
+    void gotoAnalyze(CSVType t);
+    void gotoAnalyze();
 private slots:
     void on_analyze_btn_clicked();
 };
