@@ -1,7 +1,7 @@
 #ifndef FILTERADAPTER_H
 #define FILTERADAPTER_H
 
-/* An adpated that turns a valid csv line into a form
+/* An adaptor that turns a valid csv line into a form
  * that we can check against a filter object.
  *
  * The filter object will test that the data on the line

@@ -2,7 +2,7 @@
 #define CSVFEILDVALIDATOR
 
 /**
-  Inteface for the functions that will be validate the data we pull from each csv.
+  Interface for the functions that will be validate the data we pull from each csv.
 
   A class will need to be implemented for each unique type of data that will need to
   be validated.
