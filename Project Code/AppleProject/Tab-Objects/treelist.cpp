@@ -181,7 +181,7 @@ string TreeList::makeRootHeader(vector<string> *fv){
 
     result += "\nDepartment of ";
     result += *dto->getDomain();
-    result += "\nDate Ranger Selected:\n";
+    result += "\nDate Range Selected:\n";
     result += fv->at(0);
     result += "-Jan     ";
     result += fv->at(1);
