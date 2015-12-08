@@ -12,6 +12,8 @@ View::View()
 {
     m = new MainWindow();
 
+    this->setGeometry(10,30,1060,700);
+
     this->insertWidget(0, m);
     this->show();
 

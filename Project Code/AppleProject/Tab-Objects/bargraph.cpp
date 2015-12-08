@@ -2,6 +2,7 @@
 
 #include <QString>
 #include <QGraphicsScene>
+#include <QPushButton>
 
 #include <algorithm>
 
@@ -13,15 +14,17 @@
 
 using namespace std;
 
-BarGraph::BarGraph(QGraphicsView *v, AnalyzeCSV *p, TabSubject *s):
+BarGraph::BarGraph(QGraphicsView *v, AnalyzeCSV *p, TabSubject *s, QPushButton *btn):
     TabObserver(s)
 {
     dto = 0;
     plot = 0;
     view = v;
+    an = p;
 
     connect(p, SIGNAL(resizeEvent(QResizeEvent*)),
             this, SLOT(onResize()));
+    connect(btn,SIGNAL(clicked(bool)),this,SLOT(saveGraph()));
 }
 
 void BarGraph::setDTO(CSVDTO *dto){
@@ -213,4 +216,17 @@ string BarGraph::getYTickLabel(double v){
 
     result = to_string((unsigned long long) v) + result;
     return result;
+}
+
+void BarGraph::saveGraph(){
+    if(plot == 0) return;
+
+    QString f = QFileDialog::getSaveFileName(an,
+                                            tr("Save File"),        // Dialog for prompt
+                                            "C://",                 // Default folder to open
+                                            "PNG Files (*.png)"     // File extension to filter for
+                                            );
+    if(f.toStdString() == "") return;
+
+    plot->savePng(f);
 }

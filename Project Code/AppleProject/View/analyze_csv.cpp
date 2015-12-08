@@ -21,7 +21,7 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent):
     data = Data::Instance();
 
     for(size_t i = 0; i < NTAB; ++i){
-        ui->tabWidget->setTabEnabled(i, false);
+        ui->tab_widget->setTabEnabled(i, false);
 
         QComboBox *startY = getCmbStartYear(i);
         QComboBox *endY = getCmbEndYear(i);
@@ -29,11 +29,12 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent):
         QComboBox *type = getCmbType(i);
         QGraphicsView *bar = getBarGraph(i);
         QTreeWidget *tree = getTreeList(i);
+        QPushButton *btn =  getBtnExportGraph(i)  ;
 
         ComboBox *sy = new ComboBox(startY, FILTERYEAR);
         ComboBox *ey = new ComboBox(endY, FILTERYEAR, sy);
         ComboBox *n = new ComboBox(name, FILTERNAME, ey);
-        ComboBox *ty = new ComboBox(type, FILTERTYPE, n);
+        ComboBox *ty = new ComboBox(type, FILTERTYPE, n);        
 
         vector<ComboBox *> boxes;
         boxes.push_back(sy);
@@ -42,7 +43,7 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent):
         boxes.push_back(ty);
         cmbBoxes.push_back(boxes);
 
-        BarGraph *b = new BarGraph(bar, this, ty);
+        BarGraph *b = new BarGraph(bar, this, ty, btn);
         barGraphs.push_back(b);
 
         TreeList *t = new TreeList(tree, ey);
@@ -52,7 +53,7 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent):
 
 void AnalyzeCSV::loadTab(size_t i){
     ui->analyze_btn->setEnabled(true);
-    ui->tabWidget->setTabEnabled(i, true);
+    ui->tab_widget->setTabEnabled(i, true);
 
     CSVDTO *dto = data->getDTO(i);
     getLblDomain(i)->setText(QString::fromStdString(*dto->getDomain()));
@@ -75,7 +76,7 @@ void AnalyzeCSV::loadTab(size_t i){
     box->setLast();
     box->update();
 
-    ui->tabWidget->setCurrentIndex(i);
+    ui->tab_widget->setCurrentIndex(i);
 }
 
 void AnalyzeCSV::doneloading(){
@@ -103,6 +104,26 @@ AnalyzeCSV::~AnalyzeCSV()
 void AnalyzeCSV::on_load_btn_clicked()
 {
     emit gotoLoad();
+}
+
+QPushButton *AnalyzeCSV::getBtnExportGraph(std::size_t i){
+    switch(i){
+    case(0): return ui->btnExportGraphPub;
+    case(1): return ui->btnExportGraphGrant;
+    case(2): return ui->btnExportGraphPres;
+    case(3): return ui->btnExportGraphTeach;
+    }
+    return 0;
+}
+
+QPushButton *AnalyzeCSV::getBtnExportCSV(std::size_t i){
+    switch(i){
+    case(0): return ui->btnExportCSVPub;
+    case(1): return ui->btnExportCSVGrant;
+    case(2): return ui->btnExportCSVPres;
+    case(3): return ui->btnExportCSVTeach;
+    }
+    return 0;
 }
 
 QTreeWidget *AnalyzeCSV::getTreeList(size_t i){

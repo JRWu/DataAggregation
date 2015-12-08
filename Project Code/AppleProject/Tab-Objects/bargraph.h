@@ -14,6 +14,7 @@ class CSVDTO;
 class QGraphicsView;
 class QCustomPlot;
 class AnalyzeCSV;
+class QPushButton;
 
 class BarGraph:public QObject, public TabObserver
 {
@@ -22,6 +23,7 @@ class BarGraph:public QObject, public TabObserver
     QVector<QString> years, types;
     QVector<QVector<double>> values;
 
+    AnalyzeCSV *an;
     QGraphicsView *view;
     QCustomPlot *plot = 0;
     CSVDTO *dto;
@@ -31,12 +33,13 @@ class BarGraph:public QObject, public TabObserver
     std::string getYLabel();
     std::string getYTickLabel(double v);
 public:
-    BarGraph(QGraphicsView *v, AnalyzeCSV *p, TabSubject *s);
+    BarGraph(QGraphicsView *v, AnalyzeCSV *p, TabSubject *s, QPushButton *btn);
     void resize();
     void update();
     void setDTO(CSVDTO *dto);
 public slots:
     void onResize();
+    void saveGraph();
 };
 
 #endif // BARGRAPH_H

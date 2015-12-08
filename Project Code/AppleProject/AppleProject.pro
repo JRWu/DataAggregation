@@ -14,7 +14,7 @@ TEMPLATE = app
 
 CONFIG += c++11
 CONFIG += static
-CONFIG += release
+#CONFIG += release
 
 SOURCES += main.cpp\
     View/load_csv.cpp \

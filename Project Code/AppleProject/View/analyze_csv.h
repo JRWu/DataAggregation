@@ -20,6 +20,7 @@ class QLabel;
 class QGraphicsView;
 class QTreeWidget;
 class TreeList;
+class QPushButton;
 
 namespace Ui {
 class AnalyzeCSV;
@@ -34,6 +35,8 @@ public:
     void doneloading();
     ~AnalyzeCSV();
     void loadTab(std::size_t i);
+    QPushButton *getBtnExportCSV(std::size_t i);
+    QPushButton *getBtnExportGraph(std::size_t i);
 signals:
     //Capture a resize event
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
