@@ -67,6 +67,7 @@ SOURCES       = main.cpp \
 		Tab-Objects\treelist.cpp \
 		View\analyzetab.cpp \
 		View\view.cpp \
+		CSV-Parser\csvsaver.cpp \
 		appleproject_plugin_import.cpp release\qrc_apple_resource.cpp \
 		release\moc_load_csv.cpp \
 		release\moc_mainwindow.cpp \
@@ -102,6 +103,7 @@ OBJECTS       = release/main.o \
 		release/treelist.o \
 		release/analyzetab.o \
 		release/view.o \
+		release/csvsaver.o \
 		release/appleproject_plugin_import.o \
 		release/qrc_apple_resource.o \
 		release/moc_load_csv.o \
@@ -144,7 +146,8 @@ DIST          = AppleProject.pro.user \
 		Tab-Objects\qcustomplot.h \
 		Tab-Objects\treelist.h \
 		View\analyzetab.h \
-		View\view.h main.cpp \
+		View\view.h \
+		CSV-Parser\csvsaver.h main.cpp \
 		View\load_csv.cpp \
 		View\mainwindow.cpp \
 		Utility\stringfunctions.cpp \
@@ -168,6 +171,7 @@ DIST          = AppleProject.pro.user \
 		Tab-Objects\treelist.cpp \
 		View\analyzetab.cpp \
 		View\view.cpp \
+		CSV-Parser\csvsaver.cpp \
 		appleproject_plugin_import.cpp
 QMAKE_TARGET  = AppleProject
 DESTDIR        = release\ #avoid trailing-slash linebreak
@@ -207,7 +211,7 @@ dist:
 	$(ZIP) AppleProject.zip $(SOURCES) $(DIST) AppleProject.pro D:\Qt\Static\5.5.0\mkspecs\features\spec_pre.prf D:\Qt\Static\5.5.0\mkspecs\qdevice.pri D:\Qt\Static\5.5.0\mkspecs\features\device_config.prf D:\Qt\Static\5.5.0\mkspecs\qconfig.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_axbase.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_axbase_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_axcontainer.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_axcontainer_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_axserver.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_axserver_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_bootstrap_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_concurrent.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_concurrent_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_core.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_core_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_gui.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_gui_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_network.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_network_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_opengl.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_opengl_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_openglextensions.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_openglextensions_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_platformsupport_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_printsupport.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_printsupport_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_qml.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_qml_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_qmldevtools_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_qmltest.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_qmltest_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_quick.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_quick_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_quickparticles_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_quickwidgets.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_quickwidgets_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_serialport.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_serialport_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_sql.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_sql_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_svg.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_svg_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_testlib.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_testlib_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_widgets.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_widgets_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_xml.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_xml_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_xmlpatterns.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_lib_xmlpatterns_private.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qdds.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qgenericbearer.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qicns.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qico.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qjp2.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qminimal.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qmldbg_qtquick2.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qmldbg_tcp.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qmng.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qnativewifibearer.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qoffscreen.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qsvg.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qsvgicon.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qtga.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qtiff.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qtuiotouchplugin.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qwbmp.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qwebp.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_qwindows.pri D:\Qt\Static\5.5.0\mkspecs\modules\qt_plugin_windowsprintersupport.pri D:\Qt\Static\5.5.0\mkspecs\features\qt_functions.prf D:\Qt\Static\5.5.0\mkspecs\features\qt_config.prf D:\Qt\Static\5.5.0\mkspecs\features\win32\qt_config.prf D:\Qt\Static\5.5.0\mkspecs\win32-g++\qmake.conf D:\Qt\Static\5.5.0\mkspecs\features\spec_post.prf D:\Qt\Static\5.5.0\mkspecs\features\exclusive_builds.prf D:\Qt\Static\5.5.0\mkspecs\features\default_pre.prf D:\Qt\Static\5.5.0\mkspecs\features\win32\default_pre.prf D:\Qt\Static\5.5.0\mkspecs\features\resolve_config.prf D:\Qt\Static\5.5.0\mkspecs\features\exclusive_builds_post.prf D:\Qt\Static\5.5.0\mkspecs\features\default_post.prf D:\Qt\Static\5.5.0\mkspecs\features\build_pass.prf D:\Qt\Static\5.5.0\mkspecs\features\c++11.prf D:\Qt\Static\5.5.0\mkspecs\features\win32\rtti.prf D:\Qt\Static\5.5.0\mkspecs\features\precompile_header.prf D:\Qt\Static\5.5.0\mkspecs\features\warn_on.prf D:\Qt\Static\5.5.0\mkspecs\features\qt.prf D:\Qt\Static\5.5.0\mkspecs\features\resources.prf D:\Qt\Static\5.5.0\mkspecs\features\moc.prf D:\Qt\Static\5.5.0\mkspecs\features\win32\opengl.prf D:\Qt\Static\5.5.0\mkspecs\features\uic.prf D:\Qt\Static\5.5.0\mkspecs\features\win32\windows.prf D:\Qt\Static\5.5.0\mkspecs\features\testcase_targets.prf D:\Qt\Static\5.5.0\mkspecs\features\exceptions.prf D:\Qt\Static\5.5.0\mkspecs\features\yacc.prf D:\Qt\Static\5.5.0\mkspecs\features\lex.prf AppleProject.pro apple_resource.qrc D:/Qt/Static/5.5.0/lib/qtmain.prl D:/Qt/Static/5.5.0/lib/Qt5PrintSupport.prl D:/Qt/Static/5.5.0/lib/Qt5Widgets.prl D:/Qt/Static/5.5.0/lib/Qt5Gui.prl D:/Qt/Static/5.5.0/lib/Qt5Core.prl D:/Qt/Static/5.5.0/plugins/printsupport/windowsprintersupport.prl D:/Qt/Static/5.5.0/plugins/platforms/qwindows.prl D:/Qt/Static/5.5.0/plugins/imageformats/qdds.prl D:/Qt/Static/5.5.0/plugins/imageformats/qicns.prl D:/Qt/Static/5.5.0/plugins/imageformats/qico.prl D:/Qt/Static/5.5.0/plugins/imageformats/qjp2.prl D:/Qt/Static/5.5.0/plugins/imageformats/qmng.prl D:/Qt/Static/5.5.0/plugins/imageformats/qtga.prl D:/Qt/Static/5.5.0/plugins/imageformats/qtiff.prl D:/Qt/Static/5.5.0/plugins/imageformats/qwbmp.prl D:/Qt/Static/5.5.0/plugins/imageformats/qwebp.prl D:/Qt/Static/5.5.0/lib/libEGL.prl D:/Qt/Static/5.5.0/lib/libGLESv2.prl  NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\main.o release\load_csv.o release\mainwindow.o release\stringfunctions.o release\csvfieldvalidator.o release\csvlinevalidator.o release\csvdto.o release\bargraphadapter.o release\filteradapter.o release\treelistadapter.o release\data.o release\dtofilter.o release\verify_csv.o release\analyze_csv.o release\filtervalue.o release\combobox.o release\tabsubject.o release\tabobserver.o release\csvfield.o release\bargraph.o release\qcustomplot.o release\treelist.o release\analyzetab.o release\view.o release\appleproject_plugin_import.o release\qrc_apple_resource.o release\moc_load_csv.o release\moc_mainwindow.o release\moc_verify_csv.o release\moc_analyze_csv.o release\moc_combobox.o release\moc_bargraph.o release\moc_qcustomplot.o release\moc_treelist.o release\moc_analyzetab.o release\moc_view.o
+	-$(DEL_FILE) release\main.o release\load_csv.o release\mainwindow.o release\stringfunctions.o release\csvfieldvalidator.o release\csvlinevalidator.o release\csvdto.o release\bargraphadapter.o release\filteradapter.o release\treelistadapter.o release\data.o release\dtofilter.o release\verify_csv.o release\analyze_csv.o release\filtervalue.o release\combobox.o release\tabsubject.o release\tabobserver.o release\csvfield.o release\bargraph.o release\qcustomplot.o release\treelist.o release\analyzetab.o release\view.o release\csvsaver.o release\appleproject_plugin_import.o release\qrc_apple_resource.o release\moc_load_csv.o release\moc_mainwindow.o release\moc_verify_csv.o release\moc_analyze_csv.o release\moc_combobox.o release\moc_bargraph.o release\moc_qcustomplot.o release\moc_treelist.o release\moc_analyzetab.o release\moc_view.o
 
 distclean: clean 
 	-$(DEL_FILE) "D:\Documents\QTProjects\Main\team-apple\Project Code\AppleProject\appleproject_plugin_import.cpp"
@@ -2521,7 +2525,8 @@ release/csvdto.o: DTO/csvdto.cpp DTO/csvdto.h \
 		DTO/filteradapter.h \
 		CSV-Data/csvtype.h \
 		CSV-Data/csvlinevalidator.h \
-		CSV-Data/csvfieldvalidator.h
+		CSV-Data/csvfieldvalidator.h \
+		CSV-Parser/csvsaver.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\csvdto.o DTO\csvdto.cpp
 
 release/bargraphadapter.o: DTO/bargraphadapter.cpp DTO/bargraphadapter.h \
@@ -3283,6 +3288,7 @@ release/analyze_csv.o: View/analyze_csv.cpp View/analyze_csv.h \
 		D:/Qt/Static/5.5.0/include/QtWidgets/QPushButton \
 		D:/Qt/Static/5.5.0/include/QtWidgets/qpushbutton.h \
 		D:/Qt/Static/5.5.0/include/QtWidgets/qabstractbutton.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/QSpacerItem \
 		D:/Qt/Static/5.5.0/include/QtWidgets/QTabWidget \
 		D:/Qt/Static/5.5.0/include/QtWidgets/QTreeWidget \
 		D:/Qt/Static/5.5.0/include/QtWidgets/qtreewidget.h \
@@ -3444,7 +3450,8 @@ release/analyze_csv.o: View/analyze_csv.cpp View/analyze_csv.h \
 		D:/Qt/Static/5.5.0/include/QtPrintSupport/qprinterinfo.h \
 		D:/Qt/Static/5.5.0/include/QtPrintSupport/qprintpreviewwidget.h \
 		D:/Qt/Static/5.5.0/include/QtPrintSupport/qtprintsupportversion.h \
-		Tab-Objects/treelist.h
+		Tab-Objects/treelist.h \
+		CSV-Data/csvtype.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\analyze_csv.o View\analyze_csv.cpp
 
 release/filtervalue.o: Tab-Objects/filtervalue.cpp Tab-Objects/filtervalue.h \
@@ -3687,17 +3694,17 @@ release/bargraph.o: Tab-Objects/bargraph.cpp Tab-Objects/bargraph.h \
 		D:/Qt/Static/5.5.0/include/QtCore/qsharedpointer_impl.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qfont.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qpen.h \
-		Tab-Objects/qcustomplot.h \
-		D:/Qt/Static/5.5.0/include/QtCore/QPointer \
-		D:/Qt/Static/5.5.0/include/QtCore/qpointer.h \
-		D:/Qt/Static/5.5.0/include/QtWidgets/QWidget \
+		D:/Qt/Static/5.5.0/include/QtWidgets/QPushButton \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qpushbutton.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qabstractbutton.h \
+		D:/Qt/Static/5.5.0/include/QtGui/qicon.h \
+		D:/Qt/Static/5.5.0/include/QtGui/qkeysequence.h \
 		D:/Qt/Static/5.5.0/include/QtWidgets/qwidget.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qpalette.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qfontmetrics.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qfontinfo.h \
 		D:/Qt/Static/5.5.0/include/QtWidgets/qsizepolicy.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qcursor.h \
-		D:/Qt/Static/5.5.0/include/QtGui/qkeysequence.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qevent.h \
 		D:/Qt/Static/5.5.0/include/QtCore/qvariant.h \
 		D:/Qt/Static/5.5.0/include/QtCore/qmap.h \
@@ -3712,6 +3719,10 @@ release/bargraph.o: Tab-Objects/bargraph.cpp Tab-Objects/bargraph.h \
 		D:/Qt/Static/5.5.0/include/QtCore/qfiledevice.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qvector2d.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qtouchdevice.h \
+		Tab-Objects/qcustomplot.h \
+		D:/Qt/Static/5.5.0/include/QtCore/QPointer \
+		D:/Qt/Static/5.5.0/include/QtCore/qpointer.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/QWidget \
 		D:/Qt/Static/5.5.0/include/QtGui/QPainter \
 		D:/Qt/Static/5.5.0/include/QtGui/qpainter.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qtextoption.h \
@@ -3851,7 +3862,6 @@ release/bargraph.o: Tab-Objects/bargraph.cpp Tab-Objects/bargraph.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qaccessibleobject.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qaccessibleplugin.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qbitmap.h \
-		D:/Qt/Static/5.5.0/include/QtGui/qicon.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qiconengine.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qiconengineplugin.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qimageiohandler.h \
@@ -4041,13 +4051,11 @@ release/bargraph.o: Tab-Objects/bargraph.cpp Tab-Objects/bargraph.h \
 		D:/Qt/Static/5.5.0/include/QtWidgets/qundogroup.h \
 		D:/Qt/Static/5.5.0/include/QtWidgets/qundostack.h \
 		D:/Qt/Static/5.5.0/include/QtWidgets/qundoview.h \
-		D:/Qt/Static/5.5.0/include/QtWidgets/qabstractbutton.h \
 		D:/Qt/Static/5.5.0/include/QtWidgets/qbuttongroup.h \
 		D:/Qt/Static/5.5.0/include/QtWidgets/qcalendarwidget.h \
 		D:/Qt/Static/5.5.0/include/QtWidgets/qcheckbox.h \
 		D:/Qt/Static/5.5.0/include/QtWidgets/qcombobox.h \
 		D:/Qt/Static/5.5.0/include/QtWidgets/qcommandlinkbutton.h \
-		D:/Qt/Static/5.5.0/include/QtWidgets/qpushbutton.h \
 		D:/Qt/Static/5.5.0/include/QtWidgets/qdatetimeedit.h \
 		D:/Qt/Static/5.5.0/include/QtWidgets/qdial.h \
 		D:/Qt/Static/5.5.0/include/QtWidgets/qdialogbuttonbox.h \
@@ -4827,7 +4835,60 @@ release/analyzetab.o: View/analyzetab.cpp View/analyzetab.h \
 		D:/Qt/Static/5.5.0/include/QtCore/qfiledevice.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qvector2d.h \
 		D:/Qt/Static/5.5.0/include/QtGui/qtouchdevice.h \
-		ui_analyzetab.h
+		ui_analyzetab.h \
+		D:/Qt/Static/5.5.0/include/QtCore/QVariant \
+		D:/Qt/Static/5.5.0/include/QtWidgets/QAction \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qaction.h \
+		D:/Qt/Static/5.5.0/include/QtGui/qicon.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qactiongroup.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/QApplication \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qapplication.h \
+		D:/Qt/Static/5.5.0/include/QtCore/qcoreapplication.h \
+		D:/Qt/Static/5.5.0/include/QtCore/qeventloop.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qdesktopwidget.h \
+		D:/Qt/Static/5.5.0/include/QtGui/qguiapplication.h \
+		D:/Qt/Static/5.5.0/include/QtGui/qinputmethod.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/QButtonGroup \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qbuttongroup.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/QComboBox \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qcombobox.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qabstractitemdelegate.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qstyleoption.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qabstractspinbox.h \
+		D:/Qt/Static/5.5.0/include/QtGui/qvalidator.h \
+		D:/Qt/Static/5.5.0/include/QtCore/qregularexpression.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qslider.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qabstractslider.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qstyle.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qtabbar.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qtabwidget.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qrubberband.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qframe.h \
+		D:/Qt/Static/5.5.0/include/QtCore/qabstractitemmodel.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/QGraphicsView \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qgraphicsview.h \
+		D:/Qt/Static/5.5.0/include/QtGui/qpainter.h \
+		D:/Qt/Static/5.5.0/include/QtGui/qtextoption.h \
+		D:/Qt/Static/5.5.0/include/QtGui/qpen.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qscrollarea.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qabstractscrollarea.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qgraphicsscene.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/QHBoxLayout \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qboxlayout.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qlayout.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qlayoutitem.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qgridlayout.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/QHeaderView \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qheaderview.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qabstractitemview.h \
+		D:/Qt/Static/5.5.0/include/QtCore/qitemselectionmodel.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/QLabel \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qlabel.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/QTreeWidget \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qtreewidget.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qtreeview.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/qtreewidgetitemiterator.h \
+		D:/Qt/Static/5.5.0/include/QtWidgets/QVBoxLayout
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\analyzetab.o View\analyzetab.cpp
 
 release/view.o: View/view.cpp View/view.h \
@@ -5159,6 +5220,10 @@ release/view.o: View/view.cpp View/view.h \
 		View/verify_csv.h \
 		CSV-Data/csvtype.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\view.o View\view.cpp
+
+release/csvsaver.o: CSV-Parser/csvsaver.cpp CSV-Parser/csvsaver.h \
+		CSV-Data/csvfield.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\csvsaver.o CSV-Parser\csvsaver.cpp
 
 release/appleproject_plugin_import.o: appleproject_plugin_import.cpp D:/Qt/Static/5.5.0/include/QtCore/QtPlugin \
 		D:/Qt/Static/5.5.0/include/QtCore/qplugin.h \

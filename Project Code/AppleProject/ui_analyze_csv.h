@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'analyze_csv.ui'
 **
-** Created by: Qt User Interface Compiler version 5.5.1
+** Created by: Qt User Interface Compiler version 5.5.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -21,6 +21,7 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTreeWidget>
 #include <QtWidgets/QVBoxLayout>
@@ -33,7 +34,11 @@ class Ui_AnalyzeCSV
 public:
     QWidget *centralwidget;
     QGridLayout *gridLayout;
-    QTabWidget *tabWidget;
+    QHBoxLayout *navigation_area;
+    QPushButton *load_btn;
+    QPushButton *verify_btn;
+    QPushButton *analyze_btn;
+    QTabWidget *tab_widget;
     QWidget *pub_tab;
     QGridLayout *gridLayout_3;
     QVBoxLayout *verticalLayout_2;
@@ -43,6 +48,9 @@ public:
     QComboBox *end_date_combo_pub;
     QLabel *domain_lbl_pub;
     QTreeWidget *tree_list_pub;
+    QHBoxLayout *horizontalLayout_11;
+    QSpacerItem *horizontalSpacer;
+    QPushButton *btnExportCSVPub;
     QVBoxLayout *verticalLayout;
     QLabel *graph_lbl_pub;
     QHBoxLayout *horizontalLayout_14;
@@ -52,6 +60,9 @@ public:
     QLabel *type_lbl_pub;
     QComboBox *type_combo_pub;
     QGraphicsView *graph_area_pub;
+    QHBoxLayout *horizontalLayout_25;
+    QSpacerItem *horizontalSpacer_8;
+    QPushButton *btnExportGraphPub;
     QWidget *grant_tab;
     QGridLayout *gridLayout_4;
     QVBoxLayout *verticalLayout_11;
@@ -61,6 +72,9 @@ public:
     QComboBox *end_date_combo_grnt;
     QLabel *domain_lbl_grnt;
     QTreeWidget *tree_list_grnt;
+    QHBoxLayout *horizontalLayout_12;
+    QSpacerItem *horizontalSpacer_2;
+    QPushButton *btnExportCSVGrant;
     QVBoxLayout *verticalLayout_12;
     QLabel *graph_lbl_grnt;
     QHBoxLayout *horizontalLayout_2;
@@ -70,8 +84,14 @@ public:
     QLabel *type_lbl_grnt;
     QComboBox *type_combo_grnt;
     QGraphicsView *graph_area_grnt;
+    QHBoxLayout *horizontalLayout_24;
+    QSpacerItem *horizontalSpacer_7;
+    QPushButton *btnExportGraphGrant;
     QWidget *present_tab;
     QGridLayout *gridLayout_2;
+    QHBoxLayout *horizontalLayout_17;
+    QSpacerItem *horizontalSpacer_3;
+    QPushButton *btnExportCSVPres;
     QVBoxLayout *verticalLayout_9;
     QHBoxLayout *horizontalLayout_8;
     QLabel *date_filter_lbl_pres;
@@ -88,8 +108,14 @@ public:
     QLabel *type_lbl_pres;
     QComboBox *type_combo_pres;
     QGraphicsView *graph_area_pres;
+    QHBoxLayout *horizontalLayout_23;
+    QSpacerItem *horizontalSpacer_6;
+    QPushButton *btnExportGraphPres;
     QWidget *teach_tab;
     QGridLayout *gridLayout_5;
+    QHBoxLayout *horizontalLayout_18;
+    QSpacerItem *horizontalSpacer_4;
+    QPushButton *btnExportCSVTeach;
     QVBoxLayout *verticalLayout_10;
     QHBoxLayout *horizontalLayout_9;
     QLabel *date_filter_lbl_teach;
@@ -106,48 +132,100 @@ public:
     QLabel *program_lbl_teach;
     QComboBox *program_combo_teach;
     QGraphicsView *graph_area_teach;
-    QHBoxLayout *navigation_area;
-    QPushButton *load_btn;
-    QPushButton *verify_btn;
-    QPushButton *analyze_btn;
+    QHBoxLayout *horizontalLayout_20;
+    QSpacerItem *horizontalSpacer_5;
+    QPushButton *btnExportGraphTeach;
 
     void setupUi(QMainWindow *AnalyzeCSV)
     {
         if (AnalyzeCSV->objectName().isEmpty())
             AnalyzeCSV->setObjectName(QStringLiteral("AnalyzeCSV"));
-        AnalyzeCSV->resize(1000, 640);
+        AnalyzeCSV->resize(1060, 698);
         AnalyzeCSV->setMinimumSize(QSize(800, 600));
         centralwidget = new QWidget(AnalyzeCSV);
         centralwidget->setObjectName(QStringLiteral("centralwidget"));
         centralwidget->setMinimumSize(QSize(800, 600));
         gridLayout = new QGridLayout(centralwidget);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        tabWidget = new QTabWidget(centralwidget);
-        tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tabWidget->setMinimumSize(QSize(0, 0));
+        navigation_area = new QHBoxLayout();
+        navigation_area->setObjectName(QStringLiteral("navigation_area"));
+        navigation_area->setSizeConstraint(QLayout::SetDefaultConstraint);
+        load_btn = new QPushButton(centralwidget);
+        load_btn->setObjectName(QStringLiteral("load_btn"));
+        QPalette palette;
+        QBrush brush(QColor(170, 0, 0, 255));
+        brush.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Active, QPalette::ButtonText, brush);
+        palette.setBrush(QPalette::Inactive, QPalette::ButtonText, brush);
+        QBrush brush1(QColor(120, 120, 120, 255));
+        brush1.setStyle(Qt::SolidPattern);
+        palette.setBrush(QPalette::Disabled, QPalette::ButtonText, brush1);
+        load_btn->setPalette(palette);
         QFont font;
         font.setFamily(QStringLiteral("Arial Black"));
-        font.setPointSize(8);
+        font.setPointSize(28);
         font.setBold(true);
         font.setWeight(75);
-        tabWidget->setFont(font);
-        tabWidget->setAutoFillBackground(true);
-        tabWidget->setTabPosition(QTabWidget::West);
-        tabWidget->setTabShape(QTabWidget::Triangular);
+        load_btn->setFont(font);
+        load_btn->setFlat(true);
+
+        navigation_area->addWidget(load_btn);
+
+        verify_btn = new QPushButton(centralwidget);
+        verify_btn->setObjectName(QStringLiteral("verify_btn"));
+        QPalette palette1;
+        QBrush brush2(QColor(229, 191, 0, 255));
+        brush2.setStyle(Qt::SolidPattern);
+        palette1.setBrush(QPalette::Active, QPalette::ButtonText, brush2);
+        palette1.setBrush(QPalette::Inactive, QPalette::ButtonText, brush2);
+        palette1.setBrush(QPalette::Disabled, QPalette::ButtonText, brush1);
+        verify_btn->setPalette(palette1);
+        verify_btn->setFont(font);
+        verify_btn->setFlat(true);
+
+        navigation_area->addWidget(verify_btn);
+
+        analyze_btn = new QPushButton(centralwidget);
+        analyze_btn->setObjectName(QStringLiteral("analyze_btn"));
+        QPalette palette2;
+        QBrush brush3(QColor(0, 170, 0, 255));
+        brush3.setStyle(Qt::SolidPattern);
+        palette2.setBrush(QPalette::Active, QPalette::ButtonText, brush3);
+        palette2.setBrush(QPalette::Inactive, QPalette::ButtonText, brush3);
+        palette2.setBrush(QPalette::Disabled, QPalette::ButtonText, brush1);
+        analyze_btn->setPalette(palette2);
+        analyze_btn->setFont(font);
+        analyze_btn->setFlat(true);
+
+        navigation_area->addWidget(analyze_btn);
+
+
+        gridLayout->addLayout(navigation_area, 0, 0, 1, 1);
+
+        tab_widget = new QTabWidget(centralwidget);
+        tab_widget->setObjectName(QStringLiteral("tab_widget"));
+        tab_widget->setMinimumSize(QSize(0, 0));
+        QFont font1;
+        font1.setFamily(QStringLiteral("Arial Black"));
+        font1.setPointSize(8);
+        font1.setBold(true);
+        font1.setWeight(75);
+        tab_widget->setFont(font1);
+        tab_widget->setAutoFillBackground(true);
+        tab_widget->setTabPosition(QTabWidget::West);
+        tab_widget->setTabShape(QTabWidget::Triangular);
         pub_tab = new QWidget();
         pub_tab->setObjectName(QStringLiteral("pub_tab"));
-        QPalette palette;
-        QBrush brush(QColor(255, 255, 255, 255));
-        brush.setStyle(Qt::SolidPattern);
-        palette.setBrush(QPalette::Active, QPalette::Base, brush);
-        QBrush brush1(QColor(170, 0, 0, 255));
-        brush1.setStyle(Qt::SolidPattern);
-        palette.setBrush(QPalette::Active, QPalette::Window, brush1);
-        palette.setBrush(QPalette::Inactive, QPalette::Base, brush);
-        palette.setBrush(QPalette::Inactive, QPalette::Window, brush1);
-        palette.setBrush(QPalette::Disabled, QPalette::Base, brush1);
-        palette.setBrush(QPalette::Disabled, QPalette::Window, brush1);
-        pub_tab->setPalette(palette);
+        QPalette palette3;
+        QBrush brush4(QColor(255, 255, 255, 255));
+        brush4.setStyle(Qt::SolidPattern);
+        palette3.setBrush(QPalette::Active, QPalette::Base, brush4);
+        palette3.setBrush(QPalette::Active, QPalette::Window, brush);
+        palette3.setBrush(QPalette::Inactive, QPalette::Base, brush4);
+        palette3.setBrush(QPalette::Inactive, QPalette::Window, brush);
+        palette3.setBrush(QPalette::Disabled, QPalette::Base, brush);
+        palette3.setBrush(QPalette::Disabled, QPalette::Window, brush);
+        pub_tab->setPalette(palette3);
         pub_tab->setAutoFillBackground(true);
         gridLayout_3 = new QGridLayout(pub_tab);
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
@@ -159,13 +237,11 @@ public:
         date_filter_lbl_pub->setObjectName(QStringLiteral("date_filter_lbl_pub"));
         date_filter_lbl_pub->setMinimumSize(QSize(75, 0));
         date_filter_lbl_pub->setMaximumSize(QSize(75, 16777215));
-        QPalette palette1;
-        palette1.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette1.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        QBrush brush2(QColor(120, 120, 120, 255));
-        brush2.setStyle(Qt::SolidPattern);
-        palette1.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        date_filter_lbl_pub->setPalette(palette1);
+        QPalette palette4;
+        palette4.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette4.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette4.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        date_filter_lbl_pub->setPalette(palette4);
 
         horizontalLayout->addWidget(date_filter_lbl_pub);
 
@@ -185,11 +261,11 @@ public:
 
         domain_lbl_pub = new QLabel(pub_tab);
         domain_lbl_pub->setObjectName(QStringLiteral("domain_lbl_pub"));
-        QPalette palette2;
-        palette2.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette2.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette2.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        domain_lbl_pub->setPalette(palette2);
+        QPalette palette5;
+        palette5.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette5.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette5.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        domain_lbl_pub->setPalette(palette5);
         domain_lbl_pub->setAlignment(Qt::AlignCenter);
 
         verticalLayout_2->addWidget(domain_lbl_pub);
@@ -199,21 +275,42 @@ public:
         __qtreewidgetitem->setText(0, QStringLiteral("1"));
         tree_list_pub->setHeaderItem(__qtreewidgetitem);
         tree_list_pub->setObjectName(QStringLiteral("tree_list_pub"));
+        tree_list_pub->setSortingEnabled(true);
 
         verticalLayout_2->addWidget(tree_list_pub);
 
 
         gridLayout_3->addLayout(verticalLayout_2, 0, 0, 1, 1);
 
+        horizontalLayout_11 = new QHBoxLayout();
+        horizontalLayout_11->setObjectName(QStringLiteral("horizontalLayout_11"));
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_11->addItem(horizontalSpacer);
+
+        btnExportCSVPub = new QPushButton(pub_tab);
+        btnExportCSVPub->setObjectName(QStringLiteral("btnExportCSVPub"));
+        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy.setHorizontalStretch(1);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(btnExportCSVPub->sizePolicy().hasHeightForWidth());
+        btnExportCSVPub->setSizePolicy(sizePolicy);
+        btnExportCSVPub->setMinimumSize(QSize(150, 0));
+
+        horizontalLayout_11->addWidget(btnExportCSVPub);
+
+
+        gridLayout_3->addLayout(horizontalLayout_11, 1, 0, 1, 1);
+
         verticalLayout = new QVBoxLayout();
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         graph_lbl_pub = new QLabel(pub_tab);
         graph_lbl_pub->setObjectName(QStringLiteral("graph_lbl_pub"));
-        QPalette palette3;
-        palette3.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette3.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette3.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        graph_lbl_pub->setPalette(palette3);
+        QPalette palette6;
+        palette6.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette6.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette6.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        graph_lbl_pub->setPalette(palette6);
         graph_lbl_pub->setAlignment(Qt::AlignCenter);
 
         verticalLayout->addWidget(graph_lbl_pub);
@@ -223,11 +320,11 @@ public:
         name_lbl_pub = new QLabel(pub_tab);
         name_lbl_pub->setObjectName(QStringLiteral("name_lbl_pub"));
         name_lbl_pub->setMaximumSize(QSize(100, 40));
-        QPalette palette4;
-        palette4.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette4.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette4.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        name_lbl_pub->setPalette(palette4);
+        QPalette palette7;
+        palette7.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette7.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette7.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        name_lbl_pub->setPalette(palette7);
 
         horizontalLayout_14->addWidget(name_lbl_pub);
 
@@ -245,11 +342,11 @@ public:
         type_lbl_pub = new QLabel(pub_tab);
         type_lbl_pub->setObjectName(QStringLiteral("type_lbl_pub"));
         type_lbl_pub->setMaximumSize(QSize(100, 40));
-        QPalette palette5;
-        palette5.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette5.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette5.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        type_lbl_pub->setPalette(palette5);
+        QPalette palette8;
+        palette8.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette8.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette8.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        type_lbl_pub->setPalette(palette8);
 
         horizontalLayout_13->addWidget(type_lbl_pub);
 
@@ -269,22 +366,37 @@ public:
 
         verticalLayout->addWidget(graph_area_pub);
 
+        horizontalLayout_25 = new QHBoxLayout();
+        horizontalLayout_25->setObjectName(QStringLiteral("horizontalLayout_25"));
+        horizontalSpacer_8 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout_3->addLayout(verticalLayout, 0, 1, 1, 1);
+        horizontalLayout_25->addItem(horizontalSpacer_8);
 
-        tabWidget->addTab(pub_tab, QString());
+        btnExportGraphPub = new QPushButton(pub_tab);
+        btnExportGraphPub->setObjectName(QStringLiteral("btnExportGraphPub"));
+        btnExportGraphPub->setMinimumSize(QSize(150, 0));
+
+        horizontalLayout_25->addWidget(btnExportGraphPub);
+
+
+        verticalLayout->addLayout(horizontalLayout_25);
+
+
+        gridLayout_3->addLayout(verticalLayout, 0, 1, 2, 1);
+
+        tab_widget->addTab(pub_tab, QString());
         grant_tab = new QWidget();
         grant_tab->setObjectName(QStringLiteral("grant_tab"));
-        QPalette palette6;
-        palette6.setBrush(QPalette::Active, QPalette::Base, brush);
-        QBrush brush3(QColor(0, 85, 0, 255));
-        brush3.setStyle(Qt::SolidPattern);
-        palette6.setBrush(QPalette::Active, QPalette::Window, brush3);
-        palette6.setBrush(QPalette::Inactive, QPalette::Base, brush);
-        palette6.setBrush(QPalette::Inactive, QPalette::Window, brush3);
-        palette6.setBrush(QPalette::Disabled, QPalette::Base, brush3);
-        palette6.setBrush(QPalette::Disabled, QPalette::Window, brush3);
-        grant_tab->setPalette(palette6);
+        QPalette palette9;
+        palette9.setBrush(QPalette::Active, QPalette::Base, brush4);
+        QBrush brush5(QColor(0, 85, 0, 255));
+        brush5.setStyle(Qt::SolidPattern);
+        palette9.setBrush(QPalette::Active, QPalette::Window, brush5);
+        palette9.setBrush(QPalette::Inactive, QPalette::Base, brush4);
+        palette9.setBrush(QPalette::Inactive, QPalette::Window, brush5);
+        palette9.setBrush(QPalette::Disabled, QPalette::Base, brush5);
+        palette9.setBrush(QPalette::Disabled, QPalette::Window, brush5);
+        grant_tab->setPalette(palette9);
         grant_tab->setAutoFillBackground(true);
         gridLayout_4 = new QGridLayout(grant_tab);
         gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
@@ -296,11 +408,11 @@ public:
         date_filter_lbl_grnt->setObjectName(QStringLiteral("date_filter_lbl_grnt"));
         date_filter_lbl_grnt->setMinimumSize(QSize(75, 0));
         date_filter_lbl_grnt->setMaximumSize(QSize(75, 16777215));
-        QPalette palette7;
-        palette7.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette7.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette7.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        date_filter_lbl_grnt->setPalette(palette7);
+        QPalette palette10;
+        palette10.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette10.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette10.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        date_filter_lbl_grnt->setPalette(palette10);
 
         horizontalLayout_10->addWidget(date_filter_lbl_grnt);
 
@@ -320,11 +432,11 @@ public:
 
         domain_lbl_grnt = new QLabel(grant_tab);
         domain_lbl_grnt->setObjectName(QStringLiteral("domain_lbl_grnt"));
-        QPalette palette8;
-        palette8.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette8.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette8.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        domain_lbl_grnt->setPalette(palette8);
+        QPalette palette11;
+        palette11.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette11.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette11.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        domain_lbl_grnt->setPalette(palette11);
         domain_lbl_grnt->setAlignment(Qt::AlignCenter);
 
         verticalLayout_11->addWidget(domain_lbl_grnt);
@@ -334,21 +446,42 @@ public:
         __qtreewidgetitem1->setText(0, QStringLiteral("1"));
         tree_list_grnt->setHeaderItem(__qtreewidgetitem1);
         tree_list_grnt->setObjectName(QStringLiteral("tree_list_grnt"));
+        tree_list_grnt->setSortingEnabled(true);
 
         verticalLayout_11->addWidget(tree_list_grnt);
 
 
         gridLayout_4->addLayout(verticalLayout_11, 0, 0, 1, 1);
 
+        horizontalLayout_12 = new QHBoxLayout();
+        horizontalLayout_12->setObjectName(QStringLiteral("horizontalLayout_12"));
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_12->addItem(horizontalSpacer_2);
+
+        btnExportCSVGrant = new QPushButton(grant_tab);
+        btnExportCSVGrant->setObjectName(QStringLiteral("btnExportCSVGrant"));
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(btnExportCSVGrant->sizePolicy().hasHeightForWidth());
+        btnExportCSVGrant->setSizePolicy(sizePolicy1);
+        btnExportCSVGrant->setMinimumSize(QSize(150, 0));
+
+        horizontalLayout_12->addWidget(btnExportCSVGrant);
+
+
+        gridLayout_4->addLayout(horizontalLayout_12, 1, 0, 1, 1);
+
         verticalLayout_12 = new QVBoxLayout();
         verticalLayout_12->setObjectName(QStringLiteral("verticalLayout_12"));
         graph_lbl_grnt = new QLabel(grant_tab);
         graph_lbl_grnt->setObjectName(QStringLiteral("graph_lbl_grnt"));
-        QPalette palette9;
-        palette9.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette9.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette9.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        graph_lbl_grnt->setPalette(palette9);
+        QPalette palette12;
+        palette12.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette12.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette12.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        graph_lbl_grnt->setPalette(palette12);
         graph_lbl_grnt->setAlignment(Qt::AlignCenter);
 
         verticalLayout_12->addWidget(graph_lbl_grnt);
@@ -358,11 +491,11 @@ public:
         name_lbl_grnt = new QLabel(grant_tab);
         name_lbl_grnt->setObjectName(QStringLiteral("name_lbl_grnt"));
         name_lbl_grnt->setMaximumSize(QSize(100, 40));
-        QPalette palette10;
-        palette10.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette10.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette10.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        name_lbl_grnt->setPalette(palette10);
+        QPalette palette13;
+        palette13.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette13.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette13.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        name_lbl_grnt->setPalette(palette13);
 
         horizontalLayout_2->addWidget(name_lbl_grnt);
 
@@ -379,11 +512,11 @@ public:
         type_lbl_grnt = new QLabel(grant_tab);
         type_lbl_grnt->setObjectName(QStringLiteral("type_lbl_grnt"));
         type_lbl_grnt->setMaximumSize(QSize(100, 40));
-        QPalette palette11;
-        palette11.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette11.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette11.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        type_lbl_grnt->setPalette(palette11);
+        QPalette palette14;
+        palette14.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette14.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette14.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        type_lbl_grnt->setPalette(palette14);
 
         horizontalLayout_3->addWidget(type_lbl_grnt);
 
@@ -401,25 +534,57 @@ public:
 
         verticalLayout_12->addWidget(graph_area_grnt);
 
+        horizontalLayout_24 = new QHBoxLayout();
+        horizontalLayout_24->setObjectName(QStringLiteral("horizontalLayout_24"));
+        horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout_4->addLayout(verticalLayout_12, 0, 1, 1, 1);
+        horizontalLayout_24->addItem(horizontalSpacer_7);
 
-        tabWidget->addTab(grant_tab, QString());
+        btnExportGraphGrant = new QPushButton(grant_tab);
+        btnExportGraphGrant->setObjectName(QStringLiteral("btnExportGraphGrant"));
+        sizePolicy1.setHeightForWidth(btnExportGraphGrant->sizePolicy().hasHeightForWidth());
+        btnExportGraphGrant->setSizePolicy(sizePolicy1);
+        btnExportGraphGrant->setMinimumSize(QSize(150, 0));
+
+        horizontalLayout_24->addWidget(btnExportGraphGrant);
+
+
+        verticalLayout_12->addLayout(horizontalLayout_24);
+
+
+        gridLayout_4->addLayout(verticalLayout_12, 0, 1, 2, 1);
+
+        tab_widget->addTab(grant_tab, QString());
         present_tab = new QWidget();
         present_tab->setObjectName(QStringLiteral("present_tab"));
-        QPalette palette12;
-        palette12.setBrush(QPalette::Active, QPalette::Base, brush);
-        QBrush brush4(QColor(0, 0, 127, 255));
-        brush4.setStyle(Qt::SolidPattern);
-        palette12.setBrush(QPalette::Active, QPalette::Window, brush4);
-        palette12.setBrush(QPalette::Inactive, QPalette::Base, brush);
-        palette12.setBrush(QPalette::Inactive, QPalette::Window, brush4);
-        palette12.setBrush(QPalette::Disabled, QPalette::Base, brush4);
-        palette12.setBrush(QPalette::Disabled, QPalette::Window, brush4);
-        present_tab->setPalette(palette12);
+        QPalette palette15;
+        palette15.setBrush(QPalette::Active, QPalette::Base, brush4);
+        QBrush brush6(QColor(0, 0, 127, 255));
+        brush6.setStyle(Qt::SolidPattern);
+        palette15.setBrush(QPalette::Active, QPalette::Window, brush6);
+        palette15.setBrush(QPalette::Inactive, QPalette::Base, brush4);
+        palette15.setBrush(QPalette::Inactive, QPalette::Window, brush6);
+        palette15.setBrush(QPalette::Disabled, QPalette::Base, brush6);
+        palette15.setBrush(QPalette::Disabled, QPalette::Window, brush6);
+        present_tab->setPalette(palette15);
         present_tab->setAutoFillBackground(true);
         gridLayout_2 = new QGridLayout(present_tab);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        horizontalLayout_17 = new QHBoxLayout();
+        horizontalLayout_17->setObjectName(QStringLiteral("horizontalLayout_17"));
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_17->addItem(horizontalSpacer_3);
+
+        btnExportCSVPres = new QPushButton(present_tab);
+        btnExportCSVPres->setObjectName(QStringLiteral("btnExportCSVPres"));
+        btnExportCSVPres->setMinimumSize(QSize(150, 0));
+
+        horizontalLayout_17->addWidget(btnExportCSVPres);
+
+
+        gridLayout_2->addLayout(horizontalLayout_17, 1, 0, 1, 1);
+
         verticalLayout_9 = new QVBoxLayout();
         verticalLayout_9->setObjectName(QStringLiteral("verticalLayout_9"));
         horizontalLayout_8 = new QHBoxLayout();
@@ -428,11 +593,11 @@ public:
         date_filter_lbl_pres->setObjectName(QStringLiteral("date_filter_lbl_pres"));
         date_filter_lbl_pres->setMinimumSize(QSize(75, 0));
         date_filter_lbl_pres->setMaximumSize(QSize(75, 16777215));
-        QPalette palette13;
-        palette13.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette13.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette13.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        date_filter_lbl_pres->setPalette(palette13);
+        QPalette palette16;
+        palette16.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette16.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette16.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        date_filter_lbl_pres->setPalette(palette16);
 
         horizontalLayout_8->addWidget(date_filter_lbl_pres);
 
@@ -452,11 +617,11 @@ public:
 
         domain_lbl_pres = new QLabel(present_tab);
         domain_lbl_pres->setObjectName(QStringLiteral("domain_lbl_pres"));
-        QPalette palette14;
-        palette14.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette14.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette14.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        domain_lbl_pres->setPalette(palette14);
+        QPalette palette17;
+        palette17.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette17.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette17.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        domain_lbl_pres->setPalette(palette17);
         domain_lbl_pres->setAlignment(Qt::AlignCenter);
 
         verticalLayout_9->addWidget(domain_lbl_pres);
@@ -466,6 +631,7 @@ public:
         __qtreewidgetitem2->setText(0, QStringLiteral("1"));
         tree_list_pres->setHeaderItem(__qtreewidgetitem2);
         tree_list_pres->setObjectName(QStringLiteral("tree_list_pres"));
+        tree_list_pres->setSortingEnabled(true);
 
         verticalLayout_9->addWidget(tree_list_pres);
 
@@ -476,11 +642,11 @@ public:
         verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
         graph_lbl_pres = new QLabel(present_tab);
         graph_lbl_pres->setObjectName(QStringLiteral("graph_lbl_pres"));
-        QPalette palette15;
-        palette15.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette15.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette15.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        graph_lbl_pres->setPalette(palette15);
+        QPalette palette18;
+        palette18.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette18.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette18.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        graph_lbl_pres->setPalette(palette18);
         graph_lbl_pres->setAlignment(Qt::AlignCenter);
 
         verticalLayout_7->addWidget(graph_lbl_pres);
@@ -490,11 +656,11 @@ public:
         name_lbl_pres = new QLabel(present_tab);
         name_lbl_pres->setObjectName(QStringLiteral("name_lbl_pres"));
         name_lbl_pres->setMaximumSize(QSize(100, 40));
-        QPalette palette16;
-        palette16.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette16.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette16.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        name_lbl_pres->setPalette(palette16);
+        QPalette palette19;
+        palette19.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette19.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette19.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        name_lbl_pres->setPalette(palette19);
 
         horizontalLayout_4->addWidget(name_lbl_pres);
 
@@ -511,11 +677,11 @@ public:
         type_lbl_pres = new QLabel(present_tab);
         type_lbl_pres->setObjectName(QStringLiteral("type_lbl_pres"));
         type_lbl_pres->setMaximumSize(QSize(100, 40));
-        QPalette palette17;
-        palette17.setBrush(QPalette::Active, QPalette::WindowText, brush);
-        palette17.setBrush(QPalette::Inactive, QPalette::WindowText, brush);
-        palette17.setBrush(QPalette::Disabled, QPalette::WindowText, brush2);
-        type_lbl_pres->setPalette(palette17);
+        QPalette palette20;
+        palette20.setBrush(QPalette::Active, QPalette::WindowText, brush4);
+        palette20.setBrush(QPalette::Inactive, QPalette::WindowText, brush4);
+        palette20.setBrush(QPalette::Disabled, QPalette::WindowText, brush1);
+        type_lbl_pres->setPalette(palette20);
 
         horizontalLayout_5->addWidget(type_lbl_pres);
 
@@ -533,25 +699,55 @@ public:
 
         verticalLayout_7->addWidget(graph_area_pres);
 
+        horizontalLayout_23 = new QHBoxLayout();
+        horizontalLayout_23->setObjectName(QStringLiteral("horizontalLayout_23"));
+        horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout_2->addLayout(verticalLayout_7, 0, 1, 1, 1);
+        horizontalLayout_23->addItem(horizontalSpacer_6);
 
-        tabWidget->addTab(present_tab, QString());
+        btnExportGraphPres = new QPushButton(present_tab);
+        btnExportGraphPres->setObjectName(QStringLiteral("btnExportGraphPres"));
+        btnExportGraphPres->setMinimumSize(QSize(150, 0));
+
+        horizontalLayout_23->addWidget(btnExportGraphPres);
+
+
+        verticalLayout_7->addLayout(horizontalLayout_23);
+
+
+        gridLayout_2->addLayout(verticalLayout_7, 0, 1, 2, 1);
+
+        tab_widget->addTab(present_tab, QString());
         teach_tab = new QWidget();
         teach_tab->setObjectName(QStringLiteral("teach_tab"));
-        QPalette palette18;
-        palette18.setBrush(QPalette::Active, QPalette::Base, brush);
-        QBrush brush5(QColor(213, 178, 0, 255));
-        brush5.setStyle(Qt::SolidPattern);
-        palette18.setBrush(QPalette::Active, QPalette::Window, brush5);
-        palette18.setBrush(QPalette::Inactive, QPalette::Base, brush);
-        palette18.setBrush(QPalette::Inactive, QPalette::Window, brush5);
-        palette18.setBrush(QPalette::Disabled, QPalette::Base, brush5);
-        palette18.setBrush(QPalette::Disabled, QPalette::Window, brush5);
-        teach_tab->setPalette(palette18);
+        QPalette palette21;
+        palette21.setBrush(QPalette::Active, QPalette::Base, brush4);
+        QBrush brush7(QColor(213, 178, 0, 255));
+        brush7.setStyle(Qt::SolidPattern);
+        palette21.setBrush(QPalette::Active, QPalette::Window, brush7);
+        palette21.setBrush(QPalette::Inactive, QPalette::Base, brush4);
+        palette21.setBrush(QPalette::Inactive, QPalette::Window, brush7);
+        palette21.setBrush(QPalette::Disabled, QPalette::Base, brush7);
+        palette21.setBrush(QPalette::Disabled, QPalette::Window, brush7);
+        teach_tab->setPalette(palette21);
         teach_tab->setAutoFillBackground(true);
         gridLayout_5 = new QGridLayout(teach_tab);
         gridLayout_5->setObjectName(QStringLiteral("gridLayout_5"));
+        horizontalLayout_18 = new QHBoxLayout();
+        horizontalLayout_18->setObjectName(QStringLiteral("horizontalLayout_18"));
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_18->addItem(horizontalSpacer_4);
+
+        btnExportCSVTeach = new QPushButton(teach_tab);
+        btnExportCSVTeach->setObjectName(QStringLiteral("btnExportCSVTeach"));
+        btnExportCSVTeach->setMinimumSize(QSize(150, 0));
+
+        horizontalLayout_18->addWidget(btnExportCSVTeach);
+
+
+        gridLayout_5->addLayout(horizontalLayout_18, 1, 0, 1, 1);
+
         verticalLayout_10 = new QVBoxLayout();
         verticalLayout_10->setObjectName(QStringLiteral("verticalLayout_10"));
         horizontalLayout_9 = new QHBoxLayout();
@@ -588,6 +784,7 @@ public:
         __qtreewidgetitem3->setText(0, QStringLiteral("1"));
         tree_list_teach->setHeaderItem(__qtreewidgetitem3);
         tree_list_teach->setObjectName(QStringLiteral("tree_list_teach"));
+        tree_list_teach->setSortingEnabled(true);
 
         verticalLayout_10->addWidget(tree_list_teach);
 
@@ -640,69 +837,33 @@ public:
 
         verticalLayout_8->addWidget(graph_area_teach);
 
+        horizontalLayout_20 = new QHBoxLayout();
+        horizontalLayout_20->setObjectName(QStringLiteral("horizontalLayout_20"));
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout_5->addLayout(verticalLayout_8, 0, 1, 1, 1);
+        horizontalLayout_20->addItem(horizontalSpacer_5);
 
-        tabWidget->addTab(teach_tab, QString());
+        btnExportGraphTeach = new QPushButton(teach_tab);
+        btnExportGraphTeach->setObjectName(QStringLiteral("btnExportGraphTeach"));
+        btnExportGraphTeach->setMinimumSize(QSize(150, 0));
 
-        gridLayout->addWidget(tabWidget, 1, 0, 1, 1);
-
-        navigation_area = new QHBoxLayout();
-        navigation_area->setObjectName(QStringLiteral("navigation_area"));
-        navigation_area->setSizeConstraint(QLayout::SetDefaultConstraint);
-        load_btn = new QPushButton(centralwidget);
-        load_btn->setObjectName(QStringLiteral("load_btn"));
-        QPalette palette19;
-        palette19.setBrush(QPalette::Active, QPalette::ButtonText, brush1);
-        palette19.setBrush(QPalette::Inactive, QPalette::ButtonText, brush1);
-        palette19.setBrush(QPalette::Disabled, QPalette::ButtonText, brush2);
-        load_btn->setPalette(palette19);
-        QFont font1;
-        font1.setFamily(QStringLiteral("Arial Black"));
-        font1.setPointSize(28);
-        font1.setBold(true);
-        font1.setWeight(75);
-        load_btn->setFont(font1);
-        load_btn->setFlat(true);
-
-        navigation_area->addWidget(load_btn);
-
-        verify_btn = new QPushButton(centralwidget);
-        verify_btn->setObjectName(QStringLiteral("verify_btn"));
-        QPalette palette20;
-        QBrush brush6(QColor(229, 191, 0, 255));
-        brush6.setStyle(Qt::SolidPattern);
-        palette20.setBrush(QPalette::Active, QPalette::ButtonText, brush6);
-        palette20.setBrush(QPalette::Inactive, QPalette::ButtonText, brush6);
-        palette20.setBrush(QPalette::Disabled, QPalette::ButtonText, brush2);
-        verify_btn->setPalette(palette20);
-        verify_btn->setFont(font1);
-        verify_btn->setFlat(true);
-
-        navigation_area->addWidget(verify_btn);
-
-        analyze_btn = new QPushButton(centralwidget);
-        analyze_btn->setObjectName(QStringLiteral("analyze_btn"));
-        QPalette palette21;
-        QBrush brush7(QColor(0, 170, 0, 255));
-        brush7.setStyle(Qt::SolidPattern);
-        palette21.setBrush(QPalette::Active, QPalette::ButtonText, brush7);
-        palette21.setBrush(QPalette::Inactive, QPalette::ButtonText, brush7);
-        palette21.setBrush(QPalette::Disabled, QPalette::ButtonText, brush2);
-        analyze_btn->setPalette(palette21);
-        analyze_btn->setFont(font1);
-        analyze_btn->setFlat(true);
-
-        navigation_area->addWidget(analyze_btn);
+        horizontalLayout_20->addWidget(btnExportGraphTeach);
 
 
-        gridLayout->addLayout(navigation_area, 0, 0, 1, 1);
+        verticalLayout_8->addLayout(horizontalLayout_20);
+
+
+        gridLayout_5->addLayout(verticalLayout_8, 0, 2, 2, 1);
+
+        tab_widget->addTab(teach_tab, QString());
+
+        gridLayout->addWidget(tab_widget, 1, 0, 1, 1);
 
         AnalyzeCSV->setCentralWidget(centralwidget);
 
         retranslateUi(AnalyzeCSV);
 
-        tabWidget->setCurrentIndex(1);
+        tab_widget->setCurrentIndex(0);
         name_combo_grnt->setCurrentIndex(-1);
         name_combo_pres->setCurrentIndex(-1);
         program_combo_teach->setCurrentIndex(0);
@@ -714,8 +875,12 @@ public:
     void retranslateUi(QMainWindow *AnalyzeCSV)
     {
         AnalyzeCSV->setWindowTitle(QApplication::translate("AnalyzeCSV", "MainWindow", 0));
+        load_btn->setText(QApplication::translate("AnalyzeCSV", "LOAD >", 0));
+        verify_btn->setText(QApplication::translate("AnalyzeCSV", "VERIFY >", 0));
+        analyze_btn->setText(QApplication::translate("AnalyzeCSV", "ANALYZE >", 0));
         date_filter_lbl_pub->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
         domain_lbl_pub->setText(QString());
+        btnExportCSVPub->setText(QApplication::translate("AnalyzeCSV", "Export CSV", 0));
         graph_lbl_pub->setText(QApplication::translate("AnalyzeCSV", "Graph Analytics", 0));
         name_lbl_pub->setText(QApplication::translate("AnalyzeCSV", "Name:", 0));
         type_lbl_pub->setText(QApplication::translate("AnalyzeCSV", "Type:", 0));
@@ -723,9 +888,11 @@ public:
         type_combo_pub->insertItems(0, QStringList()
          << QApplication::translate("AnalyzeCSV", "ALL", 0)
         );
-        tabWidget->setTabText(tabWidget->indexOf(pub_tab), QApplication::translate("AnalyzeCSV", "PUBLICATIONS", 0));
+        btnExportGraphPub->setText(QApplication::translate("AnalyzeCSV", "Export Graph", 0));
+        tab_widget->setTabText(tab_widget->indexOf(pub_tab), QApplication::translate("AnalyzeCSV", "PUBLICATIONS", 0));
         date_filter_lbl_grnt->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
         domain_lbl_grnt->setText(QString());
+        btnExportCSVGrant->setText(QApplication::translate("AnalyzeCSV", "Export CSV", 0));
         graph_lbl_grnt->setText(QApplication::translate("AnalyzeCSV", "Graph Analytics", 0));
         name_lbl_grnt->setText(QApplication::translate("AnalyzeCSV", "Name:", 0));
         name_combo_grnt->setCurrentText(QString());
@@ -734,7 +901,9 @@ public:
         type_combo_grnt->insertItems(0, QStringList()
          << QApplication::translate("AnalyzeCSV", "ALL", 0)
         );
-        tabWidget->setTabText(tabWidget->indexOf(grant_tab), QApplication::translate("AnalyzeCSV", "GRANTS", 0));
+        btnExportGraphGrant->setText(QApplication::translate("AnalyzeCSV", "Export Graph", 0));
+        tab_widget->setTabText(tab_widget->indexOf(grant_tab), QApplication::translate("AnalyzeCSV", "GRANTS", 0));
+        btnExportCSVPres->setText(QApplication::translate("AnalyzeCSV", "Export CSV", 0));
         date_filter_lbl_pres->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
         domain_lbl_pres->setText(QString());
         graph_lbl_pres->setText(QApplication::translate("AnalyzeCSV", "Graph Analytics", 0));
@@ -744,7 +913,9 @@ public:
         type_combo_pres->insertItems(0, QStringList()
          << QApplication::translate("AnalyzeCSV", "ALL", 0)
         );
-        tabWidget->setTabText(tabWidget->indexOf(present_tab), QApplication::translate("AnalyzeCSV", "PRESENTATIONS", 0));
+        btnExportGraphPres->setText(QApplication::translate("AnalyzeCSV", "Export Graph", 0));
+        tab_widget->setTabText(tab_widget->indexOf(present_tab), QApplication::translate("AnalyzeCSV", "PRESENTATIONS", 0));
+        btnExportCSVTeach->setText(QApplication::translate("AnalyzeCSV", "Export CSV", 0));
         date_filter_lbl_teach->setText(QApplication::translate("AnalyzeCSV", "Date Filter:", 0));
         domain_lbl_teach->setText(QString());
         graph_lbl_teach->setText(QApplication::translate("AnalyzeCSV", "Graph Analytics", 0));
@@ -754,10 +925,8 @@ public:
         program_combo_teach->insertItems(0, QStringList()
          << QApplication::translate("AnalyzeCSV", "ALL", 0)
         );
-        tabWidget->setTabText(tabWidget->indexOf(teach_tab), QApplication::translate("AnalyzeCSV", "TEACHING", 0));
-        load_btn->setText(QApplication::translate("AnalyzeCSV", "LOAD >", 0));
-        verify_btn->setText(QApplication::translate("AnalyzeCSV", "VERIFY >", 0));
-        analyze_btn->setText(QApplication::translate("AnalyzeCSV", "ANALYZE >", 0));
+        btnExportGraphTeach->setText(QApplication::translate("AnalyzeCSV", "Export Graph", 0));
+        tab_widget->setTabText(tab_widget->indexOf(teach_tab), QApplication::translate("AnalyzeCSV", "TEACHING", 0));
     } // retranslateUi
 
 };

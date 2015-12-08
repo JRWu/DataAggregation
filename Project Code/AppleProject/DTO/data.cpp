@@ -80,3 +80,7 @@ bool Data::validateNewErrors(vector<vector<string>> *newErr, CSVType t){
 void Data::removeErrorLine(int line, CSVType t){
     csv.at(t)->removeError(line);
 }
+
+void Data::saveCSV(string *fname, size_t t){
+    csv.at(t)->save(fname);
+}

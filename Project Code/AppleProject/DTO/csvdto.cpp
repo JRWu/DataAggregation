@@ -1,9 +1,13 @@
-#include "csvdto.h"
+#include "DTO/csvdto.h"
+
+#include <iostream>
+#include <fstream>
 
 #include "CSV-Data/csvtype.h"
 #include "CSV-Data/csvlinevalidator.h"
 #include "CSV-Data/csvfieldvalidator.h" //FilterTypr
 #include "CSV-Data/csvfield.h"
+#include "CSV-Parser/csvsaver.h"
 
 using namespace std;
 
@@ -299,6 +303,6 @@ size_t CSVDTO::getType(){
     return type;
 }
 
-void save(std::string *fname){
-
+void CSVDTO::save(std::string *fname){
+    saveCSV(fname, &header, &validLines);
 }

@@ -22,6 +22,8 @@ class QTreeWidget;
 class TreeList;
 class QPushButton;
 
+enum CSVType:unsigned int;
+
 namespace Ui {
 class AnalyzeCSV;
 }
@@ -45,6 +47,14 @@ private slots:
     void on_load_btn_clicked();
 
 
+    void on_btnExportCSVTeach_clicked();
+
+    void on_btnExportCSVPres_clicked();
+
+    void on_btnExportCSVGrant_clicked();
+
+    void on_btnExportCSVPub_clicked();
+
 private:
     Data *data;
     std::vector<std::vector<ComboBox *>> cmbBoxes;
@@ -63,6 +73,8 @@ private:
     QComboBox *getCmbType(std::size_t i);
     QLabel *getLblDomain(std::size_t i);
     QGraphicsView *getBarGraph(std::size_t i);
+
+    void exportCSV(CSVType t);
 };
 
 #endif // ANALYZE_CSV_H

@@ -14,7 +14,7 @@ TEMPLATE = app
 
 CONFIG += c++11
 CONFIG += static
-#CONFIG += release
+CONFIG += release
 
 SOURCES += main.cpp\
     View/load_csv.cpp \
@@ -39,7 +39,8 @@ SOURCES += main.cpp\
     Tab-Objects/qcustomplot.cpp \
     Tab-Objects/treelist.cpp \
     View/analyzetab.cpp \
-    View/view.cpp
+    View/view.cpp \
+    CSV-Parser/csvsaver.cpp
 
 HEADERS  += View/load_csv.h \
     View/mainwindow.h \
@@ -66,7 +67,8 @@ HEADERS  += View/load_csv.h \
     Tab-Objects/qcustomplot.h \
     Tab-Objects/treelist.h \
     View/analyzetab.h \
-    View/view.h
+    View/view.h \
+    CSV-Parser/csvsaver.h
 
 FORMS    += View/mainwindow.ui \
     View/load_csv.ui \

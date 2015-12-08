@@ -43,6 +43,9 @@ public:
     //Loads the updated error lines and tries to validate them
     bool validateNewErrors(std::vector<std::vector<std::string>> *newErr, CSVType t);
     void removeErrorLine(int line, CSVType t);
+
+    //Save the csv
+    void saveCSV(std::string *fname, std::size_t t);
 protected:
     Data();
 private:

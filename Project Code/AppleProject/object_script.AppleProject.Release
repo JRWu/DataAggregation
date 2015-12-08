@@ -23,6 +23,7 @@ INPUT(
 ./release\treelist.o
 ./release\analyzetab.o
 ./release\view.o
+./release\csvsaver.o
 ./release\appleproject_plugin_import.o
 ./release\qrc_apple_resource.o
 ./release\moc_load_csv.o

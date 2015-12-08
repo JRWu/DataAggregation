@@ -8,6 +8,7 @@
 #include "Tab-Objects/bargraph.h"
 #include "Tab-Objects/qcustomplot.h"
 #include "Tab-Objects/treelist.h"
+#include "CSV-Data/csvtype.h"
 
 using namespace std;
 
@@ -48,6 +49,8 @@ AnalyzeCSV::AnalyzeCSV(QWidget *parent):
 
         TreeList *t = new TreeList(tree, ey);
         treeLists.push_back(t);
+
+        connect(ui->tab_widget, SIGNAL(currentChanged(int)), b, SLOT(onResize()));
     }
 }
 
@@ -194,4 +197,36 @@ QGraphicsView *AnalyzeCSV::getBarGraph(size_t i){
     case(3): return ui->graph_area_teach;
     }
     return 0;
+}
+
+void AnalyzeCSV::on_btnExportCSVTeach_clicked()
+{
+    exportCSV(TEACHING);
+}
+
+void AnalyzeCSV::on_btnExportCSVPres_clicked()
+{
+    exportCSV(PRESENTATION);
+}
+
+void AnalyzeCSV::on_btnExportCSVGrant_clicked()
+{
+    exportCSV(GRANTS);
+}
+
+void AnalyzeCSV::on_btnExportCSVPub_clicked()
+{
+    exportCSV(PUBLICATION);
+}
+
+void AnalyzeCSV::exportCSV(CSVType t){
+    QString f = QFileDialog::getSaveFileName(this,
+                                            tr("Save File"),        // Dialog for prompt
+                                            "C://",                 // Default folder to open
+                                            "CSV Files (*.csv)"     // File extension to filter for
+                                            );
+    string fname = f.toStdString();
+    if(fname == "") return;
+
+    Data::Instance()->saveCSV(&fname, t);
 }

@@ -23,6 +23,7 @@ INPUT(
 ./debug\treelist.o
 ./debug\analyzetab.o
 ./debug\view.o
+./debug\csvsaver.o
 ./debug\appleproject_plugin_import.o
 ./debug\qrc_apple_resource.o
 ./debug\moc_load_csv.o
