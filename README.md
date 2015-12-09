@@ -6,7 +6,7 @@
 
 >2015-2016 Academic Year
 
-**Current Stage:** Demo 2
+**Current Stage:** Final Submission
 
 ## Team Members:
 
@@ -36,8 +36,7 @@ After the data is verified, it can be viewed in formatted charts and graphs.
 
 ## Getting ApplePicker
 
-* [Windows Download](Project Code/AppleProject/release/AppleProject-Demo2.exe?raw=true)
-* [Mac OS X Download](Project Code/AppleProject/release/ApplePicker-Demo2.zip?raw=true)
+* [Windows Download](Project Code/AppleProject/release/AppleProject.exe?raw=true)
 
 ## Using the Program
 
